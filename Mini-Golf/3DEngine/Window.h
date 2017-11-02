@@ -1,16 +1,17 @@
 #pragma once
 
-
 #include <tchar.h>
 #include <string>
 #include <glut.h>
 
-class Window
+namespace D3DEngine
 {
-public:
-	Window();
-	~Window();
+	class Window
+	{
+	public:
+		Window();
+		~Window();
 
-	void Init(std::string Title);
-};
-
+		void Init(std::string Title, int Width, int Height);
+	};
+}
