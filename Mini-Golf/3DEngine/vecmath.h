@@ -14,33 +14,38 @@ namespace D3DEngine
 	class vec2
 	{
 	public:
-		double 	elem[2];
+		//Constructors
+		vec2();
+		vec2(double x, double y);
+		vec2(double x);
+		//End - Constructor
 
-	public:
-		vec2() {}
-		vec2(double x, double y) { elem[0] = x; elem[1] = y; }
-		vec2(double x) { elem[0] = elem[1] = x; }
+		//Operator Overloads
+		double operator()(int x) const { return m_elem[x]; }
+		double &operator()(int x) { return m_elem[x]; }
+		vec2 operator *(const double x) const;
+		vec2 operator /(const double x) const;
+		vec2 operator +(const vec2 &x) const;
+		vec2 operator -(const vec2 &x) const;
+		vec2 operator -() const;
+		vec2 &operator *=(const double x);
+		vec2 &operator /=(const double x);
+		vec2 &operator +=(const vec2 &x);
+		vec2 &operator -=(const vec2 &x);
+		bool operator ==(const vec2 &x) const { return((m_elem[0] == x.m_elem[0]) && (m_elem[1] == x.m_elem[1])); }
+		//End - Operator Overloads
 
-		double operator()(int x) const { return elem[x]; }
-		double &operator()(int x) { return elem[x]; }
-
-		vec2 operator *(const double x) const { vec2 res(*this); res.elem[0] *= x; res.elem[1] *= x; return res; }
-		vec2 operator /(const double x) const { vec2 res(*this); res.elem[0] /= x; res.elem[1] /= x; return res; }
-		vec2 operator +(const vec2 &x) const { vec2 res(*this); res.elem[0] += x.elem[0]; res.elem[1] += x.elem[1]; return res; }
-		vec2 operator -(const vec2 &x) const { vec2 res(*this); res.elem[0] -= x.elem[0]; res.elem[1] -= x.elem[1]; return res; }
-		vec2 operator -() const { vec2 res(*this); res.elem[0] = -res.elem[0]; res.elem[1] = -res.elem[1]; return res; }
-		vec2 &operator *=(const double x) { elem[0] *= x; elem[1] *= x; return (*this); }
-		vec2 &operator /=(const double x) { elem[0] /= x; elem[1] /= x; return (*this); }
-		vec2 &operator +=(const vec2 &x) { elem[0] += x.elem[0]; elem[1] += x.elem[1]; return (*this); }
-		vec2 &operator -=(const vec2 &x) { elem[0] -= x.elem[0]; elem[1] -= x.elem[1]; return (*this); }
-		bool operator ==(const vec2 &x) const { return((elem[0] == x.elem[0]) && (elem[1] == x.elem[1])); }
-
-		double Magnitude(void) const { return(sqrt((elem[0] * elem[0]) + (elem[1] * elem[1]))); }
-		double Magnitude2(void) const { return((elem[0] * elem[0]) + (elem[1] * elem[1])); }
-		double Normalise(void) { double x = Magnitude(); elem[0] /= x; elem[1] /= x; return x; }
-		vec2 Normalised(void) const { vec2 res(*this); res.Normalise(); return res; }
-
-		double Dot(const vec2 &x) const { return ((elem[0] * x.elem[0]) + (elem[1] * x.elem[1])); }
+		//Functions
+		double Magnitude(void) const { return(sqrt((m_elem[0] * m_elem[0]) + (m_elem[1] * m_elem[1]))); }
+		double Magnitude2(void) const { return((m_elem[0] * m_elem[0]) + (m_elem[1] * m_elem[1])); }
+		double Normalise(void);
+		vec2 Normalised(void) const;
+		double Dot(const vec2 &x) const { return ((m_elem[0] * x.m_elem[0]) + (m_elem[1] * x.m_elem[1])); }
+		//End - Functions
+	
+		//Public Members
+		double 	m_elem[2];
+	
 	};
 
 	/*------------------------------------------------------------------------
@@ -49,39 +54,38 @@ namespace D3DEngine
 	class vec3
 	{
 	public:
-		double 	elem[3];
+		//Constructors
+		vec3();
+		vec3(double x, double y, double z);
+		vec3(double x);
+		//End - Constructors
 
-	public:
-		vec3() {}
-		vec3(double x, double y, double z) { elem[0] = x; elem[1] = y; elem[2] = z; }
-		vec3(double x) { elem[0] = elem[1] = elem[2] = x; }
+		//Operator Overloads
+		double operator()(int x) const { return m_elem[x]; }
+		double &operator()(int x) { return m_elem[x]; }
 
-		double operator()(int x) const { return elem[x]; }
-		double &operator()(int x) { return elem[x]; }
+		vec3 operator *(const double x) const;
+		vec3 operator /(const double x) const;
+		vec3 operator +(const vec3 &x) const;
+		vec3 operator -(const vec3 &x) const;
+		vec3 &operator *=(const double x);
+		vec3 &operator /=(const double x);
+		vec3 &operator +=(const vec3 &x);
+		vec3 &operator -=(const vec3 &x);
+		//End - Operator Overloads
 
-		vec3 operator *(const double x) const { vec3 res(*this); res.elem[0] *= x; res.elem[1] *= x; res.elem[2] *= x; return res; }
-		vec3 operator /(const double x) const { vec3 res(*this); res.elem[0] /= x; res.elem[1] /= x; res.elem[2] /= x; return res; }
-		vec3 operator +(const vec3 &x) const { vec3 res(*this); res.elem[0] += x.elem[0]; res.elem[1] += x.elem[1]; res.elem[2] += x.elem[2]; return res; }
-		vec3 operator -(const vec3 &x) const { vec3 res(*this); res.elem[0] -= x.elem[0]; res.elem[1] -= x.elem[1]; res.elem[2] -= x.elem[2]; return res; }
-		vec3 &operator *=(const double x) { elem[0] *= x; elem[1] *= x; elem[2] *= x; return (*this); }
-		vec3 &operator /=(const double x) { elem[0] /= x; elem[1] /= x; elem[2] /= x; return (*this); }
-		vec3 &operator +=(const vec3 &x) { elem[0] += x.elem[0]; elem[1] += x.elem[1]; elem[2] += x.elem[2]; return (*this); }
-		vec3 &operator -=(const vec3 &x) { elem[0] -= x.elem[0]; elem[1] -= x.elem[1]; elem[2] -= x.elem[2]; return (*this); }
+		//Functions
+		double Magnitude(void) const { return(sqrt((m_elem[0] * m_elem[0]) + (m_elem[1] * m_elem[1]) + (m_elem[2] * m_elem[2]))); }
+		double Magnitude2(void) const { return((m_elem[0] * m_elem[0]) + (m_elem[1] * m_elem[1]) + (m_elem[2] * m_elem[2])); }
+		double Normalise(void);
+		vec3 Normalised(void) const;
 
-		double Magnitude(void) const { return(sqrt((elem[0] * elem[0]) + (elem[1] * elem[1]) + (elem[2] * elem[2]))); }
-		double Magnitude2(void) const { return((elem[0] * elem[0]) + (elem[1] * elem[1]) + (elem[2] * elem[2])); }
-		double Normalise(void) { double x = Magnitude(); elem[0] /= x; elem[1] /= x; elem[2] /= x; return x; }
-		vec3 Normalised(void) const { vec3 res(*this); res.Normalise(); return res; }
+		double Dot(const vec3 &x) const { return ((m_elem[0] * x.m_elem[0]) + (m_elem[1] * x.m_elem[1]) + (m_elem[2] * x.m_elem[2])); }
+		vec3 Cross(const vec3 &x) const;
+		//End - Functions
 
-		double Dot(const vec3 &x) const { return ((elem[0] * x.elem[0]) + (elem[1] * x.elem[1]) + (elem[2] * x.elem[2])); }
-		vec3 Cross(const vec3 &x) const
-		{
-			vec3 res;
-			res.elem[0] = elem[1] * x.elem[2] - elem[2] * x.elem[1];
-			res.elem[1] = elem[2] * x.elem[0] - elem[0] * x.elem[2];
-			res.elem[2] = elem[0] * x.elem[1] - elem[1] * x.elem[0];
-			return res;
-		}
+		//Public Members
+		double 	m_elem[3];
 	};
 }
 #endif

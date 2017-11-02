@@ -21,7 +21,6 @@ namespace D3DEngine
 		void SetMatShininess(GLfloat MatShininess) { m_MatShininess[0] = MatShininess; };
 
 	private:
-
 		void SetGLFloat(GLfloat* ArrayToSet, GLfloat A, GLfloat B, GLfloat C, GLfloat D);
 
 		GLfloat m_MatSpecular[4] = { 0.0, 1.0, 1.0, 1.0 };
