@@ -92,7 +92,7 @@ void MainGame::KeyboardUpFunc(unsigned char key, int x, int y)
 	{
 	case(32):
 	{
-		TestCamera.SetCamRot(false);
+		TestCamera.SetCamRot(true);
 		break;
 	}
 	case('z'):

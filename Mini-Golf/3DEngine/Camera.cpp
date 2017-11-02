@@ -13,8 +13,8 @@ Camera::~Camera()
 void Camera::Reset()
 {
 	//Sets all Values to the default
-	m_gCamPos = (0.0, 0.7, 2.1);
-	m_gCamLookAt = (0.0, 0.0, 0.0);
+	m_gCamPos = vec3(0.0, 0.7, 2.1);
+	m_gCamLookAt = vec3(0.0, 0.0, 0.0);
 
 	m_gCamRotate = true;
 
