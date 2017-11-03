@@ -1,5 +1,5 @@
 // Source.cpp : Defines the entry point for the console application.
-
+#include <GL/glew.h>
 //My Includes
 #include <Vecmath.h>
 #include <Window.h>

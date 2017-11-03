@@ -1,4 +1,5 @@
 #include "Window.h"
+#include <iostream>
 
 namespace D3DEngine
 {
@@ -21,5 +22,9 @@ namespace D3DEngine
 
 
 		glEnable(GL_DEPTH_TEST);
+
+		GLenum Status = glewInit();
+		if (Status != GLEW_OK)
+			std::cerr << "Glew Failed to Initalize" << std::endl;
 	}
 }

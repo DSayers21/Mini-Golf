@@ -3,6 +3,7 @@
 MainGame::MainGame()
 {
 	m_Lighting.InitLights();
+	m_Shader = new D3DEngine::Shader("./Shaders/ColourShading");
 }
 
 
@@ -14,6 +15,8 @@ MainGame::~MainGame()
 void MainGame::RenderScene(void)
 {
 	//Draw Events
+	//m_Shader->Bind();
+	//glutSolidTeapot(.5);
 
 	m_Cuboid.Draw();
 	m_Cuboid2.Draw();

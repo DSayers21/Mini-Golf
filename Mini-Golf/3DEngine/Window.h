@@ -1,5 +1,6 @@
 #pragma once
 
+#include <GL\glew.h>
 #include <tchar.h>
 #include <string>
 #include <glut.h>

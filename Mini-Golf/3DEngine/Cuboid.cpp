@@ -2,7 +2,6 @@
 
 namespace D3DEngine
 {
-
 	Cuboid::Cuboid()
 	{
 		m_Position = vec3(0,0,0);
