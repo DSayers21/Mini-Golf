@@ -1,5 +1,7 @@
-﻿  MainGame.cpp
+﻿  Source.cpp
+  MainGame.cpp
 c:\users\satan\documents\github\pool game\mini-golf\mini-golf\mini-golf\maingame.cpp(35): warning C4060: switch statement contains no 'case' or 'default' labels
 c:\users\satan\documents\github\pool game\mini-golf\mini-golf\mini-golf\maingame.cpp(43): warning C4060: switch statement contains no 'case' or 'default' labels
+  Generating Code...
   Mini-Golf.vcxproj -> C:\Users\Satan\Documents\GitHub\Pool Game\Mini-Golf\Mini-Golf\Debug\Mini-Golf.exe
   Mini-Golf.vcxproj -> C:\Users\Satan\Documents\GitHub\Pool Game\Mini-Golf\Mini-Golf\Debug\Mini-Golf.pdb (Partial PDB)
