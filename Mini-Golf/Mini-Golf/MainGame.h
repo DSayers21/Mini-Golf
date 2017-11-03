@@ -21,12 +21,17 @@ public:
 	void SpecKeyboardUpFunc(int key, int x, int y);
 	void KeyboardFunc(unsigned char key, int x, int y);
 	void KeyboardUpFunc(unsigned char key, int x, int y);
+	void MouseMovement(int x, int y);
+	void MouseClick(int But, int State, int x, int y);
 
 	void UpdateScene(int ms);
 
 	//Getters
 	D3DEngine::Camera* GetCamera() { return &m_MainCamera; }
 private:
+	int m_LastMouseX = 0;
+	int m_LastMouseY = 0;
+
 	D3DEngine::Camera m_MainCamera;
 	D3DEngine::Lighting m_Lighting;
 	D3DEngine::Shader* m_Shader;

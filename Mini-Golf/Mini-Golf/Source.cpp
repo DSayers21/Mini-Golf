@@ -20,6 +20,9 @@ void SpecKeyboardFunc(int key, int x, int y) { MGame->SpecKeyboardFunc(key, x, y
 void SpecKeyboardUpFunc(int key, int x, int y) { MGame->SpecKeyboardUpFunc(key, x, y); }
 void KeyboardFunc(unsigned char key, int x, int y) { MGame->KeyboardFunc(key, x, y); }
 void KeyboardUpFunc(unsigned char key, int x, int y) { MGame->KeyboardUpFunc(key, x, y); }
+void MouseMovement(int x, int y) { MGame->MouseMovement(x, y); }
+void MouseClick(int button, int state, int x, int y) { MGame->MouseClick(button, state, x, y); }
+
 void RenderScene(void) 
 { 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -78,6 +81,9 @@ int _tmain(int argc, _TCHAR* argv[])
 	glutKeyboardUpFunc(KeyboardUpFunc);
 	glutSpecialFunc(SpecKeyboardFunc);
 	glutSpecialUpFunc(SpecKeyboardUpFunc);
+	glutMotionFunc(MouseMovement);
+	glutMouseFunc(MouseClick);
+
 	//End - Setup Glut
 
 	//Start Main Loop

@@ -92,7 +92,7 @@ namespace D3DEngine
 				vec3 camDir = (m_gCamLookAt - m_gCamPos).Normalised();
 				vec3 localR = camDir.Cross(up);
 				vec3 localUp = localR.Cross(camDir);
-				vec3 inc = (localUp* ((m_gCamMoveSpeed*ms) / 1000.0));
+				vec3 inc = (localUp* ((m_gCamMoveSpeed*ms) / 10000.0));
 				m_gCamPos += inc;
 				m_gCamLookAt += inc;
 			}
@@ -101,7 +101,7 @@ namespace D3DEngine
 				vec3 camDir = (m_gCamLookAt - m_gCamPos).Normalised();
 				vec3 localR = camDir.Cross(up);
 				vec3 localDown = camDir.Cross(localR);
-				vec3 inc = (localDown* ((m_gCamMoveSpeed*ms) / 1000.0));
+				vec3 inc = (localDown* ((m_gCamMoveSpeed*ms) / 10000.0));
 				m_gCamPos += inc;
 				m_gCamLookAt += inc;
 			}
