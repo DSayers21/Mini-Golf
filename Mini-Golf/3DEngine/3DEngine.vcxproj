@@ -20,13 +20,21 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Cuboid.cpp" />
     <ClCompile Include="Lighting.cpp" />
+    <ClCompile Include="Shape.cpp" />
+    <ClCompile Include="Rect.cpp" />
+    <ClCompile Include="Triangle.cpp" />
     <ClCompile Include="Vecmath.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Cuboid.h" />
     <ClInclude Include="Lighting.h" />
+    <ClInclude Include="Shape.h" />
+    <ClInclude Include="Rect.h" />
+    <ClInclude Include="Triangle.h" />
     <ClInclude Include="Vecmath.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>

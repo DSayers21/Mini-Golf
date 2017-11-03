@@ -2,6 +2,10 @@
 
 #include <Lighting.h>
 #include <Camera.h>
+#include <Cuboid.h>
+#include <Rect.h>
+
+#include <Vecmath.h>
 
 class MainGame
 {
@@ -22,5 +26,9 @@ public:
 private:
 	D3DEngine::Camera m_MainCamera;
 	D3DEngine::Lighting m_Lighting;
-};
+	D3DEngine::Cuboid m_Cuboid = D3DEngine::Cuboid(0.01, 0.01, 0.01, D3DEngine::vec3(0,0,0));
+	D3DEngine::Cuboid m_Cuboid2 = D3DEngine::Cuboid(0.1, 0.3, 0.1, D3DEngine::vec3(1,0, 0));
 
+
+	D3DEngine::Rect m_Rect = D3DEngine::Rect(0.5, 1, -3, D3DEngine::vec3(1,0,0), D3DEngine::Colour(1.0,1.0,1.0));
+};

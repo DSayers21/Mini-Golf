@@ -1,6 +1,6 @@
 ﻿  MainGame.cpp
-c:\users\satan\documents\github\pool game\mini-golf\mini-golf\mini-golf\maingame.cpp(29): warning C4060: switch statement contains no 'case' or 'default' labels
-c:\users\satan\documents\github\pool game\mini-golf\mini-golf\mini-golf\maingame.cpp(37): warning C4060: switch statement contains no 'case' or 'default' labels
+c:\users\satan\documents\github\pool game\mini-golf\mini-golf\mini-golf\maingame.cpp(32): warning C4060: switch statement contains no 'case' or 'default' labels
+c:\users\satan\documents\github\pool game\mini-golf\mini-golf\mini-golf\maingame.cpp(40): warning C4060: switch statement contains no 'case' or 'default' labels
   Generating Code...
   Skipping... (no relevant changes detected)
   Source.cpp

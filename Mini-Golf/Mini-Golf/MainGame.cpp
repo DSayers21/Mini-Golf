@@ -14,8 +14,11 @@ MainGame::~MainGame()
 void MainGame::RenderScene(void)
 {
 	//Draw Events
-	glColor3f(1.0, 0.0, 0.0);
-	glutSolidTeapot(.5);
+
+	m_Cuboid.Draw();
+	m_Cuboid2.Draw();
+	m_Rect.Draw();
+
 
 	//Set camera
 	m_MainCamera.LookAt();
