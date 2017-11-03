@@ -31,6 +31,8 @@ private:
 	D3DEngine::Lighting m_Lighting;
 	D3DEngine::Shader* m_Shader;
 
+	int SinTest = 180;
+	D3DEngine::Cuboid* m_Cuboids = new D3DEngine::Cuboid[SinTest];
 
 	D3DEngine::Cuboid m_Cuboid = D3DEngine::Cuboid(0.01, 0.01, 0.01, D3DEngine::vec3(0,0,0));
 	D3DEngine::Cuboid m_Cuboid2 = D3DEngine::Cuboid(0.1, 0.3, 0.1, D3DEngine::vec3(1,0, 0));

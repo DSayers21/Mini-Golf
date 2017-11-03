@@ -1,9 +1,19 @@
 #include "MainGame.h"
-
+#include <cmath>
 MainGame::MainGame()
 {
 	m_Lighting.InitLights();
 	m_Shader = new D3DEngine::Shader("./Shaders/ColourShading");
+	int Test[6] = {20,60,90,180,270,360};
+	int Count = 0;
+	int Increment = 3;
+	for (int i = 0; i < SinTest; i++)
+	{
+		float Val = (Count) * (3.142 / 180);
+		float Y = sin(Val);
+		m_Cuboids[i] = D3DEngine::Cuboid(0.1, Y, 0.1, D3DEngine::vec3(0.1, 0, 0));
+		Count += Increment;
+	}
 }
 
 
@@ -18,9 +28,15 @@ void MainGame::RenderScene(void)
 	//m_Shader->Bind();
 	//glutSolidTeapot(.5);
 
-	m_Cuboid.Draw();
-	m_Cuboid2.Draw();
-	m_Rect.Draw();
+
+	for (int i = 0; i < SinTest; i++)
+	{
+		m_Cuboids[i].Draw();
+	}
+
+	//m_Cuboid.Draw();
+	//m_Cuboid2.Draw();
+	//m_Rect.Draw();
 
 
 	//Set camera
