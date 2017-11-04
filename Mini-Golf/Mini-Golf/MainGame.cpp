@@ -4,6 +4,16 @@ MainGame::MainGame()
 {
 	m_Lighting.InitLights();
 	m_Shader = new D3DEngine::Shader("./Shaders/ColourShading");
+
+	D3DEngine::Vertex Vertices[3] = { 
+		D3DEngine::vec3(-0.5,-0.5,0),						 
+		D3DEngine::vec3(0,0.5,0),	 
+		D3DEngine::vec3(0.5,-0.5,0)
+	};
+
+	m_Mesh = new D3DEngine::Mesh(Vertices, sizeof(Vertices)/sizeof(Vertices[0]));
+
+
 	int Test[6] = {20,60,90,180,270,360};
 	int Count = 0;
 	int Increment = 3;
@@ -34,8 +44,10 @@ void MainGame::RenderScene(void)
 
 	for (int i = 0; i < SinTest; i++)
 	{
-		m_Cuboids[i].Draw();
+		//m_Cuboids[i].Draw();
 	}
+
+	m_Mesh->Draw();
 
 	//m_Cuboid.Draw();
 	//m_Cuboid2.Draw();
