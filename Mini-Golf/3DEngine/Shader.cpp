@@ -90,10 +90,13 @@ namespace D3DEngine
 		
 		glValidateProgram(m_Program);
 		CheckShaderError(m_Program, GL_VALIDATE_STATUS, true, "Error: Program validation failed: ");
+
+		m_Uniforms[TRANSFORM_U] = glGetUniformLocation(m_Program, "transform");
 	}
 
 	Shader::~Shader()
 	{
+		std::cerr << "Deleted Shader" << std::endl;
 		for (unsigned int i = 0; i < m_NUM_SHADERS; i++)
 		{
 			glDetachShader(m_Program, m_Shaders[i]);
@@ -103,18 +106,14 @@ namespace D3DEngine
 		glDeleteProgram(m_Program);
 	}
 
-	Shader::Shader(const Shader & Other)
-	{
-
-	}
-
-	void Shader::operator=(const Shader & Other)
-	{
-		
-	}
-
 	void Shader::Bind()
 	{
 		glUseProgram(m_Program);
+	}
+
+	void Shader::Update(const Transform& transform, const Camera& camera)
+	{
+		glm::mat4 Model = camera.GetViewProjection() * transform.GetModel();
+		glUniformMatrix4fv(m_Uniforms[TRANSFORM_U], 1, GL_FALSE, &Model[0][0]);
 	}
 }

@@ -2,13 +2,13 @@
 
 #include <string>
 #include <GL/glew.h>
-#include <glut.h>
 
 namespace D3DEngine
 {
 	class Texture
 	{
 	public:
+		Texture(){}
 		Texture(const std::string& FileName);
 
 		~Texture();

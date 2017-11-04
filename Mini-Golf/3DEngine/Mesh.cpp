@@ -1,5 +1,6 @@
 #include "Mesh.h"
 #include <vector>
+#include <iostream>
 
 namespace D3DEngine
 {
@@ -9,8 +10,8 @@ namespace D3DEngine
 		glGenVertexArrays(1, &m_VertexArrayObject);
 		glBindVertexArray(m_VertexArrayObject);
 
-		std::vector<vec3> Positions;
-		std::vector<vec2> TexCoords;
+		std::vector<glm::vec3> Positions;
+		std::vector<glm::vec2> TexCoords;
 		Positions.reserve(NumVertices);
 		TexCoords.reserve(NumVertices);
 
@@ -26,20 +27,21 @@ namespace D3DEngine
 		//Attrib Array at 0 - Pos
 		glEnableVertexAttribArray(0);
 		//Treat Attrib as array
-		glVertexAttribPointer(0, 3, GL_DOUBLE, GL_FALSE, 0, 0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
 		///////////////////////////////////////////////////////////////////////////////////////////////////;
 		glBindBuffer(GL_ARRAY_BUFFER, m_VertexArrayBuffers[TEXCOORD_VB]);
 		glBufferData(GL_ARRAY_BUFFER, NumVertices * sizeof(TexCoords[0]), &TexCoords[0], GL_STATIC_DRAW);
 		//Attrib Array at 0 - Pos
 		glEnableVertexAttribArray(1);
 		//Treat Attrib as array
-		glVertexAttribPointer(1, 2, GL_DOUBLE, GL_FALSE, 0, 0);
+		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, 0);
 		///////////////////////////////////////////////////////////////////////////////////////////////////
 		glBindVertexArray(0);
 	}
 
 	Mesh::~Mesh()
 	{
+		std::cerr << "DELETE" << std::endl;
 		glDeleteVertexArrays(1, &m_VertexArrayObject);
 	}
 
@@ -48,17 +50,16 @@ namespace D3DEngine
 		glBindVertexArray(m_VertexArrayObject);
 
 		glDrawArrays(GL_TRIANGLES, 0, m_DrawCount);
-
 		glBindVertexArray(0);
 	}
 
-	Mesh::Mesh(const Mesh & Other)
-	{
+	//Mesh::Mesh(const Mesh & Other)
+	//{
 
-	}
+	//}
 
-	void Mesh::operator=(const Mesh & rhs)
-	{
-		
-	}
+	//void Mesh::operator=(const Mesh & rhs)
+	//{
+	//	
+	//}
 }

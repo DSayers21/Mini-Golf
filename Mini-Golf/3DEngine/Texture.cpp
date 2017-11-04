@@ -30,6 +30,7 @@ namespace D3DEngine
 
 	Texture::~Texture()
 	{
+		std::cerr << "Texture Deleted" << std::endl;
 		glDeleteTextures(1, &m_Texture);
 	}
 
