@@ -6,13 +6,13 @@ MainGame::MainGame()
 	m_Shader = new D3DEngine::Shader("./Shaders/ColourShading");
 
 	D3DEngine::Vertex Vertices[3] = { 
-		D3DEngine::vec3(-0.5,-0.5,0),						 
-		D3DEngine::vec3(0,0.5,0),	 
-		D3DEngine::vec3(0.5,-0.5,0)
+		D3DEngine::Vertex(D3DEngine::vec3(-0.5,-0.5,0), D3DEngine::vec2(0.0,0.0)),
+		D3DEngine::Vertex(D3DEngine::vec3(0,0.5,0), D3DEngine::vec2(0.5,1.0)),
+		D3DEngine::Vertex(D3DEngine::vec3(0.5,-0.5,0), D3DEngine::vec2(1.0,0.0))
 	};
 
 	m_Mesh = new D3DEngine::Mesh(Vertices, sizeof(Vertices)/sizeof(Vertices[0]));
-
+	m_Texture = new D3DEngine::Texture("./Textures/Bricks.jpg");
 
 	int Test[6] = {20,60,90,180,270,360};
 	int Count = 0;
@@ -38,7 +38,8 @@ MainGame::~MainGame()
 void MainGame::RenderScene(void)
 {
 	//Draw Events
-	//m_Shader->Bind();
+	m_Shader->Bind();
+	m_Texture->Bind(0);
 	//glutSolidTeapot(.5);
 
 

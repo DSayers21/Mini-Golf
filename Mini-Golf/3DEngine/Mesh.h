@@ -8,11 +8,10 @@ namespace D3DEngine
 	class Vertex
 	{
 	public:
-		Vertex(const vec3& Pos){ this->m_Pos = Pos; }
-	protected:
+		Vertex(const vec3& Pos, const vec2& TexCoord) { this->m_Pos = Pos; this->m_TexCoord = TexCoord; }
 
-	private:
 		vec3 m_Pos;
+		vec2 m_TexCoord;//Position on the vector we map
 	};
 
 	class Mesh
@@ -30,6 +29,7 @@ namespace D3DEngine
 		enum
 		{
 			POSITION_VB,
+			TEXCOORD_VB,
 			NUM_BUFFERS
 		};
 		GLuint m_VertexArrayObject;

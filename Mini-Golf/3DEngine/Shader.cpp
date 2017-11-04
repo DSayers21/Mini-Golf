@@ -83,6 +83,7 @@ namespace D3DEngine
 			glAttachShader(m_Program, m_Shaders[i]);
 
 		glBindAttribLocation(m_Program, 0, "Position");
+		glBindAttribLocation(m_Program, 1, "TexCoord");
 
 		glLinkProgram(m_Program);
 		CheckShaderError(m_Program, GL_LINK_STATUS, true, "Error: Program linking failed: ");

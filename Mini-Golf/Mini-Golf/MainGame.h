@@ -2,6 +2,7 @@
 #include <GL/glew.h>
 #include <Shader.h>
 #include <Mesh.h>
+#include <Texture.h>
 #include <Lighting.h>
 #include <Camera.h>
 #include <Cuboid.h>
@@ -36,6 +37,7 @@ private:
 	D3DEngine::Lighting m_Lighting;
 	D3DEngine::Shader* m_Shader;
 	D3DEngine::Mesh* m_Mesh;
+	D3DEngine::Texture* m_Texture;
 
 	int SinTest = 180;
 	D3DEngine::Cuboid* m_Cuboids = new D3DEngine::Cuboid[SinTest];
