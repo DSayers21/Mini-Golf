@@ -4,39 +4,27 @@
 
 namespace D3DEngine
 {
-	Mesh::Mesh(Vertex* Vertices, unsigned int NumVertices)
+	Mesh::Mesh(Vertex* Vertices, unsigned int NumVertices, unsigned int* Indices, unsigned int NumIndices)
 	{
-		m_DrawCount = NumVertices;
-		glGenVertexArrays(1, &m_VertexArrayObject);
-		glBindVertexArray(m_VertexArrayObject);
-
-		std::vector<glm::vec3> Positions;
-		std::vector<glm::vec2> TexCoords;
-		Positions.reserve(NumVertices);
-		TexCoords.reserve(NumVertices);
+		IndexedModel Model;
 
 		for (unsigned int i = 0; i < NumVertices; i++)
 		{
-			Positions.push_back(Vertices[i].m_Pos);
-			TexCoords.push_back(Vertices[i].m_TexCoord);
+			Model.m_Positions.push_back(*Vertices[i].GetPos());
+			Model.m_TexCoords.push_back(*Vertices[i].GetTexCoord());
+			Model.m_Normals.push_back(*Vertices[i].GetNormal());
 		}
-		glGenBuffers(NUM_BUFFERS, m_VertexArrayBuffers);
-		///////////////////////////////////////////////////////////////////////////////////////////////////
-		glBindBuffer(GL_ARRAY_BUFFER, m_VertexArrayBuffers[POSITION_VB]);
-		glBufferData(GL_ARRAY_BUFFER, NumVertices*sizeof(Positions[0]), &Positions[0], GL_STATIC_DRAW);
-		//Attrib Array at 0 - Pos
-		glEnableVertexAttribArray(0);
-		//Treat Attrib as array
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
-		///////////////////////////////////////////////////////////////////////////////////////////////////;
-		glBindBuffer(GL_ARRAY_BUFFER, m_VertexArrayBuffers[TEXCOORD_VB]);
-		glBufferData(GL_ARRAY_BUFFER, NumVertices * sizeof(TexCoords[0]), &TexCoords[0], GL_STATIC_DRAW);
-		//Attrib Array at 0 - Pos
-		glEnableVertexAttribArray(1);
-		//Treat Attrib as array
-		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, 0);
-		///////////////////////////////////////////////////////////////////////////////////////////////////
-		glBindVertexArray(0);
+
+		for (unsigned int i = 0; i < NumIndices; i++)
+			Model.m_Indices.push_back(Indices[i]);
+
+		InitMesh(Model);
+	}
+
+	Mesh::Mesh(const std::string & FileName)
+	{
+		IndexedModel Model = OBJModel(FileName).ToIndexedModel();
+		InitMesh(Model);
 	}
 
 	Mesh::~Mesh()
@@ -48,18 +36,37 @@ namespace D3DEngine
 	void Mesh::Draw()
 	{
 		glBindVertexArray(m_VertexArrayObject);
-
-		glDrawArrays(GL_TRIANGLES, 0, m_DrawCount);
+		glDrawElements(GL_TRIANGLES, m_DrawCount, GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
 	}
 
-	//Mesh::Mesh(const Mesh & Other)
-	//{
+	void Mesh::InitMesh(const IndexedModel & Model)
+	{
+		m_DrawCount = Model.m_Indices.size();
 
-	//}
+		glGenVertexArrays(1, &m_VertexArrayObject);
+		glBindVertexArray(m_VertexArrayObject);
 
-	//void Mesh::operator=(const Mesh & rhs)
-	//{
-	//	
-	//}
+		glGenBuffers(NUM_BUFFERS, m_VertexArrayBuffers);
+		///////////////////////////////////////////////////////////////////////////////////////////////////
+		glBindBuffer(GL_ARRAY_BUFFER, m_VertexArrayBuffers[POSITION_VB]);
+		glBufferData(GL_ARRAY_BUFFER, Model.m_Positions.size() * sizeof(Model.m_Positions[0]), &Model.m_Positions[0], GL_STATIC_DRAW);
+		glEnableVertexAttribArray(0);								//Attrib Array at 0 - Pos
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);		//Treat Attrib as array
+		///////////////////////////////////////////////////////////////////////////////////////////////////;
+		glBindBuffer(GL_ARRAY_BUFFER, m_VertexArrayBuffers[TEXCOORD_VB]);
+		glBufferData(GL_ARRAY_BUFFER, Model.m_Positions.size() * sizeof(Model.m_TexCoords[0]), &Model.m_TexCoords[0], GL_STATIC_DRAW);
+		glEnableVertexAttribArray(1);								//Attrib Array at 0 - Pos
+		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, 0);		//Treat Attrib as array
+		///////////////////////////////////////////////////////////////////////////////////////////////////;
+		glBindBuffer(GL_ARRAY_BUFFER, m_VertexArrayBuffers[NORMAL_VB]);
+		glBufferData(GL_ARRAY_BUFFER, Model.m_Normals.size() * sizeof(Model.m_Normals[0]), &Model.m_Normals[0], GL_STATIC_DRAW);
+		glEnableVertexAttribArray(2);								//Attrib Array at 0 - Pos
+		glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, 0);		//Treat Attrib as array
+		///////////////////////////////////////////////////////////////////////////////////////////////////
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_VertexArrayBuffers[INDEX_VB]);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, Model.m_Indices.size() * sizeof(Model.m_Indices[0]), &Model.m_Indices[0], GL_STATIC_DRAW);
+		///////////////////////////////////////////////////////////////////////////////////////////////////
+		glBindVertexArray(0);
+	}
 }

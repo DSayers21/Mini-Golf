@@ -28,11 +28,16 @@ int main(int argc, char** argv)
 		D3DEngine::Vertex(glm::vec3(0.0f,0.5f,0.0f), glm::vec2(0.5f,1.0f)),
 		D3DEngine::Vertex(glm::vec3(0.5f,-0.5f,0.0f), glm::vec2(1.0f,0.0f)),
 	};
-	D3DEngine::Mesh m_Mesh(Vertices, sizeof(Vertices) / sizeof(Vertices[0]));
+
+	unsigned int Indices[] = {0, 1, 2};
+
+	D3DEngine::Mesh m_Mesh(Vertices, sizeof(Vertices) / sizeof(Vertices[0]), Indices, sizeof(Indices) / sizeof(Indices[0]));
+	D3DEngine::Mesh m_Mesh2("./Models/monkey3.obj");
+
 	D3DEngine::Shader m_Shader("./Shaders/ColourShading");
 	D3DEngine::Texture m_Texture("./Textures/Bricks.jpg");
 	D3DEngine::Transform m_Transform;
-	D3DEngine::Camera m_Camera(glm::vec3(0,0,-10), 70.0f, (float)m_Window.GetWidth()/(float)m_Window.GetHeight(), 0.01f, 1000.0f);
+	D3DEngine::Camera m_Camera(glm::vec3(0,0,-3), 70.0f, (float)m_Window.GetWidth()/(float)m_Window.GetHeight(), 0.01f, 1000.0f);
 
 	float Counter = 0.0f;
 
@@ -43,7 +48,12 @@ int main(int argc, char** argv)
 		m_Window.Clear(0.0f, 0.15f, 0.3f, 1.0f);
 
 		float cosCounter = cosf(Counter);
-		m_Transform.GetPos().x = sinf(Counter);
+		float sinCounter = sinf(Counter);
+
+		m_Transform.GetPos().x = sinCounter;
+		m_Transform.GetPos().z = cosCounter;
+		m_Transform.GetRot().x = Counter * 6;
+		m_Transform.GetRot().y = Counter * 6;
 		m_Transform.GetRot().z = Counter * 6;
 		m_Transform.SetScale(glm::vec3(cosCounter, cosCounter, cosCounter));
 
@@ -52,10 +62,11 @@ int main(int argc, char** argv)
 
 		m_Shader.Update(m_Transform, m_Camera);
 		
-		m_Mesh.Draw();
+		//m_Mesh.Draw();
+		m_Mesh2.Draw();
 
 		m_Window.Update();
-		Counter += 0.0001f;
+		Counter += 0.00001f;
 	}
 	return 0;
 }
