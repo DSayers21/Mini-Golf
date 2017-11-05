@@ -38,11 +38,14 @@ void MainGame::Update()
 	Temp += 0.0001f;
 	float TempAmount = sin(Temp);
 	m_Transform.SetTranslation(TempAmount, 0, 0);
+	m_Transform.SetRotation(0, 0, TempAmount * 180);
+	m_Transform.SetScaling(TempAmount, TempAmount, TempAmount);
 }
 
 void MainGame::Draw()
 {
 	m_Shader.Bind();
+	D3DEngine::Matrix4f Temp = m_Transform.GetTransformation();
 	m_Shader.SetUniform("Transform", m_Transform.GetTransformation());
 	m_Mesh.Draw();
 }

@@ -13,11 +13,23 @@ namespace D3DEngine
 
 		Matrix4f GetTransformation();
 
+		//Getters
 		Vector3f GetTranslation() { return m_Translation; }
+		Vector3f GetRotation() { return m_Rotation; }
+		Vector3f GetScaling() { return m_Scaling; }
+		//Setters
 		void SetTranslation(Vector3f Translation) { m_Translation = Translation; }
 		void SetTranslation(float x, float y, float z) { m_Translation = Vector3f(x,y,z); }
+		void SetRotation(Vector3f Rotation) { m_Rotation = Rotation; }
+		void SetRotation(float x, float y, float z) { m_Rotation = Vector3f(x, y, z); }
+		void SetScaling(Vector3f Scaling) { m_Scaling = Scaling; }
+		void SetScaling(float x, float y, float z) { m_Scaling = Vector3f(x, y, z); }
+
+
 	private:
 		//Represents x,y,z of translation
 		Vector3f m_Translation = Vector3f(0,0,0);
+		Vector3f m_Rotation = Vector3f(0, 0, 0);
+		Vector3f m_Scaling = Vector3f(1, 1, 1);
 	};
 }
