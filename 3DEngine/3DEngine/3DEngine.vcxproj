@@ -121,7 +121,11 @@
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Quaternion.cpp" />
     <ClCompile Include="RenderUtil.cpp" />
+    <ClCompile Include="ResourceLoader.cpp" />
+    <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Time.cpp" />
+    <ClCompile Include="Transform.cpp" />
+    <ClCompile Include="Util.cpp" />
     <ClCompile Include="Vector2f.cpp" />
     <ClCompile Include="Vector3f.cpp" />
     <ClCompile Include="Vert.cpp" />
@@ -135,7 +139,11 @@
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Quaternion.h" />
     <ClInclude Include="RenderUtil.h" />
+    <ClInclude Include="ResourceLoader.h" />
+    <ClInclude Include="Shader.h" />
     <ClInclude Include="Time.h" />
+    <ClInclude Include="Transform.h" />
+    <ClInclude Include="Util.h" />
     <ClInclude Include="Vector2f.h" />
     <ClInclude Include="Vector3f.h" />
     <ClInclude Include="Vert.h" />

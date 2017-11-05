@@ -20,6 +20,16 @@ namespace D3DEngine
 		return *this;
 	}
 
+	Matrix4f Matrix4f::InitTranslation(float x, float y, float z)
+	{
+		m_Matrix[0][0] = 1; m_Matrix[0][1] = 0; m_Matrix[0][2] = 0; m_Matrix[0][3] = x;
+		m_Matrix[1][0] = 0; m_Matrix[1][1] = 1; m_Matrix[1][2] = 0; m_Matrix[1][3] = y;
+		m_Matrix[2][0] = 0; m_Matrix[2][1] = 0; m_Matrix[2][2] = 1; m_Matrix[2][3] = z;
+		m_Matrix[3][0] = 0; m_Matrix[3][1] = 0; m_Matrix[3][2] = 0; m_Matrix[3][3] = 1;
+		
+		return *this;
+	}
+
 	Matrix4f& Matrix4f::operator*(const Matrix4f & Other) const
 	{
 		Matrix4f Ret;

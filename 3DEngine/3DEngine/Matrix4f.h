@@ -11,6 +11,7 @@ namespace D3DEngine
 		~Matrix4f();
 
 		Matrix4f InitIdentity();
+		Matrix4f InitTranslation(float x, float y, float z);
 
 		//Operators
 		Matrix4f& operator*(const Matrix4f& Other) const;
