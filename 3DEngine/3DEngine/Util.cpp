@@ -27,4 +27,17 @@ namespace D3DEngine
 
 		return elems;
 	}
+	std::vector<std::string> Util::RemoveEmptyStrings(std::vector<std::string> Strings)
+	{
+		std::vector<std::string> Return;
+		for (int i = 0; i < Strings.size(); i++)
+		{
+			if (Strings[i] != "")
+			{
+				Return.push_back(Strings[i]);
+			}
+		}
+		//Returns all strings with data
+		return Return;
+	}
 }

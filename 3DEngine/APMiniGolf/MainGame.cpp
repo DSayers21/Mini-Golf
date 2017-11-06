@@ -5,13 +5,9 @@ MainGame::MainGame(D3DEngine::Window* window)
 	m_Window = window;
 	m_Input = new D3DEngine::Input(m_Window);
 
-	D3DEngine::Vert Data[] = { 
-		D3DEngine::Vert(D3DEngine::Vector3f(-1,-1,0)),
-		D3DEngine::Vert(D3DEngine::Vector3f(0,1,0)),
-		D3DEngine::Vert(D3DEngine::Vector3f(1,-1,0)),
-	};
+	//m_Mesh.AddVertices(Data, 4, Indices, 12);
+	m_Mesh = D3DEngine::ResourceLoader::LoadMesh("./Models/tri.obj");
 
-	m_Mesh.AddVertices(Data, 3);
 	m_Shader.AddVertexShader(D3DEngine::ResourceLoader::LoadShader("BasicVertex.vert"));
 	m_Shader.AddFragmentShader(D3DEngine::ResourceLoader::LoadShader("BasicVertex.frag"));
 	m_Shader.CompileShader();
@@ -37,9 +33,9 @@ void MainGame::Update()
 {
 	Temp += 0.0001f;
 	float TempAmount = sin(Temp);
-	m_Transform.SetTranslation(TempAmount, 0, 0);
-	m_Transform.SetRotation(0, 0, TempAmount * 180);
-	m_Transform.SetScaling(TempAmount, TempAmount, TempAmount);
+	m_Transform.SetTranslation(0, 0, 0);
+	m_Transform.SetRotation(TempAmount * 180, 0, TempAmount*180);
+	m_Transform.SetScaling(.4, .4, .4);
 }
 
 void MainGame::Draw()
@@ -47,5 +43,5 @@ void MainGame::Draw()
 	m_Shader.Bind();
 	D3DEngine::Matrix4f Temp = m_Transform.GetTransformation();
 	m_Shader.SetUniform("Transform", m_Transform.GetTransformation());
-	m_Mesh.Draw();
+	m_Mesh->Draw();
 }

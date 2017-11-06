@@ -21,7 +21,7 @@ public:
 private:
 	D3DEngine::Window* m_Window;
 	D3DEngine::Input* m_Input;
-	D3DEngine::Mesh m_Mesh;
+	D3DEngine::Mesh* m_Mesh;
 	D3DEngine::Shader m_Shader;
 	D3DEngine::Transform m_Transform;
 
