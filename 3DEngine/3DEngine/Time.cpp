@@ -21,13 +21,13 @@ namespace D3DEngine
 		return Duration;
 	}
 
-	double Time::GetDelta()
+	double Time::GetDelta() const
 	{
 		return m_Delta;
 	}
 
 	void Time::SetDelta(double Delta)
 	{
-		m_Delta - Delta;
+		m_Delta = Delta;
 	}
 }

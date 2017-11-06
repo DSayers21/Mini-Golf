@@ -22,4 +22,29 @@ namespace D3DEngine
 		Res.InitIdentity();
 		return (Translation.Mult(Rotation.Mult(ScaleMatrix)));
 	}
+
+	Matrix4f Transform::GetProjectedTransformation()
+	{
+		Matrix4f TransMat = GetTransformation();
+		Matrix4f ProjMat;
+		Matrix4f CameraRotMat;
+		Matrix4f CameraTransMat;
+
+		ProjMat.InitProjection(Transform::m_FOV, Transform::m_Width, Transform::m_Height, Transform::m_zNear, Transform::m_zFar);
+		CameraRotMat.InitCamera(m_Camera->GetForward(), m_Camera->GetUp());
+		CameraTransMat.InitTranslation(-m_Camera->GetPos().GetX(), -m_Camera->GetPos().GetY(), -m_Camera->GetPos().GetZ());
+
+
+
+		return ProjMat.Mult(CameraRotMat.Mult(CameraTransMat.Mult(TransMat)));
+	}
+
+	void Transform::SetProjection(float FOV, float Width, float Height, float zNear, float zFar)
+	{
+		Transform::m_FOV = FOV;
+		Transform::m_Width = Width;
+		Transform::m_Height = Height;
+		Transform::m_zNear = zNear;
+		Transform::m_zFar = zFar;
+	}
 }

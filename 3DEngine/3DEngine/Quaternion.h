@@ -4,9 +4,11 @@
 
 namespace D3DEngine
 {
+	class Vector3f;
 	class Quaternion
 	{
 	public:
+		Quaternion();
 		Quaternion(float X, float Y, float Z, float W);
 		~Quaternion();
 
@@ -14,8 +16,8 @@ namespace D3DEngine
 		Quaternion Normalise();
 		Quaternion Conjugate();
 		//Operators
-		Quaternion& operator*(const Quaternion& Other);
-		Quaternion& operator*(const Vector3f& Other);
+		Quaternion Mult(Quaternion& Other);
+		Quaternion Mult(Vector3f& Other);
 		//Getters
 		float GetX() const { return x; }
 		float GetY() const { return y; }

@@ -13,7 +13,7 @@ namespace D3DEngine
 
 	}
 
-	Vector3f Vector3f::Normalise()
+	Vector3f& Vector3f::Normalise()
 	{
 		float Len = Length();
 		x /= Len;
@@ -22,9 +22,27 @@ namespace D3DEngine
 		return *this;
 	}
 
-	Vector3f Vector3f::Rotate(float Angle)
+	Vector3f Vector3f::Rotate(float Angle, Vector3f Axis)
 	{
-		return Vector3f(0,0,0);
+		float SinHalfAngle = sinf(TO_RADIANS(Angle / 2));
+		float CosHalfAngle = cosf(TO_RADIANS(Angle / 2));
+		//Quaternion
+		float rX = Axis.GetX() * SinHalfAngle;
+		float rY = Axis.GetY() * SinHalfAngle;
+		float rZ = Axis.GetZ() * SinHalfAngle;
+		float rW = CosHalfAngle;
+		Quaternion Rotation(rX, rY, rZ, rW);
+		Quaternion Conjugate = Rotation.Conjugate();
+
+		Vector3f THIS = *this;
+
+		Quaternion RotResult = Rotation.Mult(THIS).Mult(Conjugate);
+
+		x = RotResult.GetX();
+		y = RotResult.GetY();
+		z = RotResult.GetZ();
+
+		return *this;
 	}
 
 	Vector3f Vector3f::CrossProduct(Vector3f Other)

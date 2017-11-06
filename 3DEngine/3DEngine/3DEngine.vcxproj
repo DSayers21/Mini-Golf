@@ -115,6 +115,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="MainComp.cpp" />
     <ClCompile Include="Matrix4f.cpp" />
@@ -132,6 +133,7 @@
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="MainComp.h" />
     <ClInclude Include="MathBasics.h" />

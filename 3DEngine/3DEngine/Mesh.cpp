@@ -13,7 +13,7 @@ namespace D3DEngine
 	Mesh::~Mesh()
 	{
 		if (m_VBO) glDeleteBuffers(1, &m_VBO);
-		if (m_VBO) glDeleteBuffers(1, &m_IBO);
+		if (m_IBO) glDeleteBuffers(1, &m_IBO);
 	}
 
 	void Mesh::AddVertices(Vert* Vertices, int VertSize, int* Indices, int IndexSize)
@@ -35,7 +35,8 @@ namespace D3DEngine
 		glVertexAttribPointer(0, 3, GL_FLOAT, false, Vert::SIZE * m_VertSize, 0);
 
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IBO);
-		glDrawElements(GL_TRIANGLES, m_IndicesSize, GL_UNSIGNED_INT, 0);
+		//glDrawElements(GL_TRIANGLES, m_IndicesSize, GL_UNSIGNED_INT, 0);
+		glDrawElementsBaseVertex(GL_TRIANGLES, m_IndicesSize, GL_UNSIGNED_INT, 0, 0);
 
 		glDisableVertexAttribArray(0);
 	}

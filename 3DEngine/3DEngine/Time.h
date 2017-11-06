@@ -11,11 +11,11 @@ namespace D3DEngine
 		~Time();
 
 		long GetTime();
-		double GetDelta();
+		double GetDelta() const;
 		void SetDelta(double Delta);
 
 		const static long SECOND = 1000000000L;
-	private:
-		double m_Delta;
+
+		double m_Delta = 0;
 	};
 }

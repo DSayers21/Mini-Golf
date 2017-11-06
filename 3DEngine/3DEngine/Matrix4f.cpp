@@ -77,6 +77,41 @@ namespace D3DEngine
 		return *this;
 	}
 
+	Matrix4f Matrix4f::InitProjection(float FOV, float Width, float Height, float zNear, float zFar)
+	{
+		//Tan of the half of FOV, distance to centre of screen
+		float THFOV = tanf(TO_RADIANS(FOV / 2));
+		//Aspect Ratio
+		float AR = Width / Height;
+		float ZRange = zNear - zFar;
+
+		m_Matrix[0][0] = 1 / (THFOV * AR); m_Matrix[0][1] = 0;			      m_Matrix[0][2] = 0;						m_Matrix[0][3] = 0;
+		m_Matrix[1][0] = 0;				   m_Matrix[1][1] = 1 / THFOV;		  m_Matrix[1][2] = 0;						m_Matrix[1][3] = 0;
+		m_Matrix[2][0] = 0;				   m_Matrix[2][1] = 0;				  m_Matrix[2][2] = (-zNear - zFar)/ ZRange; m_Matrix[2][3] = 2 * zFar * zNear / ZRange;
+		m_Matrix[3][0] = 0;				   m_Matrix[3][1] = 0;			      m_Matrix[3][2] = 1;						m_Matrix[3][3] = 0;
+
+		return *this;
+	}
+
+	Matrix4f Matrix4f::InitCamera(Vector3f Forward, Vector3f Up)
+	{
+		Vector3f For = Forward;
+		//For.Normalise();
+
+		Vector3f right = Up;
+		//right.Normalise();
+		right = right.CrossProduct(For);
+
+		Vector3f up = For.CrossProduct(right);
+
+		m_Matrix[0][0] = right.GetX(); m_Matrix[0][1] = right.GetY(); m_Matrix[0][2] = right.GetZ(); m_Matrix[0][3] = 0;
+		m_Matrix[1][0] = up.GetX();	   m_Matrix[1][1] = up.GetY();	  m_Matrix[1][2] = up.GetZ();    m_Matrix[1][3] = 0;
+		m_Matrix[2][0] = For.GetX();   m_Matrix[2][1] = For.GetY();	  m_Matrix[2][2] = For.GetZ();   m_Matrix[2][3] = 0;
+		m_Matrix[3][0] = 0;			   m_Matrix[3][1] = 0;			  m_Matrix[3][2] = 0;		     m_Matrix[3][3] = 1;
+
+		return *this;
+	}
+
 	Matrix4f Matrix4f::Mult(Matrix4f Other)
 	{
 		Matrix4f Ret;

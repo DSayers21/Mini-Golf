@@ -5,7 +5,7 @@ namespace D3DEngine
 	MainComp::MainComp(D3DEngine::Window& window)
 	{
 		m_Window = &window;
-		m_Game = new MainGame(m_Window);
+		m_Game = new MainGame(m_Window, m_Time);
 	}
 
 	MainComp::~MainComp()
@@ -26,7 +26,7 @@ namespace D3DEngine
 	void MainComp::Run()
 	{
 		long StartTime;
-		long LastTime = m_Time.GetTime();
+		long LastTime = m_Time->GetTime();
 		long PassedTime;
 		double UnproccessedTime = 0;
 		double FrameTime = 1.0 / m_FrameCap;
@@ -37,10 +37,10 @@ namespace D3DEngine
 		while (!m_Window->IsClosed())
 		{
 			Render = false;
-			StartTime = m_Time.GetTime();
+			StartTime = m_Time->GetTime();
 			PassedTime = StartTime - LastTime;
 			LastTime = StartTime;
-			UnproccessedTime += PassedTime / (double)m_Time.SECOND;
+			UnproccessedTime += PassedTime / (double)m_Time->SECOND;
 			FrameCounter += PassedTime;
 
 			while (UnproccessedTime > FrameTime)
@@ -51,7 +51,7 @@ namespace D3DEngine
 				m_Game->Input();
 				m_Game->Update();
 
-				if (FrameCounter >= m_Time.SECOND)
+				if (FrameCounter >= m_Time->SECOND)
 				{
 					std::cout << Frames << std::endl;
 					Frames = 0;

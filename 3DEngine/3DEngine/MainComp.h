@@ -23,7 +23,7 @@ namespace D3DEngine
 
 		Window* m_Window;
 		double m_FrameCap = 5000.0;
-		Time m_Time;
+		Time* m_Time;
 		MainGame* m_Game;
 	};
 }

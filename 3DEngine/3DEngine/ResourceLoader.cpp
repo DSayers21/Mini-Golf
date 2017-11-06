@@ -69,9 +69,16 @@ namespace D3DEngine
 					Vertices.push_back(Vector3f(::atof(Tokens[1].c_str()), ::atof(Tokens[2].c_str()), ::atof(Tokens[3].c_str())));
 				else if (Tokens[0] == "f") //Faces
 				{
-					Indices.push_back(::atof(Tokens[1].c_str())-1);
-					Indices.push_back(::atof(Tokens[2].c_str())-1);
-					Indices.push_back(::atof(Tokens[3].c_str())-1);
+					Indices.push_back(::atof(Util::Split(Tokens[1], '/')[0].c_str())-1);
+					Indices.push_back(::atof(Util::Split(Tokens[2], '/')[0].c_str())-1);
+					Indices.push_back(::atof(Util::Split(Tokens[3], '/')[0].c_str())-1);
+
+					if (Tokens.size() > 4)
+					{
+						Indices.push_back(::atof(Util::Split(Tokens[1], '/')[0].c_str()) - 1);
+						Indices.push_back(::atof(Util::Split(Tokens[3], '/')[0].c_str()) - 1);
+						Indices.push_back(::atof(Util::Split(Tokens[4], '/')[0].c_str()) - 1);
+					}
 				}
 			}
 		}
@@ -91,7 +98,7 @@ namespace D3DEngine
 		for (int i = 0; i < Indices.size(); i++)
 			IndexData[i] = Indices[i];
 		
-		ReturnMesh->AddVertices(VertexData, Vertices.size(), IndexData, Indices.size());
+		ReturnMesh->AddVertices(&Vertices[0], Vertices.size(), &Indices[0], Indices.size());
 
 		return ReturnMesh;
 	}

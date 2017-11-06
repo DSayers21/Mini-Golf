@@ -1,5 +1,6 @@
 #pragma once
 #include "MathBasics.h"
+#include "Vector3f.h"
 #include <string>
 
 namespace D3DEngine
@@ -17,6 +18,10 @@ namespace D3DEngine
 		Matrix4f InitRotation(float x, float y, float z);
 
 		Matrix4f InitScaling(float x, float y, float z);
+
+		Matrix4f InitProjection(float FOV, float Width, float Height, float zNear, float zFar);
+
+		Matrix4f InitCamera(Vector3f Forward, Vector3f Up);
 
 		Matrix4f Mult(Matrix4f Other);
 

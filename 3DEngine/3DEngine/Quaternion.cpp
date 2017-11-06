@@ -2,6 +2,11 @@
 
 namespace D3DEngine
 {
+	Quaternion::Quaternion()
+	{
+		Quaternion(0.0,0.0,0.0,0.0);
+	}
+
 	Quaternion::Quaternion(float X, float Y, float Z, float W) :
 		x(X), y(Y), z(Z), w(W)
 	{
@@ -29,7 +34,7 @@ namespace D3DEngine
 		return Quaternion(-x, -y, -z, w);
 	}
 
-	Quaternion & Quaternion::operator*(const Quaternion & Other)
+	Quaternion Quaternion::Mult(Quaternion & Other)
 	{
 		float X, Y, Z, W;
 
@@ -41,10 +46,10 @@ namespace D3DEngine
 		return Quaternion(X, Y, Z, W);
 	}
 
-	Quaternion & Quaternion::operator*(const Vector3f & Other)
+	Quaternion Quaternion::Mult(Vector3f & Other)
 	{
 		float X, Y, Z, W;
-
+		
 		W = -x * Other.GetX() - y * Other.GetY() - z * Other.GetZ();
 		X = w * Other.GetX() + y * Other.GetZ() - z * Other.GetY();
 		Y = w * Other.GetY() + z * Other.GetX() - x * Other.GetZ();
