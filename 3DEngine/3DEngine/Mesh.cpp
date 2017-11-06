@@ -24,7 +24,7 @@ namespace D3DEngine
 		glBufferData(GL_ARRAY_BUFFER, m_VertSize * sizeof(Vert), Vertices, GL_STATIC_DRAW);
 
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IBO);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_IndicesSize * sizeof(int), Indices, GL_STATIC_DRAW);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_IndicesSize * sizeof(unsigned int), Indices, GL_STATIC_DRAW);
 	}
 
 	void Mesh::Draw()
@@ -32,11 +32,10 @@ namespace D3DEngine
 		glEnableVertexAttribArray(0);
 
 		glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
-		glVertexAttribPointer(0, 3, GL_FLOAT, false, Vert::SIZE * m_VertSize, 0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, false, Vert::SIZE * 4, 0);
 
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IBO);
-		//glDrawElements(GL_TRIANGLES, m_IndicesSize, GL_UNSIGNED_INT, 0);
-		glDrawElementsBaseVertex(GL_TRIANGLES, m_IndicesSize, GL_UNSIGNED_INT, 0, 0);
+		glDrawElements(GL_TRIANGLES, m_IndicesSize, GL_UNSIGNED_INT, 0);
 
 		glDisableVertexAttribArray(0);
 	}

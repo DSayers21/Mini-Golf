@@ -1,11 +1,2 @@
-﻿  ResourceLoader.cpp
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\3dengine\resourceloader.cpp(69): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\3dengine\resourceloader.cpp(72): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\3dengine\resourceloader.cpp(73): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\3dengine\resourceloader.cpp(74): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\3dengine\resourceloader.cpp(78): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\3dengine\resourceloader.cpp(79): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\3dengine\resourceloader.cpp(80): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\3dengine\resourceloader.cpp(94): warning C4018: '<': signed/unsigned mismatch
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\3dengine\resourceloader.cpp(98): warning C4018: '<': signed/unsigned mismatch
+﻿  Mesh.cpp
   3DEngine.vcxproj -> C:\Users\Satan\Documents\GitHub\Pool Game\Mini-Golf\3DEngine\Debug\3DEngine.lib
