@@ -9,5 +9,6 @@ namespace D3DEngine
 	public:
 		static void ClearScreen();
 		static void InitGraphics();
+		static void SetTextures(bool Enabled);
 	};
 }

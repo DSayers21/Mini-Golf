@@ -12,11 +12,17 @@ namespace D3DEngine
 	{
 		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
-		//glFrontFace(GL_CW);
-		//glCullFace(GL_FRONT);
-		//glEnable(GL_CULL_FACE);
+		glFrontFace(GL_CW);
+		glCullFace(GL_BACK);
+		glEnable(GL_CULL_FACE);
 		glEnable(GL_DEPTH_TEST);
-
+		glEnable(GL_TEXTURE_2D);
+		//SetTextures(true);
 		glEnable(GL_FRAMEBUFFER_SRGB);
+	}
+
+	void RenderUtil::SetTextures(bool Enabled)
+	{
+		(Enabled) ? glEnable(GL_TEXTURE_2D) : glDisable(GL_TEXTURE_2D);
 	}
 }

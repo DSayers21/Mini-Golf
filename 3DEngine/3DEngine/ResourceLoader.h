@@ -3,9 +3,10 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <Vector>
+
 #include "Util.h"
 #include "Mesh.h"
-#include <Vector>
 
 namespace D3DEngine
 {
@@ -14,5 +15,6 @@ namespace D3DEngine
 	public:
 		static std::string ResourceLoader::LoadShader(const std::string& FileName);
 		static Mesh* LoadMesh(std::string FileName);
+		static unsigned char * LoadTexture(std::string FileName);
 	};
 }
