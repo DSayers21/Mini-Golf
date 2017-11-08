@@ -25,4 +25,8 @@ namespace D3DEngine
 	{
 		(Enabled) ? glEnable(GL_TEXTURE_2D) : glDisable(GL_TEXTURE_2D);
 	}
+	void RenderUtil::UnBindTextures()
+	{
+		glBindTexture(GL_TEXTURE_2D, 0);
+	}
 }

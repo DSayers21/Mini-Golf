@@ -2,6 +2,7 @@
 
 #include "Vector3f.h"
 #include "Time.h"
+#include "Window.h"
 #include "Input.h"
 #include <iostream>
 #include <string>
@@ -11,10 +12,12 @@ namespace D3DEngine
 	class Camera
 	{
 	public:
-		Camera();
-		Camera(Vector3f Pos, Vector3f Forward, Vector3f Up);
+		Camera(Window* window);
+		Camera(Window* window, Vector3f Pos, Vector3f Forward, Vector3f Up);
 
 		void DoInput(Input& input, Time& time);
+
+		
 
 		void Move(Vector3f Direction, float Amount);
 		void RotateX(float Angle);
@@ -33,6 +36,12 @@ namespace D3DEngine
 		void SetUp(Vector3f Up) { m_Up = Up; }
 
 	private:
+		void MouseControl(Input& input);
+		
+		
+		bool m_MouseControl = false; //Move Camera With Mouse
+
+		Window* m_Window;
 		Vector3f m_Pos;
 		//Represents which direction is up and forward
 		Vector3f m_Forward;

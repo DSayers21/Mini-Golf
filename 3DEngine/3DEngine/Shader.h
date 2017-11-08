@@ -2,8 +2,10 @@
 
 #include <GL/glew.h>
 #include "ResourceLoader.h"
+#include "RenderUtil.h"
 #include "Vector3f.h"
 #include "Matrix4f.h"
+#include "Material.h"
 #include <iostream>
 #include <string>
 #include <map>
@@ -23,6 +25,8 @@ namespace D3DEngine
 		inline void AddFragmentShader(std::string Text) { AddProgram(Text, GL_FRAGMENT_SHADER); }
 		inline void AddGeometryShader(std::string Text) { AddProgram(Text, GL_GEOMETRY_SHADER); }
 		//Uniforms
+		void UpdateUniforms(Matrix4f WorldMatrix, Matrix4f ProjectedMatrix, Material material);
+
 		void AddUniform(std::string Uniform);
 		void SetUniformI(std::string UniformName, int Value);
 		void SetUniformF(std::string UniformName, float Value);

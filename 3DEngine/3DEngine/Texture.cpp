@@ -45,7 +45,7 @@ namespace D3DEngine
 		if (Width > 0 && Height > 0 && Data != 0)
 		{
 			glGenTextures(1, &m_TextureID);
-			glBindTexture(TextureTarget, m_TextureID);
+			//glBindTexture(TextureTarget, m_TextureID);
 			glTexParameterf(TextureTarget, GL_TEXTURE_MIN_FILTER, Filter);
 			glTexParameterf(TextureTarget, GL_TEXTURE_MAG_FILTER, Filter);
 			glTexImage2D(TextureTarget, 0, GL_RGBA, Width, Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, Data);
@@ -58,11 +58,7 @@ namespace D3DEngine
 
 	void Texture::Bind(GLenum TextureUnit)
 	{
-		if (m_LastBind != this)
-		{
-			glActiveTexture(TextureUnit);
-			glBindTexture(m_TextureTarget, m_TextureID);
-			m_LastBind = this;
-		}
+		glActiveTexture(TextureUnit);
+		glBindTexture(m_TextureTarget, m_TextureID);
 	}
 }

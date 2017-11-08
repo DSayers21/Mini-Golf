@@ -75,4 +75,13 @@ namespace D3DEngine
 			}
 		}
 	}
+	void Input::SetCursor(bool Visible)
+	{
+		(Visible) ? SDL_ShowCursor(1) : SDL_ShowCursor(0);
+	}
+
+	void Input::SetMousePosition(Vector2f Pos)
+	{
+		SDL_WarpMouseGlobal((int)Pos.GetX(), (int)Pos.GetY());
+	}
 }

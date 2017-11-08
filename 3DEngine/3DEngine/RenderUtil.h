@@ -10,5 +10,6 @@ namespace D3DEngine
 		static void ClearScreen();
 		static void InitGraphics();
 		static void SetTextures(bool Enabled);
+		static void UnBindTextures();
 	};
 }

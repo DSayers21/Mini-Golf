@@ -2,6 +2,7 @@
 
 #include <SDL2/SDL.h>
 #include "Window.h"
+#include "Vector2f.h"
 #include <glm/glm.hpp>
 
 namespace D3DEngine
@@ -376,6 +377,10 @@ namespace D3DEngine
 
 		void Update();
 
+		void SetCursor(bool Visible);
+
+		void SetMousePosition(Vector2f Ppos);
+
 		inline bool GetKey(int keyCode)  const { return m_Inputs[keyCode]; }
 		inline bool GetKeyDown(int keyCode)  const { return m_DownKeys[keyCode]; }
 		inline bool GetKeyUp(int keyCode)  const { return m_UpKeys[keyCode]; }
@@ -384,7 +389,7 @@ namespace D3DEngine
 		inline bool GetMouseDown(int keyCode)  const { return m_DownMouse[keyCode]; }
 		inline bool GetMouseUp(int keyCode)  const { return m_UpMouse[keyCode]; }
 
-		inline glm::vec2 GetMousePos() const { return glm::vec2(m_MouseX, m_MouseY); }
+		inline Vector2f GetMousePos() const { return Vector2f(m_MouseX, m_MouseY); }
 	private:
 		Window* m_Window;
 	    SDL_Event e;

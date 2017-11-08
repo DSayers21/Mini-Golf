@@ -28,6 +28,11 @@ namespace D3DEngine
 		glUseProgram(m_Program);
 	}
 
+	void Shader::UpdateUniforms(Matrix4f WorldMatrix, Matrix4f ProjectedMatrix, Material material)
+	{
+
+	}
+
 	void Shader::AddUniform(std::string Uniform)
 	{
 		int UniformLocation = glGetUniformLocation(m_Program, Uniform.c_str());
