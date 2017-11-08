@@ -122,6 +122,7 @@
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="Matrix4f.cpp" />
     <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="PhongShader.cpp" />
     <ClCompile Include="Quaternion.cpp" />
     <ClCompile Include="RenderUtil.cpp" />
     <ClCompile Include="ResourceLoader.cpp" />
@@ -145,6 +146,7 @@
     <ClInclude Include="MathBasics.h" />
     <ClInclude Include="Matrix4f.h" />
     <ClInclude Include="Mesh.h" />
+    <ClInclude Include="PhongShader.h" />
     <ClInclude Include="Quaternion.h" />
     <ClInclude Include="RenderUtil.h" />
     <ClInclude Include="ResourceLoader.h" />

@@ -7,9 +7,10 @@ MainGame::MainGame(D3DEngine::Window* window, D3DEngine::Time* time)
 	m_Time = time;
 	m_Input = new D3DEngine::Input(m_Window);
 	
+	m_BShader.SetAmbientLight(D3DEngine::Vector3f(1,1,1));
 	//m_Mesh = D3DEngine::ResourceLoader::LoadMesh("./Models/Tower.obj");
 
-	m_Material = new D3DEngine::Material(D3DEngine::Texture("./Textures/Test.png"), D3DEngine::Vector3f(1,0,0));
+	m_Material = new D3DEngine::Material(D3DEngine::Texture("./Textures/Test.png"), D3DEngine::Vector3f(0,0,0));
 	D3DEngine::Vert Vertices[] = {
 		D3DEngine::Vert(D3DEngine::Vector3f(-1,-1,0), D3DEngine::Vector2f(0.0f,0.0f)),
 		D3DEngine::Vert(D3DEngine::Vector3f(0,1,0), D3DEngine::Vector2f(1.0f,0.0f)),
