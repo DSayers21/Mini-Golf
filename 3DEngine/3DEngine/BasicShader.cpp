@@ -24,7 +24,7 @@ namespace D3DEngine
 		else
 			RenderUtil::UnBindTextures();
 
-		SetUniform("Transform", ProjectedMatrix);
-		SetUniform("Colour", *material.GetColour());
+		SetUniformM4("Transform", ProjectedMatrix);
+		SetUniformV("Colour", *material.GetColour());
 	}
 }

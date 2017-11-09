@@ -1,10 +1,7 @@
 #version 120
 
 varying vec2 TexCoord0;
-
-uniform vec3 BaseColour;
-uniform vec3 AmbientLight;
-uniform sampler2D Sampler;
+varying vec3 Normal0;
 
 struct BaseLight
 {
@@ -17,6 +14,12 @@ struct DirectionalLight
 	BaseLight Light;
 	vec3 Direction;
 };
+
+uniform vec3 BaseColour;
+uniform vec3 AmbientLight;
+uniform DirectionalLight directionalLight;
+uniform sampler2D Sampler;
+
 
 vec4 CalcLight(BaseLight Base, vec3 Direction, vec3 Normal)
 {
@@ -31,7 +34,7 @@ vec4 CalcLight(BaseLight Base, vec3 Direction, vec3 Normal)
 
 vec4 CalcDirectionalLight(DirectionalLight DirLight, vec3 Normal)
 {
-	return CalcLight(DirectionalLight.Base, DirectionalLight.Direction, Normal);
+	return CalcLight(DirLight.Light, -DirLight.Direction, Normal);
 }
 
 void main()
@@ -45,6 +48,10 @@ void main()
 	
 	if(TextureColour != vec4(0,0,0,0))
 		Colour *= TextureColour;
+	
+	vec3 Norm = normalize(Normal0);
+	
+	TotalLight += CalcDirectionalLight(directionalLight, Norm);
 		
 	gl_FragColor = Colour * TotalLight;
 }

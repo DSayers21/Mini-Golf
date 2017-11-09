@@ -52,12 +52,12 @@ namespace D3DEngine
 		glUniform1f(m_Uniforms.find(UniformName)->second, Value);
 	}
 
-	void Shader::SetUniform(std::string UniformName, Vector3f Value)
+	void Shader::SetUniformV(std::string UniformName, Vector3f Value)
 	{
 		glUniform3f(m_Uniforms.find(UniformName)->second, Value.GetX(), Value.GetY(), Value.GetZ());
 	}
 
-	void Shader::SetUniform(const std::string UniformName, const Matrix4f& Value)
+	void Shader::SetUniformM4(const std::string UniformName, const Matrix4f& Value)
 	{
 		glUniformMatrix4fv(m_Uniforms.at(UniformName), 1, GL_TRUE, &(Value[0][0]));
 	}

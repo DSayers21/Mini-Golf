@@ -23,7 +23,7 @@ namespace D3DEngine
 
 	void Mesh::AddVertices(Vert* Vertices, int VertSize, int* Indices, int IndexSize, bool calcNormals)
 	{
-		if (CalcNormals)
+		if (calcNormals)
 			CalcNormals(Vertices, VertSize, Indices, IndexSize);
 
 		m_VertSize = VertSize;
@@ -44,7 +44,7 @@ namespace D3DEngine
 		glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, Vert::SIZE * 4, 0);						   //Vert
 		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Vert), (GLvoid*)sizeof(Vector3f)); //Texture
-		glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(Vert), (GLvoid*)20); //Normals
+		glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(Vert), (GLvoid*)(sizeof(Vector3f) + sizeof(Vector2f))); //Normals
 
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IBO);
 		glDrawElements(GL_TRIANGLES, m_IndicesSize, GL_UNSIGNED_INT, 0);
@@ -56,6 +56,7 @@ namespace D3DEngine
 	//Private
 	void Mesh::CalcNormals(Vert* Vertices, int VertSize, int* Indices, int IndexSize)
 	{
+		std::vector<Vert> test;
 		for (int i = 0; i < IndexSize; i += 3)
 		{
 			int i0 = Indices[i];
@@ -65,14 +66,18 @@ namespace D3DEngine
 			Vector3f Vertex1 = Vertices[i1].GetPos() - Vertices[i0].GetPos();
 			Vector3f Vertex2 = Vertices[i2].GetPos() - Vertices[i0].GetPos();
 			//Calc Normal
-			Vector3f Normal = Vertex1.CrossProduct(Vertex2).Normalise();
-
-			Vertices[i0].SetNormal(Vertices[i0].GetNormal() + (Normal));
-			Vertices[i1].SetNormal(Vertices[i1].GetNormal() + (Normal));
-			Vertices[i2].SetNormal(Vertices[i2].GetNormal() + (Normal));
+			Vector3f Normal = Vertex1.CrossProduct(Vertex2);
+			//Normal = Normal.Normalise();
+			Vertices[i0].SetNormal(Vertices[i0].GetNormal() + Normal);
+			Vertices[i1].SetNormal(Vertices[i1].GetNormal() + Normal);
+			Vertices[i2].SetNormal(Vertices[i2].GetNormal() + Normal);
 		}
 
-		for (int i = 0; i < VertSize; i += 3)
-			Vertices[i].SetNormal(Vertices[i].GetNormal().Normalise());
+		for (int i = 0; i < VertSize; i += 1)
+		{
+			Vector3f New = Vertices[i].GetNormal();
+			//Vector3f NewN = New.Normalise();
+			Vertices[i].SetNormal(New);
+		}
 	}
 }

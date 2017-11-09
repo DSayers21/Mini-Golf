@@ -2,6 +2,7 @@
 
 #include <GL/glew.h>
 #include "Vert.h"
+#include <vector>
 
 namespace D3DEngine
 {

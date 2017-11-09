@@ -115,8 +115,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BaseLight.cpp" />
     <ClCompile Include="BasicShader.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="DirectionalLight.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="MainComp.cpp" />
     <ClCompile Include="Material.cpp" />
@@ -138,8 +140,10 @@
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BaseLight.h" />
     <ClInclude Include="BasicShader.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="DirectionalLight.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="MainComp.h" />
     <ClInclude Include="Material.h" />

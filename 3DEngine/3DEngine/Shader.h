@@ -30,8 +30,8 @@ namespace D3DEngine
 		void AddUniform(std::string Uniform);
 		void SetUniformI(std::string UniformName, int Value);
 		void SetUniformF(std::string UniformName, float Value);
-		void SetUniform(std::string UniformName, Vector3f Value);
-		void SetUniform(const std::string UniformName, const Matrix4f& Value);
+		void SetUniformV(std::string UniformName, Vector3f Value);
+		void SetUniformM4(const std::string UniformName, const Matrix4f& Value);
 	private:
 		void AddProgram(std::string Text, int Type);
 		static void CheckShaderError(int Shader, int Flag, bool isProgram, const std::string& ErrorMessage);

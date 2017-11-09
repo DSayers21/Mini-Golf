@@ -1,8 +1,2 @@
-﻿  MainGame.cpp
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\3dengine\input.h(392): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\apminigolf\maingame.cpp(23): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\apminigolf\maingame.cpp(37): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\apminigolf\maingame.cpp(38): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\apminigolf\maingame.cpp(51): warning C4305: 'argument': truncation from 'double' to 'float'
-  APMiniGolf.vcxproj -> C:\Users\Satan\Documents\GitHub\Pool Game\Mini-Golf\3DEngine\Debug\APMiniGolf.exe
+﻿  APMiniGolf.vcxproj -> C:\Users\Satan\Documents\GitHub\Pool Game\Mini-Golf\3DEngine\Debug\APMiniGolf.exe
   APMiniGolf.vcxproj -> C:\Users\Satan\Documents\GitHub\Pool Game\Mini-Golf\3DEngine\Debug\APMiniGolf.pdb (Partial PDB)

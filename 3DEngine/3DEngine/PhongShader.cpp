@@ -11,7 +11,12 @@ namespace D3DEngine
 		//Uniforms
 		AddUniform("Transform");
 		AddUniform("BaseColour");
+
 		AddUniform("AmbientLight");
+
+		AddUniform("directionalLight.Light.Colour");
+		AddUniform("directionalLight.Light.Intensity");
+		AddUniform("directionalLight.Direction");
 	}
 
 	PhongShader::~PhongShader()
@@ -25,8 +30,21 @@ namespace D3DEngine
 		else
 			RenderUtil::UnBindTextures();
 
-		SetUniform("Transform", ProjectedMatrix);
-		SetUniform("BaseColour", *material.GetColour());
-		SetUniform("AmbientLight", m_AmbientLight);
+		SetUniformM4("Transform", ProjectedMatrix);
+		SetUniformV("BaseColour", *material.GetColour());
+		SetUniformV("AmbientLight", m_AmbientLight);
+		SetUniform("directionalLight", m_DirectionalLight);
+	}
+
+	void PhongShader::SetUniform(std::string UniformName, DirectionalLight DirLight)
+	{
+		SetUniform(UniformName + ".Light", DirLight.GetBaseLight());
+		SetUniformV(UniformName + ".Direction", DirLight.GetDirection());
+	}
+
+	void PhongShader::SetUniform(std::string UniformName, BaseLight BaseLight)
+	{
+		SetUniformV(UniformName + ".Colour", BaseLight.GetColour());
+		SetUniformF(UniformName + ".Intensity", BaseLight.GetIntensity());
 	}
 }

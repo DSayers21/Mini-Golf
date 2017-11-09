@@ -18,7 +18,7 @@ MainGame::MainGame(D3DEngine::Window* window, D3DEngine::Time* time)
 		D3DEngine::Vert(D3DEngine::Vector3f(0,-1,1), D3DEngine::Vector2f(0.0f,1.0f)),
 	};
 	int Indices[] = { 3,1,0,2,1,3,0,1,2,0,2,3 };
-	m_Mesh.AddVertices(Vertices, 4, Indices, 12);
+	m_Mesh.AddVertices(Vertices, 4, Indices, 12, true);
 	//Transform
 	m_Transform.SetProjection(70.0f, m_Window->GetWidth(), m_Window->GetHeight(), 0.1f, 1000.0f);
 	m_Transform.SetCamera(m_Camera);

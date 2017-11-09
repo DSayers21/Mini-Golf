@@ -1,2 +1,4 @@
-﻿  PhongShader.cpp
+﻿  Mesh.cpp
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\3dengine\vector3f.h(24): warning C4172: returning address of local variable or temporary
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\3dengine\vector3f.h(22): warning C4172: returning address of local variable or temporary
   3DEngine.vcxproj -> C:\Users\Satan\Documents\GitHub\Pool Game\Mini-Golf\3DEngine\Debug\3DEngine.lib
