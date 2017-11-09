@@ -13,13 +13,16 @@ namespace D3DEngine
 
 	}
 
-	Vector3f& Vector3f::Normalise()
+	Vector3f Vector3f::Normalise()
 	{
-		float Len = Length();
-		x /= Len;
-		y /= Len;
-		z /= Len;
-		return *this;
+		const float Len = Length();
+		if (Len > 0)
+		{
+			x /= Len;
+			y /= Len;
+			z /= Len;
+		}
+		return Vector3f(x, y, z);
 	}
 
 	Vector3f Vector3f::Rotate(float Angle, Vector3f Axis)

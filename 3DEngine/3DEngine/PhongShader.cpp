@@ -4,7 +4,8 @@ namespace D3DEngine
 {
 	PhongShader::PhongShader()
 	{
-		Shader();
+		m_DirectionalLight = DirectionalLight(BaseLight(Vector3f(1, 0, 0), .2), Vector3f(0, 1, 0));
+
 		AddVertexShader(D3DEngine::ResourceLoader::LoadShader("PhongShader.vert"));
 		AddFragmentShader(D3DEngine::ResourceLoader::LoadShader("PhongShader.frag"));
 		CompileShader();
@@ -33,18 +34,6 @@ namespace D3DEngine
 		SetUniformM4("Transform", ProjectedMatrix);
 		SetUniformV("BaseColour", *material.GetColour());
 		SetUniformV("AmbientLight", m_AmbientLight);
-		SetUniform("directionalLight", m_DirectionalLight);
-	}
-
-	void PhongShader::SetUniform(std::string UniformName, DirectionalLight DirLight)
-	{
-		SetUniform(UniformName + ".Light", DirLight.GetBaseLight());
-		SetUniformV(UniformName + ".Direction", DirLight.GetDirection());
-	}
-
-	void PhongShader::SetUniform(std::string UniformName, BaseLight BaseLight)
-	{
-		SetUniformV(UniformName + ".Colour", BaseLight.GetColour());
-		SetUniformF(UniformName + ".Intensity", BaseLight.GetIntensity());
+		SetUniformDL("directionalLight", m_DirectionalLight);
 	}
 }

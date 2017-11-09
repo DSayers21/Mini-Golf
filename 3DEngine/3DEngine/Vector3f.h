@@ -14,7 +14,7 @@ namespace D3DEngine
 		float Length() { return (float)sqrt(x*x + y*y + z*z); }
 
 		float Dot(Vector3f Other) { return x*Other.GetX() + y * Other.GetY() + z * Other.GetZ(); }
-		Vector3f& Normalise();
+		Vector3f Normalise();
 		Vector3f Rotate(float Angle, Vector3f Axis);
 		Vector3f CrossProduct(Vector3f Other);
 

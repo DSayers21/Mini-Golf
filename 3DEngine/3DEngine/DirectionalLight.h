@@ -8,6 +8,7 @@ namespace D3DEngine
 	class DirectionalLight
 	{
 	public:
+		DirectionalLight();
 		DirectionalLight(BaseLight base, Vector3f direction);
 		~DirectionalLight();
 

@@ -40,6 +40,7 @@ namespace D3DEngine
 			std::cerr << "Error: Couldnt find uniform: " << Uniform << std::endl;
 		//Add Uniform to Map
 		m_Uniforms.insert(std::pair<std::string, int>(Uniform, UniformLocation));
+		std::cerr << "Uniform: " << Uniform << " added." << std::endl;
 	}
 
 	void Shader::SetUniformI(std::string UniformName, int Value)
@@ -60,6 +61,18 @@ namespace D3DEngine
 	void Shader::SetUniformM4(const std::string UniformName, const Matrix4f& Value)
 	{
 		glUniformMatrix4fv(m_Uniforms.at(UniformName), 1, GL_TRUE, &(Value[0][0]));
+	}
+
+	void Shader::SetUniformDL(std::string UniformName, DirectionalLight DirLight)
+	{
+		SetUniformBL(UniformName + ".Light", DirLight.GetBaseLight());
+		SetUniformV(UniformName + ".Direction", DirLight.GetDirection());
+	}
+
+	void Shader::SetUniformBL(std::string UniformName, BaseLight BaseLight)
+	{
+		SetUniformV(UniformName + ".Colour", BaseLight.GetColour());
+		SetUniformF(UniformName + ".Intensity", BaseLight.GetIntensity());
 	}
 
 	void Shader::AddProgram(std::string Text, int Type)

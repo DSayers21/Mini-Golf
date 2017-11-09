@@ -3,6 +3,7 @@
 #include <GL/glew.h>
 #include "Vert.h"
 #include <vector>
+#include <iostream>
 
 namespace D3DEngine
 {
@@ -23,5 +24,6 @@ namespace D3DEngine
 		unsigned int m_IBO; //Index Buffer Object
 		int m_VertSize;
 		int m_IndicesSize;
+		std::vector<Vert*> Points;
 	};
 }

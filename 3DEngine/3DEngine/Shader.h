@@ -9,6 +9,7 @@
 #include <iostream>
 #include <string>
 #include <map>
+#include "DirectionalLight.h"
 
 namespace D3DEngine
 {
@@ -32,7 +33,10 @@ namespace D3DEngine
 		void SetUniformF(std::string UniformName, float Value);
 		void SetUniformV(std::string UniformName, Vector3f Value);
 		void SetUniformM4(const std::string UniformName, const Matrix4f& Value);
+		void SetUniformDL(std::string UniformName, DirectionalLight DirLight);
+		void SetUniformBL(std::string UniformName, BaseLight BaseLight);
 	private:
+		
 		void AddProgram(std::string Text, int Type);
 		static void CheckShaderError(int Shader, int Flag, bool isProgram, const std::string& ErrorMessage);
 

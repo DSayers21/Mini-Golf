@@ -24,7 +24,7 @@ namespace D3DEngine
 	void Mesh::AddVertices(Vert* Vertices, int VertSize, int* Indices, int IndexSize, bool calcNormals)
 	{
 		if (calcNormals)
-			CalcNormals(Vertices, VertSize, Indices, IndexSize);
+			this->CalcNormals(Vertices, VertSize, Indices, IndexSize);
 
 		m_VertSize = VertSize;
 		m_IndicesSize = IndexSize;
@@ -37,14 +37,16 @@ namespace D3DEngine
 
 	void Mesh::Draw()
 	{
+		Points;
 		glEnableVertexAttribArray(0);
 		glEnableVertexAttribArray(1);
 		glEnableVertexAttribArray(2);
 
 		glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, Vert::SIZE * 4, 0);						   //Vert
-		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, Vert::SIZE * 4, (GLvoid*)sizeof(Vector3f));
-		glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, Vert::SIZE * 4, (GLvoid*)(sizeof(Vector3f) + sizeof(Vector2f))); //Normals
+
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vert), 0);						   //Vert
+		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Vert), (GLvoid*)sizeof(Vector3f));
+		glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(Vert), (GLvoid*)(sizeof(Vector3f) + sizeof(Vector2f))); //Normals
 
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IBO);
 		glDrawElements(GL_TRIANGLES, m_IndicesSize, GL_UNSIGNED_INT, 0);
@@ -52,10 +54,12 @@ namespace D3DEngine
 		glDisableVertexAttribArray(0);
 		glDisableVertexAttribArray(1);
 		glDisableVertexAttribArray(2);
+
 	}
 	//Private
 	void Mesh::CalcNormals(Vert* Vertices, int VertSize, int* Indices, int IndexSize)
 	{
+
 		std::vector<Vert> test;
 		for (int i = 0; i < IndexSize; i += 3)
 		{
@@ -63,22 +67,29 @@ namespace D3DEngine
 			int i1 = Indices[i + 1];
 			int i2 = Indices[i + 2];
 
-			Vector3f Vertex1 = Vertices[i1].GetPos() - Vertices[i0].GetPos();
-			Vector3f Vertex2 = Vertices[i2].GetPos() - Vertices[i0].GetPos();
+			Vector3f a = Vertices[i1].GetPos();
+			Vector3f b = Vertices[i2].GetPos();
+			Vector3f c = Vertices[i0].GetPos();
+
+			Vector3f Vertex1 = (a - c);
+			Vertex1 = Vertex1.Normalise();
+			Vector3f Vertex2 = (b - c);
+			Vertex2 = Vertex2.Normalise();
 			//Calc Normal
+
 			Vector3f Normal = Vertex1.CrossProduct(Vertex2);
-			Normal = Normal.Normalise();
+			//Normal = Normal.Normalise();
 			Vertices[i0].SetNormal(Vertices[i0].GetNormal() + Normal);
 			Vertices[i1].SetNormal(Vertices[i1].GetNormal() + Normal);
 			Vertices[i2].SetNormal(Vertices[i2].GetNormal() + Normal);
 		}
 
-		for (int i = 0; i < VertSize; i += 1)
+		for (int i = 0; i < VertSize; i ++)
 		{
 			Vector3f New = Vertices[i].GetNormal();
 			Vector3f NewN = New.Normalise();
-			Vertices[i].SetNormal(New);
-			test.push_back(Vertices[i]);
+			Vertices[i].SetNormal(NewN);
+			Points.push_back(&Vertices[i]);
 		}
 	}
 }

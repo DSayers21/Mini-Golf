@@ -22,7 +22,7 @@ MainGame::MainGame(D3DEngine::Window* window, D3DEngine::Time* time)
 	m_Transform.SetProjection(70.0f, m_Window->GetWidth(), m_Window->GetHeight(), 0.1f, 1000.0f);
 	m_Transform.SetCamera(m_Camera);
 
-	//m_BShader.SetAmbientLight(D3DEngine::Vector3f(.1, .1, .1));
+	m_BShader.SetAmbientLight(D3DEngine::Vector3f(.1, .1, .1));
 }
 
 MainGame::~MainGame()
@@ -48,7 +48,7 @@ void MainGame::Update()
 	Temp += 0.0001f;
 	float TempAmount = sin(Temp);
 	m_Transform.SetTranslation(0, 0, 5);
-	m_Transform.SetRotation(0, TempAmount * 180, 0);
+	m_Transform.SetRotation(TempAmount * 180, TempAmount * 180, TempAmount * 180);
 	m_Transform.SetScaling(.4, .4, .4);
 }
 

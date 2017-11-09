@@ -1,16 +1,14 @@
-#version 120
+#version 330
 
 varying vec2 TexCoord0;
 varying vec3 Normal0;
 
-struct BaseLight
-{
+struct BaseLight {
 	vec3 Colour;
 	float Intensity;
 };
 
-struct DirectionalLight
-{
+struct DirectionalLight {
 	BaseLight Light;
 	vec3 Direction;
 };
@@ -23,7 +21,7 @@ uniform sampler2D Sampler;
 
 vec4 CalcLight(BaseLight Base, vec3 Direction, vec3 Normal)
 {
-	float DiffuseFactor = dot(-Direction, Normal);
+	float DiffuseFactor = dot( -Direction ,Normal);
 	vec4 DiffuseColour = vec4(0,0,0,0);
 	if(DiffuseFactor > 0)
 	{
@@ -41,7 +39,7 @@ void main()
 {
 	vec4 TotalLight = vec4(AmbientLight, 1);
 	vec4 Colour = vec4(BaseColour, 1);
-	vec4 TextureColour = texture2D(Sampler, TexCoord0);
+	vec4 TextureColour = texture2D(Sampler, TexCoord0.xy);
 	
 	if(Colour == vec4(0,0,0,1))
 		Colour = TextureColour;
