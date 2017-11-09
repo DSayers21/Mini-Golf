@@ -48,12 +48,12 @@ MainGame::MainGame(D3DEngine::Window* window, D3DEngine::Time* time)
 	m_pLights[0] = D3DEngine::PointLight(
 		D3DEngine::BaseLight(D3DEngine::Vector3f(1, .5, 0), 0.8),
 		D3DEngine::Attenuation(0, 0, 1),
-		D3DEngine::Vector3f(-2, 0, 5));
+		D3DEngine::Vector3f(-2, 0, 5), 6);
 
 	m_pLights[1] = D3DEngine::PointLight(
 		D3DEngine::BaseLight(D3DEngine::Vector3f(0, 0.5, 1), 0.8),
 		D3DEngine::Attenuation(0, 0, 1),
-		D3DEngine::Vector3f(2, 0, 7));
+		D3DEngine::Vector3f(2, 0, 7), 6);
 
 	m_BShader.SetPointLight(m_pLights, 2);
 }

@@ -27,6 +27,7 @@ struct PointLight {
 	BaseLight Light;
 	Attenuation Atten;
 	vec3 Position;
+	float Range; //Max Distance a pixel can be from point light and still be affected
 };
 
 //Uniforms
@@ -72,6 +73,10 @@ vec4 CalcPointLight(PointLight pointLight, vec3 Normal)
 {
 	vec3 LightDirection = WorldPos0 - pointLight.Position;
 	float DistanceToPLight = length(LightDirection);
+	
+	if(DistanceToPLight > pointLight.Range)
+		return vec4(0,0,0,0);
+		
 	LightDirection = normalize(LightDirection);
 	//Get Colour From Light
 	vec4 Colour = CalcLight(pointLight.Light, LightDirection, Normal);
@@ -104,7 +109,8 @@ void main()
 	for(int i = 0; i < MAX_POINT_LIGHTS; i++)
 	{
 		if(PointLights[i].Light.Intensity > 0)
-			TotalLight += CalcPointLight(PointLights[i], Norm);
+			if(PointLights[i].Light.Intensity > 0)
+				TotalLight += CalcPointLight(PointLights[i], Norm);
 	}
 
 	gl_FragColor = Colour * TotalLight;

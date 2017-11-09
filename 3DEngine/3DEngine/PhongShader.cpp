@@ -34,6 +34,7 @@ namespace D3DEngine
 			AddUniform("PointLights[" + std::to_string(i) + "].Atten.Linear");
 			AddUniform("PointLights[" + std::to_string(i) + "].Atten.Exponent");
 			AddUniform("PointLights[" + std::to_string(i) + "].Position");
+			AddUniform("PointLights[" + std::to_string(i) + "].Range");
 		}
 	}
 
@@ -75,6 +76,7 @@ namespace D3DEngine
 		SetUniformF(UniformName + ".Atten.Exponent", pointLight.GetAttenuation().GetExponent());
 
 		SetUniformV(UniformName + ".Position", pointLight.GetPosition());
+		SetUniformF(UniformName + ".Range", pointLight.GetRange());
 	}
 
 	void PhongShader::SetPointLight(PointLight* pointLights, int NumOfPointLights)
