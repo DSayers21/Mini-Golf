@@ -1,13 +1,2 @@
-﻿  PhongShader.cpp
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\3dengine\phongshader.h(21): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\3dengine\phongshader.cpp(7): warning C4305: 'argument': truncation from 'double' to 'float'
-  Mesh.cpp
-  Generating Code...
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\3dengine\vector3f.h(24): warning C4172: returning address of local variable or temporary
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\3dengine\vector3f.h(22): warning C4172: returning address of local variable or temporary
-  Skipping... (no relevant changes detected)
-  Shader.cpp
-  ResourceLoader.cpp
-  MainComp.cpp
-  BasicShader.cpp
+﻿  Material.cpp
   3DEngine.vcxproj -> C:\Users\Satan\Documents\GitHub\Pool Game\Mini-Golf\3DEngine\Debug\3DEngine.lib

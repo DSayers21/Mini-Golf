@@ -4,13 +4,15 @@ namespace D3DEngine
 {
 	PhongShader::PhongShader()
 	{
-		m_DirectionalLight = DirectionalLight(BaseLight(Vector3f(1, 0, 0), .2), Vector3f(0, 1, 0));
+		m_DirectionalLight = DirectionalLight(BaseLight(Vector3f(1, 1, 1), .1), Vector3f(1, 1, 1));
 
 		AddVertexShader(D3DEngine::ResourceLoader::LoadShader("PhongShader.vert"));
 		AddFragmentShader(D3DEngine::ResourceLoader::LoadShader("PhongShader.frag"));
 		CompileShader();
 		//Uniforms
 		AddUniform("Transform");
+		AddUniform("TransformProjected");
+
 		AddUniform("BaseColour");
 
 		AddUniform("AmbientLight");
@@ -18,6 +20,10 @@ namespace D3DEngine
 		AddUniform("directionalLight.Light.Colour");
 		AddUniform("directionalLight.Light.Intensity");
 		AddUniform("directionalLight.Direction");
+
+		AddUniform("SpecularIntensity");
+		AddUniform("SpecularExponent");
+		AddUniform("EyePos");
 	}
 
 	PhongShader::~PhongShader()
@@ -31,9 +37,15 @@ namespace D3DEngine
 		else
 			RenderUtil::UnBindTextures();
 
-		SetUniformM4("Transform", ProjectedMatrix);
+		SetUniformM4("Transform", WorldMatrix);
+		SetUniformM4("TransformProjected", ProjectedMatrix);
 		SetUniformV("BaseColour", *material.GetColour());
+		//Lighting
 		SetUniformV("AmbientLight", m_AmbientLight);
 		SetUniformDL("directionalLight", m_DirectionalLight);
+		//Specular Reflection
+		SetUniformF("SpecularIntensity", material.GetSpecularIntensity());
+		SetUniformF("SpecularExponent", material.GetSpecularExponent());
+		SetUniformV("EyePos", m_Transform->GetCamera()->GetPos());
 	}
 }

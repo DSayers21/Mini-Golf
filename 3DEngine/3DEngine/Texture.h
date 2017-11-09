@@ -11,7 +11,7 @@ namespace D3DEngine
 	class Texture
 	{
 	public:
-
+		Texture();
 		Texture(const std::string& FileName, GLenum TextureTarget = GL_TEXTURE_2D, GLfloat Filter = GL_LINEAR);
 		~Texture();
 

@@ -76,7 +76,6 @@ namespace D3DEngine
 			Vector3f Vertex2 = (b - c);
 			Vertex2 = Vertex2.Normalise();
 			//Calc Normal
-
 			Vector3f Normal = Vertex1.CrossProduct(Vertex2);
 			//Normal = Normal.Normalise();
 			Vertices[i0].SetNormal(Vertices[i0].GetNormal() + Normal);

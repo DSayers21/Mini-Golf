@@ -3,6 +3,10 @@ namespace D3DEngine
 {
 	Texture* Texture::m_LastBind = 0;
 
+	Texture::Texture()
+	{
+	}
+
 	Texture::Texture(const std::string& FileName, GLenum TextureTarget, GLfloat Filter)
 	{
 		int X, Y, NumComponents;
