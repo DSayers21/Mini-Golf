@@ -1,2 +1,4 @@
-﻿  Material.cpp
+﻿  MainComp.cpp
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\3dengine\input.h(392): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\3dengine\phongshader.h(26): warning C4305: 'argument': truncation from 'double' to 'float'
   3DEngine.vcxproj -> C:\Users\Satan\Documents\GitHub\Pool Game\Mini-Golf\3DEngine\Debug\3DEngine.lib

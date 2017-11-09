@@ -6,6 +6,7 @@ namespace D3DEngine
 	class BaseLight
 	{
 	public:
+		BaseLight();
 		BaseLight(Vector3f colour, float intensity);
 		~BaseLight();
 

@@ -115,6 +115,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Attenuation.cpp" />
     <ClCompile Include="BaseLight.cpp" />
     <ClCompile Include="BasicShader.cpp" />
     <ClCompile Include="Camera.cpp" />
@@ -125,6 +126,7 @@
     <ClCompile Include="Matrix4f.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="PhongShader.cpp" />
+    <ClCompile Include="PointLight.cpp" />
     <ClCompile Include="Quaternion.cpp" />
     <ClCompile Include="RenderUtil.cpp" />
     <ClCompile Include="ResourceLoader.cpp" />
@@ -140,6 +142,7 @@
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Attenuation.h" />
     <ClInclude Include="BaseLight.h" />
     <ClInclude Include="BasicShader.h" />
     <ClInclude Include="Camera.h" />
@@ -151,6 +154,7 @@
     <ClInclude Include="Matrix4f.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="PhongShader.h" />
+    <ClInclude Include="PointLight.h" />
     <ClInclude Include="Quaternion.h" />
     <ClInclude Include="RenderUtil.h" />
     <ClInclude Include="ResourceLoader.h" />

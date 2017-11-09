@@ -7,7 +7,7 @@
 #include "Material.h"
 #include "Vert.h"
 #include "PhongShader.h"
-#include "BasicShader.h"
+#include "PointLight.h"
 #include "Transform.h"
 #include "ResourceLoader.h"
 #include "Camera.h"
@@ -33,5 +33,9 @@ private:
 	D3DEngine::Camera* m_Camera;
 	//D3DEngine::Texture* m_Texture;
 	D3DEngine::Material* m_Material;
-	float Temp = 0.0f;
+
+	D3DEngine::PointLight* m_pLights;
+	D3DEngine::PointLight* m_PLight1;
+	D3DEngine::PointLight* m_PLight2;
+	float m_Wave = 0.0f;
 };

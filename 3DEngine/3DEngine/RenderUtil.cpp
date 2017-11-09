@@ -18,7 +18,8 @@ namespace D3DEngine
 		glEnable(GL_DEPTH_TEST);
 		glEnable(GL_TEXTURE_2D);
 		SetTextures(true);
-		glEnable(GL_FRAMEBUFFER_SRGB);
+		glEnable(GL_DEPTH_CLAMP);
+		//glEnable(GL_FRAMEBUFFER_SRGB);
 	}
 
 	void RenderUtil::SetTextures(bool Enabled)
