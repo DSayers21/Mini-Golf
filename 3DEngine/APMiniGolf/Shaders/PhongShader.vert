@@ -13,5 +13,5 @@ void main()
 {
 	gl_Position = Transform * vec4(Position, 1.0);
 	TexCoord0 = TexCoord;
-	Normal0 = (Transform * vec4(Normal,1.0)).xyz;
+	Normal0 = Normal;
 }

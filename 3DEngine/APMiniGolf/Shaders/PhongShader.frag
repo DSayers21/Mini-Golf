@@ -52,6 +52,6 @@ void main()
 	vec3 Norm = normalize(Normal0);
 	
 	TotalLight += CalcDirectionalLight(directionalLight, Norm);
-		
+
 	gl_FragColor = Colour * TotalLight;
 }

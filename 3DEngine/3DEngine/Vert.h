@@ -8,9 +8,9 @@ namespace D3DEngine
 	{
 	public:
 		Vert() { m_Pos = Vector3f(0, 0, 0); m_TexCoord = Vector2f(0, 0); };
-		Vert(Vector3f Pos) : m_Pos(Pos), m_TexCoord(0,0){}
-		Vert(Vector3f Pos, Vector2f TexCoord) { Vert(Pos, TexCoord, Vector3f(0, 0, 0)); }
-		Vert(Vector3f Pos, Vector2f TexCoord, Vector3f Normal) : m_Pos(Pos), m_TexCoord(TexCoord), m_Normal(Normal){}
+		Vert(Vector3f& Pos) : m_Pos(Pos), m_TexCoord(0,0){}
+		Vert(Vector3f& Pos, Vector2f& TexCoord) { *this = Vert(Pos, TexCoord, Vector3f(0, 0, 0)); }
+		Vert(Vector3f& Pos, Vector2f& TexCoord, Vector3f& Normal) : m_Pos(Pos), m_TexCoord(TexCoord), m_Normal(Normal){}
 		~Vert();
 
 		//Getters

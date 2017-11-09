@@ -23,6 +23,6 @@ namespace D3DEngine
 
 	private:
 		Vector3f m_AmbientLight = Vector3f(0.1,0.1,0.1);
-		DirectionalLight m_DirectionalLight = DirectionalLight(BaseLight(Vector3f(1,1,1), 0.0f), Vector3f(0,0,0));
+		DirectionalLight m_DirectionalLight = DirectionalLight(BaseLight(Vector3f(1,0,1), 1), Vector3f(0,1,0));
 	};
 }
