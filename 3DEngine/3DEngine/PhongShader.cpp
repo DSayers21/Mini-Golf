@@ -36,6 +36,21 @@ namespace D3DEngine
 			AddUniform("PointLights[" + std::to_string(i) + "].Position");
 			AddUniform("PointLights[" + std::to_string(i) + "].Range");
 		}
+
+		//Init array of spot lights
+		for (int i = 0; i < MAX_SPOT_LIGHTS; i++)
+		{
+			AddUniform("SpotLights[" + std::to_string(i) + "].PLight.Light.Colour");
+			AddUniform("SpotLights[" + std::to_string(i) + "].PLight.Light.Intensity");
+			AddUniform("SpotLights[" + std::to_string(i) + "].PLight.Atten.Constant");
+			AddUniform("SpotLights[" + std::to_string(i) + "].PLight.Atten.Linear");
+			AddUniform("SpotLights[" + std::to_string(i) + "].PLight.Atten.Exponent");
+			AddUniform("SpotLights[" + std::to_string(i) + "].PLight.Position");
+			AddUniform("SpotLights[" + std::to_string(i) + "].PLight.Range");
+
+			AddUniform("SpotLights[" + std::to_string(i) + "].Direction");
+			AddUniform("SpotLights[" + std::to_string(i) + "].Cutoff");
+		}
 	}
 
 	PhongShader::~PhongShader()
@@ -56,11 +71,9 @@ namespace D3DEngine
 		SetUniformV("AmbientLight", m_AmbientLight);
 		SetUniformDL("directionalLight", m_DirectionalLight);
 		for (int i = 0; i < MAX_POINT_LIGHTS; i++)
-		{
-			int T = ARRAY_SIZE(m_PointLights);
-			PointLight Temp = m_PointLights[i];
-			SetUniformPL("PointLights[" + std::to_string(i) + "]", Temp);
-		}
+			SetUniformPL("PointLights[" + std::to_string(i) + "]", m_PointLights[i]);
+		for (int i = 0; i < MAX_SPOT_LIGHTS; i++)
+			SetUniformSL("SpotLights[" + std::to_string(i) + "]", m_SpotLights[i]);
 		//Specular Reflection
 		SetUniformF("SpecularIntensity", material.GetSpecularIntensity());
 		SetUniformF("SpecularExponent", material.GetSpecularExponent());
@@ -79,6 +92,14 @@ namespace D3DEngine
 		SetUniformF(UniformName + ".Range", pointLight.GetRange());
 	}
 
+	void PhongShader::SetUniformSL(std::string UniformName, SpotLight& spotLight)
+	{
+		SetUniformPL(UniformName + ".PLight", spotLight.GetPointLight());
+		//
+		SetUniformV(UniformName + ".Direction", spotLight.GetDirection());
+		SetUniformF(UniformName + ".Cutoff", spotLight.GetCutoff());
+	}
+
 	void PhongShader::SetPointLight(PointLight* pointLights, int NumOfPointLights)
 	{
 		if (NumOfPointLights > MAX_POINT_LIGHTS)
@@ -88,7 +109,18 @@ namespace D3DEngine
 			return;
 		}
 		//Assign PointLights
-		//for(int i = 0; i < NumOfPointLights; i++)
 		m_PointLights = pointLights;
+	}
+
+	void PhongShader::SetSpotLight(SpotLight* spotLights, int NumOfSpotLights)
+	{
+		if (NumOfSpotLights > MAX_SPOT_LIGHTS)
+		{
+			std::cerr << "Error: Too Many Spot Lights. Max Allowed Is: " << MAX_SPOT_LIGHTS
+				<< " You passed in: " << NumOfSpotLights - MAX_SPOT_LIGHTS << std::endl;
+			return;
+		}
+		//Assign PointLights
+		m_SpotLights = spotLights;
 	}
 }

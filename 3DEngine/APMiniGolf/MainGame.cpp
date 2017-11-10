@@ -44,18 +44,20 @@ MainGame::MainGame(D3DEngine::Window* window, D3DEngine::Time* time)
 	m_BShader.SetAmbientLight(D3DEngine::Vector3f(.1, .1, .1));
 	m_BShader.SetTransform(&m_Transform);
 
-	m_pLights = new D3DEngine::PointLight[2];
-	m_pLights[0] = D3DEngine::PointLight(
-		D3DEngine::BaseLight(D3DEngine::Vector3f(1, .5, 0), 0.8),
-		D3DEngine::Attenuation(0, 0, 1),
-		D3DEngine::Vector3f(-2, 0, 5), 6);
+	m_pLights = new D3DEngine::PointLight[1];
+	m_pLights[0] = D3DEngine::PointLight(D3DEngine::BaseLight(D3DEngine::Vector3f(1, .5, 0), 0.8),D3DEngine::Attenuation(0, 0, 1),D3DEngine::Vector3f(-2, 0, 5), 6);
+	//m_pLights[1] = D3DEngine::PointLight(D3DEngine::BaseLight(D3DEngine::Vector3f(0, 0.5, 1), 0.8),D3DEngine::Attenuation(0, 0, 1),D3DEngine::Vector3f(2, 0, 7), 6);
+	m_BShader.SetPointLight(m_pLights, 1);
 
-	m_pLights[1] = D3DEngine::PointLight(
-		D3DEngine::BaseLight(D3DEngine::Vector3f(0, 0.5, 1), 0.8),
-		D3DEngine::Attenuation(0, 0, 1),
-		D3DEngine::Vector3f(2, 0, 7), 6);
-
-	m_BShader.SetPointLight(m_pLights, 2);
+	m_SpotLights = new D3DEngine::SpotLight[1];
+	m_SpotLights[0] = D3DEngine::SpotLight(
+		D3DEngine::PointLight(
+			D3DEngine::BaseLight(
+				D3DEngine::Vector3f(0, 1, 1),0.8),
+			D3DEngine::Attenuation(0, 0, .1),
+			D3DEngine::Vector3f(-2, 0, 5), 30), 
+		D3DEngine::Vector3f(1, 1, 1), 0.7f);
+	m_BShader.SetSpotLight(m_SpotLights, 1);
 }
 
 MainGame::~MainGame()
@@ -85,6 +87,10 @@ void MainGame::Update()
 	m_Transform.SetScaling(.4, .4, .4);
 
 	m_pLights[0].SetPosition(D3DEngine::Vector3f(TempAmount * 4, 0, 5));
+
+	//Move Spot Light To Camera
+	m_SpotLights[0].GetPointLight().SetPosition(m_Camera->GetPos());
+	m_SpotLights[0].SetDirection(m_Camera->GetForward());
 }
 
 void MainGame::Draw()

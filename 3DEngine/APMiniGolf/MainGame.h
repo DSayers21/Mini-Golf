@@ -8,6 +8,7 @@
 #include "Vert.h"
 #include "PhongShader.h"
 #include "PointLight.h"
+#include "SpotLight.h"
 #include "Transform.h"
 #include "ResourceLoader.h"
 #include "Camera.h"
@@ -37,5 +38,6 @@ private:
 	D3DEngine::PointLight* m_pLights;
 	D3DEngine::PointLight* m_PLight1;
 	D3DEngine::PointLight* m_PLight2;
+	D3DEngine::SpotLight* m_SpotLights;
 	float m_Wave = 0.0f;
 };

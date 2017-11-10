@@ -1,6 +1,7 @@
 #version 330
 
 const int MAX_POINT_LIGHTS = 4;
+const int MAX_SPOT_LIGHTS = 4;
 
 varying vec2 TexCoord0;
 varying vec3 Normal0;
@@ -30,11 +31,18 @@ struct PointLight {
 	float Range; //Max Distance a pixel can be from point light and still be affected
 };
 
+struct SpotLight {
+	PointLight PLight;
+	vec3 Direction;
+	float Cutoff; //Max Distance a pixel can be from point light and still be affected
+};
+
 //Uniforms
 uniform vec3 BaseColour;
 uniform vec3 AmbientLight;
 uniform DirectionalLight directionalLight;
 uniform PointLight PointLights[MAX_POINT_LIGHTS];
+uniform SpotLight SpotLights[MAX_SPOT_LIGHTS];
 uniform sampler2D Sampler;
 
 uniform vec3 EyePos; //Where the camera is
@@ -90,6 +98,19 @@ vec4 CalcPointLight(PointLight pointLight, vec3 Normal)
 	return Colour / Attenuation;
 }
 
+vec4 CalcSpotLight(SpotLight spotLight, vec3 Normal)
+{
+	vec3 LightDirection = normalize(WorldPos0 - spotLight.PLight.Position);
+	float SpotFactor = dot(LightDirection, spotLight.Direction);
+	vec4 Colour = vec4(0,0,0,0);
+	if(SpotFactor > spotLight.Cutoff)	//Is the pixel in the cone of the spot light?
+	{
+		Colour = CalcPointLight(spotLight.PLight, Normal) * 
+				(1.0 - (1.0 - SpotFactor)/(1.0 - spotLight.Cutoff));
+	}
+	return Colour;
+}
+
 void main()
 {
 	vec4 TotalLight = vec4(AmbientLight, 1);
@@ -109,9 +130,14 @@ void main()
 	for(int i = 0; i < MAX_POINT_LIGHTS; i++)
 	{
 		if(PointLights[i].Light.Intensity > 0)
-			if(PointLights[i].Light.Intensity > 0)
-				TotalLight += CalcPointLight(PointLights[i], Norm);
+			TotalLight += CalcPointLight(PointLights[i], Norm);
 	}
-
+	
+	for(int i = 0; i < MAX_SPOT_LIGHTS; i++)
+	{
+		if(SpotLights[i].PLight.Light.Intensity > 0)
+			TotalLight += CalcSpotLight(SpotLights[i], Norm);
+	}
+	
 	gl_FragColor = Colour * TotalLight;
 }
