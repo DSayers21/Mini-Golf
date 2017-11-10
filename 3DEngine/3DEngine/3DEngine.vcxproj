@@ -114,63 +114,6 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="Attenuation.cpp" />
-    <ClCompile Include="BaseLight.cpp" />
-    <ClCompile Include="BasicShader.cpp" />
-    <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="DirectionalLight.cpp" />
-    <ClCompile Include="Input.cpp" />
-    <ClCompile Include="MainComp.cpp" />
-    <ClCompile Include="Material.cpp" />
-    <ClCompile Include="Matrix4f.cpp" />
-    <ClCompile Include="Mesh.cpp" />
-    <ClCompile Include="PhongShader.cpp" />
-    <ClCompile Include="PointLight.cpp" />
-    <ClCompile Include="Quaternion.cpp" />
-    <ClCompile Include="RenderUtil.cpp" />
-    <ClCompile Include="ResourceLoader.cpp" />
-    <ClCompile Include="Shader.cpp" />
-    <ClCompile Include="SpotLight.cpp" />
-    <ClCompile Include="stb_image.c" />
-    <ClCompile Include="Texture.cpp" />
-    <ClCompile Include="Time.cpp" />
-    <ClCompile Include="Transform.cpp" />
-    <ClCompile Include="Util.cpp" />
-    <ClCompile Include="Vector2f.cpp" />
-    <ClCompile Include="Vector3f.cpp" />
-    <ClCompile Include="Vert.cpp" />
-    <ClCompile Include="Window.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Attenuation.h" />
-    <ClInclude Include="BaseLight.h" />
-    <ClInclude Include="BasicShader.h" />
-    <ClInclude Include="Camera.h" />
-    <ClInclude Include="DirectionalLight.h" />
-    <ClInclude Include="Input.h" />
-    <ClInclude Include="MainComp.h" />
-    <ClInclude Include="Material.h" />
-    <ClInclude Include="MathBasics.h" />
-    <ClInclude Include="Matrix4f.h" />
-    <ClInclude Include="Mesh.h" />
-    <ClInclude Include="PhongShader.h" />
-    <ClInclude Include="PointLight.h" />
-    <ClInclude Include="Quaternion.h" />
-    <ClInclude Include="RenderUtil.h" />
-    <ClInclude Include="ResourceLoader.h" />
-    <ClInclude Include="Shader.h" />
-    <ClInclude Include="SpotLight.h" />
-    <ClInclude Include="stb_image.h" />
-    <ClInclude Include="Texture.h" />
-    <ClInclude Include="Time.h" />
-    <ClInclude Include="Transform.h" />
-    <ClInclude Include="Util.h" />
-    <ClInclude Include="Vector2f.h" />
-    <ClInclude Include="Vector3f.h" />
-    <ClInclude Include="Vert.h" />
-    <ClInclude Include="Window.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

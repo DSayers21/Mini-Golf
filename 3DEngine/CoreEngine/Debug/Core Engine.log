@@ -1,0 +1,4 @@
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(387,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (Core Engine.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  MainComp.cpp
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\input.h(392): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\vert.h(2): fatal error C1083: Cannot open include file: 'Vector2f.h': No such file or directory

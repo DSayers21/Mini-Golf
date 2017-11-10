@@ -72,7 +72,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ExecutablePath>$(VC_ExecutablePath_x86);$(WindowsSDK_ExecutablePath);$(VS_ExecutablePath);$(MSBuild_ExecutablePath);$(SystemRoot)\SysWow64;$(FxCopDir);$(PATH);</ExecutablePath>
     <LibraryPath>$(SolutionDir)Lib/;$(SolutionDir)Debug/;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)Include/;$(SolutionDir)3DEngine/;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)Include/;$(SolutionDir)3DEngine/;$(SolutionDir)CoreEngine/;$(SolutionDir)PhysicsEngine/;$(SolutionDir)RenderingEngine/;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -82,7 +82,7 @@
       <AdditionalIncludeDirectories>.\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>3DEngine.lib;glew32.lib;glew32s.lib;SDL2.lib;SDL2main.lib;SDL2test.lib;OpenGL32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>3DEngine.lib;CoreEngine.lib;PhysicsEngine.lib;RenderingEngine.lib;glew32.lib;glew32s.lib;SDL2.lib;SDL2main.lib;SDL2test.lib;OpenGL32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>NotSet</SubSystem>
       <EntryPointSymbol>
       </EntryPointSymbol>

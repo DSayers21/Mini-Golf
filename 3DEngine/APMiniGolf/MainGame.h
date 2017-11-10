@@ -10,10 +10,11 @@
 #include "PointLight.h"
 #include "SpotLight.h"
 #include "Transform.h"
-#include "ResourceLoader.h"
 #include "Camera.h"
 #include "Vector3f.h"
 #include <iostream>
+
+
 
 class MainGame
 {
