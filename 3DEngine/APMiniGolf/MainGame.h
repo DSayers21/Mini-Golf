@@ -25,6 +25,11 @@ public:
 	void Input();
 	void Update();
 	void Draw();
+
+	//Setters
+	inline void SetWindow(D3DEngine::Window* Window) { m_Window = Window; }
+	inline void SetTime(D3DEngine::Time* Time) { m_Time = Time; }
+		
 private:
 	D3DEngine::Window* m_Window;
 	D3DEngine::Time* m_Time;

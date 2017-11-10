@@ -10,7 +10,7 @@ namespace D3DEngine
 	class MainComp
 	{
 	public:
-		MainComp(D3DEngine::Window& window);
+		MainComp(std::string Title, int Width, int Height, int FrameRate);
 		~MainComp();
 
 		void Start();
@@ -23,6 +23,7 @@ namespace D3DEngine
 
 		Window* m_Window;
 		double m_FrameCap = 5000.0;
+		double m_FrameTime;
 		Time* m_Time;
 		MainGame* m_Game;
 	};

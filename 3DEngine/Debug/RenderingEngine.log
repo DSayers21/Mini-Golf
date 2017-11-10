@@ -1,2 +1,40 @@
-﻿  PhongShader.cpp
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\transform.h(5): fatal error C1083: Cannot open include file: 'Camera.h': No such file or directory
+﻿  Window.cpp
+  Vert.cpp
+  Texture.cpp
+  SpotLight.cpp
+  Shader.cpp
+  RenderUtil.cpp
+  PointLight.cpp
+  PhongShader.cpp
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\input.h(392): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\phongshader.h(31): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\phongshader.cpp(7): warning C4305: 'argument': truncation from 'double' to 'float'
+  Mesh.cpp
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\mesh.h(16): warning C4227: anachronism used: qualifiers on reference are ignored
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\mesh.cpp(6): warning C4227: anachronism used: qualifiers on reference are ignored
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\mesh.cpp(139): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\mesh.cpp(142): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\mesh.cpp(143): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\mesh.cpp(144): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\mesh.cpp(148): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\mesh.cpp(149): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\mesh.cpp(150): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\mesh.cpp(160): warning C4018: '<': signed/unsigned mismatch
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\mesh.cpp(164): warning C4018: '<': signed/unsigned mismatch
+  Material.cpp
+  DirectionalLight.cpp
+  Camera.cpp
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\input.h(392): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\camera.cpp(26): warning C4305: 'initializing': truncation from 'double' to 'float'
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\camera.cpp(27): warning C4305: 'initializing': truncation from 'double' to 'float'
+  BasicShader.cpp
+  BaseLight.cpp
+  Attenuation.cpp
+  Generating Code...
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector2f.h(22): warning C4172: returning address of local variable or temporary
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(27): warning C4172: returning address of local variable or temporary
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(22): warning C4172: returning address of local variable or temporary
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(24): warning C4172: returning address of local variable or temporary
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(22): warning C4172: returning address of local variable or temporary
+  stb_image.c
+  RenderingEngine.vcxproj -> C:\Users\Satan\Documents\GitHub\Pool Game\Mini-Golf\3DEngine\Debug\RenderingEngine.lib

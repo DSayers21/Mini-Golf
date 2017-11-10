@@ -5,7 +5,6 @@
 #include <iostream>
 #include <string>
 //My Includes
-#include <Window.h>
 #include <MainComp.h>
 
 #ifdef _WIN32
@@ -14,10 +13,7 @@
 
 int main(int argc, char** argv)
 {
-	D3DEngine::Window m_Window;
-	std::string Title = "Hello";
-	m_Window.Init(Title, 800, 600);
-	D3DEngine::MainComp m_MainComp(m_Window);
-	m_MainComp.Start();
+	std::string Title = "Advanced Programming Assignment";
+	D3DEngine::MainComp m_MainComp(Title, 800, 600, 5000);
 	return 0;
 }
