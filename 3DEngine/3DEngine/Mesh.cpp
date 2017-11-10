@@ -2,37 +2,28 @@
 
 namespace D3DEngine
 {
-	Mesh::Mesh()
+	//LoadMesh(std::string FileName)
+	Mesh::Mesh(std::string& const FileName)
 	{
-		glGenBuffers(1, &m_VBO);
-		glGenBuffers(1, &m_IBO);
-		m_VertSize = 0;
-		m_IndicesSize = 0;
+		InitMeshData();
+		LoadMesh(FileName);
+	}
+
+	Mesh::Mesh(Vert* Vertices, int VertSize, int* Indices, int IndexSize)
+	{
+		*this = Mesh(Vertices, VertSize, Indices, IndexSize, false);
+	}
+
+	Mesh::Mesh(Vert* Vertices, int VertSize, int* Indices, int IndexSize, bool calcNormals)
+	{
+		InitMeshData();
+		AddVertices(Vertices, VertSize, Indices, IndexSize, calcNormals);
 	}
 
 	Mesh::~Mesh()
 	{
 		if (m_VBO) glDeleteBuffers(1, &m_VBO);
 		if (m_IBO) glDeleteBuffers(1, &m_IBO);
-	}
-
-	void Mesh::AddVertices(Vert* Vertices, int VertSize, int* Indices, int IndexSize)
-	{
-		AddVertices(Vertices, VertSize, Indices, IndexSize, true);
-	}
-
-	void Mesh::AddVertices(Vert* Vertices, int VertSize, int* Indices, int IndexSize, bool calcNormals)
-	{
-		if (calcNormals)
-			this->CalcNormals(Vertices, VertSize, Indices, IndexSize);
-
-		m_VertSize = VertSize;
-		m_IndicesSize = IndexSize;
-		glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
-		glBufferData(GL_ARRAY_BUFFER, m_VertSize * sizeof(Vert), Vertices, GL_STATIC_DRAW);
-
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IBO);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_IndicesSize * sizeof(int), Indices, GL_STATIC_DRAW);
 	}
 
 	void Mesh::Draw()
@@ -56,7 +47,30 @@ namespace D3DEngine
 		glDisableVertexAttribArray(2);
 
 	}
+
 	//Private
+	void Mesh::InitMeshData()
+	{
+		glGenBuffers(1, &m_VBO);
+		glGenBuffers(1, &m_IBO);
+		m_VertSize = 0;
+		m_IndicesSize = 0;
+	}
+
+	void Mesh::AddVertices(Vert* Vertices, int VertSize, int* Indices, int IndexSize, bool calcNormals)
+	{
+		if (calcNormals)
+			this->CalcNormals(Vertices, VertSize, Indices, IndexSize);
+
+		m_VertSize = VertSize;
+		m_IndicesSize = IndexSize;
+		glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
+		glBufferData(GL_ARRAY_BUFFER, m_VertSize * sizeof(Vert), Vertices, GL_STATIC_DRAW);
+
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IBO);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_IndicesSize * sizeof(int), Indices, GL_STATIC_DRAW);
+	}
+
 	void Mesh::CalcNormals(Vert* Vertices, int VertSize, int* Indices, int IndexSize)
 	{
 
@@ -90,5 +104,66 @@ namespace D3DEngine
 			Vertices[i].SetNormal(NewN);
 			Points.push_back(&Vertices[i]);
 		}
+	}
+
+	void Mesh::LoadMesh(std::string FileName)
+	{
+		std::vector<std::string> SplitArray = Util::Split(FileName, '.');
+		std::string Ext = SplitArray[SplitArray.size() - 1];;
+
+		if (Ext != "obj")
+			std::cerr << "Error: File format not supported for mesh data: " << Ext << std::endl;
+
+		//Change to Pointer stuff
+		std::vector<Vert> Vertices;
+		std::vector<int> Indices;
+
+		std::ifstream File;
+		File.open((FileName).c_str());
+
+		std::string Output;
+		std::string Line;
+
+		if (File.is_open())
+		{
+			while (File.good())
+			{
+				getline(File, Line);
+
+				std::vector<std::string> Tokens = Util::Split(Line, ' ');
+				Tokens = Util::RemoveEmptyStrings(Tokens);
+				//Skip empty lines and comments
+				if ((Tokens.size() == 0) || (Tokens[0] == "#"))
+					continue;
+				else if (Tokens[0] == "v") //Vertex
+					Vertices.push_back(Vector3f(::atof(Tokens[1].c_str()), ::atof(Tokens[2].c_str()), ::atof(Tokens[3].c_str())));
+				else if (Tokens[0] == "f") //Faces
+				{
+					Indices.push_back(::atof(Util::Split(Tokens[1], '/')[0].c_str()) - 1);
+					Indices.push_back(::atof(Util::Split(Tokens[2], '/')[0].c_str()) - 1);
+					Indices.push_back(::atof(Util::Split(Tokens[3], '/')[0].c_str()) - 1);
+
+					if (Tokens.size() > 4)
+					{
+						Indices.push_back(::atof(Util::Split(Tokens[1], '/')[0].c_str()) - 1);
+						Indices.push_back(::atof(Util::Split(Tokens[3], '/')[0].c_str()) - 1);
+						Indices.push_back(::atof(Util::Split(Tokens[4], '/')[0].c_str()) - 1);
+					}
+				}
+			}
+		}
+		else
+			std::cerr << "Unable to load mesh: " << FileName << std::endl;
+
+		Vert* VertexData = new Vert[Vertices.size()];
+
+		for (int i = 0; i < Vertices.size(); i++)
+			VertexData[i] = Vertices[i];
+
+		int* IndexData = new int[Indices.size()];
+		for (int i = 0; i < Indices.size(); i++)
+			IndexData[i] = Indices[i];
+
+		AddVertices(&Vertices[0], Vertices.size(), &Indices[0], Indices.size(), true);
 	}
 }

@@ -6,8 +6,8 @@ namespace D3DEngine
 	{
 		m_DirectionalLight = DirectionalLight(BaseLight(Vector3f(1, 1, 1), .1), Vector3f(1, 1, 1));
 
-		AddVertexShader(D3DEngine::ResourceLoader::LoadShader("PhongShader.vert"));
-		AddFragmentShader(D3DEngine::ResourceLoader::LoadShader("PhongShader.frag"));
+		AddVertexShaderFromFile("PhongShader.vert");
+		AddFragmentShaderFromFile("PhongShader.frag");
 		CompileShader();
 		//Uniforms
 		AddUniform("Transform");

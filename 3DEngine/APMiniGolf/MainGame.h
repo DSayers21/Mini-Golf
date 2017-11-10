@@ -28,7 +28,7 @@ private:
 	D3DEngine::Window* m_Window;
 	D3DEngine::Time* m_Time;
 	D3DEngine::Input* m_Input;
-	D3DEngine::Mesh m_Mesh;
+	D3DEngine::Mesh* m_Mesh;
 	D3DEngine::PhongShader m_BShader;
 	D3DEngine::Transform m_Transform;
 	D3DEngine::Camera* m_Camera;

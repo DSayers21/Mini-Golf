@@ -25,6 +25,9 @@ namespace D3DEngine
 		inline void AddVertexShader(std::string Text) { AddProgram(Text, GL_VERTEX_SHADER); }
 		inline void AddFragmentShader(std::string Text) { AddProgram(Text, GL_FRAGMENT_SHADER); }
 		inline void AddGeometryShader(std::string Text) { AddProgram(Text, GL_GEOMETRY_SHADER); }
+		inline void AddVertexShaderFromFile(std::string FileName) { AddProgram(LoadShader(FileName), GL_VERTEX_SHADER); }
+		inline void AddFragmentShaderFromFile(std::string FileName) { AddProgram(LoadShader(FileName), GL_FRAGMENT_SHADER); }
+		inline void AddGeometryShaderFromFile(std::string FileName) { AddProgram(LoadShader(FileName), GL_GEOMETRY_SHADER); }
 		//Uniforms
 		void UpdateUniforms(Matrix4f WorldMatrix, Matrix4f ProjectedMatrix, Material material);
 
@@ -36,10 +39,9 @@ namespace D3DEngine
 		void SetUniformDL(std::string UniformName, DirectionalLight DirLight);
 		void SetUniformBL(std::string UniformName, BaseLight BaseLight);
 	private:
-		
 		void AddProgram(std::string Text, int Type);
 		static void CheckShaderError(int Shader, int Flag, bool isProgram, const std::string& ErrorMessage);
-
+		std::string Shader::LoadShader(const std::string& fileName);
 
 		int m_Program;
 		std::map<std::string, int> m_Uniforms = std::map<std::string, int>();

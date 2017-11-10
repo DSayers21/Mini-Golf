@@ -1,9 +1,16 @@
-﻿  PointLight.cpp
-  PhongShader.cpp
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\3dengine\input.h(392): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\3dengine\phongshader.h(26): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\3dengine\phongshader.cpp(7): warning C4305: 'argument': truncation from 'double' to 'float'
-  Generating Code...
-  Skipping... (no relevant changes detected)
-  MainComp.cpp
+﻿  Mesh.cpp
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\3dengine\mesh.h(16): warning C4227: anachronism used: qualifiers on reference are ignored
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\3dengine\mesh.cpp(6): warning C4227: anachronism used: qualifiers on reference are ignored
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\3dengine\mesh.cpp(139): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\3dengine\mesh.cpp(142): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\3dengine\mesh.cpp(143): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\3dengine\mesh.cpp(144): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\3dengine\mesh.cpp(148): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\3dengine\mesh.cpp(149): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\3dengine\mesh.cpp(150): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\3dengine\mesh.cpp(160): warning C4018: '<': signed/unsigned mismatch
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\3dengine\mesh.cpp(164): warning C4018: '<': signed/unsigned mismatch
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\3dengine\vector3f.h(24): warning C4172: returning address of local variable or temporary
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\3dengine\vector3f.h(22): warning C4172: returning address of local variable or temporary
+ResourceLoader.obj : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
   3DEngine.vcxproj -> C:\Users\Satan\Documents\GitHub\Pool Game\Mini-Golf\3DEngine\Debug\3DEngine.lib

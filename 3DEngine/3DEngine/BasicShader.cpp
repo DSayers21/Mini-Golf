@@ -4,8 +4,8 @@ namespace D3DEngine
 {
 	BasicShader::BasicShader()
 	{
-		AddVertexShader(D3DEngine::ResourceLoader::LoadShader("BasicShader.vert"));
-		AddFragmentShader(D3DEngine::ResourceLoader::LoadShader("BasicShader.frag"));
+		AddVertexShaderFromFile("BasicShader.vert");
+		AddFragmentShaderFromFile("BasicShader.frag");
 		CompileShader();
 		//Uniforms
 		AddUniform("Transform");

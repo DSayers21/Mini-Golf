@@ -36,7 +36,7 @@ MainGame::MainGame(D3DEngine::Window* window, D3DEngine::Time* time)
 	};
 	int Indices[] = { 0, 1, 2 ,2, 1, 3 };
 
-	m_Mesh.AddVertices(Vertices, 4, Indices, 6);
+	m_Mesh = new D3DEngine::Mesh(Vertices, 4, Indices, 6, true);
 	//Transform
 	m_Transform.SetProjection(70.0f, m_Window->GetWidth(), m_Window->GetHeight(), 0.1f, 1000.0f);
 	m_Transform.SetCamera(m_Camera);
@@ -44,10 +44,10 @@ MainGame::MainGame(D3DEngine::Window* window, D3DEngine::Time* time)
 	m_BShader.SetAmbientLight(D3DEngine::Vector3f(.1, .1, .1));
 	m_BShader.SetTransform(&m_Transform);
 
-	m_pLights = new D3DEngine::PointLight[1];
+	m_pLights = new D3DEngine::PointLight[2];
 	m_pLights[0] = D3DEngine::PointLight(D3DEngine::BaseLight(D3DEngine::Vector3f(1, .5, 0), 0.8),D3DEngine::Attenuation(0, 0, 1),D3DEngine::Vector3f(-2, 0, 5), 6);
-	//m_pLights[1] = D3DEngine::PointLight(D3DEngine::BaseLight(D3DEngine::Vector3f(0, 0.5, 1), 0.8),D3DEngine::Attenuation(0, 0, 1),D3DEngine::Vector3f(2, 0, 7), 6);
-	m_BShader.SetPointLight(m_pLights, 1);
+	m_pLights[1] = D3DEngine::PointLight(D3DEngine::BaseLight(D3DEngine::Vector3f(0, 0.5, 1), 0.8),D3DEngine::Attenuation(0, 0, 1),D3DEngine::Vector3f(2, 0, 7), 6);
+	m_BShader.SetPointLight(m_pLights, 2);
 
 	m_SpotLights = new D3DEngine::SpotLight[1];
 	m_SpotLights[0] = D3DEngine::SpotLight(
@@ -97,5 +97,5 @@ void MainGame::Draw()
 {
 	m_BShader.Bind();
 	m_BShader.UpdateUniforms(m_Transform.GetTransformation(), m_Transform.GetProjectedTransformation(), *m_Material);
-	m_Mesh.Draw();
+	m_Mesh->Draw();
 }
