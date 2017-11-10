@@ -28,7 +28,6 @@ namespace D3DEngine
 
 	void Mesh::Draw()
 	{
-		Points;
 		glEnableVertexAttribArray(0);
 		glEnableVertexAttribArray(1);
 		glEnableVertexAttribArray(2);
@@ -102,7 +101,6 @@ namespace D3DEngine
 			Vector3f New = Vertices[i].GetNormal();
 			Vector3f NewN = New.Normalise();
 			Vertices[i].SetNormal(NewN);
-			Points.push_back(&Vertices[i]);
 		}
 	}
 

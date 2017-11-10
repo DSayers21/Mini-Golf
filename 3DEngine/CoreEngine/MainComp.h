@@ -4,7 +4,7 @@
 #include "Time.h"
 #include <iostream>
 #include "MainGame.h"
-#include "TestGame.h"
+#include "RenderEngine.h"
 
 namespace D3DEngine
 {
@@ -27,5 +27,6 @@ namespace D3DEngine
 		double m_FrameTime;
 		Time* m_Time;
 		MainGame* m_Game;
+		RenderEngine* m_RenderEngine;
 	};
 }

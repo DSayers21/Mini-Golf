@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Transform.h"
+#include "Shader.h"
 
 namespace D3DEngine
 {
@@ -12,6 +13,6 @@ namespace D3DEngine
 
 		virtual void Input(Transform transform);
 		virtual void Update(Transform transform);
-		virtual void Draw(Transform* transform);
+		virtual void Draw(Transform* transform, Shader* shader);
 	};
 }

@@ -30,7 +30,7 @@ namespace D3DEngine
 		inline void AddFragmentShaderFromFile(std::string FileName) { AddProgram(LoadShader(FileName), GL_FRAGMENT_SHADER); }
 		inline void AddGeometryShaderFromFile(std::string FileName) { AddProgram(LoadShader(FileName), GL_GEOMETRY_SHADER); }
 		//Uniforms
-		void UpdateUniforms(Matrix4f WorldMatrix, Matrix4f ProjectedMatrix, Material material);
+		virtual void UpdateUniforms(Matrix4f WorldMatrix, Matrix4f ProjectedMatrix, Material material);
 
 		void AddUniform(std::string Uniform);
 		void SetUniformI(std::string UniformName, int Value);
@@ -39,7 +39,7 @@ namespace D3DEngine
 		void SetUniformM4(const std::string UniformName, const Matrix4f& Value);
 		void SetUniformDL(std::string UniformName, DirectionalLight DirLight);
 		void SetUniformBL(std::string UniformName, BaseLight BaseLight);
-	private:
+	protected:
 		void AddProgram(std::string Text, int Type);
 		static void CheckShaderError(int Shader, int Flag, bool isProgram, const std::string& ErrorMessage);
 		std::string Shader::LoadShader(const std::string& fileName);

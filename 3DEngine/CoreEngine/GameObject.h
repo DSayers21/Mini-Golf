@@ -1,8 +1,10 @@
 #pragma once
 
 #include <vector>
+#include "GameObject.h"
 #include "GameComponent.h"
 #include "Transform.h"
+#include "Shader.h"
 
 namespace D3DEngine
 {
@@ -17,7 +19,7 @@ namespace D3DEngine
 
 		void Input();
 		void Update();
-		void Draw();
+		void Draw(Shader* shader);
 
 		//Getters
 		inline Transform* GetTransform() { return m_Transform; }

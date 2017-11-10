@@ -9,7 +9,10 @@ namespace D3DEngine
 		m_Game = Game;
 		m_Game->SetWindow(m_Window);
 		m_Game->SetTime(m_Time);
-		m_FrameTime = 1.0 / FrameRate;			
+		m_FrameTime = 1.0 / FrameRate;		
+
+		m_RenderEngine = new D3DEngine::RenderEngine();
+
 		Start();
 	}
 
@@ -67,7 +70,11 @@ namespace D3DEngine
 			}
 			if (Render)
 			{
-				Draw();
+				//Draw();
+				m_Window->Clear();
+				m_RenderEngine->Render(m_Game->GetRootObject());
+				m_Window->Update();
+
 				Frames++;
 			}
 		}
@@ -75,10 +82,10 @@ namespace D3DEngine
 
 	void MainComp::Draw()
 	{
-		m_Window->Clear();
+		//m_Window->Clear();
 
-		m_Game->Draw();
-		m_Window->Update();
+		//m_Game->Draw();
+		//m_Window->Update();
 	}
 
 	void MainComp::Destroy()

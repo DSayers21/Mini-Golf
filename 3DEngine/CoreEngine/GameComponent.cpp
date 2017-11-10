@@ -19,7 +19,8 @@ namespace D3DEngine
 	{
 	}
 
-	void GameComponent::Draw(Transform* transform)
+	void GameComponent::Draw(Transform* transform, Shader* shader)
 	{
+
 	}
 }

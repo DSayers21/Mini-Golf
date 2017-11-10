@@ -7,7 +7,7 @@
 #include "Texture.h"
 #include "Material.h"
 #include "Vert.h"
-#include "PhongShader.h"
+#include "BasicShader.h"
 #include "PointLight.h"
 #include "SpotLight.h"
 #include "Transform.h"
@@ -25,15 +25,11 @@ public:
 
 	void Init();
 	void Input();
-	void Update();
-	void Draw();
+	//void Update();
 
 	//Setters
 
 private:
-	D3DEngine::GameObject* m_RootObject;
-
-
 	D3DEngine::PointLight* m_pLights;
 	D3DEngine::PointLight* m_PLight1;
 	D3DEngine::PointLight* m_PLight2;

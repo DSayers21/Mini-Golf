@@ -30,8 +30,12 @@ void TestGame::Init()
 	D3DEngine::Mesh* mesh = new D3DEngine::Mesh(Vertices, 4, Indices, 6, true);
 	D3DEngine::Material* material = new D3DEngine::Material(D3DEngine::Texture("./Textures/Test.png"), D3DEngine::Vector3f(0, 0, 0), 1, 8);
 
+	D3DEngine::GameObject* PlaneObject = new D3DEngine::GameObject(m_Camera);
 	MeshRenderer* meshRenderer = new MeshRenderer(mesh, material);
-	m_RootObject->AddComponent(meshRenderer);
+	PlaneObject->AddComponent(meshRenderer);
+	PlaneObject->GetTransform()->SetTranslation(-2, -1, 5);
+	m_RootObject->AddChild(PlaneObject);
+	
 }
 
 void TestGame::Input()
@@ -47,14 +51,4 @@ void TestGame::Input()
 		std::cout << "Mouse Pressed Left at:: (" << MX << "," << MY << ")" << std::endl;
 	}
 	m_RootObject->Input();
-}
-
-void TestGame::Update()
-{
-	m_RootObject->Update();
-}
-
-void TestGame::Draw()
-{
-	m_RootObject->Draw();
 }

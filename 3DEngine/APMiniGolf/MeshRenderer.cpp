@@ -1,7 +1,5 @@
 #include "MeshRenderer.h"
 
-
-
 MeshRenderer::MeshRenderer(D3DEngine::Mesh* mesh, D3DEngine::Material* material)
 {
 	m_Mesh = mesh;
@@ -12,9 +10,9 @@ MeshRenderer::~MeshRenderer()
 {
 }
 
-void MeshRenderer::Draw(D3DEngine::Transform* transform)
+void MeshRenderer::Draw(D3DEngine::Transform* transform, D3DEngine::Shader* shader)
 {
-	m_Shader->Bind();
-	m_Shader->UpdateUniforms(transform->GetTransformation(), transform->GetProjectedTransformation(), *m_Material);
+	shader->Bind();
+	shader->UpdateUniforms(transform->GetTransformation(), transform->GetProjectedTransformation(), *m_Material);
 	m_Mesh->Draw();
 }
