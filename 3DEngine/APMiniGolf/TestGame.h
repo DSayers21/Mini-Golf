@@ -14,6 +14,8 @@
 #include "Camera.h"
 #include "Vector3f.h"
 #include <iostream>
+#include "MeshRenderer.h"
+#include "GameObject.h"
 
 class TestGame : public MainGame
 {
@@ -29,11 +31,8 @@ public:
 	//Setters
 
 private:
-	D3DEngine::Mesh* m_Mesh;
-	D3DEngine::PhongShader* m_BShader;
-	D3DEngine::Transform* m_Transform;
-	//D3DEngine::Texture* m_Texture;
-	D3DEngine::Material* m_Material;
+	D3DEngine::GameObject* m_RootObject;
+
 
 	D3DEngine::PointLight* m_pLights;
 	D3DEngine::PointLight* m_PLight1;

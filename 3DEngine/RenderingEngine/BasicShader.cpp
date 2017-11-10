@@ -9,7 +9,7 @@ namespace D3DEngine
 		CompileShader();
 		//Uniforms
 		AddUniform("Transform");
-		AddUniform("Colour");
+		AddUniform("BaseColour");
 	}
 
 	BasicShader::~BasicShader()
@@ -24,6 +24,6 @@ namespace D3DEngine
 			RenderUtil::UnBindTextures();
 
 		SetUniformM4("Transform", ProjectedMatrix);
-		SetUniformV("Colour", *material.GetColour());
+		SetUniformV("BaseColour", *material.GetColour());
 	}
 }

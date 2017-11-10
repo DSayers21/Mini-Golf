@@ -34,8 +34,6 @@ namespace D3DEngine
 		CameraRotMat.InitCamera(m_Camera->GetForward(), m_Camera->GetUp());
 		CameraTransMat.InitTranslation(-m_Camera->GetPos().GetX(), -m_Camera->GetPos().GetY(), -m_Camera->GetPos().GetZ());
 
-
-
 		return ProjMat.Mult(CameraRotMat.Mult(CameraTransMat.Mult(TransMat)));
 	}
 
