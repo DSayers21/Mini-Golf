@@ -6,6 +6,7 @@
 #include <string>
 //My Includes
 #include <MainComp.h>
+#include "TestGame.h"
 
 #ifdef _WIN32
 #undef main
@@ -14,6 +15,6 @@
 int main(int argc, char** argv)
 {
 	std::string Title = "Advanced Programming Assignment";
-	D3DEngine::MainComp m_MainComp(Title, 800, 600, 5000);
+	D3DEngine::MainComp m_MainComp(Title, 800, 600, 5000, new TestGame());
 	return 0;
 }

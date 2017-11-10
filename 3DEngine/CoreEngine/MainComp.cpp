@@ -2,11 +2,13 @@
 
 namespace D3DEngine
 {
-	MainComp::MainComp(std::string Title, int Width, int Height, int FrameRate)
+	MainComp::MainComp(std::string Title, int Width, int Height, int FrameRate, MainGame* Game)
 	{
 		m_Window = new D3DEngine::Window();
 		m_Window->Init(Title, Width, Height);
-		m_Game = new MainGame(m_Window, m_Time);
+		m_Game = Game;
+		m_Game->SetWindow(m_Window);
+		m_Game->SetTime(m_Time);
 		m_FrameTime = 1.0 / FrameRate;			
 		Start();
 	}
@@ -35,6 +37,8 @@ namespace D3DEngine
 		bool Render = false;
 		int Frames = 0;
 		long FrameCounter = 0;
+
+		m_Game->Init();
 
 		while (!m_Window->IsClosed())
 		{

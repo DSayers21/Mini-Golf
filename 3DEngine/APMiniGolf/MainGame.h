@@ -14,36 +14,23 @@
 #include "Vector3f.h"
 #include <iostream>
 
-
-
 class MainGame
 {
 public:
-	MainGame(D3DEngine::Window* window, D3DEngine::Time* time);
+	MainGame();
 	~MainGame();
 
-	void Input();
-	void Update();
-	void Draw();
-
+	virtual void Init();
+	virtual void Input();
+	virtual void Update();
+	virtual void Draw();
 	//Setters
-	inline void SetWindow(D3DEngine::Window* Window) { m_Window = Window; }
-	inline void SetTime(D3DEngine::Time* Time) { m_Time = Time; }
-		
-private:
+	virtual inline void SetTime(D3DEngine::Time* time) { m_Time = time; }
+	virtual void SetWindow(D3DEngine::Window* Window);
+
+protected:
 	D3DEngine::Window* m_Window;
 	D3DEngine::Time* m_Time;
 	D3DEngine::Input* m_Input;
-	D3DEngine::Mesh* m_Mesh;
-	D3DEngine::PhongShader m_BShader;
-	D3DEngine::Transform m_Transform;
 	D3DEngine::Camera* m_Camera;
-	//D3DEngine::Texture* m_Texture;
-	D3DEngine::Material* m_Material;
-
-	D3DEngine::PointLight* m_pLights;
-	D3DEngine::PointLight* m_PLight1;
-	D3DEngine::PointLight* m_PLight2;
-	D3DEngine::SpotLight* m_SpotLights;
-	float m_Wave = 0.0f;
 };

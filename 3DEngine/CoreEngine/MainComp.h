@@ -4,13 +4,14 @@
 #include "Time.h"
 #include <iostream>
 #include "MainGame.h"
+#include "TestGame.h"
 
 namespace D3DEngine
 {
 	class MainComp
 	{
 	public:
-		MainComp(std::string Title, int Width, int Height, int FrameRate);
+		MainComp(std::string Title, int Width, int Height, int FrameRate, MainGame* Game);
 		~MainComp();
 
 		void Start();
