@@ -14,6 +14,8 @@
 
 namespace D3DEngine
 {
+	class RenderEngine;
+
 	class Shader
 	{
 	public:
@@ -39,6 +41,10 @@ namespace D3DEngine
 		void SetUniformM4(const std::string UniformName, const Matrix4f& Value);
 		void SetUniformDL(std::string UniformName, DirectionalLight DirLight);
 		void SetUniformBL(std::string UniformName, BaseLight BaseLight);
+
+		inline void SetRenderEngine(RenderEngine* renderEngine) { m_RenderEngine = renderEngine; }
+		inline RenderEngine* GetRenderEngine() { return m_RenderEngine; }
+
 	protected:
 		void AddProgram(std::string Text, int Type);
 		static void CheckShaderError(int Shader, int Flag, bool isProgram, const std::string& ErrorMessage);
@@ -46,5 +52,7 @@ namespace D3DEngine
 
 		int m_Program;
 		std::map<std::string, int> m_Uniforms = std::map<std::string, int>();
+
+		RenderEngine* m_RenderEngine;
 	};
 }

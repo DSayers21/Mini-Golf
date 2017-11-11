@@ -1,4 +1,5 @@
 #include "Shader.h"
+#include "RenderEngine.h"
 
 namespace D3DEngine
 {
