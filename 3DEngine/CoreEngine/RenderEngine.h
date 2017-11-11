@@ -4,7 +4,9 @@
 #include "Shader.h"
 #include "ForwardAmbient.h"
 #include "ForwardDirectional.h"
+#include "ForwardPoint.h"
 #include "DirectionalLight.h"
+#include "PointLight.h"
 #include "MathBasics.h"
 #include "Camera.h"
 #include "Vector3f.h"
@@ -37,12 +39,16 @@ namespace D3DEngine
 		//Getters
 		inline Vector3f GetAmbientLight() { return m_AmbientLight; }
 		inline DirectionalLight GetDirectionalLight() { return m_DirectionalLight; }
+		inline PointLight GetPointLight() { return m_PointLight; }
 	private:
 		Shader* m_ShaderForwardAmbient;
 		Shader* m_ShaderForwardDirectional;
+		Shader* m_ShaderPointLight;
+
 		Camera* m_Camera;
 		Vector3f m_AmbientLight;
 		DirectionalLight m_DirectionalLight;
 		DirectionalLight m_DirectionalLight2;
+		PointLight m_PointLight;
 	};
 }

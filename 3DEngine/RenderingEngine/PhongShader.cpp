@@ -81,18 +81,6 @@ namespace D3DEngine
 		SetUniformV("EyePos", GetRenderEngine()->GetCamera()->GetPos());
 	}
 
-	void PhongShader::SetUniformPL(std::string UniformName, PointLight& pointLight)
-	{
-		SetUniformBL(UniformName + ".Light", pointLight.GetBaseLight());
-		//Attenuation
-		SetUniformF(UniformName + ".Atten.Constant", pointLight.GetAttenuation().GetConstant());
-		SetUniformF(UniformName + ".Atten.Linear", pointLight.GetAttenuation().GetLinear());
-		SetUniformF(UniformName + ".Atten.Exponent", pointLight.GetAttenuation().GetExponent());
-
-		SetUniformV(UniformName + ".Position", pointLight.GetPosition());
-		SetUniformF(UniformName + ".Range", pointLight.GetRange());
-	}
-
 	void PhongShader::SetUniformSL(std::string UniformName, SpotLight& spotLight)
 	{
 		SetUniformPL(UniformName + ".PLight", spotLight.GetPointLight());

@@ -12,10 +12,15 @@ namespace D3DEngine
 		//Directional Light
 		m_ShaderForwardDirectional = new ForwardDirectional();
 		m_ShaderForwardDirectional->SetRenderEngine(this);
+		//Point Light
+		m_ShaderPointLight = new ForwardPoint();
+		m_ShaderPointLight->SetRenderEngine(this);
+
 		//Setup Lighting
 		m_AmbientLight = Vector3f(0.2f, 0.2f, 0.2f);
 		m_DirectionalLight = DirectionalLight(BaseLight(Vector3f(0, 0,1), 0.4f), Vector3f(1,1,1));
 		m_DirectionalLight2 = DirectionalLight(BaseLight(Vector3f(1, 0, 0), 0.4f), Vector3f(-1, 1, -1));
+		m_PointLight = PointLight(BaseLight(Vector3f(0, 1, 0), 0.9f), Attenuation(0, 0, 1), Vector3f(5, 0, 5), 100);
 	}
 
 	RenderEngine::~RenderEngine()
@@ -47,6 +52,9 @@ namespace D3DEngine
 		Temp = m_DirectionalLight;
 		m_DirectionalLight = m_DirectionalLight2;
 		m_DirectionalLight2 = Temp;
+
+		//Point Light
+		Object->Draw(m_ShaderPointLight);
 
 		//end of blending
 		glDepthFunc(GL_LESS);

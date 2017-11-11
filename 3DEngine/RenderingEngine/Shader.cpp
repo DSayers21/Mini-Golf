@@ -76,6 +76,18 @@ namespace D3DEngine
 		SetUniformF(UniformName + ".Intensity", BaseLight.GetIntensity());
 	}
 
+	void Shader::SetUniformPL(std::string UniformName, PointLight& pointLight)
+	{
+		SetUniformBL(UniformName + ".Light", pointLight.GetBaseLight());
+		//Attenuation
+		SetUniformF(UniformName + ".Atten.Constant", pointLight.GetAttenuation().GetConstant());
+		SetUniformF(UniformName + ".Atten.Linear", pointLight.GetAttenuation().GetLinear());
+		SetUniformF(UniformName + ".Atten.Exponent", pointLight.GetAttenuation().GetExponent());
+
+		SetUniformV(UniformName + ".Position", pointLight.GetPosition());
+		SetUniformF(UniformName + ".Range", pointLight.GetRange());
+	}
+
 	void Shader::SetAttribLocation(std::string AttribName, int Location)
 	{
 		glBindAttribLocation(m_Program, Location, AttribName.c_str());
