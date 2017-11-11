@@ -116,6 +116,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BaseLight.cpp" />
     <ClCompile Include="DirectionalLight.cpp" />
     <ClCompile Include="GameComponent.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -133,6 +134,7 @@
     <ClCompile Include="Vector3f.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BaseLight.h" />
     <ClInclude Include="DirectionalLight.h" />
     <ClInclude Include="GameComponent.h" />
     <ClInclude Include="GameObject.h" />

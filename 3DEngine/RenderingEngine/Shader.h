@@ -9,10 +9,10 @@
 #include <string>
 #include "Util.h"
 #include <map>
-#include "DirectionalLight.h"
-#include "PointLight.h"
-#include "SpotLight.h"
+
 #include "Transform.h"
+
+#include "BaseLight.h"
 
 namespace D3DEngine
 {
@@ -41,12 +41,13 @@ namespace D3DEngine
 		void SetUniformF(std::string UniformName, float Value);
 		void SetUniformV(std::string UniformName, Vector3f Value);
 		void SetUniformM4(const std::string UniformName, const Matrix4f& Value);
-		void SetUniformDL(std::string UniformName, DirectionalLight DirLight);
-		void SetUniformBL(std::string UniformName, BaseLight BaseLight);
 
-		void SetUniformPL(std::string UniformName, PointLight & pointLight);
+		void SetUniformDL(std::string UniformName, BaseLight* DirLight);
+		void SetUniformBL(std::string UniformName, BaseLight* BaseLight);
 
-		void SetUniformSL(std::string UniformName, SpotLight & spotLight);
+		void SetUniformPL(std::string UniformName, BaseLight* pointLight);
+
+		void SetUniformSL(std::string UniformName, BaseLight* spotLight);
 
 		void SetAttribLocation(std::string AttribName, int Location);
 

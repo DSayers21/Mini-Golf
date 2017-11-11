@@ -16,6 +16,7 @@
 #include <iostream>
 #include "MeshRenderer.h"
 #include "GameObject.h"
+#include "DirectionalLight.h"
 
 class TestGame : public MainGame
 {

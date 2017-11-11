@@ -4,13 +4,8 @@
 
 #include "Shader.h"
 #include "ForwardAmbient.h"
-#include "ForwardDirectional.h"
-#include "ForwardPoint.h"
-#include "ForwardSpot.h"
 
-#include "DirectionalLight.h"
-#include "PointLight.h"
-#include "SpotLight.h"
+#include "BaseLight.h"
 
 #include "MathBasics.h"
 #include "Camera.h"
@@ -45,32 +40,22 @@ namespace D3DEngine
 
 		//Getters
 		inline Vector3f GetAmbientLight() { return m_AmbientLight; }
-		inline DirectionalLight GetActiveDirectionalLight() { return m_ActiveDirectionalLight; }
-		inline PointLight GetActivePointLight() { return m_ActivePointLight; }
-		inline SpotLight GetSpotLight() { return m_SpotLight; }
+		inline BaseLight* GetActiveLight() { return ActiveLight; }
 		//Add Lights
-		inline void AddDirectionalLight(DirectionalLight* directionalLight) { m_DirectionalLights.push_back(directionalLight); }
-		inline void AddPointLight(PointLight* pointLight) { m_PointLights.push_back(pointLight); }
-
-		void ClearLightList();
+		//inline void AddDirectionalLight(DirectionalLight* directionalLight) { m_DirectionalLights.push_back(directionalLight); }
+		//inline void AddPointLight(PointLight* pointLight) { m_PointLights.push_back(pointLight); }
+		inline void AddLight(BaseLight* Light) { m_Lights.push_back(Light); }
 
 
 	private:
 		Shader* m_ShaderForwardAmbient;
-		Shader* m_ShaderForwardDirectional;
-		Shader* m_ShaderPointLight;
-		Shader* m_ShaderSpotLight;
 
 		Camera* m_Camera;
 
 		Vector3f m_AmbientLight;
-		DirectionalLight m_ActiveDirectionalLight;
-		PointLight m_ActivePointLight;
-		SpotLight m_SpotLight;
 
 		//Permanent Structures
-		std::vector<DirectionalLight*> m_DirectionalLights = std::vector<DirectionalLight*>();
-		std::vector<PointLight*> m_PointLights = std::vector<PointLight*>();
-		//std::vector<DirectionalLight*> m_DirectionalLights = std::vector<DirectionalLight*>();
+		std::vector<BaseLight*> m_Lights = std::vector<BaseLight*>();
+		BaseLight* ActiveLight;
 	};
 }

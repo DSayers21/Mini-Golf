@@ -6,7 +6,6 @@
 #include "Texture.h"
 #include "Material.h"
 #include "Vert.h"
-#include "PhongShader.h"
 #include "PointLight.h"
 #include "SpotLight.h"
 #include "Transform.h"

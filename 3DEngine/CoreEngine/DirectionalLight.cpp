@@ -1,23 +1,22 @@
 #include "DirectionalLight.h"
 #include "RenderEngine.h"
+#include "ForwardDirectional.h"
 
 namespace D3DEngine
 {
 	DirectionalLight::DirectionalLight()
 	{
 	}
-	DirectionalLight::DirectionalLight(BaseLight base, Vector3f direction)
+
+	DirectionalLight::DirectionalLight(Vector3f Colour, float Intensity, Vector3f Direction)
 	{
-		m_Base = base;
-		m_Direction = direction.Normalise();
+		m_Colour = Colour;
+		m_Intensity = Intensity;
+		m_Direction = Direction.Normalise();
+		SetShader(new ForwardDirectional());
 	}
 
 	DirectionalLight::~DirectionalLight()
 	{
-	}
-
-	void DirectionalLight::AddToRenderingEngine(RenderEngine * renderEngine)
-	{
-		renderEngine->AddDirectionalLight(this);
 	}
 }

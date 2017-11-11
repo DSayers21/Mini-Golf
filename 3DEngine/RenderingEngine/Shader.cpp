@@ -1,6 +1,8 @@
 #include "Shader.h"
 #include "RenderEngine.h"
-
+#include "DirectionalLight.h"
+#include "PointLight.h"
+#include "SpotLight.h"
 namespace D3DEngine
 {
 	Shader::Shader()
@@ -64,36 +66,36 @@ namespace D3DEngine
 		glUniformMatrix4fv(m_Uniforms.at(UniformName), 1, GL_TRUE, &(Value[0][0]));
 	}
 
-	void Shader::SetUniformDL(std::string UniformName, DirectionalLight DirLight)
+	void Shader::SetUniformDL(std::string UniformName, BaseLight* DirLight)
 	{
-		SetUniformBL(UniformName + ".Light", DirLight.GetBaseLight());
-		SetUniformV(UniformName + ".Direction", DirLight.GetDirection());
+		SetUniformBL(UniformName + ".Light", DirLight);
+		SetUniformV(UniformName + ".Direction", DirLight->GetDirection());
 	}
 
-	void Shader::SetUniformBL(std::string UniformName, BaseLight BaseLight)
+	void Shader::SetUniformBL(std::string UniformName, BaseLight* BaseLight)
 	{
-		SetUniformV(UniformName + ".Colour", BaseLight.GetColour());
-		SetUniformF(UniformName + ".Intensity", BaseLight.GetIntensity());
+		SetUniformV(UniformName + ".Colour", BaseLight->GetColour());
+		SetUniformF(UniformName + ".Intensity", BaseLight->GetIntensity());
 	}
 
-	void Shader::SetUniformPL(std::string UniformName, PointLight& pointLight)
+	void Shader::SetUniformPL(std::string UniformName, BaseLight* pointLight)
 	{
-		SetUniformBL(UniformName + ".Light", pointLight.GetBaseLight());
+		SetUniformBL(UniformName + ".Light", pointLight);
 		//Attenuation
-		SetUniformF(UniformName + ".Atten.Constant", pointLight.GetAttenuation().GetConstant());
-		SetUniformF(UniformName + ".Atten.Linear", pointLight.GetAttenuation().GetLinear());
-		SetUniformF(UniformName + ".Atten.Exponent", pointLight.GetAttenuation().GetExponent());
+		SetUniformF(UniformName + ".Atten.Constant", pointLight->GetAttenuation().GetConstant());
+		SetUniformF(UniformName + ".Atten.Linear", pointLight->GetAttenuation().GetLinear());
+		SetUniformF(UniformName + ".Atten.Exponent", pointLight->GetAttenuation().GetExponent());
 
-		SetUniformV(UniformName + ".Position", pointLight.GetPosition());
-		SetUniformF(UniformName + ".Range", pointLight.GetRange());
+		SetUniformV(UniformName + ".Position", pointLight->GetPosition());
+		SetUniformF(UniformName + ".Range", pointLight->GetRange());
 	}
 
-	void Shader::SetUniformSL(std::string UniformName, SpotLight& spotLight)
+	void Shader::SetUniformSL(std::string UniformName, BaseLight* spotLight)
 	{
-		SetUniformPL(UniformName + ".PLight", spotLight.GetPointLight());
+		SetUniformPL(UniformName + ".PLight", spotLight);
 		//
-		SetUniformV(UniformName + ".Direction", spotLight.GetDirection());
-		SetUniformF(UniformName + ".Cutoff", spotLight.GetCutoff());
+		SetUniformV(UniformName + ".Direction", spotLight->GetDirection());
+		SetUniformF(UniformName + ".Cutoff", spotLight->GetCutoff());
 	}
 
 	void Shader::SetAttribLocation(std::string AttribName, int Location)

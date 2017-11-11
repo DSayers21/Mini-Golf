@@ -117,7 +117,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Attenuation.cpp" />
-    <ClCompile Include="BaseLight.cpp" />
     <ClCompile Include="BasicShader.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="ForwardAmbient.cpp" />
@@ -126,7 +125,6 @@
     <ClCompile Include="ForwardSpot.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="Mesh.cpp" />
-    <ClCompile Include="PhongShader.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="SpotLight.cpp" />
     <ClCompile Include="stb_image.c" />
@@ -136,7 +134,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Attenuation.h" />
-    <ClInclude Include="BaseLight.h" />
     <ClInclude Include="BasicShader.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="ForwardAmbient.h" />
@@ -145,7 +142,6 @@
     <ClInclude Include="ForwardSpot.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="Mesh.h" />
-    <ClInclude Include="PhongShader.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="SpotLight.h" />
     <ClInclude Include="stb_image.h" />
