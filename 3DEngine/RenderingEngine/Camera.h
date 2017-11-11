@@ -12,8 +12,8 @@ namespace D3DEngine
 	class Camera
 	{
 	public:
-		Camera(Window* window);
-		Camera(Window* window, Vector3f Pos, Vector3f Forward, Vector3f Up);
+		Camera();
+		Camera(Vector3f Pos, Vector3f Forward, Vector3f Up);
 
 		void DoInput(Input& input, Time& time);
 
@@ -36,9 +36,6 @@ namespace D3DEngine
 		void SetUp(Vector3f Up) { m_Up = Up; }
 
 	private:
-		void MouseControl(Input& input);
-		
-		
 		bool m_MouseControl = false; //Move Camera With Mouse
 
 		Window* m_Window;

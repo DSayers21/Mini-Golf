@@ -12,10 +12,6 @@ TestGame::~TestGame()
 
 void TestGame::Init()
 {
-	m_Camera = new D3DEngine::Camera(m_Window);
-	m_RootObject = new D3DEngine::GameObject(m_Camera);
-	//
-
 	float FieldDepth = 10.0f;
 	float FieldWidth = 10.0f;
 
@@ -42,7 +38,7 @@ void TestGame::Input()
 {
 	m_Input->Update();
 	//Do Camera
-	m_Camera->DoInput(*m_Input, *m_Time);
+	//m_Camera->DoInput(*m_Input, *m_Time);
 
 	int MX = (m_Input->GetMousePos().GetX());
 	int MY = (m_Input->GetMousePos().GetY());

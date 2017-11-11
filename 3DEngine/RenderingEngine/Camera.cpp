@@ -2,17 +2,15 @@
 
 namespace D3DEngine
 {
-	Camera::Camera(Window* window)
+	Camera::Camera()
 	{
 		//Default Camera
-		*this = Camera(window, Vector3f(0, 0, 0), Vector3f(0, 0, 1), Vector3f(0, 1, 0));
+		*this = Camera(Vector3f(0, 0, 0), Vector3f(0, 0, 1), Vector3f(0, 1, 0));
 
 	}
 
-	Camera::Camera(Window* window, Vector3f Pos, Vector3f Forward, Vector3f Up)
+	Camera::Camera(Vector3f Pos, Vector3f Forward, Vector3f Up)
 	{
-		m_Window = window;
-
 		m_Pos = Pos;
 		m_Forward = Forward;
 		m_Up = Up;
@@ -43,45 +41,6 @@ namespace D3DEngine
 			RotateX(-RotAmount);
 		if (input.GetKey(KEY_RIGHT))
 			RotateX(RotAmount);
-
-		//MouseControl(input);
-
-		if (input.GetMouseDown(MOUSE_LEFT_BUTTON))
-		{
-			//Vector2f CenterPosition = Vector2f((float)m_Window->GetWidth() / 2.0f, (float)m_Window->GetHeight() / 2.0f);
-			//input.SetMousePosition(CenterPosition);
-			//input.SetCursor(false);
-			m_MouseControl = true;
-		}
-
-		if (input.GetKey(KEY_ESCAPE))
-		{
-			//input.SetCursor(true);
-			m_MouseControl = false;
-		}
-
-	}
-
-	void Camera::MouseControl(Input& input)
-	{
-		if (m_MouseControl)
-		{
-			float Sensitivity = 0.00005f;
-			//Mouse Look
-			Vector2f CenterPosition = Vector2f((float)m_Window->GetWidth() / 2.0f, (float)m_Window->GetHeight() / 2.0f);
-			Vector2f DeltaPos = input.GetMousePos() - CenterPosition;
-
-			bool RotY = DeltaPos.GetX() != 0;
-			bool RotX = DeltaPos.GetY() != 0;
-
-			if (RotY)
-				RotateY(DeltaPos.GetX() * Sensitivity);
-			if (RotX)
-				RotateX(DeltaPos.GetY() * Sensitivity);
-
-			if (RotY || RotX)
-				input.SetMousePosition(CenterPosition);
-		}
 	}
 
 	void Camera::Move(Vector3f Direction, float Amount)
