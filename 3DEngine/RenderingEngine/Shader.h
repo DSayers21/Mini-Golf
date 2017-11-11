@@ -43,6 +43,8 @@ namespace D3DEngine
 		void SetUniformDL(std::string UniformName, DirectionalLight DirLight);
 		void SetUniformBL(std::string UniformName, BaseLight BaseLight);
 
+		void SetAttribLocation(std::string AttribName, int Location);
+
 		inline void SetRenderEngine(RenderEngine* renderEngine) { m_RenderEngine = renderEngine; }
 		inline RenderEngine* GetRenderEngine() { return m_RenderEngine; }
 

@@ -76,6 +76,11 @@ namespace D3DEngine
 		SetUniformF(UniformName + ".Intensity", BaseLight.GetIntensity());
 	}
 
+	void Shader::SetAttribLocation(std::string AttribName, int Location)
+	{
+		glBindAttribLocation(m_Program, Location, AttribName.c_str());
+	}
+
 	void Shader::AddProgram(std::string Text, int Type)
 	{
 		int Shader = glCreateShader(Type);

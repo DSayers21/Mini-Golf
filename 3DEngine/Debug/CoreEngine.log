@@ -1,6 +1,4 @@
 ﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(387,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (Core Engine.vcxproj).  This can lead to incorrect clean and rebuild behavior.
-  Time.cpp
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\time.cpp(20): warning C4244: 'initializing': conversion from '__int64' to 'long', possible loss of data
   MainComp.cpp
 c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\window.h(32): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\input.h(392): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
@@ -9,10 +7,4 @@ c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\pho
 c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\maincomp.cpp(60): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\maincomp.cpp(61): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\maincomp.cpp(62): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-  Generating Code...
-  Skipping... (no relevant changes detected)
-  Transform.cpp
-  RenderEngine.cpp
-  GameObject.cpp
-  GameComponent.cpp
   CoreEngine.vcxproj -> C:\Users\Satan\Documents\GitHub\Pool Game\Mini-Golf\3DEngine\Debug\CoreEngine.lib

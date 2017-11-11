@@ -1,9 +1,10 @@
 #pragma once
 
 #include "GameObject.h"
-#include "BasicShader.h"
+#include "ForwardAmbient.h"
 #include "MathBasics.h"
 #include "Camera.h"
+#include "Vector3f.h"
 
 #include "Input.h"
 #include "Time.h"
@@ -24,8 +25,12 @@ namespace D3DEngine
 		//Temp
 		void CameraInput(Input& input, float Delta);
 
+		//Getters
+		inline Vector3f GetAmbientLight() { return m_AmbientLight; }
+
 	private:
-		BasicShader* BShade;
+		ForwardAmbient* m_ShaderForwardAmbient;
 		Camera* m_Camera;
+		Vector3f m_AmbientLight;
 	};
 }
