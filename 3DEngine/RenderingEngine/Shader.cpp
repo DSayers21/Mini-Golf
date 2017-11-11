@@ -88,6 +88,14 @@ namespace D3DEngine
 		SetUniformF(UniformName + ".Range", pointLight.GetRange());
 	}
 
+	void Shader::SetUniformSL(std::string UniformName, SpotLight& spotLight)
+	{
+		SetUniformPL(UniformName + ".PLight", spotLight.GetPointLight());
+		//
+		SetUniformV(UniformName + ".Direction", spotLight.GetDirection());
+		SetUniformF(UniformName + ".Cutoff", spotLight.GetCutoff());
+	}
+
 	void Shader::SetAttribLocation(std::string AttribName, int Location)
 	{
 		glBindAttribLocation(m_Program, Location, AttribName.c_str());

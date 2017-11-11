@@ -15,12 +15,17 @@ namespace D3DEngine
 		//Point Light
 		m_ShaderPointLight = new ForwardPoint();
 		m_ShaderPointLight->SetRenderEngine(this);
-
+		//Spot Light
+		m_ShaderSpotLight = new ForwardSpot();
+		m_ShaderSpotLight->SetRenderEngine(this);
 		//Setup Lighting
-		m_AmbientLight = Vector3f(0.2f, 0.2f, 0.2f);
+		m_AmbientLight = Vector3f(0.002f, 0.002f, 0.002f);
 		m_DirectionalLight = DirectionalLight(BaseLight(Vector3f(0, 0,1), 0.4f), Vector3f(1,1,1));
 		m_DirectionalLight2 = DirectionalLight(BaseLight(Vector3f(1, 0, 0), 0.4f), Vector3f(-1, 1, -1));
 		m_PointLight = PointLight(BaseLight(Vector3f(0, 1, 0), 0.9f), Attenuation(0, 0, 1), Vector3f(5, 0, 5), 100);
+
+		m_SpotLight = SpotLight(PointLight(BaseLight(Vector3f(0, 1, 1), 0.4f), Attenuation(0, 0, .1), Vector3f(7, 0, 7), 100),
+			Vector3f(1,0,0), 0.7);
 	}
 
 	RenderEngine::~RenderEngine()
@@ -55,6 +60,8 @@ namespace D3DEngine
 
 		//Point Light
 		Object->Draw(m_ShaderPointLight);
+		//Spot Light
+		Object->Draw(m_ShaderSpotLight);
 
 		//end of blending
 		glDepthFunc(GL_LESS);

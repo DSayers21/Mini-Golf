@@ -124,6 +124,7 @@
     <ClCompile Include="ForwardAmbient.cpp" />
     <ClCompile Include="ForwardDirectional.cpp" />
     <ClCompile Include="ForwardPoint.cpp" />
+    <ClCompile Include="ForwardSpot.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="PhongShader.cpp" />
@@ -144,6 +145,7 @@
     <ClInclude Include="ForwardAmbient.h" />
     <ClInclude Include="ForwardDirectional.h" />
     <ClInclude Include="ForwardPoint.h" />
+    <ClInclude Include="ForwardSpot.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="PhongShader.h" />

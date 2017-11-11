@@ -81,14 +81,6 @@ namespace D3DEngine
 		SetUniformV("EyePos", GetRenderEngine()->GetCamera()->GetPos());
 	}
 
-	void PhongShader::SetUniformSL(std::string UniformName, SpotLight& spotLight)
-	{
-		SetUniformPL(UniformName + ".PLight", spotLight.GetPointLight());
-		//
-		SetUniformV(UniformName + ".Direction", spotLight.GetDirection());
-		SetUniformF(UniformName + ".Cutoff", spotLight.GetCutoff());
-	}
-
 	void PhongShader::SetPointLight(PointLight* pointLights, int NumOfPointLights)
 	{
 		if (NumOfPointLights > MAX_POINT_LIGHTS)

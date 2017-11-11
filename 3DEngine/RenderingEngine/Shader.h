@@ -11,6 +11,7 @@
 #include <map>
 #include "DirectionalLight.h"
 #include "PointLight.h"
+#include "SpotLight.h"
 #include "Transform.h"
 
 namespace D3DEngine
@@ -44,6 +45,8 @@ namespace D3DEngine
 		void SetUniformBL(std::string UniformName, BaseLight BaseLight);
 
 		void SetUniformPL(std::string UniformName, PointLight & pointLight);
+
+		void SetUniformSL(std::string UniformName, SpotLight & spotLight);
 
 		void SetAttribLocation(std::string AttribName, int Location);
 

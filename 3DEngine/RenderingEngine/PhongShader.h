@@ -13,11 +13,6 @@ namespace D3DEngine
 		PhongShader();
 		~PhongShader();
 		void UpdateUniforms(Transform transform, Material material);
-
-		void SetUniformPL(std::string UniformName, PointLight& pointLight);
-
-		void SetUniformSL(std::string UniformName, SpotLight & spotLight);
-
 		//Getters
 		inline Vector3f GetAmbientLight() { return m_AmbientLight; }
 		inline DirectionalLight GetDirectionalLight() { return m_DirectionalLight; }
