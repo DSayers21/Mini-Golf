@@ -71,21 +71,12 @@ namespace D3DEngine
 			}
 			if (Render)
 			{
-				m_Window->Clear();
 				m_RenderEngine->Render(m_Game->GetRootObject());
 				m_Window->Update();
 
 				Frames++;
 			}
 		}
-	}
-
-	void MainComp::Draw()
-	{
-		//m_Window->Clear();
-
-		//m_Game->Draw();
-		//m_Window->Update();
 	}
 
 	void MainComp::Destroy()

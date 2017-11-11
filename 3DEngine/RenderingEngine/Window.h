@@ -4,7 +4,6 @@
 #include <string>
 #include <SDL2/SDL.h>
 #include <iostream>
-#include "RenderUtil.h"
 #include "Vector2f.h"
 
 namespace D3DEngine

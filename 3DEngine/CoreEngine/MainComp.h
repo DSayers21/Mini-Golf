@@ -20,7 +20,6 @@ namespace D3DEngine
 
 	private:
 		void Run();
-		void Draw();
 		void Destroy();
 
 		Window* m_Window;

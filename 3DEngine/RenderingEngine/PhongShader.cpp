@@ -60,10 +60,7 @@ namespace D3DEngine
 
 	void PhongShader::UpdateUniforms(Transform transform, Material material)
 	{
-		if (material.GetTexture() != NULL)
-			material.GetTexture()->Bind();
-		else
-			RenderUtil::UnBindTextures();
+		material.GetTexture()->Bind();
 
 		Matrix4f WorldMatrix = transform.GetTransformation();
 		Matrix4f ProjectedMatrix = GetRenderEngine()->GetCamera()->GetViewProjection().Mult(WorldMatrix);

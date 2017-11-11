@@ -39,8 +39,6 @@ namespace D3DEngine
 		{
 			std::cerr << "Glew Failed to Initalise" << std::endl;
 		}
-
-		RenderUtil::InitGraphics();
 	}
 
 	void Window::SwapBuffers()
@@ -51,11 +49,6 @@ namespace D3DEngine
 	void Window::Update()
 	{
 		SDL_GL_SwapWindow(m_Window);
-	}
-
-	void Window::Clear()
-	{
-		RenderUtil::ClearScreen();
 	}
 
 	void Window::Close()

@@ -25,6 +25,12 @@ namespace D3DEngine
 		//Temp
 		void CameraInput(Input& input, float Delta);
 
+		void InitGraphics();
+
+		void SetTextures(bool Enabled);
+
+		void ClearScreen();
+
 		//Getters
 		inline Vector3f GetAmbientLight() { return m_AmbientLight; }
 

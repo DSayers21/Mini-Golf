@@ -1,7 +1,6 @@
 #pragma once
 
 #include <GL/glew.h>
-#include "RenderUtil.h"
 #include "Vector3f.h"
 #include "Matrix4f.h"
 #include "Material.h"
