@@ -2,6 +2,7 @@
 
 #include "Window.h"
 #include "Time.h"
+#include "Input.h"
 #include <iostream>
 #include "MainGame.h"
 #include "RenderEngine.h"
@@ -28,5 +29,6 @@ namespace D3DEngine
 		Time* m_Time;
 		MainGame* m_Game;
 		RenderEngine* m_RenderEngine;
+		Input* m_Input;
 	};
 }

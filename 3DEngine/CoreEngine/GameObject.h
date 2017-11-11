@@ -11,7 +11,7 @@ namespace D3DEngine
 	class GameObject
 	{
 	public:
-		GameObject(Camera* camera);
+		GameObject();
 		~GameObject();
 
 		GameObject* AddChild(GameObject* Child);

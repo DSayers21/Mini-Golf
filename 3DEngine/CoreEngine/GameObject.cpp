@@ -2,12 +2,11 @@
 
 namespace D3DEngine
 {
-	GameObject::GameObject(Camera* camera)
+	GameObject::GameObject()
 	{
 		m_Transform = new Transform();
-		m_Transform->SetCamera(camera);
 
-		m_Transform->SetProjection(70.0f, 800, 600, 0.1f, 1000.0f);
+		//m_Transform->SetProjection(70.0f, 800, 600, 0.1f, 1000.0f);
 		m_Transform->SetTranslation(0, -1, 5);
 		//m_Transform.SetRotation(0, TempAmount * 180, 0);
 		m_Transform->SetScaling(.4, .4, .4);

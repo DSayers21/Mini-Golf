@@ -1,4 +1,5 @@
 #include "PhongShader.h"
+#include "RenderEngine.h"
 
 namespace D3DEngine
 {
@@ -57,12 +58,15 @@ namespace D3DEngine
 	{
 	}
 
-	void PhongShader::UpdateUniforms(Matrix4f WorldMatrix, Matrix4f ProjectedMatrix, Material material)
+	void PhongShader::UpdateUniforms(Transform transform, Material material)
 	{
 		if (material.GetTexture() != NULL)
 			material.GetTexture()->Bind();
 		else
 			RenderUtil::UnBindTextures();
+
+		Matrix4f WorldMatrix = transform.GetTransformation();
+		Matrix4f ProjectedMatrix = GetRenderEngine()->GetCamera()->GetViewProjection().Mult(WorldMatrix);
 
 		SetUniformM4("Transform", WorldMatrix);
 		SetUniformM4("TransformProjected", ProjectedMatrix);
@@ -77,7 +81,7 @@ namespace D3DEngine
 		//Specular Reflection
 		SetUniformF("SpecularIntensity", material.GetSpecularIntensity());
 		SetUniformF("SpecularExponent", material.GetSpecularExponent());
-		SetUniformV("EyePos", m_Transform->GetCamera()->GetPos());
+		SetUniformV("EyePos", GetRenderEngine()->GetCamera()->GetPos());
 	}
 
 	void PhongShader::SetUniformPL(std::string UniformName, PointLight& pointLight)

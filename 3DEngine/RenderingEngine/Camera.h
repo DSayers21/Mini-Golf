@@ -2,22 +2,21 @@
 
 #include "Vector3f.h"
 #include "Time.h"
-#include "Window.h"
 #include "Input.h"
 #include <iostream>
 #include <string>
+#include "Matrix4f.h"
 
 namespace D3DEngine
 {
 	class Camera
 	{
 	public:
-		Camera();
-		Camera(Vector3f Pos, Vector3f Forward, Vector3f Up);
+		Camera(float FOV, float AspectRatio, float zNear, float zFar);
+
+		Matrix4f GetViewProjection();
 
 		void DoInput(Input& input, Time& time);
-
-		
 
 		void Move(Vector3f Direction, float Amount);
 		void RotateX(float Angle);
@@ -38,12 +37,13 @@ namespace D3DEngine
 	private:
 		bool m_MouseControl = false; //Move Camera With Mouse
 
-		Window* m_Window;
 		Vector3f m_Pos;
 		//Represents which direction is up and forward
 		Vector3f m_Forward;
 		Vector3f m_Up;
 		//
 	    Vector3f yAxi = Vector3f(0,1,0);
+
+		Matrix4f m_Projection;
 	};
 }

@@ -12,7 +12,7 @@ namespace D3DEngine
 	public:
 		PhongShader();
 		~PhongShader();
-		void UpdateUniforms(Matrix4f WorldMatrix, Matrix4f ProjectedMatrix, Material material);
+		void UpdateUniforms(Transform transform, Material material);
 
 		void SetUniformPL(std::string UniformName, PointLight& pointLight);
 

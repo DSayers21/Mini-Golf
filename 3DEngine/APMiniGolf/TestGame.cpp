@@ -26,7 +26,7 @@ void TestGame::Init()
 	D3DEngine::Mesh* mesh = new D3DEngine::Mesh(Vertices, 4, Indices, 6, true);
 	D3DEngine::Material* material = new D3DEngine::Material(D3DEngine::Texture("./Textures/Test.png"), D3DEngine::Vector3f(0, 0, 0), 1, 8);
 
-	D3DEngine::GameObject* PlaneObject = new D3DEngine::GameObject(m_Camera);
+	D3DEngine::GameObject* PlaneObject = new D3DEngine::GameObject();
 	MeshRenderer* meshRenderer = new MeshRenderer(mesh, material);
 	PlaneObject->AddComponent(meshRenderer);
 	PlaneObject->GetTransform()->SetTranslation(-2, -1, 5);
@@ -34,15 +34,15 @@ void TestGame::Init()
 	
 }
 
-void TestGame::Input()
+void TestGame::Input(D3DEngine::Input& input)
 {
-	m_Input->Update();
+	input.Update();
 	//Do Camera
 	//m_Camera->DoInput(*m_Input, *m_Time);
 
-	int MX = (m_Input->GetMousePos().GetX());
-	int MY = (m_Input->GetMousePos().GetY());
-	if (m_Input->GetMouseDown(D3DEngine::MOUSE_LEFT_BUTTON))
+	int MX = input.GetMousePos().GetX();
+	int MY = (input.GetMousePos().GetY());
+	if (input.GetMouseDown(D3DEngine::MOUSE_LEFT_BUTTON))
 	{
 		std::cout << "Mouse Pressed Left at:: (" << MX << "," << MY << ")" << std::endl;
 	}

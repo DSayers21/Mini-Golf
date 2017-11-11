@@ -77,12 +77,12 @@ namespace D3DEngine
 		return *this;
 	}
 
-	Matrix4f Matrix4f::InitProjection(float FOV, float Width, float Height, float zNear, float zFar)
+	Matrix4f Matrix4f::InitPerspective(float FOV, float AspectRatio, float zNear, float zFar)
 	{
 		//Tan of the half of FOV, distance to centre of screen
-		float THFOV = tanf(TO_RADIANS(FOV / 2));
+		float THFOV = tanf(FOV / 2);
 		//Aspect Ratio
-		float AR = Width / Height;
+		float AR = AspectRatio;
 		float ZRange = zNear - zFar;
 
 		m_Matrix[0][0] = 1 / (THFOV * AR); m_Matrix[0][1] = 0;			      m_Matrix[0][2] = 0;						m_Matrix[0][3] = 0;
@@ -93,7 +93,7 @@ namespace D3DEngine
 		return *this;
 	}
 
-	Matrix4f Matrix4f::InitCamera(Vector3f Forward, Vector3f Up)
+	Matrix4f Matrix4f::InitRotation(Vector3f Forward, Vector3f Up)
 	{
 		Vector3f For = Forward;
 		//For.Normalise();

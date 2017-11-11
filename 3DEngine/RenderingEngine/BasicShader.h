@@ -8,6 +8,6 @@ namespace D3DEngine
 	public:
 		BasicShader();
 		~BasicShader();
-		void UpdateUniforms(Matrix4f WorldMatrix, Matrix4f ProjectedMatrix, Material material);
+		void UpdateUniforms(Transform transform, Material material);
 	};
 }

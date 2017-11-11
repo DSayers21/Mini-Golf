@@ -6,6 +6,7 @@ namespace D3DEngine
 	{
 		m_Window = new D3DEngine::Window();
 		m_Window->Init(Title, Width, Height);
+		m_Input = new Input(m_Window);
 		m_Game = Game;
 		m_Game->SetWindow(m_Window);
 		m_Game->SetTime(m_Time);
@@ -57,7 +58,8 @@ namespace D3DEngine
 				Render = true;
 				UnproccessedTime -= m_FrameTime;
 				//Update The Game
-				m_Game->Input();
+				m_Game->Input(*m_Input);
+				m_RenderEngine->CameraInput(*m_Input, *m_Time);
 				m_Game->Update();
 
 				if (FrameCounter >= m_Time->SECOND)
@@ -70,7 +72,6 @@ namespace D3DEngine
 			}
 			if (Render)
 			{
-				//Draw();
 				m_Window->Clear();
 				m_RenderEngine->Render(m_Game->GetRootObject());
 				m_Window->Update();

@@ -19,9 +19,9 @@ namespace D3DEngine
 
 		Matrix4f InitScaling(float x, float y, float z);
 
-		Matrix4f InitProjection(float FOV, float Width, float Height, float zNear, float zFar);
+		Matrix4f InitPerspective(float FOV, float AspectRatio, float zNear, float zFar);
 
-		Matrix4f InitCamera(Vector3f Forward, Vector3f Up);
+		Matrix4f InitRotation(Vector3f Forward, Vector3f Up);
 
 		Matrix4f Mult(Matrix4f Other);
 

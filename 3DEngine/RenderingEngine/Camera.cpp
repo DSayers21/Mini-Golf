@@ -2,21 +2,22 @@
 
 namespace D3DEngine
 {
-	Camera::Camera()
+	Camera::Camera(float FOV, float AspectRatio, float zNear, float zFar)
 	{
 		//Default Camera
-		*this = Camera(Vector3f(0, 0, 0), Vector3f(0, 0, 1), Vector3f(0, 1, 0));
+		m_Pos = Vector3f(0, 0, 0);
+		m_Forward = Vector3f(0, 0, 1).Normalise();
+		m_Up = Vector3f(0, 1, 0).Normalise();
 
+		m_Projection = Matrix4f().InitPerspective(FOV, AspectRatio, zNear, zFar);
 	}
 
-	Camera::Camera(Vector3f Pos, Vector3f Forward, Vector3f Up)
+	Matrix4f Camera::GetViewProjection()
 	{
-		m_Pos = Pos;
-		m_Forward = Forward;
-		m_Up = Up;
+		Matrix4f CameraRotMat = Matrix4f().InitRotation(m_Forward, m_Up);
+		Matrix4f CameraTransMat = Matrix4f().InitTranslation(-GetPos().GetX(), -GetPos().GetY(), -GetPos().GetZ());
 
-		m_Up.Normalise();
-		m_Forward.Normalise();
+		return m_Projection.Mult(CameraRotMat.Mult(CameraTransMat));
 	}
 
 	void Camera::DoInput(Input& input, Time& time)

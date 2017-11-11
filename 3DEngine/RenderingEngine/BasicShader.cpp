@@ -1,4 +1,5 @@
 #include "BasicShader.h"
+#include "RenderEngine.h"
 
 namespace D3DEngine
 {
@@ -16,12 +17,15 @@ namespace D3DEngine
 	{
 	}
 
-	void BasicShader::UpdateUniforms(Matrix4f WorldMatrix, Matrix4f ProjectedMatrix, Material material)
+	void BasicShader::UpdateUniforms(Transform transform, Material material)
 	{
 		if (material.GetTexture() != NULL)
 			material.GetTexture()->Bind();
 		else
 			RenderUtil::UnBindTextures();
+
+		Matrix4f WorldMatrix = transform.GetTransformation();
+		Matrix4f ProjectedMatrix = GetRenderEngine()->GetCamera()->GetViewProjection().Mult(WorldMatrix);
 
 		SetUniformM4("Transform", ProjectedMatrix);
 		SetUniformV("BaseColour", *material.GetColour());

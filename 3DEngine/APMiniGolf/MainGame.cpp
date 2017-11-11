@@ -13,7 +13,7 @@ void MainGame::Init()
 
 }
 
-void MainGame::Input()
+void MainGame::Input(D3DEngine::Input& input)
 {
 	m_RootObject->Input();
 }
@@ -31,7 +31,6 @@ void MainGame::Draw()
 void MainGame::SetWindow(D3DEngine::Window * Window)
 {
 	m_Window = Window;
-	m_Input = new D3DEngine::Input(Window);
-	m_Camera = new D3DEngine::Camera();
-	m_RootObject = new D3DEngine::GameObject(m_Camera);
+	//m_Input = new D3DEngine::Input(Window);
+	m_RootObject = new D3DEngine::GameObject();
 }

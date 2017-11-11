@@ -24,16 +24,8 @@ public:
 	~TestGame();
 
 	void Init();
-	void Input();
-	//void Update();
-
-	//Setters
+	void Input(D3DEngine::Input& input);
 
 private:
-	D3DEngine::PointLight* m_pLights;
-	D3DEngine::PointLight* m_PLight1;
-	D3DEngine::PointLight* m_PLight2;
-	D3DEngine::SpotLight* m_SpotLights;
-	float m_Wave = 0.0f;
 };
 

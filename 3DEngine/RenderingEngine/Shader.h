@@ -11,6 +11,7 @@
 #include "Util.h"
 #include <map>
 #include "DirectionalLight.h"
+#include "Transform.h"
 
 namespace D3DEngine
 {
@@ -32,7 +33,7 @@ namespace D3DEngine
 		inline void AddFragmentShaderFromFile(std::string FileName) { AddProgram(LoadShader(FileName), GL_FRAGMENT_SHADER); }
 		inline void AddGeometryShaderFromFile(std::string FileName) { AddProgram(LoadShader(FileName), GL_GEOMETRY_SHADER); }
 		//Uniforms
-		virtual void UpdateUniforms(Matrix4f WorldMatrix, Matrix4f ProjectedMatrix, Material material);
+		virtual void UpdateUniforms(Transform transform, Material material);
 
 		void AddUniform(std::string Uniform);
 		void SetUniformI(std::string UniformName, int Value);

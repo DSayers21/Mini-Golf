@@ -13,6 +13,6 @@ MeshRenderer::~MeshRenderer()
 void MeshRenderer::Draw(D3DEngine::Transform* transform, D3DEngine::Shader* shader)
 {
 	shader->Bind();
-	shader->UpdateUniforms(transform->GetTransformation(), transform->GetProjectedTransformation(), *m_Material);
+	shader->UpdateUniforms(*transform, *m_Material);
 	m_Mesh->Draw();
 }

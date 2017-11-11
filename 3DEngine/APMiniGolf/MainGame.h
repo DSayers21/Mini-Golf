@@ -22,7 +22,7 @@ public:
 	~MainGame();
 
 	virtual void Init();
-	virtual void Input();
+	virtual void Input(D3DEngine::Input& input);
 	virtual void Update();
 	virtual void Draw();
 	//Getters
@@ -34,7 +34,5 @@ public:
 protected:
 	D3DEngine::Window* m_Window;
 	D3DEngine::Time* m_Time;
-	D3DEngine::Input* m_Input;
-	D3DEngine::Camera* m_Camera;
 	D3DEngine::GameObject* m_RootObject;
 };
