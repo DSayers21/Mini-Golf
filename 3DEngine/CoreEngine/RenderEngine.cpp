@@ -6,9 +6,16 @@ namespace D3DEngine
 	{
 		InitGraphics();
 		m_Camera = new Camera(TO_RADIANS(70.0f), (float)800/600, 0.1f, 1000);
+		//Ambient Light
 		m_ShaderForwardAmbient = new ForwardAmbient();
 		m_ShaderForwardAmbient->SetRenderEngine(this);
+		//Directional Light
+		m_ShaderForwardDirectional = new ForwardDirectional();
+		m_ShaderForwardDirectional->SetRenderEngine(this);
+		//Setup Lighting
 		m_AmbientLight = Vector3f(0.2f, 0.2f, 0.2f);
+		m_DirectionalLight = DirectionalLight(BaseLight(Vector3f(0, 0,1), 0.4f), Vector3f(1,1,1));
+		m_DirectionalLight2 = DirectionalLight(BaseLight(Vector3f(1, 0, 0), 0.4f), Vector3f(-1, 1, -1));
 	}
 
 	RenderEngine::~RenderEngine()
@@ -18,10 +25,33 @@ namespace D3DEngine
 	void RenderEngine::Render(GameObject * Object)
 	{
 		ClearScreen();
+
 		Object->Draw(m_ShaderForwardAmbient);
 
+		//
 		glEnable(GL_BLEND);
+		glBlendFunc(GL_ONE, GL_ONE); //Existing colour times one, plus other colour times one
+		glDepthMask(false);			 //Disbale writing to the depth buffer
+		glDepthFunc(GL_EQUAL);		 //Only change the pixel, if it has the exact same depth value
+		//Any Code here will be blended into the image
 
+		Object->Draw(m_ShaderForwardDirectional);
+
+		//Swap Lights
+		DirectionalLight Temp = m_DirectionalLight;
+		m_DirectionalLight = m_DirectionalLight2;
+		m_DirectionalLight2 = Temp;
+
+		Object->Draw(m_ShaderForwardDirectional);
+
+		Temp = m_DirectionalLight;
+		m_DirectionalLight = m_DirectionalLight2;
+		m_DirectionalLight2 = Temp;
+
+		//end of blending
+		glDepthFunc(GL_LESS);
+		glDepthMask(true);			 //Enable writing to the depth buffer
+		glDisable(GL_BLEND);
 	}
 
 	void RenderEngine::CameraInput(Input& input, float Delta)

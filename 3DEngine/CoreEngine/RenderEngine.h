@@ -1,7 +1,10 @@
 #pragma once
 
 #include "GameObject.h"
+#include "Shader.h"
 #include "ForwardAmbient.h"
+#include "ForwardDirectional.h"
+#include "DirectionalLight.h"
 #include "MathBasics.h"
 #include "Camera.h"
 #include "Vector3f.h"
@@ -33,10 +36,13 @@ namespace D3DEngine
 
 		//Getters
 		inline Vector3f GetAmbientLight() { return m_AmbientLight; }
-
+		inline DirectionalLight GetDirectionalLight() { return m_DirectionalLight; }
 	private:
-		ForwardAmbient* m_ShaderForwardAmbient;
+		Shader* m_ShaderForwardAmbient;
+		Shader* m_ShaderForwardDirectional;
 		Camera* m_Camera;
 		Vector3f m_AmbientLight;
+		DirectionalLight m_DirectionalLight;
+		DirectionalLight m_DirectionalLight2;
 	};
 }
