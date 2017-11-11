@@ -4,10 +4,13 @@
 #include "GameObject.h"
 #include "GameComponent.h"
 #include "Transform.h"
-#include "Shader.h"
 
 namespace D3DEngine
 {
+	class RenderEngine;
+	class Shader;
+
+
 	class GameObject
 	{
 	public:
@@ -23,6 +26,8 @@ namespace D3DEngine
 
 		//Getters
 		inline Transform* GetTransform() { return m_Transform; }
+
+		void AddToRenderingEngine(RenderEngine* renderEngine);
 
 	private:
 		std::vector<GameObject*> m_Children = std::vector<GameObject*>();

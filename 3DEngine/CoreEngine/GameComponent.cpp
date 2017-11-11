@@ -1,4 +1,6 @@
 #include "GameComponent.h"
+#include "RenderEngine.h"
+#include "Shader.h"
 
 namespace D3DEngine
 {
@@ -21,6 +23,9 @@ namespace D3DEngine
 
 	void GameComponent::Draw(Transform* transform, Shader* shader)
 	{
+	}
 
+	void GameComponent::AddToRenderingEngine(RenderEngine * renderEngine)
+	{
 	}
 }

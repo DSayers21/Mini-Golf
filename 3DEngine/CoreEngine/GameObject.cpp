@@ -1,4 +1,6 @@
 #include "GameObject.h"
+#include "RenderEngine.h"
+#include "Shader.h"
 
 namespace D3DEngine
 {
@@ -52,5 +54,14 @@ namespace D3DEngine
 
 		for (int i = 0; i < m_Children.size(); i++)
 			m_Children[i]->Draw(shader);
+	}
+
+	void GameObject::AddToRenderingEngine(RenderEngine * renderEngine)
+	{
+		for (int i = 0; i < m_Components.size(); i++)
+			m_Components[i]->AddToRenderingEngine(renderEngine);
+
+		for (int i = 0; i < m_Children.size(); i++)
+			m_Children[i]->AddToRenderingEngine(renderEngine);
 	}
 }

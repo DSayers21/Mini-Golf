@@ -19,8 +19,8 @@ namespace D3DEngine
 		m_ShaderSpotLight = new ForwardSpot();
 		m_ShaderSpotLight->SetRenderEngine(this);
 		//Setup Lighting
-		m_AmbientLight = Vector3f(0.002f, 0.002f, 0.002f);
-		m_DirectionalLight = DirectionalLight(BaseLight(Vector3f(0, 0,1), 0.4f), Vector3f(1,1,1));
+		m_AmbientLight = Vector3f(0.2f, 0.2f, 0.2f);
+		m_ActiveDirectionalLight = DirectionalLight(BaseLight(Vector3f(0, 0,1), 0.4f), Vector3f(1,1,1));
 		m_DirectionalLight2 = DirectionalLight(BaseLight(Vector3f(1, 0, 0), 0.4f), Vector3f(-1, 1, -1));
 		m_PointLight = PointLight(BaseLight(Vector3f(0, 1, 0), 0.9f), Attenuation(0, 0, 1), Vector3f(5, 0, 5), 100);
 
@@ -35,6 +35,9 @@ namespace D3DEngine
 	void RenderEngine::Render(GameObject * Object)
 	{
 		ClearScreen();
+		ClearLightList();
+
+		Object->AddToRenderingEngine(this);	//Temp
 
 		Object->Draw(m_ShaderForwardAmbient);
 
@@ -45,23 +48,30 @@ namespace D3DEngine
 		glDepthFunc(GL_EQUAL);		 //Only change the pixel, if it has the exact same depth value
 		//Any Code here will be blended into the image
 
-		Object->Draw(m_ShaderForwardDirectional);
+		//Draw All Directional Lights
+		for (int i = 0; i < m_DirectionalLights.size(); i++)
+		{
+			m_ActiveDirectionalLight = *m_DirectionalLights[i];
+			Object->Draw(m_ShaderForwardDirectional);
+		}
+
+		//Object->Draw(m_ShaderForwardDirectional);
 
 		//Swap Lights
-		DirectionalLight Temp = m_DirectionalLight;
-		m_DirectionalLight = m_DirectionalLight2;
-		m_DirectionalLight2 = Temp;
+		//DirectionalLight Temp = m_DirectionalLight;
+		//m_DirectionalLight = m_DirectionalLight2;
+		//m_DirectionalLight2 = Temp;
 
-		Object->Draw(m_ShaderForwardDirectional);
+		//Object->Draw(m_ShaderForwardDirectional);
 
-		Temp = m_DirectionalLight;
-		m_DirectionalLight = m_DirectionalLight2;
-		m_DirectionalLight2 = Temp;
+		//Temp = m_DirectionalLight;
+		//m_DirectionalLight = m_DirectionalLight2;
+		//m_DirectionalLight2 = Temp;
 
 		//Point Light
-		Object->Draw(m_ShaderPointLight);
+		//Object->Draw(m_ShaderPointLight);
 		//Spot Light
-		Object->Draw(m_ShaderSpotLight);
+		//Object->Draw(m_ShaderSpotLight);
 
 		//end of blending
 		glDepthFunc(GL_LESS);

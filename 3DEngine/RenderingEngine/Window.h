@@ -20,8 +20,6 @@ namespace D3DEngine
 
 		void Update();
 
-		void Clear();
-
 		void Close();
 
 		//Getters

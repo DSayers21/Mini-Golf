@@ -19,6 +19,8 @@
 #include "Input.h"
 #include "Time.h"
 
+#include <vector>
+
 namespace D3DEngine
 {
 	class RenderEngine
@@ -43,9 +45,15 @@ namespace D3DEngine
 
 		//Getters
 		inline Vector3f GetAmbientLight() { return m_AmbientLight; }
-		inline DirectionalLight GetDirectionalLight() { return m_DirectionalLight; }
+		inline DirectionalLight GetActiveDirectionalLight() { return m_ActiveDirectionalLight; }
 		inline PointLight GetPointLight() { return m_PointLight; }
 		inline SpotLight GetSpotLight() { return m_SpotLight; }
+		//Add Lights
+		inline void AddDirectionalLight(DirectionalLight* directionalLight) { m_DirectionalLights.push_back(directionalLight); }
+
+		inline void ClearLightList() { m_DirectionalLights.clear(); }
+
+
 	private:
 		Shader* m_ShaderForwardAmbient;
 		Shader* m_ShaderForwardDirectional;
@@ -55,9 +63,12 @@ namespace D3DEngine
 		Camera* m_Camera;
 
 		Vector3f m_AmbientLight;
-		DirectionalLight m_DirectionalLight;
+		DirectionalLight m_ActiveDirectionalLight;
 		DirectionalLight m_DirectionalLight2;
 		PointLight m_PointLight;
 		SpotLight m_SpotLight;
+
+		//Permanent Structures
+		std::vector<DirectionalLight*> m_DirectionalLights = std::vector<DirectionalLight*>();
 	};
 }

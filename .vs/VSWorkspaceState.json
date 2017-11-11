@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\3DEngine"
+    "\\3DEngine",
+    "\\3DEngine\\CoreEngine"
   ],
+  "SelectedNode": "\\3DEngine\\RenderingEngine",
   "PreviewInSolutionExplorer": false
 }

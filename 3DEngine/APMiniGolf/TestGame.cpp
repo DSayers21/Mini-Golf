@@ -27,7 +27,7 @@ void TestGame::Init()
 	D3DEngine::Material* material = new D3DEngine::Material(D3DEngine::Texture("./Textures/Test.png"), D3DEngine::Vector3f(0, 0, 0), 1, 8);
 
 	D3DEngine::GameObject* PlaneObject = new D3DEngine::GameObject();
-	MeshRenderer* meshRenderer = new MeshRenderer(mesh, material);
+	D3DEngine::MeshRenderer* meshRenderer = new D3DEngine::MeshRenderer(mesh, material);
 	PlaneObject->AddComponent(meshRenderer);
 	PlaneObject->GetTransform()->SetPosition(-2, -1, 5);
 	m_RootObject->AddChild(PlaneObject);

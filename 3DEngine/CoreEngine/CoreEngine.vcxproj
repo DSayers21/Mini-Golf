@@ -116,11 +116,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DirectionalLight.cpp" />
     <ClCompile Include="GameComponent.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="MainComp.cpp" />
     <ClCompile Include="Matrix4f.cpp" />
+    <ClCompile Include="MeshRenderer.cpp" />
     <ClCompile Include="Quaternion.cpp" />
     <ClCompile Include="RenderEngine.cpp" />
     <ClCompile Include="Time.cpp" />
@@ -130,12 +132,14 @@
     <ClCompile Include="Vector3f.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DirectionalLight.h" />
     <ClInclude Include="GameComponent.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="MainComp.h" />
     <ClInclude Include="MathBasics.h" />
     <ClInclude Include="Matrix4f.h" />
+    <ClInclude Include="MeshRenderer.h" />
     <ClInclude Include="Quaternion.h" />
     <ClInclude Include="RenderEngine.h" />
     <ClInclude Include="Time.h" />
