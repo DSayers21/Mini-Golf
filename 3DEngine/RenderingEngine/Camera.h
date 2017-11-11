@@ -16,7 +16,7 @@ namespace D3DEngine
 
 		Matrix4f GetViewProjection();
 
-		void DoInput(Input& input, Time& time);
+		void DoInput(Input& input, float Delta);
 
 		void Move(Vector3f Direction, float Amount);
 		void RotateX(float Angle);

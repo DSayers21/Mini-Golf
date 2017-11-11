@@ -6,9 +6,7 @@ namespace D3DEngine
 	{
 		m_Transform = new Transform();
 
-		//m_Transform->SetProjection(70.0f, 800, 600, 0.1f, 1000.0f);
-		m_Transform->SetTranslation(0, -1, 5);
-		//m_Transform.SetRotation(0, TempAmount * 180, 0);
+		m_Transform->SetPosition(0, -1, 5);
 		m_Transform->SetScaling(.4, .4, .4);
 	}
 
@@ -29,22 +27,22 @@ namespace D3DEngine
 		return this;
 	}
 
-	void GameObject::Input()
+	void GameObject::Input(float Delta)
 	{
 		for (int i = 0; i < m_Components.size(); i++)
-			m_Components[i]->Input(*m_Transform);
+			m_Components[i]->Input(*m_Transform, Delta);
 
 		for (int i = 0; i < m_Children.size(); i++)
-			m_Children[i]->Input();
+			m_Children[i]->Input(Delta);
 	}
 
-	void GameObject::Update()
+	void GameObject::Update(float Delta)
 	{
 		for (int i = 0; i < m_Components.size(); i++)
-			m_Components[i]->Update(*m_Transform);
+			m_Components[i]->Update(*m_Transform, Delta);
 
 		for (int i = 0; i < m_Children.size(); i++)
-			m_Children[i]->Update();
+			m_Children[i]->Update(Delta);
 	}
 
 	void GameObject::Draw(Shader* shader)

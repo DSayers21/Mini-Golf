@@ -11,20 +11,25 @@ namespace D3DEngine
 		Vector2f(float X, float Y);
 		~Vector2f();
 
-		float Length(){ return (float)sqrt(x*x + y*y); }
-		float Dot(Vector2f Other) { return x*Other.GetX() + y * Other.GetY(); }
+		inline float Length(){ return (float)sqrt(x*x + y*y); }
+		inline float Dot(Vector2f Other) { return x*Other.GetX() + y * Other.GetY(); }
 		Vector2f Normalise();
 		Vector2f Rotate(float Angle);
 
+		Vector2f Lerp(Vector2f Destination, float LerpFactor);
+
+		float CrossProduct(Vector2f & Other);
+
 		//Operators
-		Vector2f& operator+(const Vector2f& Other) { return Vector2f(x + Other.x, y + Other.y); }
-		Vector2f& operator+(const float Other) { return Vector2f(x + Other, y + Other); }
-		Vector2f& operator-(const Vector2f& Other) { return Vector2f(x - Other.x, y - Other.y); }
-		Vector2f& operator-(const float Other) { return Vector2f(x - Other, y - Other); }
-		Vector2f& operator*(const Vector2f& Other) { return Vector2f(x * Other.x, y * Other.y); }
-		Vector2f& operator*(const float Other) { return Vector2f(x * Other, y * Other); }
-		Vector2f& operator/(const Vector2f& Other) { return Vector2f(x / Other.x, y / Other.y); }
-		Vector2f& operator/(const float Other) { return Vector2f(x / Other, y / Other); }
+		inline Vector2f& operator+(const Vector2f& Other) { return Vector2f(x + Other.x, y + Other.y); }
+		inline Vector2f& operator+(const float Other) { return Vector2f(x + Other, y + Other); }
+		inline Vector2f& operator-(const Vector2f& Other) { return Vector2f(x - Other.x, y - Other.y); }
+		inline Vector2f& operator-(const float Other) { return Vector2f(x - Other, y - Other); }
+		inline Vector2f& operator*(const Vector2f& Other) { return Vector2f(x * Other.x, y * Other.y); }
+		inline Vector2f& operator*(const float Other) { return Vector2f(x * Other, y * Other); }
+		inline Vector2f& operator/(const Vector2f& Other) { return Vector2f(x / Other.x, y / Other.y); }
+		inline Vector2f& operator/(const float Other) { return Vector2f(x / Other, y / Other); }
+		inline bool operator==(const Vector2f& Other) { return ((x == Other.x) && (y == Other.y)); }
 
 		inline std::string ToString() { return std::string("(" + std::to_string(x) + " " + std::to_string(y) + ")"); }
 		//Getters

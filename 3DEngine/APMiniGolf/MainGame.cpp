@@ -13,14 +13,14 @@ void MainGame::Init()
 
 }
 
-void MainGame::Input(D3DEngine::Input& input)
+void MainGame::Input(D3DEngine::Input& input, float Delta)
 {
-	m_RootObject->Input();
+	m_RootObject->Input(Delta);
 }
 
-void MainGame::Update()
+void MainGame::Update(float Delta)
 {
-	m_RootObject->Update();
+	m_RootObject->Update(Delta);
 }
 
 void MainGame::Draw()

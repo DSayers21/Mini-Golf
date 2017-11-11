@@ -21,6 +21,8 @@ namespace D3DEngine
 
 		Matrix4f InitPerspective(float FOV, float AspectRatio, float zNear, float zFar);
 
+		Matrix4f InitOrthographic(float Left, float Right, float Bottom, float Top, float zNear, float zFar);
+
 		Matrix4f InitRotation(Vector3f Forward, Vector3f Up);
 
 		Matrix4f Mult(Matrix4f Other);

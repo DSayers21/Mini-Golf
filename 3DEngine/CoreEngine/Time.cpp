@@ -20,14 +20,4 @@ namespace D3DEngine
 		long Duration = Value.count();
 		return Duration;
 	}
-
-	double Time::GetDelta() const
-	{
-		return m_Delta;
-	}
-
-	void Time::SetDelta(double Delta)
-	{
-		m_Delta = Delta;
-	}
 }

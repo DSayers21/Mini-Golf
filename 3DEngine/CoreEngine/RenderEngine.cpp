@@ -18,8 +18,8 @@ namespace D3DEngine
 		Object->Draw(BShade);
 	}
 
-	void RenderEngine::CameraInput(Input& input, Time& time)
+	void RenderEngine::CameraInput(Input& input, float Delta)
 	{
-		m_Camera->DoInput(input, time);
+		m_Camera->DoInput(input, Delta);
 	}
 }

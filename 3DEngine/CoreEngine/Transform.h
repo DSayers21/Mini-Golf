@@ -15,27 +15,21 @@ namespace D3DEngine
 		Matrix4f GetTransformation();
 
 		//Getters
-		Vector3f GetTranslation() { return m_Translation; }
+		Vector3f GetPosition() { return m_Position; }
 		Vector3f GetRotation() { return m_Rotation; }
 		Vector3f GetScaling() { return m_Scaling; }
-		Matrix4f GetProjectedTransformation(Camera camera);
-		//Camera* GetCamera() const { return m_Camera; }
 		//Setters
-		void SetTranslation(Vector3f Translation) { m_Translation = Translation; }
-		void SetTranslation(float x, float y, float z) { m_Translation = Vector3f(x,y,z); }
+		void SetPosition(Vector3f Position) { m_Position = Position; }
+		void SetPosition(float x, float y, float z) { m_Position = Vector3f(x,y,z); }
 		void SetRotation(Vector3f Rotation) { m_Rotation = Rotation; }
-		void SetRotation(float x, float y, float z) { m_Rotation = Vector3f(x, y, z); }
+		void SetRotation(float x, float y, float z) { m_Rotation = Vector3f(x,y,z); }
 		void SetScaling(Vector3f Scaling) { m_Scaling = Scaling; }
-		void SetScaling(float x, float y, float z) { m_Scaling = Vector3f(x, y, z); }
-		//void SetCamera(Camera* camera) { m_Camera = camera; }
+		void SetScaling(float x, float y, float z) { m_Scaling = Vector3f(x,y,z); }
 
 	private:
 		//Represents x,y,z of translation
-		Vector3f m_Translation = Vector3f(0,0,0);
-		Vector3f m_Rotation = Vector3f(0, 0, 0);
-		Vector3f m_Scaling = Vector3f(1, 1, 1);
-		//
-
-		//Camera* m_Camera;
+		Vector3f m_Position = Vector3f(0,0,0);
+		Vector3f m_Rotation = Vector3f(0,0,0);
+		Vector3f m_Scaling = Vector3f(1,1,1);
 	};
 }

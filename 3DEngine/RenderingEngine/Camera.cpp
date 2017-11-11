@@ -20,10 +20,10 @@ namespace D3DEngine
 		return m_Projection.Mult(CameraRotMat.Mult(CameraTransMat));
 	}
 
-	void Camera::DoInput(Input& input, Time& time)
+	void Camera::DoInput(Input& input, float Delta)
 	{
-		float MoveAmount = 0.001;
-		float RotAmount = 0.01;
+		float MoveAmount = 4 * Delta;
+		float RotAmount = 32 * Delta;
 
 		if (input.GetKey(KEY_W))
 			Move(GetForward(), MoveAmount);

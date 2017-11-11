@@ -22,7 +22,7 @@ namespace D3DEngine
 		inline Camera* GetCamera() { return m_Camera; }
 
 		//Temp
-		void CameraInput(Input& input, Time& time);
+		void CameraInput(Input& input, float Delta);
 
 	private:
 		BasicShader* BShade;

@@ -48,6 +48,11 @@ namespace D3DEngine
 		return *this;
 	}
 
+	Vector3f Vector3f::Lerp(Vector3f Destination, float LerpFactor)
+	{
+		return Destination - *this * LerpFactor + *this;
+	}
+
 	Vector3f Vector3f::CrossProduct(Vector3f Other)
 	{
 		float X = y * Other.GetZ() - z * Other.GetY();

@@ -93,6 +93,20 @@ namespace D3DEngine
 		return *this;
 	}
 
+	Matrix4f Matrix4f::InitOrthographic(float Left, float Right, float Bottom, float Top, float zNear, float zFar)
+	{
+		float Width = Right = Left;
+		float Height = Top - Bottom;
+		float Depth = zFar - zNear;
+		//Scale for width, height and depth of the prism, ans scale
+		m_Matrix[0][0] = 2/Width;	m_Matrix[0][1] = 0;			m_Matrix[0][2] = 0;			m_Matrix[0][3] = -(Right+Left)/Width;
+		m_Matrix[1][0] = 0;			m_Matrix[1][1] = 2/Height;	m_Matrix[1][2] = 0;			m_Matrix[1][3] = -(Top+Bottom)/Height;
+		m_Matrix[2][0] = 0;			m_Matrix[2][1] = 0;			m_Matrix[2][2] = -2/Depth;	m_Matrix[2][3] = -(zFar+zNear)/Depth;
+		m_Matrix[3][0] = 0;			m_Matrix[3][1] = 0;			m_Matrix[3][2] = 0;			m_Matrix[3][3] = 1;
+
+		return *this;
+	}
+
 	Matrix4f Matrix4f::InitRotation(Vector3f Forward, Vector3f Up)
 	{
 		Vector3f For = Forward;

@@ -11,11 +11,11 @@ namespace D3DEngine
 	{
 	}
 
-	void GameComponent::Input(Transform transform)
+	void GameComponent::Input(Transform transform, float Delta)
 	{
 	}
 
-	void GameComponent::Update(Transform transform)
+	void GameComponent::Update(Transform transform, float Delta)
 	{
 	}
 

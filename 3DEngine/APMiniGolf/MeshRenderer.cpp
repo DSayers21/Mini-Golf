@@ -10,6 +10,14 @@ MeshRenderer::~MeshRenderer()
 {
 }
 
+void MeshRenderer::Input(D3DEngine::Transform * transform, float Delta)
+{
+}
+
+void MeshRenderer::Update(D3DEngine::Transform * transform, float Delta)
+{
+}
+
 void MeshRenderer::Draw(D3DEngine::Transform* transform, D3DEngine::Shader* shader)
 {
 	shader->Bind();

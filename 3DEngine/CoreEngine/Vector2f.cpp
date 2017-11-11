@@ -28,4 +28,14 @@ namespace D3DEngine
 
 		return Vector2f(float(x*Cos - y*Sin), float(x*Sin + y * Cos));
 	}
+
+	Vector2f Vector2f::Lerp(Vector2f Destination, float LerpFactor)
+	{
+		return (Destination - *this * LerpFactor + *this);
+	}
+
+	float Vector2f::CrossProduct(Vector2f& Other)
+	{
+		return (x * Other.GetY()) - (y * Other.GetX());
+	}
 }

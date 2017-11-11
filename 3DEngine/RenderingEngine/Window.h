@@ -5,6 +5,7 @@
 #include <SDL2/SDL.h>
 #include <iostream>
 #include "RenderUtil.h"
+#include "Vector2f.h"
 
 namespace D3DEngine
 {
@@ -28,6 +29,7 @@ namespace D3DEngine
 		bool IsClosed() { return m_isClosed; }
 		int GetWidth() { return m_Width; }
 		int GetHeight() { return m_Height; }
+		Vector2f GetCenter() { return Vector2f(m_Width / 2, m_Height / 2); }
 
 	private:
 		SDL_Window* m_Window;

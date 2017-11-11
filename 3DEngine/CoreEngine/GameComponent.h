@@ -11,8 +11,8 @@ namespace D3DEngine
 		GameComponent();
 		~GameComponent();
 
-		virtual void Input(Transform transform);
-		virtual void Update(Transform transform);
+		virtual void Input(Transform transform, float Delta);
+		virtual void Update(Transform transform, float Delta);
 		virtual void Draw(Transform* transform, Shader* shader);
 	};
 }

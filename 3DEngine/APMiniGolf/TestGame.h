@@ -24,7 +24,7 @@ public:
 	~TestGame();
 
 	void Init();
-	void Input(D3DEngine::Input& input);
+	void Input(D3DEngine::Input& input, float Delta);
 
 private:
 };

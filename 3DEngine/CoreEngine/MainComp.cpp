@@ -41,7 +41,6 @@ namespace D3DEngine
 		bool Render = false;
 		int Frames = 0;
 		long FrameCounter = 0;
-
 		m_Game->Init();
 
 		while (!m_Window->IsClosed())
@@ -58,9 +57,9 @@ namespace D3DEngine
 				Render = true;
 				UnproccessedTime -= m_FrameTime;
 				//Update The Game
-				m_Game->Input(*m_Input);
-				m_RenderEngine->CameraInput(*m_Input, *m_Time);
-				m_Game->Update();
+				m_Game->Input(*m_Input, m_FrameTime);
+				m_RenderEngine->CameraInput(*m_Input, m_FrameTime);
+				m_Game->Update(m_FrameTime);
 
 				if (FrameCounter >= m_Time->SECOND)
 				{

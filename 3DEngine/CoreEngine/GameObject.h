@@ -17,8 +17,8 @@ namespace D3DEngine
 		GameObject* AddChild(GameObject* Child);
 		GameObject* AddComponent(GameComponent* Component);
 
-		void Input();
-		void Update();
+		void Input(float Delta);
+		void Update(float Delta);
 		void Draw(Shader* shader);
 
 		//Getters

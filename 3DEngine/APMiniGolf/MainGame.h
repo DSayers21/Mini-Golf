@@ -22,8 +22,8 @@ public:
 	~MainGame();
 
 	virtual void Init();
-	virtual void Input(D3DEngine::Input& input);
-	virtual void Update();
+	virtual void Input(D3DEngine::Input& input, float Delta);
+	virtual void Update(float Delta);
 	virtual void Draw();
 	//Getters
 	inline D3DEngine::GameObject* GetRootObject() { return m_RootObject; }
