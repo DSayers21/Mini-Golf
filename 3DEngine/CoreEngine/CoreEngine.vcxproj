@@ -123,6 +123,7 @@
     <ClCompile Include="MainComp.cpp" />
     <ClCompile Include="Matrix4f.cpp" />
     <ClCompile Include="MeshRenderer.cpp" />
+    <ClCompile Include="PointLight.cpp" />
     <ClCompile Include="Quaternion.cpp" />
     <ClCompile Include="RenderEngine.cpp" />
     <ClCompile Include="Time.cpp" />
@@ -140,6 +141,7 @@
     <ClInclude Include="MathBasics.h" />
     <ClInclude Include="Matrix4f.h" />
     <ClInclude Include="MeshRenderer.h" />
+    <ClInclude Include="PointLight.h" />
     <ClInclude Include="Quaternion.h" />
     <ClInclude Include="RenderEngine.h" />
     <ClInclude Include="Time.h" />

@@ -46,12 +46,13 @@ namespace D3DEngine
 		//Getters
 		inline Vector3f GetAmbientLight() { return m_AmbientLight; }
 		inline DirectionalLight GetActiveDirectionalLight() { return m_ActiveDirectionalLight; }
-		inline PointLight GetPointLight() { return m_PointLight; }
+		inline PointLight GetActivePointLight() { return m_ActivePointLight; }
 		inline SpotLight GetSpotLight() { return m_SpotLight; }
 		//Add Lights
 		inline void AddDirectionalLight(DirectionalLight* directionalLight) { m_DirectionalLights.push_back(directionalLight); }
+		inline void AddPointLight(PointLight* pointLight) { m_PointLights.push_back(pointLight); }
 
-		inline void ClearLightList() { m_DirectionalLights.clear(); }
+		void ClearLightList();
 
 
 	private:
@@ -64,11 +65,12 @@ namespace D3DEngine
 
 		Vector3f m_AmbientLight;
 		DirectionalLight m_ActiveDirectionalLight;
-		DirectionalLight m_DirectionalLight2;
-		PointLight m_PointLight;
+		PointLight m_ActivePointLight;
 		SpotLight m_SpotLight;
 
 		//Permanent Structures
 		std::vector<DirectionalLight*> m_DirectionalLights = std::vector<DirectionalLight*>();
+		std::vector<PointLight*> m_PointLights = std::vector<PointLight*>();
+		//std::vector<DirectionalLight*> m_DirectionalLights = std::vector<DirectionalLight*>();
 	};
 }

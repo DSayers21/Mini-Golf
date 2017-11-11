@@ -1,2 +1,30 @@
-﻿  DirectionalLight.cpp
-c1xx : fatal error C1083: Cannot open source file: 'DirectionalLight.cpp': No such file or directory
+﻿  BasicShader.cpp
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\window.h(29): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\input.h(392): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
+  Generating Code...
+  Compiling...
+  SpotLight.cpp
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\window.h(29): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\input.h(392): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
+  Shader.cpp
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\window.h(29): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\input.h(392): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
+  PhongShader.cpp
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\window.h(29): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\input.h(392): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\phongshader.h(26): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\phongshader.cpp(8): warning C4305: 'argument': truncation from 'double' to 'float'
+  ForwardSpot.cpp
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\window.h(29): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\input.h(392): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
+  ForwardPoint.cpp
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\window.h(29): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\input.h(392): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
+  ForwardDirectional.cpp
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\window.h(29): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\input.h(392): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
+  ForwardAmbient.cpp
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\window.h(29): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\input.h(392): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
+  Generating Code...
+  RenderingEngine.vcxproj -> C:\Users\Satan\Documents\GitHub\Pool Game\Mini-Golf\3DEngine\Debug\RenderingEngine.lib

@@ -21,8 +21,7 @@ namespace D3DEngine
 		//Setup Lighting
 		m_AmbientLight = Vector3f(0.2f, 0.2f, 0.2f);
 		m_ActiveDirectionalLight = DirectionalLight(BaseLight(Vector3f(0, 0,1), 0.4f), Vector3f(1,1,1));
-		m_DirectionalLight2 = DirectionalLight(BaseLight(Vector3f(1, 0, 0), 0.4f), Vector3f(-1, 1, -1));
-		m_PointLight = PointLight(BaseLight(Vector3f(0, 1, 0), 0.9f), Attenuation(0, 0, 1), Vector3f(5, 0, 5), 100);
+		m_ActivePointLight = PointLight(BaseLight(Vector3f(0, 1, 0), 0.9f), Attenuation(0, 0, 1), Vector3f(5, 0, 5), 100);
 
 		m_SpotLight = SpotLight(PointLight(BaseLight(Vector3f(0, 1, 1), 0.4f), Attenuation(0, 0, .1), Vector3f(7, 0, 7), 100),
 			Vector3f(1,0,0), 0.7);
@@ -55,24 +54,11 @@ namespace D3DEngine
 			Object->Draw(m_ShaderForwardDirectional);
 		}
 
-		//Object->Draw(m_ShaderForwardDirectional);
-
-		//Swap Lights
-		//DirectionalLight Temp = m_DirectionalLight;
-		//m_DirectionalLight = m_DirectionalLight2;
-		//m_DirectionalLight2 = Temp;
-
-		//Object->Draw(m_ShaderForwardDirectional);
-
-		//Temp = m_DirectionalLight;
-		//m_DirectionalLight = m_DirectionalLight2;
-		//m_DirectionalLight2 = Temp;
-
-		//Point Light
-		//Object->Draw(m_ShaderPointLight);
-		//Spot Light
-		//Object->Draw(m_ShaderSpotLight);
-
+		for (int i = 0; i < m_PointLights.size(); i++)
+		{
+			m_ActivePointLight = *m_PointLights[i];
+			Object->Draw(m_ShaderPointLight);
+		}
 		//end of blending
 		glDepthFunc(GL_LESS);
 		glDepthMask(true);			 //Enable writing to the depth buffer
@@ -106,5 +92,11 @@ namespace D3DEngine
 	{
 		//Clear colour and buffer bits
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	}
+
+	void RenderEngine::ClearLightList()
+	{
+		m_DirectionalLights.clear();
+		m_PointLights.clear();
 	}
 }
