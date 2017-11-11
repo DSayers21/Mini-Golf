@@ -54,6 +54,6 @@ namespace D3DEngine
 		SetUniformF("SpecularExponent", material.GetSpecularExponent());
 		SetUniformV("EyePos", GetRenderEngine()->GetCamera()->GetPos());
 		//Spot Light
-		//SetUniformSL("spotLight", GetRenderEngine()->GetActiveLight());
+		SetUniformSL("spotLight", GetRenderEngine()->GetActiveLight());
 	}
 }

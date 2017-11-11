@@ -127,6 +127,7 @@
     <ClCompile Include="PointLight.cpp" />
     <ClCompile Include="Quaternion.cpp" />
     <ClCompile Include="RenderEngine.cpp" />
+    <ClCompile Include="SpotLight.cpp" />
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Util.cpp" />
@@ -146,6 +147,7 @@
     <ClInclude Include="PointLight.h" />
     <ClInclude Include="Quaternion.h" />
     <ClInclude Include="RenderEngine.h" />
+    <ClInclude Include="SpotLight.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Util.h" />

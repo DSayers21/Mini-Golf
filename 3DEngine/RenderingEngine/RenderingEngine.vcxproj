@@ -126,7 +126,6 @@
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Shader.cpp" />
-    <ClCompile Include="SpotLight.cpp" />
     <ClCompile Include="stb_image.c" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Vert.cpp" />
@@ -143,7 +142,6 @@
     <ClInclude Include="Material.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Shader.h" />
-    <ClInclude Include="SpotLight.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Vert.h" />
