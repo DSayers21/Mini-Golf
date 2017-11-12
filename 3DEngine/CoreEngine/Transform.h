@@ -2,7 +2,6 @@
 
 #include "Vector3f.h"
 #include "Matrix4f.h"
-#include "Camera.h"
 
 namespace D3DEngine
 {

@@ -5,7 +5,7 @@ namespace D3DEngine
 	RenderEngine::RenderEngine()
 	{
 		InitGraphics();
-		m_Camera = new Camera(TO_RADIANS(70.0f), (float)800/600, 0.1f, 1000);
+		//m_Camera = new Camera(TO_RADIANS(70.0f), (float)800/600, 0.1f, 1000);
 		//Ambient Light
 		m_ShaderForwardAmbient = new ForwardAmbient();
 		m_ShaderForwardAmbient->SetRenderEngine(this);
@@ -43,11 +43,6 @@ namespace D3DEngine
 		glDepthFunc(GL_LESS);
 		glDepthMask(true);			 //Enable writing to the depth buffer
 		glDisable(GL_BLEND);
-	}
-
-	void RenderEngine::CameraInput(Input& input, float Delta)
-	{
-		m_Camera->DoInput(input, Delta);
 	}
 
 	void RenderEngine::InitGraphics()

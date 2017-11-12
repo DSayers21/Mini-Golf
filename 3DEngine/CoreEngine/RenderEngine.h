@@ -6,6 +6,7 @@
 #include "ForwardAmbient.h"
 
 #include "BaseLight.h"
+#include "Camera.h"
 
 #include "MathBasics.h"
 #include "Camera.h"
@@ -26,11 +27,8 @@ namespace D3DEngine
 
 		void Render(GameObject* Object);
 
-		inline void SetCamera(Camera* camera) { m_Camera = camera; }
+		//inline void SetCamera(Camera* camera) { m_Camera = camera; }
 		inline Camera* GetCamera() { return m_Camera; }
-
-		//Temp
-		void CameraInput(Input& input, float Delta);
 
 		void InitGraphics();
 
@@ -45,7 +43,7 @@ namespace D3DEngine
 		//inline void AddDirectionalLight(DirectionalLight* directionalLight) { m_DirectionalLights.push_back(directionalLight); }
 		//inline void AddPointLight(PointLight* pointLight) { m_PointLights.push_back(pointLight); }
 		inline void AddLight(BaseLight* Light) { m_Lights.push_back(Light); }
-
+		inline void AddCamera(Camera* camera) { m_Camera = camera; }
 
 	private:
 		Shader* m_ShaderForwardAmbient;

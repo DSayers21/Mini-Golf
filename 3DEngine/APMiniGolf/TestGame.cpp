@@ -49,10 +49,17 @@ void TestGame::Init()
 	SpotLightObject->GetTransform()->GetPosition()->Set(5, 0, 5);
 	SpotLightObject->GetTransform()->SetRotation(D3DEngine::Quaternion().InitRotation(D3DEngine::Vector3f(0, 1, 0), TO_RADIANS(-90.0f)));
 
+	D3DEngine::GameObject* CameraObject = new D3DEngine::GameObject();
+	CameraObject->AddComponent(new D3DEngine::Camera(TO_RADIANS(70.0f), 800/600, 0.01f, 1000.0f));
+
+
 	m_RootObject->AddChild(PlaneObject);
 	m_RootObject->AddChild(DirectionalLightObject);
 	m_RootObject->AddChild(PointLightObject);
 	m_RootObject->AddChild(SpotLightObject);
+	m_RootObject->AddChild(CameraObject);
+
+
 }
 
 void TestGame::Input(D3DEngine::Input& input, float Delta)
@@ -67,5 +74,5 @@ void TestGame::Input(D3DEngine::Input& input, float Delta)
 	{
 		std::cout << "Mouse Pressed Left at:: (" << MX << "," << MY << ")" << std::endl;
 	}
-	//m_RootObject->Input();
+	m_RootObject->Input(Delta);
 }

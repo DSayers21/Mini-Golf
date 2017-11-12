@@ -118,7 +118,6 @@
   <ItemGroup>
     <ClCompile Include="Attenuation.cpp" />
     <ClCompile Include="BasicShader.cpp" />
-    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="ForwardAmbient.cpp" />
     <ClCompile Include="ForwardDirectional.cpp" />
     <ClCompile Include="ForwardPoint.cpp" />
@@ -134,7 +133,6 @@
   <ItemGroup>
     <ClInclude Include="Attenuation.h" />
     <ClInclude Include="BasicShader.h" />
-    <ClInclude Include="Camera.h" />
     <ClInclude Include="ForwardAmbient.h" />
     <ClInclude Include="ForwardDirectional.h" />
     <ClInclude Include="ForwardPoint.h" />

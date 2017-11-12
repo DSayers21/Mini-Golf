@@ -58,7 +58,6 @@ namespace D3DEngine
 				UnproccessedTime -= m_FrameTime;
 				//Update The Game
 				m_Game->Input(*m_Input, m_FrameTime);
-				m_RenderEngine->CameraInput(*m_Input, m_FrameTime);
 				m_Game->Update(m_FrameTime);
 
 				if (FrameCounter >= m_Time->SECOND)
