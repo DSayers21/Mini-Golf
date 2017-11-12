@@ -9,7 +9,7 @@ namespace D3DEngine
 	{
 	public:
 		PointLight();
-		PointLight(Vector3f colour, float intensity, Attenuation& attenuation, Vector3f& Position, float Range);
+		PointLight(Vector3f colour, float intensity, Attenuation& attenuation);
 		~PointLight();
 	};
 }

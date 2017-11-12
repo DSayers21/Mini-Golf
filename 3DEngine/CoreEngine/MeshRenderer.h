@@ -13,9 +13,9 @@ namespace D3DEngine
 	public:
 		MeshRenderer(D3DEngine::Mesh* mesh, D3DEngine::Material* material);
 		~MeshRenderer();
-		void Input(D3DEngine::Transform* transform, float Delta);
-		void Update(D3DEngine::Transform* transform, float Delta);
-		void Draw(D3DEngine::Transform* transform, D3DEngine::Shader* shader);
+		void Input(float Delta);
+		void Update(float Delta);
+		void Draw(D3DEngine::Shader* shader);
 
 	private:
 		D3DEngine::Mesh* m_Mesh;

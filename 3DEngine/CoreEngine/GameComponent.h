@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Transform.h"
+#include "GameObject.h"
 
 namespace D3DEngine
 {
@@ -13,10 +14,15 @@ namespace D3DEngine
 		GameComponent();
 		~GameComponent();
 
-		virtual void Input(Transform transform, float Delta);
-		virtual void Update(Transform transform, float Delta);
-		virtual void Draw(Transform* transform, Shader* shader);
-
+		virtual void Input(float Delta);
+		virtual void Update(float Delta);
+		virtual void Draw(Shader* shader);
 		virtual void AddToRenderingEngine(RenderEngine* renderEngine);
+
+		virtual inline void SetParent(GameObject* parent) { m_Parent = parent; }
+		virtual inline Transform* GetTransform() { return m_Parent->GetTransform(); }
+
+	protected:
+		GameObject* m_Parent;
 	};
 }

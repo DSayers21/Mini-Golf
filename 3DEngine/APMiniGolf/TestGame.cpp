@@ -36,11 +36,13 @@ void TestGame::Init()
 	DirectionalLightObject->AddComponent(directionalLight);
 
 	D3DEngine::GameObject* PointLightObject = new D3DEngine::GameObject();
-	PointLightObject->AddComponent(new D3DEngine::PointLight(D3DEngine::Vector3f(0, 1, 0), 0.9f, D3DEngine::Attenuation(0, 0, 1), D3DEngine::Vector3f(5, 0, 5), 100));
+	PointLightObject->AddComponent(new D3DEngine::PointLight(D3DEngine::Vector3f(0, 1, 0), 0.9f, D3DEngine::Attenuation(0, 0, 1)));
+	PointLightObject->GetTransform()->SetPosition(2, 0, 2);
 
 	D3DEngine::GameObject* SpotLightObject = new D3DEngine::GameObject();
 	SpotLightObject->AddComponent(new D3DEngine::SpotLight(D3DEngine::Vector3f(0, 1, 1),12.0f, 
-		D3DEngine::Attenuation(0, 0, 1), D3DEngine::Vector3f(7, 0, 7), 100, D3DEngine::Vector3f(1, 0, 0), 0.7));
+		D3DEngine::Attenuation(0, 0, 1), D3DEngine::Vector3f(1, 0, 0), 0.7));
+	SpotLightObject->GetTransform()->SetPosition(5, 0, 5);
 
 	m_RootObject->AddChild(PlaneObject);
 	m_RootObject->AddChild(DirectionalLightObject);

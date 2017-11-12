@@ -12,18 +12,18 @@ namespace D3DEngine
 	{
 	}
 
-	void MeshRenderer::Input(D3DEngine::Transform * transform, float Delta)
+	void MeshRenderer::Input(float Delta)
 	{
 	}
 
-	void MeshRenderer::Update(D3DEngine::Transform * transform, float Delta)
+	void MeshRenderer::Update(float Delta)
 	{
 	}
 
-	void MeshRenderer::Draw(D3DEngine::Transform* transform, D3DEngine::Shader* shader)
+	void MeshRenderer::Draw(D3DEngine::Shader* shader)
 	{
 		shader->Bind();
-		shader->UpdateUniforms(*transform, *m_Material);
+		shader->UpdateUniforms(*GetTransform(), *m_Material);
 		m_Mesh->Draw();
 	}
 }

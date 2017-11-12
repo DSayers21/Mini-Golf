@@ -1,15 +1,13 @@
 #pragma once
 
 #include <vector>
-#include "GameObject.h"
-#include "GameComponent.h"
 #include "Transform.h"
 
 namespace D3DEngine
 {
 	class RenderEngine;
 	class Shader;
-
+	class GameComponent;
 
 	class GameObject
 	{

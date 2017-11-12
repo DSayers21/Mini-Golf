@@ -13,6 +13,13 @@ namespace D3DEngine
 
 	}
 
+	float Vector3f::Max()
+	{
+		float Max = (x < y) ? y : x;
+		Max = (Max < z) ? z : Max;
+		return Max;
+	}
+
 	Vector3f Vector3f::Normalise()
 	{
 		const float Len = Length();

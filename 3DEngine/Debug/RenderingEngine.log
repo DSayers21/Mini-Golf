@@ -1,31 +1,11 @@
-﻿  Shader.cpp
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\window.h(29): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\input.h(392): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
-  ForwardDirectional.cpp
+﻿  BasicShader.cpp
 c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\window.h(29): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\input.h(392): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
   Generating Code...
-  Compiling...
-  SpotLight.cpp
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\window.h(29): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\input.h(392): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
-  PhongShader.cpp
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\window.h(29): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\input.h(392): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\phongshader.h(26): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\phongshader.cpp(8): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\phongshader.cpp(8): error C2440: '<function-style-cast>': cannot convert from 'initializer list' to 'D3DEngine::DirectionalLight'
-  c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\phongshader.cpp(8): note: No constructor could take the source type, or constructor overload resolution was ambiguous
+  Skipping... (no relevant changes detected)
+  Shader.cpp
   ForwardSpot.cpp
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\window.h(29): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\input.h(392): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
   ForwardPoint.cpp
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\window.h(29): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\input.h(392): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
+  ForwardDirectional.cpp
   ForwardAmbient.cpp
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\window.h(29): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\input.h(392): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
-  BasicShader.cpp
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\window.h(29): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\input.h(392): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
-  Generating Code...
+  RenderingEngine.vcxproj -> C:\Users\Satan\Documents\GitHub\Pool Game\Mini-Golf\3DEngine\Debug\RenderingEngine.lib

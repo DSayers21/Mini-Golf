@@ -1,6 +1,7 @@
 #include "GameComponent.h"
 #include "RenderEngine.h"
 #include "Shader.h"
+#include "GameObject.h"
 
 namespace D3DEngine
 {
@@ -13,15 +14,15 @@ namespace D3DEngine
 	{
 	}
 
-	void GameComponent::Input(Transform transform, float Delta)
+	void GameComponent::Input(float Delta)
 	{
 	}
 
-	void GameComponent::Update(Transform transform, float Delta)
+	void GameComponent::Update(float Delta)
 	{
 	}
 
-	void GameComponent::Draw(Transform* transform, Shader* shader)
+	void GameComponent::Draw(Shader* shader)
 	{
 	}
 

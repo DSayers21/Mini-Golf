@@ -6,17 +6,17 @@ namespace D3DEngine
 {
 	PointLight::PointLight()
 	{
-		*this = PointLight(Vector3f(0,0,0), 1, Attenuation(), Vector3f(0,0,0), 0);
+		*this = PointLight(Vector3f(0,0,0), 1, Attenuation());
 	}
 
-	PointLight::PointLight(Vector3f colour, float intensity, Attenuation& attenuation, Vector3f& Position, float Range)
+	PointLight::PointLight(Vector3f colour, float intensity, Attenuation& attenuation)
 	{
 		m_Colour = colour;
 		m_Intensity = intensity;
 		m_Attenuation = attenuation;
-		m_Position = Position;
-		m_Range = Range;
 
+		m_Range = CalcRange();
+	
 		SetShader(new ForwardPoint());
 	}
 

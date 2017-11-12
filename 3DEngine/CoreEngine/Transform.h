@@ -28,7 +28,7 @@ namespace D3DEngine
 
 	private:
 		//Represents x,y,z of translation
-		Vector3f m_Position = Vector3f(0,0,0);
+		Vector3f m_Position = Vector3f(7,0,7);
 		Vector3f m_Rotation = Vector3f(0,0,0);
 		Vector3f m_Scaling = Vector3f(1,1,1);
 	};

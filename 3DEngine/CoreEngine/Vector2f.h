@@ -11,6 +11,7 @@ namespace D3DEngine
 		Vector2f(float X, float Y);
 		~Vector2f();
 
+		inline float Max() { return (x < y) ? y : x; }
 		inline float Length(){ return (float)sqrt(x*x + y*y); }
 		inline float Dot(Vector2f Other) { return x*Other.GetX() + y * Other.GetY(); }
 		Vector2f Normalise();

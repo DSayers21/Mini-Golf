@@ -22,4 +22,17 @@ namespace D3DEngine
 	{
 		renderEngine->AddLight(this);
 	}
+
+	float BaseLight::CalcRange()
+	{
+		//CalcRange
+		float a = m_Attenuation.GetExponent();
+		float b = m_Attenuation.GetLinear();
+		float c = m_Attenuation.GetConstant();
+		c -= COLOUR_DEPTH * (GetIntensity() * GetColour().Max());	//Subtract the max amount of colour depth
+
+		float Range = (-b + sqrtf(b*b - 4 * a * c)) / (2 * a);
+
+		return Range;
+	}
 }
