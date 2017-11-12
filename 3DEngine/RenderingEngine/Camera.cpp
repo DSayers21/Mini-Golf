@@ -60,7 +60,7 @@ namespace D3DEngine
 		Vector3f HAxis = yAxi.CrossProduct(m_Forward);
 		HAxis.Normalise();
 
-		m_Forward.Rotate(Angle, yAxi);
+		m_Forward.Rotate(yAxi, Angle);
 		m_Forward.Normalise();
 
 		m_Up = m_Forward.CrossProduct(HAxis);
@@ -74,7 +74,7 @@ namespace D3DEngine
 		Vector3f HAxis = yAxi.CrossProduct(m_Forward);
 		HAxis.Normalise();
 
-		m_Forward.Rotate(Angle, HAxis);
+		m_Forward.Rotate(HAxis, Angle);
 		m_Forward.Normalise();
 
 		m_Up = m_Forward.CrossProduct(HAxis);

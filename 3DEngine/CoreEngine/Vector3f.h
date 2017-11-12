@@ -6,6 +6,7 @@
 
 namespace D3DEngine
 {
+	class Quaternion;
 	class Vector3f
 	{
 	public:
@@ -18,10 +19,13 @@ namespace D3DEngine
 		float Max();
 		inline float Dot(Vector3f Other) { return x*Other.GetX() + y * Other.GetY() + z * Other.GetZ(); }
 		Vector3f Normalise();
-		Vector3f Rotate(float Angle, Vector3f Axis);
+		Vector3f Rotate(Vector3f Axis, float Angle);
+		Vector3f Rotate(Quaternion Rotation);
 		Vector3f Lerp(Vector3f Destination, float LerpFactor);
 		Vector3f CrossProduct(Vector3f Other);
 
+		//Operators
+		inline Vector3f& Add(const Vector3f& Other) { return Vector3f(x + Other.x, y + Other.y, z + Other.z); }
 		//Operators
 		inline Vector3f& operator+(const Vector3f& Other) { return Vector3f(x + Other.x, y + Other.y, z + Other.z); }
 		inline Vector3f& operator+(const float Other) { return Vector3f(x + Other, y + Other, z + Other); }
