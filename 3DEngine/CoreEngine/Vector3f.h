@@ -51,6 +51,7 @@ namespace D3DEngine
 		inline void SetX(float X) { x = X; }
 		inline void SetY(float Y) { y = Y; }
 		inline void SetZ(float Z) { z = Z; }
+		inline void Set(float X, float Y, float Z) { x = X; y = Y; z = Z; };
 	private:
 		float x;
 		float y;

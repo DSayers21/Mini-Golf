@@ -34,23 +34,11 @@ namespace D3DEngine
 
 	Vector3f Vector3f::Rotate(float Angle, Vector3f Axis)
 	{
-		float SinHalfAngle = sinf(TO_RADIANS(Angle / 2));
-		float CosHalfAngle = cosf(TO_RADIANS(Angle / 2));
-		//Quaternion
-		float rX = Axis.GetX() * SinHalfAngle;
-		float rY = Axis.GetY() * SinHalfAngle;
-		float rZ = Axis.GetZ() * SinHalfAngle;
-		float rW = CosHalfAngle;
-		Quaternion Rotation(rX, rY, rZ, rW);
+		Quaternion Rotation = *Quaternion().InitRotation(Axis, Angle);
 		Quaternion Conjugate = Rotation.Conjugate();
+		Quaternion RotResult = Rotation.Mult(*this).Mult(Conjugate);
 
-		Vector3f THIS = *this;
-
-		Quaternion RotResult = Rotation.Mult(THIS).Mult(Conjugate);
-
-		x = RotResult.GetX();
-		y = RotResult.GetY();
-		z = RotResult.GetZ();
+		*this = Vector3f(RotResult.GetX(), RotResult.GetY(), RotResult.GetZ());
 
 		return *this;
 	}

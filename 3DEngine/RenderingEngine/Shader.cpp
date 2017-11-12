@@ -66,12 +66,6 @@ namespace D3DEngine
 		glUniformMatrix4fv(m_Uniforms.at(UniformName), 1, GL_TRUE, &(Value[0][0]));
 	}
 
-	void Shader::SetUniformDL(std::string UniformName, BaseLight* DirLight)
-	{
-		SetUniformBL(UniformName + ".Light", DirLight);
-		SetUniformV(UniformName + ".Direction", DirLight->GetDirection());
-	}
-
 	void Shader::SetUniformBL(std::string UniformName, BaseLight* BaseLight)
 	{
 		SetUniformV(UniformName + ".Colour", BaseLight->GetColour());
@@ -86,7 +80,7 @@ namespace D3DEngine
 		SetUniformF(UniformName + ".Atten.Linear", pointLight->GetAttenuation().GetLinear());
 		SetUniformF(UniformName + ".Atten.Exponent", pointLight->GetAttenuation().GetExponent());
 
-		SetUniformV(UniformName + ".Position", pointLight->GetTransform()->GetPosition());
+		SetUniformV(UniformName + ".Position", *pointLight->GetTransform()->GetPosition());
 		SetUniformF(UniformName + ".Range", pointLight->GetRange());
 	}
 

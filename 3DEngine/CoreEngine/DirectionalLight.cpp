@@ -8,11 +8,10 @@ namespace D3DEngine
 	{
 	}
 
-	DirectionalLight::DirectionalLight(Vector3f Colour, float Intensity, Vector3f Direction)
+	DirectionalLight::DirectionalLight(Vector3f Colour, float Intensity)
 	{
 		m_Colour = Colour;
 		m_Intensity = Intensity;
-		m_Direction = Direction.Normalise();
 		SetShader(new ForwardDirectional());
 	}
 

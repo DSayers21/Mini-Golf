@@ -9,8 +9,6 @@ namespace D3DEngine
 	{
 		m_Transform = new Transform();
 
-		m_Transform->SetPosition(5, 0, 5);
-		m_Transform->SetScaling(.4, .4, .4);
 	}
 
 	GameObject::~GameObject()

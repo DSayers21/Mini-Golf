@@ -8,7 +8,7 @@ namespace D3DEngine
 	{
 	public:
 		SpotLight();
-		SpotLight(Vector3f colour, float intensity, Attenuation& attenuation, Vector3f direction, float cutoff);
+		SpotLight(Vector3f colour, float intensity, Attenuation& attenuation, float cutoff);
 		~SpotLight();
 	};
 }

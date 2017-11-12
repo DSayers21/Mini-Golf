@@ -4,13 +4,26 @@ namespace D3DEngine
 {
 	Quaternion::Quaternion()
 	{
-		Quaternion(0.0,0.0,0.0,0.0);
+		Quaternion(0.0f,0.0f,0.0f,1.0f);
 	}
 
 	Quaternion::Quaternion(float X, float Y, float Z, float W) :
 		x(X), y(Y), z(Z), w(W)
 	{
 
+	}
+
+	Quaternion* Quaternion::InitRotation(Vector3f Axis, float Angle)
+	{
+		float SinHalfAngle = sinf(Angle / 2);
+		float CosHalfAngle = cosf(Angle / 2);
+		//Quaternion
+		x = Axis.GetX() * SinHalfAngle;
+		y = Axis.GetY() * SinHalfAngle;
+		z = Axis.GetZ() * SinHalfAngle;
+		w = CosHalfAngle;
+
+		return this;
 	}
 
 	Quaternion::~Quaternion()
@@ -56,5 +69,41 @@ namespace D3DEngine
 		Z = w* Other.GetZ() + x * Other.GetY() - y * Other.GetX();
 
 		return Quaternion(X, Y, Z, W);
+	}
+
+	Matrix4f* Quaternion::ToRotationMatrix()
+	{
+		Matrix4f* RotMat = new Matrix4f();
+		RotMat->InitRotation(GetForward(), GetUp(), GetRight());
+		return RotMat;
+	}
+
+	Vector3f Quaternion::GetForward()
+	{
+		return Vector3f(2.0f * (x*z - w*y), 2.0f * (y*z + w*x), 1.0f - 2.0f * (x*x + y*y));
+	}
+
+	Vector3f Quaternion::GetBack()
+	{
+		return Vector3f(-2.0f * (x*z - w*y), -2.0f * (y*z + w*x), -(1.0f - 2.0f * (x*x + y*y)));
+	}
+	Vector3f Quaternion::GetUp()
+	{
+		return Vector3f(2.0f * (x*y + w*z), 1.0f - 2.0f * (x*x + z*z), 2.0f * (y*z - w*x));
+	}
+
+	Vector3f Quaternion::GetDown()
+	{
+		return Vector3f(-2.0f * (x*y + w*z), -(1.0f - 2.0f * (x*x + z*z)), -2.0f * (y*z - w*x));
+	}
+
+	Vector3f Quaternion::GetRight()
+	{
+		return Vector3f(1.0f - 2.0f * (y*y + z*z), 2.0f * (x*y - w*z), 2.0f * (x*z+w*y));
+	}
+
+	Vector3f Quaternion::GetLeft()
+	{
+		return Vector3f(-(1.0f - 2.0f * (y*y + z*z)), -2.0f * (x*y - w*z), -2.0f * (x*z + w*y));
 	}
 }

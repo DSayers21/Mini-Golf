@@ -1,6 +1,7 @@
 #pragma once
 #include "MathBasics.h"
 #include "Vector3f.h"
+#include "Matrix4f.h"
 
 namespace D3DEngine
 {
@@ -11,6 +12,7 @@ namespace D3DEngine
 		Quaternion();
 		Quaternion(float X, float Y, float Z, float W);
 		~Quaternion();
+		Quaternion* Quaternion::InitRotation(Vector3f Axis, float Angle);
 
 		float Length() { return (float)sqrt(x*x + y*y + z*z + w*w); }
 		Quaternion Normalise();
@@ -18,6 +20,14 @@ namespace D3DEngine
 		//Operators
 		Quaternion Mult(Quaternion& Other);
 		Quaternion Mult(Vector3f& Other);
+		Matrix4f* ToRotationMatrix();
+		//
+		Vector3f GetBack();
+		Vector3f GetUp();
+		Vector3f GetDown();
+		Vector3f GetRight();
+		Vector3f GetLeft();
+		Vector3f GetForward();
 		//Getters
 		float GetX() const { return x; }
 		float GetY() const { return y; }

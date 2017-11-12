@@ -6,6 +6,7 @@
 #include <iostream>
 #include <string>
 #include "Matrix4f.h"
+#include "MathBasics.h"
 
 namespace D3DEngine
 {

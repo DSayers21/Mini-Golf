@@ -1,4 +1,5 @@
 #include "Matrix4f.h"
+#include "Vector3f.h"
 
 namespace D3DEngine
 {
@@ -117,6 +118,22 @@ namespace D3DEngine
 		right = right.CrossProduct(For);
 
 		Vector3f up = For.CrossProduct(right);
+
+		m_Matrix[0][0] = right.GetX(); m_Matrix[0][1] = right.GetY(); m_Matrix[0][2] = right.GetZ(); m_Matrix[0][3] = 0;
+		m_Matrix[1][0] = up.GetX();	   m_Matrix[1][1] = up.GetY();	  m_Matrix[1][2] = up.GetZ();    m_Matrix[1][3] = 0;
+		m_Matrix[2][0] = For.GetX();   m_Matrix[2][1] = For.GetY();	  m_Matrix[2][2] = For.GetZ();   m_Matrix[2][3] = 0;
+		m_Matrix[3][0] = 0;			   m_Matrix[3][1] = 0;			  m_Matrix[3][2] = 0;		     m_Matrix[3][3] = 1;
+
+		this->InitRotation(For, up, right);
+
+		return *this;
+	}
+
+	Matrix4f Matrix4f::InitRotation(Vector3f Forward, Vector3f Up, Vector3f Right)
+	{
+		Vector3f For = Forward;
+		Vector3f right = Right;
+		Vector3f up = Up;
 
 		m_Matrix[0][0] = right.GetX(); m_Matrix[0][1] = right.GetY(); m_Matrix[0][2] = right.GetZ(); m_Matrix[0][3] = 0;
 		m_Matrix[1][0] = up.GetX();	   m_Matrix[1][1] = up.GetY();	  m_Matrix[1][2] = up.GetZ();    m_Matrix[1][3] = 0;

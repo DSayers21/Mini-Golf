@@ -55,6 +55,7 @@ namespace D3DEngine
 
 	void Camera::RotateX(float Angle)
 	{
+		Angle = TO_RADIANS(Angle);
 		//Horizontal Axis
 		Vector3f HAxis = yAxi.CrossProduct(m_Forward);
 		HAxis.Normalise();
@@ -68,6 +69,7 @@ namespace D3DEngine
 
 	void Camera::RotateY(float Angle)
 	{
+		Angle = TO_RADIANS(Angle);
 		//Horizontal Axis
 		Vector3f HAxis = yAxi.CrossProduct(m_Forward);
 		HAxis.Normalise();

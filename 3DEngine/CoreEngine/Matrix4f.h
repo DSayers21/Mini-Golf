@@ -1,10 +1,10 @@
 #pragma once
 #include "MathBasics.h"
-#include "Vector3f.h"
 #include <string>
 
 namespace D3DEngine
 {
+	class Vector3f;
 	class Matrix4f
 	{
 	public:
@@ -24,6 +24,8 @@ namespace D3DEngine
 		Matrix4f InitOrthographic(float Left, float Right, float Bottom, float Top, float zNear, float zFar);
 
 		Matrix4f InitRotation(Vector3f Forward, Vector3f Up);
+
+		Matrix4f InitRotation(Vector3f Forward, Vector3f Up, Vector3f Right);
 
 		Matrix4f Mult(Matrix4f Other);
 

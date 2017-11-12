@@ -1,4 +1,6 @@
 #include "TestGame.h"
+#include "Quaternion.h"
+#include "MathBasics.h"
 
 TestGame::TestGame()
 {
@@ -29,20 +31,23 @@ void TestGame::Init()
 	D3DEngine::GameObject* PlaneObject = new D3DEngine::GameObject();
 	D3DEngine::MeshRenderer* meshRenderer = new D3DEngine::MeshRenderer(mesh, material);
 	PlaneObject->AddComponent(meshRenderer);
-	PlaneObject->GetTransform()->SetPosition(-2, -1, 5);
+	PlaneObject->GetTransform()->GetPosition()->Set(-2, -1, 5);
 
 	D3DEngine::GameObject* DirectionalLightObject = new D3DEngine::GameObject();
-	D3DEngine::DirectionalLight* directionalLight = new D3DEngine::DirectionalLight(D3DEngine::Vector3f(0,0,1), 0.4f, D3DEngine::Vector3f(1,1,1));
+	D3DEngine::DirectionalLight* directionalLight = new D3DEngine::DirectionalLight(D3DEngine::Vector3f(0,0,1), 0.9f);
 	DirectionalLightObject->AddComponent(directionalLight);
+	DirectionalLightObject->GetTransform()->SetRotation(D3DEngine::Quaternion().InitRotation(D3DEngine::Vector3f(1, 1, 1), TO_RADIANS(1.0f)));
+
 
 	D3DEngine::GameObject* PointLightObject = new D3DEngine::GameObject();
 	PointLightObject->AddComponent(new D3DEngine::PointLight(D3DEngine::Vector3f(0, 1, 0), 0.9f, D3DEngine::Attenuation(0, 0, 1)));
-	PointLightObject->GetTransform()->SetPosition(2, 0, 2);
+	PointLightObject->GetTransform()->GetPosition()->Set(2, 0, 2);
 
 	D3DEngine::GameObject* SpotLightObject = new D3DEngine::GameObject();
 	SpotLightObject->AddComponent(new D3DEngine::SpotLight(D3DEngine::Vector3f(0, 1, 1),12.0f, 
-		D3DEngine::Attenuation(0, 0, 1), D3DEngine::Vector3f(1, 0, 0), 0.7));
-	SpotLightObject->GetTransform()->SetPosition(5, 0, 5);
+		D3DEngine::Attenuation(0, 0, 1), 0.7));
+	SpotLightObject->GetTransform()->GetPosition()->Set(5, 0, 5);
+	SpotLightObject->GetTransform()->SetRotation(D3DEngine::Quaternion().InitRotation(D3DEngine::Vector3f(0, 1, 0), TO_RADIANS(-90.0f)));
 
 	m_RootObject->AddChild(PlaneObject);
 	m_RootObject->AddChild(DirectionalLightObject);

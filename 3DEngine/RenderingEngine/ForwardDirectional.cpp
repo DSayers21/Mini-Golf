@@ -49,4 +49,11 @@ namespace D3DEngine
 		//Directional Light
 		SetUniformDL("directionalLight", GetRenderEngine()->GetActiveLight());
 	}
+
+	void ForwardDirectional::SetUniformDL(std::string UniformName, BaseLight* DirLight)
+	{
+		SetUniformBL(UniformName + ".Light", DirLight);
+		SetUniformV(UniformName + ".Direction", DirLight->GetDirection());
+	}
+
 }

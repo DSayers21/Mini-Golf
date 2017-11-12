@@ -9,7 +9,7 @@ namespace D3DEngine
 	{
 	public:
 		DirectionalLight();
-		DirectionalLight(Vector3f Colour, float Intensity, Vector3f Direction);
+		DirectionalLight(Vector3f Colour, float Intensity);
 		~DirectionalLight();
 	};
 }
