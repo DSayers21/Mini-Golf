@@ -21,7 +21,7 @@ public:
 	~MainGame();
 
 	virtual void Init();
-	virtual void Input(D3DEngine::Input& input, float Delta);
+	virtual void Input(D3DEngine::GetInput* input, float Delta);
 	virtual void Update(float Delta);
 	virtual void Draw();
 	//Getters

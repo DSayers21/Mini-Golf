@@ -62,17 +62,15 @@ void TestGame::Init()
 
 }
 
-void TestGame::Input(D3DEngine::Input& input, float Delta)
+void TestGame::Input(D3DEngine::GetInput* input, float Delta)
 {
-	input.Update();
-	//Do Camera
-	//m_Camera->DoInput(*m_Input, *m_Time);
+	input->Update();
 
-	int MX = input.GetMousePos().GetX();
-	int MY = (input.GetMousePos().GetY());
-	if (input.GetMouseDown(D3DEngine::MOUSE_LEFT_BUTTON))
+	int MX = input->GetMousePos().GetX();
+	int MY = (input->GetMousePos().GetY());
+	if (input->GetMouseDown(D3DEngine::MOUSE_LEFT_BUTTON))
 	{
 		std::cout << "Mouse Pressed Left at:: (" << MX << "," << MY << ")" << std::endl;
 	}
-	m_RootObject->Input(Delta);
+	m_RootObject->Input(input, Delta);
 }

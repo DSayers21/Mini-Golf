@@ -2,6 +2,7 @@
 
 #include <vector>
 #include "Transform.h"
+#include "Input.h"
 
 namespace D3DEngine
 {
@@ -18,7 +19,8 @@ namespace D3DEngine
 		GameObject* AddChild(GameObject* Child);
 		GameObject* AddComponent(GameComponent* Component);
 
-		void Input(float Delta);
+
+		void Input(GetInput* input, float Delta);
 		void Update(float Delta);
 		void Draw(Shader* shader);
 

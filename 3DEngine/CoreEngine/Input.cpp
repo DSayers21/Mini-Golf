@@ -2,34 +2,21 @@
 
 namespace D3DEngine
 {
-	Input::Input(Window* window)
-	{
-		m_Window = window;
-	}
-
-	Input::~Input()
+	GetInput::GetInput()
 	{
 	}
 
-	void Input::Update()
+	GetInput::~GetInput()
 	{
-		//Reset Keyboard Buttons
-		for (int i = 0; i < NUM_KEYS; i++)
-		{
-			m_DownKeys[i] = false;
-			m_UpKeys[i] = false;
-		}
-		//Reset Mouse Buttons
-		for (int i = 0; i < NUM_MOUSEBUTTONS; i++)
-		{
-			m_DownMouse[i] = false;
-			m_UpMouse[i] = false;
-		}
+	}
+
+	SDL_Event GetInput::PollEvent()
+	{
 		//Poll Events
 		while (SDL_PollEvent(&e))
 		{
 			if (e.type == SDL_QUIT)
-				m_Window->Close();
+				m_isClosed = true;
 
 			if (e.type == SDL_MOUSEMOTION)
 			{
@@ -74,13 +61,31 @@ namespace D3DEngine
 				m_UpMouse[value] = true;
 			}
 		}
+		return SDL_Event();
 	}
-	void Input::SetCursor(bool Visible)
+
+	void GetInput::Update()
+	{
+		//Reset Keyboard Buttons
+		for (int i = 0; i < NUM_KEYS; i++)
+		{
+			m_DownKeys[i] = false;
+			m_UpKeys[i] = false;
+		}
+		//Reset Mouse Buttons
+		for (int i = 0; i < NUM_MOUSEBUTTONS; i++)
+		{
+			m_DownMouse[i] = false;
+			m_UpMouse[i] = false;
+		}
+		PollEvent();
+	}
+	void GetInput::SetCursor(bool Visible)
 	{
 		(Visible) ? SDL_ShowCursor(1) : SDL_ShowCursor(0);
 	}
 
-	void Input::SetMousePosition(Vector2f Pos)
+	void GetInput::SetMousePosition(Vector2f Pos)
 	{
 		SDL_WarpMouseGlobal((int)Pos.GetX(), (int)Pos.GetY());
 	}

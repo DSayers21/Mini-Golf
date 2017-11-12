@@ -29,13 +29,13 @@ namespace D3DEngine
 		return this;
 	}
 
-	void GameObject::Input(float Delta)
+	void GameObject::Input(GetInput* input, float Delta)
 	{
 		for (int i = 0; i < m_Components.size(); i++)
-			m_Components[i]->Input(Delta);
+			m_Components[i]->Input(input, Delta);
 
 		for (int i = 0; i < m_Children.size(); i++)
-			m_Children[i]->Input(Delta);
+			m_Children[i]->Input(input, Delta);
 	}
 
 	void GameObject::Update(float Delta)

@@ -14,7 +14,7 @@ namespace D3DEngine
 		GameComponent();
 		~GameComponent();
 
-		virtual void Input(float Delta);
+		virtual void Input(GetInput* input, float Delta);
 		virtual void Update(float Delta);
 		virtual void Draw(Shader* shader);
 		virtual void AddToRenderingEngine(RenderEngine* renderEngine);

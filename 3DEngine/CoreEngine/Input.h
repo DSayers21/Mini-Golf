@@ -369,11 +369,13 @@ namespace D3DEngine
 	};
 
 
-	class Input
+	class GetInput
 	{
 	public:
-		Input(Window* window);
-		~Input();
+		GetInput();
+		~GetInput();
+
+		SDL_Event PollEvent();
 
 		void Update();
 
@@ -389,9 +391,10 @@ namespace D3DEngine
 		inline bool GetMouseDown(int keyCode)  const { return m_DownMouse[keyCode]; }
 		inline bool GetMouseUp(int keyCode)  const { return m_UpMouse[keyCode]; }
 
+		inline bool GetIsClosed()  const { return m_isClosed; }
+
 		inline Vector2f GetMousePos() const { return Vector2f(m_MouseX, m_MouseY); }
 	private:
-		Window* m_Window;
 	    SDL_Event e;
 
 		int m_MouseX = 0;
@@ -404,5 +407,7 @@ namespace D3DEngine
 		bool m_MouseInput[NUM_MOUSEBUTTONS];
 		bool m_DownMouse[NUM_MOUSEBUTTONS];
 		bool m_UpMouse[NUM_MOUSEBUTTONS];
+
+		bool m_isClosed = false;
 	};
 }

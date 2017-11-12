@@ -6,7 +6,7 @@ namespace D3DEngine
 	{
 		m_Window = new D3DEngine::Window();
 		m_Window->Init(Title, Width, Height);
-		m_Input = new Input(m_Window);
+		m_Input = new GetInput();
 		m_Game = Game;
 		m_Game->SetWindow(m_Window);
 		m_Game->SetTime(m_Time);
@@ -57,7 +57,8 @@ namespace D3DEngine
 				Render = true;
 				UnproccessedTime -= m_FrameTime;
 				//Update The Game
-				m_Game->Input(*m_Input, m_FrameTime);
+				m_Game->Input(m_Input, m_FrameTime);
+				if (m_Input->GetIsClosed()) m_Window->Close();
 				m_Game->Update(m_FrameTime);
 
 				if (FrameCounter >= m_Time->SECOND)

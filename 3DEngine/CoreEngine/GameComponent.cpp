@@ -14,7 +14,7 @@ namespace D3DEngine
 	{
 	}
 
-	void GameComponent::Input(float Delta)
+	void GameComponent::Input(GetInput* input, float Delta)
 	{
 	}
 

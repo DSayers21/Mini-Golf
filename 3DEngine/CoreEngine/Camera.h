@@ -22,18 +22,13 @@ namespace D3DEngine
 		void RotateY(float Angle);
 
 		void AddToRenderingEngine(RenderEngine * renderEngine);
-		void Input(float Delta);
+		void Input(GetInput* input, float Delta);
 
 	private:
 		bool m_MouseControl = false; //Move Camera With Mouse
 
-		//Vector3f m_Pos;
-		////Represents which direction is up and forward
-		//Vector3f m_Forward;
-		//Vector3f m_Up;
-		//
 	    Vector3f yAxi = Vector3f(0,1,0);
-
+		
 		Matrix4f m_Projection;
 	};
 }

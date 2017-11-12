@@ -28,6 +28,6 @@ namespace D3DEngine
 		Time* m_Time;
 		MainGame* m_Game;
 		RenderEngine* m_RenderEngine;
-		Input* m_Input;
+		GetInput* m_Input;
 	};
 }
