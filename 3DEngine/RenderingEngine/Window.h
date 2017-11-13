@@ -22,6 +22,8 @@ namespace D3DEngine
 
 		void Close();
 
+		void Warp(Vector2f WarpPos);
+
 		//Getters
 		bool IsClosed() { return m_isClosed; }
 		int GetWidth() { return m_Width; }

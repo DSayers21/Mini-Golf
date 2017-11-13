@@ -7,6 +7,9 @@ namespace D3DEngine
 	{
 		//Default Camera
 		m_Projection = Matrix4f().InitPerspective(FOV, AspectRatio, zNear, zFar);
+		m_MouseControl = false;
+
+		std::cerr << "Mouse Created" << std::endl;
 	}
 
 	Matrix4f Camera::GetViewProjection()
@@ -29,8 +32,9 @@ namespace D3DEngine
 	void Camera::Input(GetInput* input, float Delta)
 	{
 		float MoveAmount = 4 * Delta;
-		float RotAmount = 32 * Delta;
+		float RotAmount = 0.5 * Delta;
 
+		//Move Mouse Handles
 		if (input->GetKey(KEY_W))
 			Move(GetTransform()->GetRotation()->GetForward(), MoveAmount);
 		if (input->GetKey(KEY_S))
@@ -40,47 +44,42 @@ namespace D3DEngine
 		if (input->GetKey(KEY_D))
 			Move(GetTransform()->GetRotation()->GetRight(), MoveAmount);
 
+		//Rotation Mouse Handles
+		if (input->GetMouseUp(MOUSE_LEFT_BUTTON))
+		{
+			m_MouseControl = false;
+			input->SetCursor(true);
+		}
+		if (input->GetMouseDown(MOUSE_LEFT_BUTTON))
+		{
+			m_MouseControl = true;
+			input->SetMousePosition(Vector2f(800 / 2, 600 / 2));
+			input->SetCursor(false);
+		}
+		//Camera Rotation
+		if (m_MouseControl)
+		{
+			float Sensitivity = -.5f;
+			Vector2f DeltaPos = input->GetMousePos();
+			DeltaPos.SetX(DeltaPos.GetX() - 400);
+			DeltaPos.SetY(DeltaPos.GetY() - 300);
 
-		if (input->GetKey(KEY_UP))
-			RotateY(-RotAmount);
-		if (input->GetKey(KEY_DOWN))
-			RotateY(RotAmount);
-		if (input->GetKey(KEY_LEFT))
-			RotateX(-RotAmount);
-		if (input->GetKey(KEY_RIGHT))
-			RotateX(RotAmount);
+			bool rotY = (DeltaPos.GetX() == 0) ? false : true;
+			bool rotX = (DeltaPos.GetY() == 0) ? false : true;
+
+			if (rotY)
+				GetTransform()->SetRotation(&GetTransform()->GetRotation()->Mult(*Quaternion().InitRotation(yAxi, TO_RADIANS(DeltaPos.GetX() * Sensitivity))).Normalise());
+
+			if (rotX)
+				GetTransform()->SetRotation(&GetTransform()->GetRotation()->Mult(*Quaternion().InitRotation(GetTransform()->GetRotation()->GetRight(), TO_RADIANS(-DeltaPos.GetY(), * Sensitivity))).Normalise());
+
+			if (rotY || rotX)
+				input->SetMousePosition(Vector2f(800 / 2, 600 / 2));
+		}
 	}
 
 	void Camera::Move(Vector3f Direction, float Amount)
 	{
 		GetTransform()->SetPosition(GetTransform()->GetPosition()->Add(Vector3f(Direction * Amount)));
-	}
-
-	void Camera::RotateX(float Angle)
-	{
-		Angle = TO_RADIANS(Angle);
-		//Horizontal Axis
-		Vector3f HAxis = yAxi.CrossProduct(GetTransform()->GetRotation()->GetForward());
-		HAxis.Normalise();
-
-		GetTransform()->GetRotation()->GetForward().Rotate(yAxi, Angle);
-		GetTransform()->GetRotation()->GetForward().Normalise();
-
-		GetTransform()->GetRotation()->GetUp() = GetTransform()->GetRotation()->GetForward().CrossProduct(HAxis);
-		GetTransform()->GetRotation()->GetUp().Normalise();
-	}
-
-	void Camera::RotateY(float Angle)
-	{
-		Angle = TO_RADIANS(Angle);
-		//Horizontal Axis
-		Vector3f HAxis = yAxi.CrossProduct(GetTransform()->GetRotation()->GetForward());
-		HAxis.Normalise();
-
-		GetTransform()->GetRotation()->GetForward().Rotate(HAxis, Angle);
-		GetTransform()->GetRotation()->GetForward().Normalise();
-
-		GetTransform()->GetRotation()->GetUp() = GetTransform()->GetRotation()->GetForward().CrossProduct(HAxis);
-		GetTransform()->GetRotation()->GetUp().Normalise();
 	}
 }

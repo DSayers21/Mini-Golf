@@ -37,8 +37,8 @@ namespace D3DEngine
 		inline float GetX() { return x; }
 		inline float GetY() { return y; }
 		//Setters
-		inline float SetX(float X) { x = X; }
-		inline float setY(float Y) { y = Y; }
+		inline void SetX(float X) { x = X; }
+		inline void SetY(float Y) { y = Y; }
 	private:
 		float x;
 		float y;

@@ -392,8 +392,12 @@ namespace D3DEngine
 		inline bool GetMouseUp(int keyCode)  const { return m_UpMouse[keyCode]; }
 
 		inline bool GetIsClosed()  const { return m_isClosed; }
+		inline bool GetIsWarpMouse()  const { return m_warpMouse; }
+		inline void SetIsWarpMouse(bool WarpMouse) { m_warpMouse = WarpMouse; }
 
 		inline Vector2f GetMousePos() const { return Vector2f(m_MouseX, m_MouseY); }
+		inline Vector2f* GetWarpMousePos() const { return m_WarpMousePos; }
+
 	private:
 	    SDL_Event e;
 
@@ -409,5 +413,8 @@ namespace D3DEngine
 		bool m_UpMouse[NUM_MOUSEBUTTONS];
 
 		bool m_isClosed = false;
+		bool m_warpMouse = false;
+
+		Vector2f* m_WarpMousePos;
 	};
 }

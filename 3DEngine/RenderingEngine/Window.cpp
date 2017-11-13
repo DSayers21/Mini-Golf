@@ -55,4 +55,9 @@ namespace D3DEngine
 	{
 		m_isClosed = true;
 	}
+
+	void Window::Warp(Vector2f WarpPos)
+	{
+		SDL_WarpMouseInWindow(m_Window, WarpPos.GetX(), WarpPos.GetY());
+	}
 }

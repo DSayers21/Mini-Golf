@@ -4,6 +4,7 @@ namespace D3DEngine
 {
 	GetInput::GetInput()
 	{
+		m_WarpMousePos = new Vector2f(0,0);
 	}
 
 	GetInput::~GetInput()
@@ -87,6 +88,8 @@ namespace D3DEngine
 
 	void GetInput::SetMousePosition(Vector2f Pos)
 	{
-		SDL_WarpMouseGlobal((int)Pos.GetX(), (int)Pos.GetY());
+		m_warpMouse = true;
+		m_WarpMousePos->SetX(Pos.GetX());
+		m_WarpMousePos->SetY(Pos.GetY());
 	}
 }

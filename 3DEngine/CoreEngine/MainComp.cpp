@@ -58,6 +58,11 @@ namespace D3DEngine
 				UnproccessedTime -= m_FrameTime;
 				//Update The Game
 				m_Game->Input(m_Input, m_FrameTime);
+				if (m_Input->GetIsWarpMouse())
+				{
+					m_Window->Warp(*m_Input->GetWarpMousePos()); 
+					m_Input->SetIsWarpMouse(false);
+				}
 				if (m_Input->GetIsClosed()) m_Window->Close();
 				m_Game->Update(m_FrameTime);
 
