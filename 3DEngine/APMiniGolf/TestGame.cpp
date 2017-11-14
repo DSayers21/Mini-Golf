@@ -40,7 +40,7 @@ void TestGame::Init()
 	material->AddFloat("SpecularIntensity", 1);
 	material->AddFloat("SpecularExponent", 8);
 
-	D3DEngine::Mesh TempMesh("./Models/Monkey.obj");
+	D3DEngine::Mesh* MonkeyMesh = new D3DEngine::Mesh("./Models/Monkey.obj");
 
 
 	D3DEngine::GameObject* PlaneObject = new D3DEngine::GameObject();
@@ -51,7 +51,7 @@ void TestGame::Init()
 	D3DEngine::GameObject* DirectionalLightObject = new D3DEngine::GameObject();
 	D3DEngine::DirectionalLight* directionalLight = new D3DEngine::DirectionalLight(D3DEngine::Vector3f(0,0,1), 0.9f);
 	DirectionalLightObject->AddComponent(directionalLight);
-	DirectionalLightObject->GetTransform()->SetRotation(&D3DEngine::Quaternion(D3DEngine::Vector3f(1, 1, 1), TO_RADIANS(-15.0f)));
+	DirectionalLightObject->GetTransform()->SetRotation(&D3DEngine::Quaternion(D3DEngine::Vector3f(1, 1, 1), TO_RADIANS(-45.0f)));
 
 
 	D3DEngine::GameObject* PointLightObject = new D3DEngine::GameObject();
@@ -79,12 +79,10 @@ void TestGame::Init()
 	testMesh2->GetTransform()->GetPosition()->Set(0, 3, 5);
 
 	D3DEngine::GameObject* testMesh3 = new D3DEngine::GameObject();
-	testMesh3->AddComponent(new D3DEngine::MeshRenderer(mesh2, material));
+	testMesh3->AddComponent(new D3DEngine::MeshRenderer(MonkeyMesh, material));
 	testMesh3->GetTransform()->GetPosition()->Set(0, 5, 7);
 	
 
-	//testMesh3->AddChild(CameraObject);
-	//testMesh2->AddChild(testMesh3);
 	testMesh1->AddChild(testMesh2);
 	testMesh1->AddChild(CameraObject);
 
@@ -93,7 +91,7 @@ void TestGame::Init()
 	AddObject(PointLightObject);
 	AddObject(SpotLightObject);
 	AddObject(testMesh1);
-
+	AddObject(testMesh3);
 }
 
 void TestGame::Input(D3DEngine::GetInput* input, float Delta)

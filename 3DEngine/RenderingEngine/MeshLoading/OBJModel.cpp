@@ -10,6 +10,8 @@ namespace D3DEngine
 		m_Indices = std::vector<OBJIndex>();
 		m_HasTexCoords = false;
 		m_HasNormals = false;
+
+		LoadMesh(FileName);
 	}
 
 	OBJModel::~OBJModel()
@@ -63,6 +65,53 @@ namespace D3DEngine
 		}
 		else
 			std::cerr << "Unable to load mesh: " << FileName << std::endl;
+	}
+
+	IndexedModel* OBJModel::ToIndexedModel()
+	{
+		IndexedModel Result;
+		std::map<int, int> IndexMap = std::map<int, int>();
+		int CurrentVertexIndex = 0;
+		for (int i = 0; i < m_Indices.size(); i++)
+		{
+			OBJIndex CurrentIndex = m_Indices[i];															//Get Current index
+			Vector3f CurrentPosition = m_Positons[CurrentIndex.VertexIndex];								//Get Current Position
+			Vector2f CurrentTexCoord;
+			Vector3f CurrentNormal;
+
+			CurrentTexCoord = (m_HasTexCoords) ? m_TexCoords[CurrentIndex.TexCoordIndex] : Vector2f(0, 0);	//Assign Tex Coord
+			CurrentNormal = (m_HasNormals) ? m_Normals[CurrentIndex.NormalIndex] : Vector3f(0, 0, 0);		//Assign Normal
+			
+			int PrevVertIndex = -1;
+			for (int j = 0; j < i; j++)
+			{
+				OBJIndex OldIndex = m_Indices[j];
+
+				if ((CurrentIndex.VertexIndex == OldIndex.VertexIndex)
+					&& (CurrentIndex.TexCoordIndex == OldIndex.TexCoordIndex)
+					&& (CurrentIndex.NormalIndex == OldIndex.NormalIndex))
+				{
+					//Pre existing point!
+					PrevVertIndex = j;
+					break;
+				}
+			}
+			if (PrevVertIndex == -1)	//No pre exisitng point
+			{
+				IndexMap.insert(std::pair<int, int>(i, CurrentVertexIndex));
+
+				//Add All Data to Indexed Model
+				Result.GetPositions()->push_back(CurrentPosition);
+				Result.GetTexCoords()->push_back(CurrentTexCoord);
+				Result.GetNormals()->push_back(CurrentNormal);
+				Result.GetIndices()->push_back(CurrentVertexIndex);
+				CurrentVertexIndex++;
+			}
+			else						//Pre exisitng point
+				Result.GetIndices()->push_back(IndexMap.find(PrevVertIndex)->second);
+		}
+
+		return &Result;
 	}
 
 	OBJIndex OBJModel::ParseObjIndex(std::string Token)

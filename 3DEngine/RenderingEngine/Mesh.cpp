@@ -11,7 +11,7 @@ namespace D3DEngine
 
 	Mesh::Mesh(Vert* Vertices, int VertSize, int* Indices, int IndexSize)
 	{
-		*this = Mesh(Vertices, VertSize, Indices, IndexSize, false);
+	*this = Mesh(Vertices, VertSize, Indices, IndexSize, false);
 	}
 
 	Mesh::Mesh(Vert* Vertices, int VertSize, int* Indices, int IndexSize, bool calcNormals)
@@ -96,7 +96,7 @@ namespace D3DEngine
 			Vertices[i2].SetNormal(Vertices[i2].GetNormal() + Normal);
 		}
 
-		for (int i = 0; i < VertSize; i ++)
+		for (int i = 0; i < VertSize; i++)
 		{
 			Vector3f New = Vertices[i].GetNormal();
 			Vector3f NewN = New.Normalise();
@@ -106,64 +106,24 @@ namespace D3DEngine
 
 	void Mesh::LoadMesh(std::string FileName)
 	{
-		std::vector<std::string> SplitArray = Util::Split(FileName, '.');
-		std::string Ext = SplitArray[SplitArray.size() - 1];;
+		OBJModel ObjModel(FileName);
+		IndexedModel Model = *ObjModel.ToIndexedModel();
+		Model.CalcNormals();								//Calculate Normals
 
-		OBJModel Test(FileName);
+		std::vector<Vert> Vertices;							//Temp Buffer Vertex
+		std::vector<int> Indices = *Model.GetIndices();		//Temp Buffer Index
 
-		if (Ext != "obj")
-			std::cerr << "Error: File format not supported for mesh data: " << Ext << std::endl;
-
-		//Change to Pointer stuff
-		std::vector<Vert> Vertices;
-		std::vector<int> Indices;
-
-		std::ifstream File;
-		File.open((FileName).c_str());
-
-		std::string Output;
-		std::string Line;
-
-		if (File.is_open())
+		for (int i = 0; i < Model.GetPositions()->size(); i++)
 		{
-			while (File.good())
-			{
-				getline(File, Line);
+			std::vector<Vector3f>* TempPositions = Model.GetPositions();
+			std::vector<Vector2f>* TempTexCoords = Model.GetTexCoords();
+			std::vector<Vector3f>* TempNormals = Model.GetNormals();
 
-				std::vector<std::string> Tokens = Util::Split(Line, ' ');
-				Tokens = Util::RemoveEmptyStrings(Tokens);
-				//Skip empty lines and comments
-				if ((Tokens.size() == 0) || (Tokens[0] == "#"))
-					continue;
-				else if (Tokens[0] == "v") //Vertex
-					Vertices.push_back(Vector3f(::atof(Tokens[1].c_str()), ::atof(Tokens[2].c_str()), ::atof(Tokens[3].c_str())));
-				else if (Tokens[0] == "f") //Faces
-				{
-					Indices.push_back(::atof(Util::Split(Tokens[1], '/')[0].c_str()) - 1);
-					Indices.push_back(::atof(Util::Split(Tokens[2], '/')[0].c_str()) - 1);
-					Indices.push_back(::atof(Util::Split(Tokens[3], '/')[0].c_str()) - 1);
-
-					if (Tokens.size() > 4)
-					{
-						Indices.push_back(::atof(Util::Split(Tokens[1], '/')[0].c_str()) - 1);
-						Indices.push_back(::atof(Util::Split(Tokens[3], '/')[0].c_str()) - 1);
-						Indices.push_back(::atof(Util::Split(Tokens[4], '/')[0].c_str()) - 1);
-					}
-				}
-			}
+			Vector3f Testyas = TempPositions->at(i);
+			Vert CurVert(TempPositions->at(i), TempTexCoords->at(i), TempNormals->at(i));
+			Vertices.push_back(CurVert);
 		}
-		else
-			std::cerr << "Unable to load mesh: " << FileName << std::endl;
-
-		Vert* VertexData = new Vert[Vertices.size()];
-
-		for (int i = 0; i < Vertices.size(); i++)
-			VertexData[i] = Vertices[i];
-
-		int* IndexData = new int[Indices.size()];
-		for (int i = 0; i < Indices.size(); i++)
-			IndexData[i] = Indices[i];
-
-		AddVertices(&Vertices[0], Vertices.size(), &Indices[0], Indices.size(), true);
+		
+		AddVertices(&Vertices[0], Vertices.size(), &Indices[0], Indices.size(), false);
 	}
 }

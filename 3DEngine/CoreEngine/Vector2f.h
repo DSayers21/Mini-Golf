@@ -8,6 +8,7 @@ namespace D3DEngine
 	class Vector2f
 	{
 	public:
+		Vector2f();
 		Vector2f(float X, float Y);
 		~Vector2f();
 

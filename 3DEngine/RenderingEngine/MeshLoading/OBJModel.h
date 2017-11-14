@@ -1,10 +1,12 @@
 #pragma once
 
+#include <map>
 #include <vector>
 #include <iostream>
 #include <fstream>
 
 #include "Vector3f.h"
+#include "IndexedModel.h"
 #include "OBJIndex.h"
 #include "Util.h"
 
@@ -18,11 +20,13 @@ namespace D3DEngine
 
 		void LoadMesh(std::string FileName);
 
+		IndexedModel* ToIndexedModel();
+
 		//Getters
-		inline std::vector<Vector3f> GetPositions() { return m_Positons; }
+		/*inline std::vector<Vector3f> GetPositions() { return m_Positons; }
 		inline std::vector<Vector2f> GetTexCoords() { return m_TexCoords; }
 		inline std::vector<Vector3f> GetNormals() { return m_Normals; }
-		inline std::vector<OBJIndex> GetIndices() { return m_Indices; }
+		inline std::vector<OBJIndex> GetIndices() { return m_Indices; }*/
 
 	private:
 		OBJIndex ParseObjIndex(std::string Token);

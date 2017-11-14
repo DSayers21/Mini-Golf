@@ -2,6 +2,12 @@
 
 namespace D3DEngine
 {
+	Vector2f::Vector2f()
+	{
+		x = 0;
+		y = 0;
+	}
+
 	Vector2f::Vector2f(float X, float Y) :
 		x(X), y(Y)
 	{
