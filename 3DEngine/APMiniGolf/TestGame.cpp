@@ -34,7 +34,10 @@ void TestGame::Init()
 	int Indices2[] = { 0, 1, 2 ,2, 1, 3 };
 	D3DEngine::Mesh* mesh2 = new D3DEngine::Mesh(Vertices2, 4, Indices2, 6, true);
 	
-	D3DEngine::Material* material = new D3DEngine::Material(D3DEngine::Texture("./Textures/Test.png"), D3DEngine::Vector3f(0, 0, 0), 1, 8);
+	D3DEngine::Material* material = new D3DEngine::Material();
+	material->AddTexture("Diffuse", new D3DEngine::Texture("./Textures/Test.png"));
+	material->AddFloat("SpecularIntensity", 1);
+	material->AddFloat("SpecularExponent", 8);
 
 	D3DEngine::GameObject* PlaneObject = new D3DEngine::GameObject();
 	D3DEngine::MeshRenderer* meshRenderer = new D3DEngine::MeshRenderer(mesh, material);

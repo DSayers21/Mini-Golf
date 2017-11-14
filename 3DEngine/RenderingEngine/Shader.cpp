@@ -31,7 +31,7 @@ namespace D3DEngine
 		glUseProgram(m_Program);
 	}
 
-	void Shader::UpdateUniforms(Transform* transform, Material material)
+	void Shader::UpdateUniforms(Transform* transform, Material* material)
 	{
 
 	}

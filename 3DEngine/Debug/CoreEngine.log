@@ -1,9 +1,16 @@
 ﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(387,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (Core Engine.vcxproj).  This can lead to incorrect clean and rebuild behavior.
-  Camera.cpp
+  BaseLight.cpp
 c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\window.h(31): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\input.h(398): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\camera.cpp(36): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\camera.cpp(75): warning C4002: too many actual parameters for macro 'TO_RADIANS'
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(35): warning C4172: returning address of local variable or temporary
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(28): warning C4172: returning address of local variable or temporary
+  Generating Code...
+  Skipping... (no relevant changes detected)
+  SpotLight.cpp
+  RenderEngine.cpp
+  PointLight.cpp
+  MeshRenderer.cpp
+  MainComp.cpp
+  GameObject.cpp
+  GameComponent.cpp
+  DirectionalLight.cpp
+  Camera.cpp
   CoreEngine.vcxproj -> C:\Users\Satan\Documents\GitHub\Pool Game\Mini-Golf\3DEngine\Debug\CoreEngine.lib

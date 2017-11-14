@@ -13,6 +13,7 @@
 #include "GameObject.h"
 #include "Vector3f.h"
 #include <iostream>
+#include <string>
 
 class MainGame
 {

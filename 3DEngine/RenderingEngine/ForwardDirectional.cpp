@@ -33,9 +33,9 @@ namespace D3DEngine
 	{
 	}
 
-	void ForwardDirectional::UpdateUniforms(Transform* transform, Material material)
+	void ForwardDirectional::UpdateUniforms(Transform* transform, Material* material)
 	{
-		material.GetTexture()->Bind();
+		material->GetTexture("Diffuse").Bind();
 
 		Matrix4f WorldMatrix = transform->GetTransformation();
 		Matrix4f ProjectedMatrix = GetRenderEngine()->GetCamera()->GetViewProjection().Mult(WorldMatrix);
@@ -43,8 +43,8 @@ namespace D3DEngine
 		SetUniformM4("Model", WorldMatrix);
 		SetUniformM4("MVP", ProjectedMatrix);
 		//Specular Reflection
-		SetUniformF("SpecularIntensity", material.GetSpecularIntensity());
-		SetUniformF("SpecularExponent", material.GetSpecularExponent());
+		SetUniformF("SpecularIntensity", material->GetFloat("SpecularIntensity"));
+		SetUniformF("SpecularExponent", material->GetFloat("SpecularExponent"));
 		SetUniformV("EyePos", GetRenderEngine()->GetCamera()->GetTransform()->GetTransformedPos());
 		//Directional Light
 		SetUniformDL("directionalLight", GetRenderEngine()->GetActiveLight());

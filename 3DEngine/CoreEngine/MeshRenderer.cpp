@@ -23,7 +23,7 @@ namespace D3DEngine
 	void MeshRenderer::Draw(D3DEngine::Shader* shader)
 	{
 		shader->Bind();
-		shader->UpdateUniforms(GetTransform(), *m_Material);
+		shader->UpdateUniforms(GetTransform(), m_Material);
 		m_Mesh->Draw();
 	}
 }

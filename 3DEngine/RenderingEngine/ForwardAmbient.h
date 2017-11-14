@@ -8,6 +8,6 @@ namespace D3DEngine
 	public:
 		ForwardAmbient();
 		~ForwardAmbient();
-		void UpdateUniforms(Transform* transform, Material material);
+		void UpdateUniforms(Transform* transform, Material* material);
 	};
 }
