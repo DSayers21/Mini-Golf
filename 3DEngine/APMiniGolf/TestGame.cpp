@@ -24,8 +24,16 @@ void TestGame::Init()
 		D3DEngine::Vert(D3DEngine::Vector3f(FieldWidth * 3, 0.0f, FieldDepth * 3), D3DEngine::Vector2f(1.0f,1.0f)),
 	};
 	int Indices[] = { 0, 1, 2 ,2, 1, 3 };
-
 	D3DEngine::Mesh* mesh = new D3DEngine::Mesh(Vertices, 4, Indices, 6, true);
+	D3DEngine::Vert Vertices2[] = {
+		D3DEngine::Vert(D3DEngine::Vector3f(-FieldWidth / 10, 0.0f, -FieldDepth / 10), D3DEngine::Vector2f(0.0f,0.0f)),
+		D3DEngine::Vert(D3DEngine::Vector3f(-FieldWidth/10, 0.0f, FieldDepth / 10 * 3), D3DEngine::Vector2f(0.0f,1.0f)),
+		D3DEngine::Vert(D3DEngine::Vector3f(FieldWidth / 10 * 3, 0.0f, -FieldDepth / 10), D3DEngine::Vector2f(1.0f,0.0f)),
+		D3DEngine::Vert(D3DEngine::Vector3f(FieldWidth / 10 * 3, 0.0f, FieldDepth / 10 * 3), D3DEngine::Vector2f(1.0f,1.0f)),
+	};
+	int Indices2[] = { 0, 1, 2 ,2, 1, 3 };
+	D3DEngine::Mesh* mesh2 = new D3DEngine::Mesh(Vertices2, 4, Indices2, 6, true);
+	
 	D3DEngine::Material* material = new D3DEngine::Material(D3DEngine::Texture("./Textures/Test.png"), D3DEngine::Vector3f(0, 0, 0), 1, 8);
 
 	D3DEngine::GameObject* PlaneObject = new D3DEngine::GameObject();
@@ -36,7 +44,7 @@ void TestGame::Init()
 	D3DEngine::GameObject* DirectionalLightObject = new D3DEngine::GameObject();
 	D3DEngine::DirectionalLight* directionalLight = new D3DEngine::DirectionalLight(D3DEngine::Vector3f(0,0,1), 0.9f);
 	DirectionalLightObject->AddComponent(directionalLight);
-	DirectionalLightObject->GetTransform()->SetRotation(D3DEngine::Quaternion().InitRotation(D3DEngine::Vector3f(1, 1, 1), TO_RADIANS(1.0f)));
+	DirectionalLightObject->GetTransform()->SetRotation(&D3DEngine::Quaternion(D3DEngine::Vector3f(1, 1, 1), TO_RADIANS(1.0f)));
 
 
 	D3DEngine::GameObject* PointLightObject = new D3DEngine::GameObject();
@@ -47,10 +55,23 @@ void TestGame::Init()
 	SpotLightObject->AddComponent(new D3DEngine::SpotLight(D3DEngine::Vector3f(0, 1, 1),12.0f, 
 		D3DEngine::Attenuation(0, 0, 1), 0.7));
 	SpotLightObject->GetTransform()->GetPosition()->Set(5, 0, 5);
-	SpotLightObject->GetTransform()->SetRotation(D3DEngine::Quaternion().InitRotation(D3DEngine::Vector3f(0, 1, 0), TO_RADIANS(-90.0f)));
+	SpotLightObject->GetTransform()->SetRotation(&D3DEngine::Quaternion(D3DEngine::Vector3f(0, 1, 0), TO_RADIANS(-90.0f)));
 
 	D3DEngine::GameObject* CameraObject = new D3DEngine::GameObject();
 	CameraObject->AddComponent(new D3DEngine::Camera(TO_RADIANS(70.0f), 800/600, 0.01f, 1000.0f));
+
+	D3DEngine::MeshRenderer* meshRenderer2 = new D3DEngine::MeshRenderer(mesh2, material);
+
+	D3DEngine::GameObject* testMesh1 = new D3DEngine::GameObject();
+	testMesh1->AddComponent(meshRenderer2);
+	testMesh1->GetTransform()->GetPosition()->Set(0,4,6);
+	testMesh1->GetTransform()->SetRotation(new D3DEngine::Quaternion(D3DEngine::Vector3f(0, 1, 0), TO_RADIANS(45)));
+
+	D3DEngine::GameObject* testMesh2 = new D3DEngine::GameObject();
+	testMesh2->AddComponent(new D3DEngine::MeshRenderer(mesh2, material));
+	testMesh2->GetTransform()->GetPosition()->Set(0, 3, 5);
+
+	testMesh1->AddChild(testMesh2);
 
 
 	m_RootObject->AddChild(PlaneObject);
@@ -58,7 +79,7 @@ void TestGame::Init()
 	m_RootObject->AddChild(PointLightObject);
 	m_RootObject->AddChild(SpotLightObject);
 	m_RootObject->AddChild(CameraObject);
-
+	m_RootObject->AddChild(testMesh1);
 
 }
 

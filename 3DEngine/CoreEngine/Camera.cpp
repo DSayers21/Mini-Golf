@@ -68,10 +68,10 @@ namespace D3DEngine
 			bool rotX = (DeltaPos.GetY() == 0) ? false : true;
 
 			if (rotY)
-				GetTransform()->SetRotation(&GetTransform()->GetRotation()->Mult(*Quaternion().InitRotation(yAxi, TO_RADIANS(DeltaPos.GetX() * Sensitivity))).Normalise());
+				GetTransform()->SetRotation(&GetTransform()->GetRotation()->Mult(Quaternion(yAxi, TO_RADIANS(DeltaPos.GetX() * Sensitivity))).Normalise());
 
 			if (rotX)
-				GetTransform()->SetRotation(&GetTransform()->GetRotation()->Mult(*Quaternion().InitRotation(GetTransform()->GetRotation()->GetRight(), TO_RADIANS(-DeltaPos.GetY(), * Sensitivity))).Normalise());
+				GetTransform()->SetRotation(&GetTransform()->GetRotation()->Mult(Quaternion(GetTransform()->GetRotation()->GetRight(), TO_RADIANS(-DeltaPos.GetY(), * Sensitivity))).Normalise());
 
 			if (rotY || rotX)
 				input->SetMousePosition(Vector2f(800 / 2, 600 / 2));

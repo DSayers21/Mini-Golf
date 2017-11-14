@@ -1,6 +1,6 @@
 #include "Matrix4f.h"
 #include "Vector3f.h"
-
+#include <iostream>
 namespace D3DEngine
 {
 	Matrix4f::Matrix4f()
@@ -146,7 +146,7 @@ namespace D3DEngine
 	Matrix4f Matrix4f::Mult(Matrix4f Other)
 	{
 		Matrix4f Ret;
-		Ret.InitIdentity();
+		//Ret.InitIdentity();
 		for (int i = 0; i<4; i++)
 		{
 			for (int j = 0; j<4; j++)
@@ -166,7 +166,7 @@ namespace D3DEngine
 	Matrix4f Matrix4f::operator*(const Matrix4f & Other)
 	{
 		Matrix4f Ret;
-		Ret.InitIdentity();
+		//Ret.InitIdentity();
 		for (int i = 0; i<4; i++)
 		{
 			for (int j = 0; j<4; j++)
@@ -181,12 +181,12 @@ namespace D3DEngine
 		return Ret;
 	}
 
-	Matrix4f Matrix4f::operator=(const Matrix4f & Other)
+	Matrix4f* Matrix4f::operator=(const Matrix4f & Other)
 	{
 		for (unsigned int i = 0; i < 4; i++)
 			for (unsigned int j = 0; j < 4; j++)
 				m_Matrix[i][j] = Other[i][j];
-		return *this;
+		return this;
 	}
 
 	void Matrix4f::SetEquals(const Matrix4f & Other)

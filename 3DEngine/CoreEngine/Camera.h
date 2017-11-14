@@ -18,8 +18,6 @@ namespace D3DEngine
 		Matrix4f GetViewProjection();
 		
 		void Move(Vector3f Direction, float Amount);
-		void RotateX(float Angle);
-		void RotateY(float Angle);
 
 		void AddToRenderingEngine(RenderEngine * renderEngine);
 		void Input(GetInput* input, float Delta);

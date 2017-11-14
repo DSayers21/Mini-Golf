@@ -2,13 +2,12 @@
 #include "RenderEngine.h"
 #include "Shader.h"
 #include "GameComponent.h"
-
+#include <iostream>
 namespace D3DEngine
 {
 	GameObject::GameObject()
 	{
 		m_Transform = new Transform();
-
 	}
 
 	GameObject::~GameObject()
@@ -19,6 +18,7 @@ namespace D3DEngine
 	GameObject* GameObject::AddChild(GameObject* Child)
 	{
 		m_Children.push_back(Child);
+		Child->GetTransform()->SetParent(m_Transform);
 		return this;
 	}
 

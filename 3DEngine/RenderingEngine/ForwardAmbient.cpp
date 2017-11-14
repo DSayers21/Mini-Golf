@@ -22,11 +22,11 @@ namespace D3DEngine
 	{
 	}
 
-	void ForwardAmbient::UpdateUniforms(Transform transform, Material material)
+	void ForwardAmbient::UpdateUniforms(Transform* transform, Material material)
 	{
 		material.GetTexture()->Bind();
 
-		Matrix4f WorldMatrix = transform.GetTransformation();
+		Matrix4f WorldMatrix = transform->GetTransformation();
 		Matrix4f ProjectedMatrix = GetRenderEngine()->GetCamera()->GetViewProjection().Mult(WorldMatrix);
 
 		SetUniformM4("MVP", ProjectedMatrix);

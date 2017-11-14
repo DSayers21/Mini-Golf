@@ -11,6 +11,7 @@ namespace D3DEngine
 	public:
 		Quaternion();
 		Quaternion(float X, float Y, float Z, float W);
+		Quaternion(Vector3f Axis, float Angle);
 		~Quaternion();
 		Quaternion* Quaternion::InitRotation(Vector3f Axis, float Angle);
 
@@ -21,6 +22,8 @@ namespace D3DEngine
 		Quaternion Mult(Quaternion& Other);
 		Quaternion Mult(Vector3f& Other);
 		Matrix4f* ToRotationMatrix();
+		inline bool operator==(const Quaternion& Other) { return ((x == Other.x) && (y == Other.y) && (z == Other.z) && (w == Other.w)); }
+		inline bool operator!=(const Quaternion& Other) { return ((x != Other.GetX()) && (y != Other.GetY()) && (z != Other.GetZ()) && (w != Other.GetW())); }
 		//
 		Vector3f GetBack();
 		Vector3f GetUp();
@@ -38,6 +41,8 @@ namespace D3DEngine
 		void SetY(float Y) { y = Y; }
 		void SetZ(float Z) { z = Z; }
 		void SetW(float W) { w = W; }
+		inline void Set(Quaternion& Other) { x = Other.GetX(); y = Other.GetY(); z = Other.GetZ(); w = Other.GetW(); };
+
 	private:
 		float x;
 		float y;

@@ -13,6 +13,11 @@ namespace D3DEngine
 
 	}
 
+	Quaternion::Quaternion(Vector3f Axis, float Angle)
+	{
+		InitRotation(Axis, Angle);
+	}
+
 	Quaternion* Quaternion::InitRotation(Vector3f Axis, float Angle)
 	{
 		float SinHalfAngle = sinf(Angle / 2);

@@ -37,6 +37,7 @@ namespace D3DEngine
 		inline Vector3f& operator/(const float Other) { return Vector3f(x / Other, y / Other, z / Other); }
 		inline Vector3f& operator=(const Vector3f& Other) { x = Other.x; y = Other.y; z = Other.z; return *this; }
 		inline bool operator==(const Vector3f& Other) { return ((x == Other.x) && (y == Other.y) && (z == Other.z)); }
+		inline bool operator!=(const Vector3f& Other) { return ((x != Other.GetX()) || (y != Other.GetY()) || (z != Other.GetZ())); }
 
 		inline std::string ToString() { return std::string("(" + std::to_string(x) + " " + std::to_string(y) + " " + std::to_string(z) + ")"); }
 
@@ -56,6 +57,8 @@ namespace D3DEngine
 		inline void SetY(float Y) { y = Y; }
 		inline void SetZ(float Z) { z = Z; }
 		inline void Set(float X, float Y, float Z) { x = X; y = Y; z = Z; };
+		inline void Set(Vector3f& Other) { x = Other.GetX(); y = Other.GetY(); z = Other.GetZ(); };
+
 	private:
 		float x;
 		float y;

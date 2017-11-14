@@ -17,11 +17,11 @@ namespace D3DEngine
 	{
 	}
 
-	void BasicShader::UpdateUniforms(Transform transform, Material material)
+	void BasicShader::UpdateUniforms(Transform* transform, Material material)
 	{
 		material.GetTexture()->Bind();
 
-		Matrix4f WorldMatrix = transform.GetTransformation();
+		Matrix4f WorldMatrix = transform->GetTransformation();
 		Matrix4f ProjectedMatrix = GetRenderEngine()->GetCamera()->GetViewProjection().Mult(WorldMatrix);
 
 		SetUniformM4("Transform", ProjectedMatrix);

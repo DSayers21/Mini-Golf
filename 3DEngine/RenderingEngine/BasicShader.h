@@ -8,6 +8,6 @@ namespace D3DEngine
 	public:
 		BasicShader();
 		~BasicShader();
-		void UpdateUniforms(Transform transform, Material material);
+		void UpdateUniforms(Transform* transform, Material material);
 	};
 }

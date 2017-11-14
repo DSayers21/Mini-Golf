@@ -39,6 +39,8 @@ namespace D3DEngine
 		//Setters
 		inline void SetX(float X) { x = X; }
 		inline void SetY(float Y) { y = Y; }
+		inline void Set(float X, float Y) { x = X; y = Y; };
+		inline void Set(Vector2f& Other) { x = Other.GetX(); y = Other.GetY(); };
 	private:
 		float x;
 		float y;

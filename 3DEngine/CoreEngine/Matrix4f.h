@@ -31,7 +31,7 @@ namespace D3DEngine
 
 		//Operators
 		Matrix4f operator*(const Matrix4f& Other);
-		Matrix4f operator=(const Matrix4f & Other);
+		Matrix4f* operator=(const Matrix4f & Other);
 		void SetEquals(const Matrix4f& Other);
 		inline const float* operator[](int index) const { return m_Matrix[index]; }
 		inline float* operator[](int index) { return m_Matrix[index]; }

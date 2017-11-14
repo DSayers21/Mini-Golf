@@ -8,6 +8,6 @@ namespace D3DEngine
 	public:
 		ForwardSpot();
 		~ForwardSpot();
-		void UpdateUniforms(Transform transform, Material material);
+		void UpdateUniforms(Transform* transform, Material material);
 	};
 }
