@@ -34,9 +34,9 @@ namespace D3DEngine
 			//Calc Normal
 			Vector3f Normal = Vertex1.CrossProduct(Vertex2);
 			//Normal = Normal.Normalise();
-			m_Normals->at(i0).Set(m_Normals->at(i0) + Normal);
-			m_Normals->at(i1).Set(m_Normals->at(i1) + Normal);
-			m_Normals->at(i2).Set(m_Normals->at(i2) + Normal);
+			m_Normals->at(i0).Set(Normal);
+			m_Normals->at(i1).Set(Normal);
+			m_Normals->at(i2).Set(Normal);
 		}
 
 		for (int i = 0; i < m_Normals->size(); i++)

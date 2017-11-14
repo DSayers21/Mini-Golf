@@ -57,6 +57,9 @@
     <ClCompile Include="MeshLoading\OBJModel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MeshLoading\OBJIndex.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Attenuation.h">

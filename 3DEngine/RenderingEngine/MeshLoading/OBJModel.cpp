@@ -70,8 +70,10 @@ namespace D3DEngine
 	IndexedModel* OBJModel::ToIndexedModel()
 	{
 		IndexedModel Result;
+		IndexedModel NormalResult;
+		std::map<OBJIndex, int> ResultIndexMap = std::map<OBJIndex, int>();
+		std::map<int, int> NormalIndexMap = std::map<int, int>();
 		std::map<int, int> IndexMap = std::map<int, int>();
-		int CurrentVertexIndex = 0;
 		for (int i = 0; i < m_Indices.size(); i++)
 		{
 			OBJIndex CurrentIndex = m_Indices[i];															//Get Current index
@@ -82,35 +84,52 @@ namespace D3DEngine
 			CurrentTexCoord = (m_HasTexCoords) ? m_TexCoords[CurrentIndex.TexCoordIndex] : Vector2f(0, 0);	//Assign Tex Coord
 			CurrentNormal = (m_HasNormals) ? m_Normals[CurrentIndex.NormalIndex] : Vector3f(0, 0, 0);		//Assign Normal
 			
-			int PrevVertIndex = -1;
-			for (int j = 0; j < i; j++)
-			{
-				OBJIndex OldIndex = m_Indices[j];
+			int ModelVertIndex = -1;
+			
+			//Find any vertex with same index as current
+			std::map<OBJIndex, int>::const_iterator it = ResultIndexMap.find(CurrentIndex);
+			if (it != ResultIndexMap.end())
+				ModelVertIndex = it->second;
 
-				if ((CurrentIndex.VertexIndex == OldIndex.VertexIndex)
-					&& (CurrentIndex.TexCoordIndex == OldIndex.TexCoordIndex)
-					&& (CurrentIndex.NormalIndex == OldIndex.NormalIndex))
-				{
-					//Pre existing point!
-					PrevVertIndex = j;
-					break;
-				}
-			}
-			if (PrevVertIndex == -1)	//No pre exisitng point
+			if (ModelVertIndex == -1)	//No pre exisitng point
 			{
-				IndexMap.insert(std::pair<int, int>(i, CurrentVertexIndex));
+				ModelVertIndex = Result.GetPositions()->size();
+				ResultIndexMap.insert(std::pair<OBJIndex, int>(CurrentIndex, ModelVertIndex));
 
 				//Add All Data to Indexed Model
 				Result.GetPositions()->push_back(CurrentPosition);
 				Result.GetTexCoords()->push_back(CurrentTexCoord);
 				Result.GetNormals()->push_back(CurrentNormal);
-				Result.GetIndices()->push_back(CurrentVertexIndex);
-				CurrentVertexIndex++;
 			}
-			else						//Pre exisitng point
-				Result.GetIndices()->push_back(IndexMap.find(PrevVertIndex)->second);
+
+			int ModelNormalIndex = -1;
+			//Find any normal with same index as current
+			std::map<int, int>::const_iterator it2 = NormalIndexMap.find(CurrentIndex.VertexIndex);
+			if (it2 != NormalIndexMap.end())
+				ModelNormalIndex = it2->second;
+
+			if (ModelNormalIndex == -1)	//No pre exisitng point
+			{
+				ModelNormalIndex = NormalResult.GetPositions()->size();
+				NormalIndexMap.insert(std::pair<int, int>(CurrentIndex.VertexIndex, ModelNormalIndex));
+
+				//Add All Data to Indexed Model
+				NormalResult.GetPositions()->push_back(CurrentPosition);
+				NormalResult.GetTexCoords()->push_back(CurrentTexCoord);
+				NormalResult.GetNormals()->push_back(CurrentNormal);
+			}
+
+			Result.GetIndices()->push_back(ModelVertIndex);
+			NormalResult.GetIndices()->push_back(ModelNormalIndex);
+			IndexMap.insert(std::pair<int, int>(ModelVertIndex, ModelNormalIndex));
 		}
 
+		if (!m_HasNormals)
+		{
+			NormalResult.CalcNormals();
+			for (int i = 0; i < Result.GetNormals()->size(); i++)
+				Result.GetNormals()->at(i).Set(NormalResult.GetNormals()->at(IndexMap.find(i)->second));
+		}
 		return &Result;
 	}
 
