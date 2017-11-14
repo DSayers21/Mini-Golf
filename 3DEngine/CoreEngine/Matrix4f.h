@@ -27,10 +27,13 @@ namespace D3DEngine
 
 		Matrix4f InitRotation(Vector3f Forward, Vector3f Up, Vector3f Right);
 
+		Vector3f Transform(Vector3f Pos);
+
 		Matrix4f Mult(Matrix4f Other);
 
 		//Operators
 		Matrix4f operator*(const Matrix4f& Other);
+		Matrix4f operator*(const float & Other);
 		Matrix4f* operator=(const Matrix4f & Other);
 		void SetEquals(const Matrix4f& Other);
 		inline const float* operator[](int index) const { return m_Matrix[index]; }

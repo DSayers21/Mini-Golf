@@ -31,6 +31,7 @@ namespace D3DEngine
 
 	void GameObject::Input(GetInput* input, float Delta)
 	{
+		m_Transform->Update();
 		for (int i = 0; i < m_Components.size(); i++)
 			m_Components[i]->Input(input, Delta);
 

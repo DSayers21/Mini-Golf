@@ -1,5 +1,6 @@
 #include "Transform.h"
 #include <iostream>
+#include "Quaternion.h"
 
 namespace D3DEngine
 {
@@ -7,11 +8,6 @@ namespace D3DEngine
 	{
 		//Init Parent Matrix
 		m_ParentMatrix = Matrix4f();
-		//m_ParentMatrix->InitIdentity();
-
-		m_PrevPosition = m_Position + 1;
-		m_PrevRotation = m_Rotation.Mult(Quaternion(1, 0, 3, 0));
-		m_PrevScaling = m_Scaling * 2;
 
 		std::cerr << "I AM CREATED" << std::endl;
 	}
@@ -27,22 +23,8 @@ namespace D3DEngine
 		Matrix4f Rotation = *m_Rotation.ToRotationMatrix();
 		Matrix4f ScaleMatrix = ScaleMatrix.InitScaling(m_Scaling.GetX(), m_Scaling.GetY(), m_Scaling.GetZ());
 
-		//Only Get parent transformation if parent exists and has changed
-		if (m_Parent != nullptr)
-		{
-			bool changed = m_Parent->HasChanged();
-			//changed = true;
-			if (changed)
-			{
-				m_ParentMatrix = m_Parent->GetTransformation();
-
-				m_PrevPosition.Set(m_Position);
-				m_PrevRotation.Set(m_Rotation);
-				m_PrevScaling.Set(m_Scaling);
-			}
-		}
 		//Apply Rotation First
-		return m_ParentMatrix.Mult((Translation.Mult(Rotation.Mult(ScaleMatrix))));
+		return GetParentMatrix()->Mult((Translation.Mult(Rotation.Mult(ScaleMatrix))));
 	}
 	bool Transform::HasChanged()
 	{
@@ -71,6 +53,57 @@ namespace D3DEngine
 
 		return false;
 	}
+
+	Vector3f Transform::GetTransformedPos()
+	{
+		return GetParentMatrix()->Transform(m_Position);
+	}
+
+	void Transform::Rotate(Vector3f Axis, float Angle)
+	{
+		m_Rotation = Quaternion(Axis, Angle).Mult(m_Rotation).Normalise();
+	}
+	
+	void Transform::Update()
+	{
+		if (FirstTime)
+		{
+			m_PrevPosition = Vector3f();
+			m_PrevRotation = Quaternion();
+			m_PrevScaling = Vector3f();
+		}
+		else
+		{
+			m_PrevPosition = m_PrevPosition + Vector3f(1, 1, 1);
+			m_PrevRotation.SetX(m_Rotation.GetX() + 120);
+			m_PrevScaling = m_Scaling * 12;
+			FirstTime = false;
+		}
+	}
+
+	Quaternion Transform::GetTransformedRot()
+	{
+		Quaternion parentRotation = Quaternion(0,0,0,1);
+
+		if (m_Parent != nullptr)
+			parentRotation = m_Parent->GetTransformedRot();
+
+		return parentRotation.Mult(m_Rotation);
+	}
+
+	Matrix4f* Transform::GetParentMatrix()
+	{
+		if ((m_Parent != nullptr) && (m_Parent->HasChanged()))
+		{
+			m_ParentMatrix = m_Parent->GetTransformation();
+
+			m_PrevPosition.Set(m_Position);
+			m_PrevRotation.Set(m_Rotation);
+			m_PrevScaling.Set(m_Scaling);
+		}
+		return &m_ParentMatrix;
+	}
+
 
 	Transform::Transform(const Transform &other) 
 	{

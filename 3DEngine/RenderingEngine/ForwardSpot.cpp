@@ -52,7 +52,7 @@ namespace D3DEngine
 		//Specular Reflection
 		SetUniformF("SpecularIntensity", material.GetSpecularIntensity());
 		SetUniformF("SpecularExponent", material.GetSpecularExponent());
-		SetUniformV("EyePos", *GetRenderEngine()->GetCamera()->GetTransform()->GetPosition());
+		SetUniformV("EyePos", GetRenderEngine()->GetCamera()->GetTransform()->GetTransformedPos());
 		//Spot Light
 		SetUniformSL("spotLight", GetRenderEngine()->GetActiveLight());
 	}

@@ -31,9 +31,17 @@ namespace D3DEngine
 		//IfBoolean Funcs
 		bool HasChanged();
 
-		
+		Vector3f GetTransformedPos();
+
+		void Rotate(Vector3f Axis, float Angle);
+
+		void Update();
+
+		Quaternion GetTransformedRot();
 
 	private:
+		Matrix4f* GetParentMatrix();
+
 		//Represents x,y,z of translation
 		Vector3f m_Position = Vector3f(7,0,7);
 		Quaternion m_Rotation = Quaternion(0,0,0,1);
@@ -47,4 +55,5 @@ namespace D3DEngine
 		Transform* m_Parent;
 		Matrix4f m_ParentMatrix;
 	};
+
 }

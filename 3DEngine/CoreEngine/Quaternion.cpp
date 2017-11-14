@@ -76,39 +76,53 @@ namespace D3DEngine
 		return Quaternion(X, Y, Z, W);
 	}
 
+	Quaternion Quaternion::Mult(float & Other)
+	{
+		w = w * Other - x * Other - y * Other - z * Other;
+		x = x * Other + w * Other + y * Other - z * Other;
+		y = y * Other + w * Other + z * Other - x * Other;
+		z = z * Other + w * Other + x * Other - y * Other;
+
+		return Quaternion(z, y, z, w);
+	}
+
 	Matrix4f* Quaternion::ToRotationMatrix()
 	{
+		Vector3f Forward = Vector3f(2.0f * (x*z - w*y), 2.0f * (y*z + w*x), 1.0f - 2.0f * (x*x + y*y));
+		Vector3f Up = Vector3f(2.0f * (x*y + w*z), 1.0f - 2.0f * (x*x + z*z), 2.0f * (y*z - w*x));
+		Vector3f Right = Vector3f(1.0f - 2.0f * (y*y + z*z), 2.0f * (x*y - w*z), 2.0f * (x*z + w*y));
+
 		Matrix4f* RotMat = new Matrix4f();
-		RotMat->InitRotation(GetForward(), GetUp(), GetRight());
+		RotMat->InitRotation(Forward, Up, Right);
 		return RotMat;
 	}
 
 	Vector3f Quaternion::GetForward()
 	{
-		return Vector3f(2.0f * (x*z - w*y), 2.0f * (y*z + w*x), 1.0f - 2.0f * (x*x + y*y));
+		return Vector3f(0, 0, 1).Rotate(*this);
 	}
 
 	Vector3f Quaternion::GetBack()
 	{
-		return Vector3f(-2.0f * (x*z - w*y), -2.0f * (y*z + w*x), -(1.0f - 2.0f * (x*x + y*y)));
+		return Vector3f(0, 0, -1).Rotate(*this);
 	}
 	Vector3f Quaternion::GetUp()
 	{
-		return Vector3f(2.0f * (x*y + w*z), 1.0f - 2.0f * (x*x + z*z), 2.0f * (y*z - w*x));
+		return Vector3f(0, 1, 0).Rotate(*this);
 	}
 
 	Vector3f Quaternion::GetDown()
 	{
-		return Vector3f(-2.0f * (x*y + w*z), -(1.0f - 2.0f * (x*x + z*z)), -2.0f * (y*z - w*x));
+		return Vector3f(0, -1, 0).Rotate(*this);
 	}
 
 	Vector3f Quaternion::GetRight()
 	{
-		return Vector3f(1.0f - 2.0f * (y*y + z*z), 2.0f * (x*y - w*z), 2.0f * (x*z+w*y));
+		return Vector3f(1, 0, 0).Rotate(*this);
 	}
 
 	Vector3f Quaternion::GetLeft()
 	{
-		return Vector3f(-(1.0f - 2.0f * (y*y + z*z)), -2.0f * (x*y - w*z), -2.0f * (x*z + w*y));
+		return Vector3f(-1, 0, 0).Rotate(*this);
 	}
 }

@@ -21,6 +21,7 @@ namespace D3DEngine
 		//Operators
 		Quaternion Mult(Quaternion& Other);
 		Quaternion Mult(Vector3f& Other);
+		Quaternion Mult(float& Other);
 		Matrix4f* ToRotationMatrix();
 		inline bool operator==(const Quaternion& Other) { return ((x == Other.x) && (y == Other.y) && (z == Other.z) && (w == Other.w)); }
 		inline bool operator!=(const Quaternion& Other) { return ((x != Other.GetX()) && (y != Other.GetY()) && (z != Other.GetZ()) && (w != Other.GetW())); }

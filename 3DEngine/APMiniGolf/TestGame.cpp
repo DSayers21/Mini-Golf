@@ -44,18 +44,18 @@ void TestGame::Init()
 	D3DEngine::GameObject* DirectionalLightObject = new D3DEngine::GameObject();
 	D3DEngine::DirectionalLight* directionalLight = new D3DEngine::DirectionalLight(D3DEngine::Vector3f(0,0,1), 0.9f);
 	DirectionalLightObject->AddComponent(directionalLight);
-	DirectionalLightObject->GetTransform()->SetRotation(&D3DEngine::Quaternion(D3DEngine::Vector3f(1, 1, 1), TO_RADIANS(1.0f)));
+	DirectionalLightObject->GetTransform()->SetRotation(&D3DEngine::Quaternion(D3DEngine::Vector3f(1, 1, 1), TO_RADIANS(-45.0f)));
 
 
 	D3DEngine::GameObject* PointLightObject = new D3DEngine::GameObject();
 	PointLightObject->AddComponent(new D3DEngine::PointLight(D3DEngine::Vector3f(0, 1, 0), 0.9f, D3DEngine::Attenuation(0, 0, 1)));
-	PointLightObject->GetTransform()->GetPosition()->Set(2, 0, 2);
+	PointLightObject->GetTransform()->GetPosition()->Set(6, 0,12);
 
 	D3DEngine::GameObject* SpotLightObject = new D3DEngine::GameObject();
 	SpotLightObject->AddComponent(new D3DEngine::SpotLight(D3DEngine::Vector3f(0, 1, 1),12.0f, 
 		D3DEngine::Attenuation(0, 0, 1), 0.7));
 	SpotLightObject->GetTransform()->GetPosition()->Set(5, 0, 5);
-	SpotLightObject->GetTransform()->SetRotation(&D3DEngine::Quaternion(D3DEngine::Vector3f(0, 1, 0), TO_RADIANS(-90.0f)));
+	SpotLightObject->GetTransform()->SetRotation(&D3DEngine::Quaternion(D3DEngine::Vector3f(0, 1, 0), TO_RADIANS(90.0f)));
 
 	D3DEngine::GameObject* CameraObject = new D3DEngine::GameObject();
 	CameraObject->AddComponent(new D3DEngine::Camera(TO_RADIANS(70.0f), 800/600, 0.01f, 1000.0f));
@@ -65,20 +65,27 @@ void TestGame::Init()
 	D3DEngine::GameObject* testMesh1 = new D3DEngine::GameObject();
 	testMesh1->AddComponent(meshRenderer2);
 	testMesh1->GetTransform()->GetPosition()->Set(0,4,6);
-	testMesh1->GetTransform()->SetRotation(new D3DEngine::Quaternion(D3DEngine::Vector3f(0, 1, 0), TO_RADIANS(45)));
+	testMesh1->GetTransform()->SetRotation(new D3DEngine::Quaternion(D3DEngine::Vector3f(0, 1, 0), TO_RADIANS(-55)));
 
 	D3DEngine::GameObject* testMesh2 = new D3DEngine::GameObject();
 	testMesh2->AddComponent(new D3DEngine::MeshRenderer(mesh2, material));
 	testMesh2->GetTransform()->GetPosition()->Set(0, 3, 5);
 
-	testMesh1->AddChild(testMesh2);
+	D3DEngine::GameObject* testMesh3 = new D3DEngine::GameObject();
+	testMesh3->AddComponent(new D3DEngine::MeshRenderer(mesh2, material));
+	testMesh3->GetTransform()->GetPosition()->Set(0, 5, 7);
+	
 
+	//testMesh3->AddChild(CameraObject);
+	//testMesh2->AddChild(testMesh3);
+	testMesh1->AddChild(testMesh2);
+	testMesh1->AddChild(CameraObject);
 
 	m_RootObject->AddChild(PlaneObject);
 	m_RootObject->AddChild(DirectionalLightObject);
 	m_RootObject->AddChild(PointLightObject);
 	m_RootObject->AddChild(SpotLightObject);
-	m_RootObject->AddChild(CameraObject);
+	//m_RootObject->AddChild(CameraObject);
 	m_RootObject->AddChild(testMesh1);
 
 }

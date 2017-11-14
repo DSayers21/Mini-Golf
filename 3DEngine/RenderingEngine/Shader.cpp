@@ -80,7 +80,7 @@ namespace D3DEngine
 		SetUniformF(UniformName + ".Atten.Linear", pointLight->GetAttenuation().GetLinear());
 		SetUniformF(UniformName + ".Atten.Exponent", pointLight->GetAttenuation().GetExponent());
 
-		SetUniformV(UniformName + ".Position", *pointLight->GetTransform()->GetPosition());
+		SetUniformV(UniformName + ".Position", pointLight->GetTransform()->GetTransformedPos());
 		SetUniformF(UniformName + ".Range", pointLight->GetRange());
 	}
 

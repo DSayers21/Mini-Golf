@@ -143,6 +143,13 @@ namespace D3DEngine
 		return *this;
 	}
 
+	Vector3f Matrix4f::Transform(Vector3f Pos)
+	{
+		return Vector3f(m_Matrix[0][0] * Pos.GetX() + m_Matrix[0][1] * Pos.GetY() + m_Matrix[0][2] * Pos.GetZ() + m_Matrix[0][3],
+						m_Matrix[1][0] * Pos.GetX() + m_Matrix[1][1] * Pos.GetY() + m_Matrix[1][2] * Pos.GetZ() + m_Matrix[1][3],
+						m_Matrix[2][0] * Pos.GetX() + m_Matrix[2][1] * Pos.GetY() + m_Matrix[2][2] * Pos.GetZ() + m_Matrix[2][3]);
+	}
+
 	Matrix4f Matrix4f::Mult(Matrix4f Other)
 	{
 		Matrix4f Ret;
@@ -176,6 +183,20 @@ namespace D3DEngine
 					Sum += m_Matrix[i][k] * Other.m_Matrix[k][j];
 				
 				Ret.m_Matrix[i][j] = Sum;
+			}
+		}
+		return Ret;
+	}
+
+	Matrix4f Matrix4f::operator*(const float & Other)
+	{
+		Matrix4f Ret;
+		//Ret.InitIdentity();
+		for (int i = 0; i<4; i++)
+		{
+			for (int j = 0; j<4; j++)
+			{
+				Ret.m_Matrix[i][j] = m_Matrix[i][j] * Other;;
 			}
 		}
 		return Ret;

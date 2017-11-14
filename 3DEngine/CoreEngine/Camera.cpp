@@ -14,11 +14,12 @@ namespace D3DEngine
 
 	Matrix4f Camera::GetViewProjection()
 	{
-		Matrix4f CameraRotMat = *GetTransform()->GetRotation()->ToRotationMatrix();
+		Matrix4f CameraRotMat = *GetTransform()->GetTransformedRot().Conjugate().ToRotationMatrix();
+		Vector3f CameraPos = GetTransform()->GetTransformedPos() * (-1);
 		Matrix4f CameraTransMat = Matrix4f().InitTranslation(
-			-GetTransform()->GetPosition()->GetX(),
-			-GetTransform()->GetPosition()->GetY(), 
-			-GetTransform()->GetPosition()->GetZ()
+			CameraPos.GetX(),
+			CameraPos.GetY(),
+			CameraPos.GetZ()
 		);
 
 		return m_Projection.Mult(CameraRotMat.Mult(CameraTransMat));
@@ -59,7 +60,7 @@ namespace D3DEngine
 		//Camera Rotation
 		if (m_MouseControl)
 		{
-			float Sensitivity = -.5f;
+			float Sensitivity = .5f;
 			Vector2f DeltaPos = input->GetMousePos();
 			DeltaPos.SetX(DeltaPos.GetX() - 400);
 			DeltaPos.SetY(DeltaPos.GetY() - 300);
@@ -68,10 +69,10 @@ namespace D3DEngine
 			bool rotX = (DeltaPos.GetY() == 0) ? false : true;
 
 			if (rotY)
-				GetTransform()->SetRotation(&GetTransform()->GetRotation()->Mult(Quaternion(yAxi, TO_RADIANS(DeltaPos.GetX() * Sensitivity))).Normalise());
+				GetTransform()->Rotate(yAxi, TO_RADIANS(DeltaPos.GetX() * Sensitivity));
 
 			if (rotX)
-				GetTransform()->SetRotation(&GetTransform()->GetRotation()->Mult(Quaternion(GetTransform()->GetRotation()->GetRight(), TO_RADIANS(-DeltaPos.GetY(), * Sensitivity))).Normalise());
+				GetTransform()->Rotate(GetTransform()->GetRotation()->GetRight(), TO_RADIANS(DeltaPos.GetY(), *Sensitivity));
 
 			if (rotY || rotX)
 				input->SetMousePosition(Vector2f(800 / 2, 600 / 2));

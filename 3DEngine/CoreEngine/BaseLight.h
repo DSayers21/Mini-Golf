@@ -22,7 +22,7 @@ namespace D3DEngine
 		inline Shader* GetShader() { return m_Shader; }
 		inline Attenuation GetAttenuation() { return m_Attenuation; }
 		inline float GetRange() { return m_Range; }
-		Vector3f GetDirection() { return GetTransform()->GetRotation()->GetForward(); }
+		Vector3f GetDirection() { return GetTransform()->GetTransformedRot().GetForward(); }
 		inline float& GetCutoff() { return m_Cutoff; }
 		//Setters
 		inline void SetColour(Vector3f colour) { m_Colour = colour; }
