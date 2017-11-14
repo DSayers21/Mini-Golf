@@ -7,13 +7,14 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include "MeshLoading/OBJModel.h"
 
 namespace D3DEngine
 {
 	class Mesh
 	{
 	public:
-		Mesh(std::string & const FileName);
+		Mesh(std::string FileName);
 		Mesh(Vert * Vertices, int VertSize, int * Indices, int IndexSize);
 		Mesh(Vert * Vertices, int VertSize, int * Indices, int IndexSize, bool calcNormals);
 		~Mesh();

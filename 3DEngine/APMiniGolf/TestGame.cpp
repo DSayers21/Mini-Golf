@@ -1,6 +1,7 @@
 #include "TestGame.h"
 #include "Quaternion.h"
 #include "MathBasics.h"
+#include <string>
 
 TestGame::TestGame()
 {
@@ -38,6 +39,9 @@ void TestGame::Init()
 	material->AddTexture("Diffuse", new D3DEngine::Texture("./Textures/Test.png"));
 	material->AddFloat("SpecularIntensity", 1);
 	material->AddFloat("SpecularExponent", 8);
+
+	D3DEngine::Mesh TempMesh("./Models/Monkey.obj");
+
 
 	D3DEngine::GameObject* PlaneObject = new D3DEngine::GameObject();
 	D3DEngine::MeshRenderer* meshRenderer = new D3DEngine::MeshRenderer(mesh, material);

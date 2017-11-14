@@ -3,7 +3,7 @@
 namespace D3DEngine
 {
 	//LoadMesh(std::string FileName)
-	Mesh::Mesh(std::string& const FileName)
+	Mesh::Mesh(std::string FileName)
 	{
 		InitMeshData();
 		LoadMesh(FileName);
@@ -108,6 +108,8 @@ namespace D3DEngine
 	{
 		std::vector<std::string> SplitArray = Util::Split(FileName, '.');
 		std::string Ext = SplitArray[SplitArray.size() - 1];;
+
+		OBJModel Test(FileName);
 
 		if (Ext != "obj")
 			std::cerr << "Error: File format not supported for mesh data: " << Ext << std::endl;

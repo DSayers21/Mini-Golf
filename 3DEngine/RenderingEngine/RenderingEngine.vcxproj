@@ -121,8 +121,10 @@
     <ClCompile Include="ForwardDirectional.cpp" />
     <ClCompile Include="ForwardPoint.cpp" />
     <ClCompile Include="ForwardSpot.cpp" />
+    <ClCompile Include="MeshLoading\IndexedModel.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="MeshLoading\OBJModel.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="stb_image.c" />
     <ClCompile Include="Texture.cpp" />
@@ -135,8 +137,11 @@
     <ClInclude Include="ForwardDirectional.h" />
     <ClInclude Include="ForwardPoint.h" />
     <ClInclude Include="ForwardSpot.h" />
+    <ClInclude Include="MeshLoading\IndexedModel.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="Mesh.h" />
+    <ClInclude Include="MeshLoading\OBJModel.h" />
+    <ClInclude Include="MeshLoading\OBJIndex.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="Texture.h" />
