@@ -11,11 +11,11 @@ namespace D3DEngine
 	class MeshRenderer : public GameComponent
 	{
 	public:
-		MeshRenderer(D3DEngine::Mesh* mesh, D3DEngine::Material* material);
+		MeshRenderer(Mesh* mesh, Material* material);
 		~MeshRenderer();
 		void Input(float Delta);
 		void Update(float Delta);
-		void Draw(D3DEngine::Shader* shader);
+		void Draw(Shader* shader, RenderEngine* renderEngine);
 
 	private:
 		D3DEngine::Mesh* m_Mesh;

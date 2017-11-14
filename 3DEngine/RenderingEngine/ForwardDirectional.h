@@ -8,7 +8,7 @@ namespace D3DEngine
 	public:
 		ForwardDirectional();
 		~ForwardDirectional();
-		void UpdateUniforms(Transform* transform, Material* material);
+		void UpdateUniforms(Transform* transform, Material* material, RenderEngine* renderEngine);
 		void SetUniformDL(std::string UniformName, BaseLight * DirLight);
 	};
 }

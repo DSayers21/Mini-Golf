@@ -20,10 +20,10 @@ namespace D3DEngine
 	{
 	}
 
-	void MeshRenderer::Draw(D3DEngine::Shader* shader)
+	void MeshRenderer::Draw(D3DEngine::Shader* shader, RenderEngine* renderEngine)
 	{
 		shader->Bind();
-		shader->UpdateUniforms(GetTransform(), m_Material);
+		shader->UpdateUniforms(GetTransform(), m_Material, renderEngine);
 		m_Mesh->Draw();
 	}
 }

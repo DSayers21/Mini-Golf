@@ -47,7 +47,7 @@ void TestGame::Init()
 	D3DEngine::GameObject* DirectionalLightObject = new D3DEngine::GameObject();
 	D3DEngine::DirectionalLight* directionalLight = new D3DEngine::DirectionalLight(D3DEngine::Vector3f(0,0,1), 0.9f);
 	DirectionalLightObject->AddComponent(directionalLight);
-	DirectionalLightObject->GetTransform()->SetRotation(&D3DEngine::Quaternion(D3DEngine::Vector3f(1, 1, 1), TO_RADIANS(-45.0f)));
+	DirectionalLightObject->GetTransform()->SetRotation(&D3DEngine::Quaternion(D3DEngine::Vector3f(1, 1, 1), TO_RADIANS(-15.0f)));
 
 
 	D3DEngine::GameObject* PointLightObject = new D3DEngine::GameObject();
@@ -84,12 +84,11 @@ void TestGame::Init()
 	testMesh1->AddChild(testMesh2);
 	testMesh1->AddChild(CameraObject);
 
-	m_RootObject->AddChild(PlaneObject);
-	m_RootObject->AddChild(DirectionalLightObject);
-	m_RootObject->AddChild(PointLightObject);
-	m_RootObject->AddChild(SpotLightObject);
-	//m_RootObject->AddChild(CameraObject);
-	m_RootObject->AddChild(testMesh1);
+	AddObject(PlaneObject);
+	AddObject(DirectionalLightObject);
+	AddObject(PointLightObject);
+	AddObject(SpotLightObject);
+	AddObject(testMesh1);
 
 }
 

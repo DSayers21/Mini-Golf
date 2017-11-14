@@ -16,7 +16,7 @@ namespace D3DEngine
 
 		virtual void Input(GetInput* input, float Delta);
 		virtual void Update(float Delta);
-		virtual void Draw(Shader* shader);
+		virtual void Draw(Shader* shader, RenderEngine* renderEngine);
 		virtual void AddToRenderingEngine(RenderEngine* renderEngine);
 
 		virtual inline void SetParent(GameObject* parent) { m_Parent = parent; }

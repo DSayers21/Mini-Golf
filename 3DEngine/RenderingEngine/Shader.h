@@ -34,7 +34,7 @@ namespace D3DEngine
 		inline void AddFragmentShaderFromFile(std::string FileName) { AddProgram(LoadShader(FileName), GL_FRAGMENT_SHADER); }
 		inline void AddGeometryShaderFromFile(std::string FileName) { AddProgram(LoadShader(FileName), GL_GEOMETRY_SHADER); }
 		//Uniforms
-		virtual void UpdateUniforms(Transform* transform, Material* material);
+		virtual void UpdateUniforms(Transform* transform, Material* material, RenderEngine* renderEngine);
 
 		void AddUniform(std::string Uniform);
 		void SetUniformI(std::string UniformName, int Value);
@@ -51,8 +51,8 @@ namespace D3DEngine
 
 		void SetAttribLocation(std::string AttribName, int Location);
 
-		inline void SetRenderEngine(RenderEngine* renderEngine) { m_RenderEngine = renderEngine; }
-		inline RenderEngine* GetRenderEngine() { return m_RenderEngine; }
+		//inline void SetRenderEngine(RenderEngine* renderEngine) { m_RenderEngine = renderEngine; }
+		//inline RenderEngine* GetRenderEngine() { return m_RenderEngine; }
 
 	protected:
 		void AddProgram(std::string Text, int Type);
@@ -61,7 +61,5 @@ namespace D3DEngine
 
 		int m_Program;
 		std::map<std::string, int> m_Uniforms = std::map<std::string, int>();
-
-		RenderEngine* m_RenderEngine;
 	};
 }

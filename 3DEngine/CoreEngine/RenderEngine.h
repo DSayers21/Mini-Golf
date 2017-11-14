@@ -40,8 +40,6 @@ namespace D3DEngine
 		inline Vector3f GetAmbientLight() { return m_AmbientLight; }
 		inline BaseLight* GetActiveLight() { return ActiveLight; }
 		//Add Lights
-		//inline void AddDirectionalLight(DirectionalLight* directionalLight) { m_DirectionalLights.push_back(directionalLight); }
-		//inline void AddPointLight(PointLight* pointLight) { m_PointLights.push_back(pointLight); }
 		inline void AddLight(BaseLight* Light) { m_Lights.push_back(Light); }
 		inline void AddCamera(Camera* camera) { m_Camera = camera; }
 

@@ -8,7 +8,6 @@ namespace D3DEngine
 		//m_Camera = new Camera(TO_RADIANS(70.0f), (float)800/600, 0.1f, 1000);
 		//Ambient Light
 		m_ShaderForwardAmbient = new ForwardAmbient();
-		m_ShaderForwardAmbient->SetRenderEngine(this);
 		//Setup Lighting
 		m_AmbientLight = Vector3f(0.2f, 0.2f, 0.2f);
 	}
@@ -22,8 +21,9 @@ namespace D3DEngine
 		ClearScreen();
 		m_Lights.clear();
 
-		Object->AddToRenderingEngine(this);	//Temp
-		Object->Draw(m_ShaderForwardAmbient);
+		Object->AddToRenderingEngine(this);
+
+		Object->Draw(m_ShaderForwardAmbient, this);
 
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_ONE, GL_ONE); //Existing colour times one, plus other colour times one
@@ -35,8 +35,7 @@ namespace D3DEngine
 		for (int i = 0; i < m_Lights.size(); i++)
 		{
 			ActiveLight = m_Lights[i];
-			ActiveLight->GetShader()->SetRenderEngine(this);
-			Object->Draw(ActiveLight->GetShader());
+			Object->Draw(ActiveLight->GetShader(), this);
 		}
 
 		//end of blending

@@ -3,6 +3,7 @@
 #include "DirectionalLight.h"
 #include "PointLight.h"
 #include "SpotLight.h"
+
 namespace D3DEngine
 {
 	Shader::Shader()
@@ -31,7 +32,7 @@ namespace D3DEngine
 		glUseProgram(m_Program);
 	}
 
-	void Shader::UpdateUniforms(Transform* transform, Material* material)
+	void Shader::UpdateUniforms(Transform* transform, Material* material, RenderEngine* renderEngine)
 	{
 
 	}

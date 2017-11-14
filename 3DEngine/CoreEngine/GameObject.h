@@ -22,7 +22,7 @@ namespace D3DEngine
 
 		void Input(GetInput* input, float Delta);
 		void Update(float Delta);
-		void Draw(Shader* shader);
+		void Draw(Shader* shader, RenderEngine* renderEngine);
 
 		//Getters
 		inline Transform* GetTransform() { return m_Transform; }

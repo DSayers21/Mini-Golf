@@ -22,7 +22,7 @@ namespace D3DEngine
 	{
 	}
 
-	void GameComponent::Draw(Shader* shader)
+	void GameComponent::Draw(Shader* shader, RenderEngine* renderEngine)
 	{
 	}
 

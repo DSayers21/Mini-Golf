@@ -76,7 +76,8 @@ namespace D3DEngine
 			}
 			if (Render)
 			{
-				m_RenderEngine->Render(m_Game->GetRootObject());
+				m_Game->Draw(m_RenderEngine);
+				//m_RenderEngine->Render(m_Game->GetRootObject());
 				m_Window->Update();
 
 				Frames++;

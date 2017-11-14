@@ -23,9 +23,9 @@ void MainGame::Update(float Delta)
 	m_RootObject->Update(Delta);
 }
 
-void MainGame::Draw()
+void MainGame::Draw(D3DEngine::RenderEngine* renderEngine)
 {
-
+	renderEngine->Render(GetRootObject());
 }
 
 void MainGame::SetWindow(D3DEngine::Window * Window)
