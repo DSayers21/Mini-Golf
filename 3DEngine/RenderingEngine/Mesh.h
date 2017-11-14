@@ -6,15 +6,18 @@
 #include <vector>
 #include <iostream>
 #include <fstream>
+#include <map>
 #include <string>
 #include "MeshLoading/OBJModel.h"
+#include "ResourceManagement/MeshResource.h"
+#include "ResourceManagement/MeshList.h"
 
 namespace D3DEngine
 {
 	class Mesh
 	{
 	public:
-		Mesh(std::string FileName);
+		Mesh(std::string FileName, MeshList* meshList);
 		Mesh(Vert * Vertices, int VertSize, int * Indices, int IndexSize);
 		Mesh(Vert * Vertices, int VertSize, int * Indices, int IndexSize, bool calcNormals);
 		~Mesh();
@@ -22,15 +25,14 @@ namespace D3DEngine
 
 		void Draw();
 	private: 
-		void InitMeshData();
 		void AddVertices(Vert* Vertices, int VertSize, int* Indices, int IndexSize, bool calcNormals);
 		void CalcNormals(Vert* Vertices, int VertSize, int* Indices, int IndexSize);
 		void LoadMesh(std::string FileName);
 
-		//VBO is a Pointer to the data
-		unsigned int m_VBO; //Vertex Buffer Object
-		unsigned int m_IBO; //Index Buffer Object
-		int m_VertSize;
-		int m_IndicesSize;
+		MeshResource* m_Buffers;
+		MeshList* m_MeshList;
+		std::string m_Name;
+		//int m_VertSize;
+		//int m_IndicesSize;
 	};
 }

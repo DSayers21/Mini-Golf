@@ -40,8 +40,13 @@ void TestGame::Init()
 	material->AddFloat("SpecularIntensity", 1);
 	material->AddFloat("SpecularExponent", 8);
 
-	D3DEngine::Mesh* MonkeyMesh = new D3DEngine::Mesh("./Models/Monkey.obj");
+	/*D3DEngine::Material* material2 = new D3DEngine::Material();
+	material2->AddTexture("Diffuse", new D3DEngine::Texture("./Textures/Bricks.jpg"));
+	material2->AddFloat("SpecularIntensity", 1);
+	material2->AddFloat("SpecularExponent", 8);*/
 
+	D3DEngine::Mesh* MonkeyMesh = new D3DEngine::Mesh("./Models/Monkey.obj", m_MeshList);
+	D3DEngine::Mesh* MonkeyMesh2 = new D3DEngine::Mesh("./Models/Monkey.obj", m_MeshList);
 
 	D3DEngine::GameObject* PlaneObject = new D3DEngine::GameObject();
 	D3DEngine::MeshRenderer* meshRenderer = new D3DEngine::MeshRenderer(mesh, material);
@@ -81,7 +86,10 @@ void TestGame::Init()
 	D3DEngine::GameObject* testMesh3 = new D3DEngine::GameObject();
 	testMesh3->AddComponent(new D3DEngine::MeshRenderer(MonkeyMesh, material));
 	testMesh3->GetTransform()->GetPosition()->Set(0, 5, 7);
-	
+
+	D3DEngine::GameObject* testMesh4 = new D3DEngine::GameObject();
+	testMesh4->AddComponent(new D3DEngine::MeshRenderer(MonkeyMesh2, material));
+	testMesh4->GetTransform()->GetPosition()->Set(0, 3, 5);
 
 	testMesh1->AddChild(testMesh2);
 	testMesh1->AddChild(CameraObject);
@@ -92,6 +100,7 @@ void TestGame::Init()
 	AddObject(SpotLightObject);
 	AddObject(testMesh1);
 	AddObject(testMesh3);
+	AddObject(testMesh4);
 }
 
 void TestGame::Input(D3DEngine::GetInput* input, float Delta)

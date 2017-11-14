@@ -2,28 +2,43 @@
 
 namespace D3DEngine
 {
-	//LoadMesh(std::string FileName)
-	Mesh::Mesh(std::string FileName)
+	Mesh::Mesh(std::string FileName, MeshList* meshList)
 	{
-		InitMeshData();
-		LoadMesh(FileName);
+		m_Name = FileName;
+		m_MeshList = meshList;
+		m_Buffers = m_MeshList->GetModel(FileName);
+		if (m_Buffers == nullptr)
+		{
+			std::cerr << "Loaded Mesh: " << FileName << std::endl;
+			m_Buffers = new MeshResource();
+			LoadMesh(FileName);
+			m_MeshList->AddModel(FileName, m_Buffers);
+		}
+		else
+		{
+			std::cerr << "Cached Mesh: " << FileName << std::endl;
+			m_Buffers->AddReference();
+		}
 	}
 
 	Mesh::Mesh(Vert* Vertices, int VertSize, int* Indices, int IndexSize)
 	{
-	*this = Mesh(Vertices, VertSize, Indices, IndexSize, false);
+		m_Buffers = new MeshResource();
+		*this = Mesh(Vertices, VertSize, Indices, IndexSize, false);
 	}
 
 	Mesh::Mesh(Vert* Vertices, int VertSize, int* Indices, int IndexSize, bool calcNormals)
 	{
-		InitMeshData();
+		m_Buffers = new MeshResource();
 		AddVertices(Vertices, VertSize, Indices, IndexSize, calcNormals);
 	}
 
 	Mesh::~Mesh()
 	{
-		if (m_VBO) glDeleteBuffers(1, &m_VBO);
-		if (m_IBO) glDeleteBuffers(1, &m_IBO);
+		if (m_Buffers->RemoveReference())
+		{
+			m_MeshList->RemoveModel(m_Name);
+		}
 	}
 
 	void Mesh::Draw()
@@ -32,14 +47,14 @@ namespace D3DEngine
 		glEnableVertexAttribArray(1);
 		glEnableVertexAttribArray(2);
 
-		glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
+		glBindBuffer(GL_ARRAY_BUFFER, m_Buffers->GetVBO());
 
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vert), 0);						   //Vert
 		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Vert), (GLvoid*)sizeof(Vector3f));
 		glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(Vert), (GLvoid*)(sizeof(Vector3f) + sizeof(Vector2f))); //Normals
 
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IBO);
-		glDrawElements(GL_TRIANGLES, m_IndicesSize, GL_UNSIGNED_INT, 0);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_Buffers->GetIBO());
+		glDrawElements(GL_TRIANGLES, m_Buffers->GetINDEXSIZE(), GL_UNSIGNED_INT, 0);
 
 		glDisableVertexAttribArray(0);
 		glDisableVertexAttribArray(1);
@@ -48,26 +63,20 @@ namespace D3DEngine
 	}
 
 	//Private
-	void Mesh::InitMeshData()
-	{
-		glGenBuffers(1, &m_VBO);
-		glGenBuffers(1, &m_IBO);
-		m_VertSize = 0;
-		m_IndicesSize = 0;
-	}
 
 	void Mesh::AddVertices(Vert* Vertices, int VertSize, int* Indices, int IndexSize, bool calcNormals)
 	{
 		if (calcNormals)
 			this->CalcNormals(Vertices, VertSize, Indices, IndexSize);
 
-		m_VertSize = VertSize;
-		m_IndicesSize = IndexSize;
-		glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
-		glBufferData(GL_ARRAY_BUFFER, m_VertSize * sizeof(Vert), Vertices, GL_STATIC_DRAW);
+		m_Buffers->SetINDEXSIZE(IndexSize);
+		m_Buffers->SetVERTEXSIZE(VertSize);
 
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IBO);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_IndicesSize * sizeof(int), Indices, GL_STATIC_DRAW);
+		glBindBuffer(GL_ARRAY_BUFFER, m_Buffers->GetVBO());
+		glBufferData(GL_ARRAY_BUFFER, m_Buffers->GetVERTEXSIZE() * sizeof(Vert), Vertices, GL_STATIC_DRAW);
+
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_Buffers->GetIBO());
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_Buffers->GetINDEXSIZE() * sizeof(int), Indices, GL_STATIC_DRAW);
 	}
 
 	void Mesh::CalcNormals(Vert* Vertices, int VertSize, int* Indices, int IndexSize)

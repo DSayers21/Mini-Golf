@@ -15,6 +15,7 @@
 #include <iostream>
 #include <string>
 #include "RenderEngine.h"
+#include "ResourceManagement/MeshList.h"
 
 class MainGame
 {
@@ -39,4 +40,5 @@ protected:
 	D3DEngine::Window* m_Window;
 	D3DEngine::Time* m_Time;
 	D3DEngine::GameObject* m_RootObject;
+	D3DEngine::MeshList* m_MeshList = new D3DEngine::MeshList();
 };
