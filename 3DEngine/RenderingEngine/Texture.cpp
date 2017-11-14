@@ -48,6 +48,7 @@ namespace D3DEngine
 
 		if (Width > 0 && Height > 0 && Data != 0)
 		{
+			//glBindTexture(TextureTarget, m_TextureID);
 			glGenTextures(1, &m_TextureID);
 			glTexParameterf(TextureTarget, GL_TEXTURE_MIN_FILTER, Filter);
 			glTexParameterf(TextureTarget, GL_TEXTURE_MAG_FILTER, Filter);
