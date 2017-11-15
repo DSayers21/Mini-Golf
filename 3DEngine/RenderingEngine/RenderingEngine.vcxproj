@@ -131,6 +131,7 @@
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="stb_image.c" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="ResourceManagement\TextureResource.cpp" />
     <ClCompile Include="Vert.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
@@ -150,6 +151,7 @@
     <ClInclude Include="Shader.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="ResourceManagement\TextureResource.h" />
     <ClInclude Include="Vert.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
