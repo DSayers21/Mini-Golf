@@ -141,6 +141,7 @@ namespace D3DEngine
 
 	std::string Shader::LoadShader(const std::string& fileName)
 	{
+		std::string INCLUDE_DIRECTIVE = "#include";
 		std::ifstream File;
 		File.open(("./Shaders/" + fileName).c_str());
 
