@@ -35,7 +35,7 @@ namespace D3DEngine
 
 	void ForwardDirectional::UpdateUniforms(Transform* transform, Material* material, RenderEngine* renderEngine)
 	{
-		material->GetTexture("Diffuse").Bind();
+		material->GetTexture("Diffuse")->Bind();
 
 		Matrix4f WorldMatrix = transform->GetTransformation();
 		Matrix4f ProjectedMatrix = renderEngine->GetCamera()->GetViewProjection().Mult(WorldMatrix);

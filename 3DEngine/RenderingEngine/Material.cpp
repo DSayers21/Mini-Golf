@@ -13,14 +13,14 @@ namespace D3DEngine
 	{
 	}
 
-	Texture Material::GetTexture(std::string Name)
+	Texture* Material::GetTexture(std::string Name)
 	{
 		Texture* Return = m_TextureHashMap.find(Name)->second;
 
 		if (Return != nullptr)
-			return *Return;
+			return Return;
 
-		return Texture("./Textures/Test.png");
+		return new Texture("./Textures/Test.png");
 	}
 
 	Vector3f * Material::GetVector3f(std::string Name)
