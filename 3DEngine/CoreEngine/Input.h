@@ -372,7 +372,7 @@ namespace D3DEngine
 	class GetInput
 	{
 	public:
-		GetInput();
+		GetInput(Window* Window);
 		~GetInput();
 
 		SDL_Event PollEvent();
@@ -398,6 +398,7 @@ namespace D3DEngine
 		inline Vector2f GetMousePos() const { return Vector2f(m_MouseX, m_MouseY); }
 		inline Vector2f* GetWarpMousePos() const { return m_WarpMousePos; }
 
+		inline Window* GetWindow() const { return m_Window; }
 	private:
 	    SDL_Event e;
 
@@ -416,5 +417,7 @@ namespace D3DEngine
 		bool m_warpMouse = false;
 
 		Vector2f* m_WarpMousePos;
+
+		Window* m_Window;
 	};
 }

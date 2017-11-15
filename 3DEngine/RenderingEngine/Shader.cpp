@@ -37,6 +37,55 @@ namespace D3DEngine
 
 	}
 
+	void Shader::AddAllAttributes(std::string ShaderText)
+	{
+		std::string ATTRIBUTE_KEYWORD = "attribute";
+
+		size_t AttributeStartLocation = ShaderText.find(ATTRIBUTE_KEYWORD);
+
+		int AttribCounter = 0;
+
+		while (AttributeStartLocation != std::string::npos)
+		{
+			//Get start and end pos of the Attribute
+			int Begin = AttributeStartLocation + ATTRIBUTE_KEYWORD.size() + 1;
+			int End = ShaderText.find(";", Begin);
+
+			//Get The Attribute name
+			std::string AttributeLine = ShaderText.substr(Begin, End - Begin);
+			int SpacePos = AttributeLine.find(" ");
+			std::string AttributeName = AttributeLine.substr(SpacePos + 1, AttributeLine.size());		//Gets name of the Attribute name
+
+			SetAttribLocation(AttributeName, AttribCounter);	//Add the Attribute
+			AttribCounter++;									//Increment Count
+
+			AttributeStartLocation = ShaderText.find(ATTRIBUTE_KEYWORD, AttributeStartLocation + ATTRIBUTE_KEYWORD.size());
+		}
+	}
+	
+	void Shader::AddAllUniforms(std::string ShaderText)
+	{
+		std::string UNIFORM_KEYWORD = "uniform";
+
+		size_t UniformStartLocation = ShaderText.find(UNIFORM_KEYWORD);
+	
+		while (UniformStartLocation != std::string::npos)
+		{
+			//Get start and end pos of the uniform
+			int Begin = UniformStartLocation + UNIFORM_KEYWORD.size() + 1;
+			int End = ShaderText.find(";", Begin);
+
+			//Get The uniform name
+			std::string UniformLine = ShaderText.substr(Begin, End - Begin);
+			int SpacePos = UniformLine.find(" ");
+			std::string UniformName = UniformLine.substr(SpacePos+1, UniformLine.size());		//Gets name of the uniform name
+
+			AddUniform(UniformName);	//Add the uniform
+
+			UniformStartLocation = ShaderText.find(UNIFORM_KEYWORD, UniformStartLocation + UNIFORM_KEYWORD.size());
+		}
+	}
+
 	void Shader::AddUniform(std::string Uniform)
 	{
 		int UniformLocation = glGetUniformLocation(m_Program, Uniform.c_str());

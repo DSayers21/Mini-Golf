@@ -4,16 +4,24 @@ namespace D3DEngine
 {
 	MainComp::MainComp(std::string Title, int Width, int Height, int FrameRate, MainGame* Game)
 	{
+		//Init Core Aspects
 		m_Window = new D3DEngine::Window();
 		m_Window->Init(Title, Width, Height);
-		m_Input = new GetInput();
+		m_Input = new GetInput(m_Window);
+
+		//Setup Game
 		m_Game = Game;
 		m_Game->SetWindow(m_Window);
+
+		//Setup Frame Rate
 		m_Game->SetTime(m_Time);
 		m_FrameTime = 1.0 / FrameRate;		
+		m_FrameCap = FrameRate;
 
+		//Init Render Engine
 		m_RenderEngine = new D3DEngine::RenderEngine();
 
+		//Start MainComp
 		Start();
 	}
 
@@ -68,7 +76,7 @@ namespace D3DEngine
 
 				if (FrameCounter >= m_Time->SECOND)
 				{
-					std::cout << Frames << std::endl;
+					std::cout << "Current FPS: " << Frames << "/" << m_FrameCap << std::endl;
 					Frames = 0;
 					FrameCounter = 0;
 				}

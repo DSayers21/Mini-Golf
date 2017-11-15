@@ -5,17 +5,20 @@ namespace D3DEngine
 {
 	ForwardAmbient::ForwardAmbient()
 	{
-		AddVertexShaderFromFile("Forward-Ambient.vert");
-		AddFragmentShaderFromFile("Forward-Ambient.frag");
+		std::string VertexShaderText = LoadShader("Forward-Ambient.vert");
+		std::string FragmentShaderText = LoadShader("Forward-Ambient.frag");
+
+		AddVertexShader(VertexShaderText);
+		AddFragmentShader(FragmentShaderText);
 
 		//Set Attribs
-		SetAttribLocation("Postion", 0);
-		SetAttribLocation("TexCoord", 1);
+		AddAllAttributes(VertexShaderText);
 
 		CompileShader();
+
 		//Uniforms
-		AddUniform("MVP");
-		AddUniform("AmbientIntensity");
+		AddAllUniforms(VertexShaderText);
+		AddAllUniforms(FragmentShaderText);
 	}
 
 	ForwardAmbient::~ForwardAmbient()

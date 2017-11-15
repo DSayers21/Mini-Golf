@@ -2,8 +2,9 @@
 
 namespace D3DEngine
 {
-	GetInput::GetInput()
+	GetInput::GetInput(Window* Window)
 	{
+		m_Window = Window;
 		m_WarpMousePos = new Vector2f(0,0);
 	}
 

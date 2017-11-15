@@ -54,16 +54,14 @@ namespace D3DEngine
 		if (input->GetMouseDown(MOUSE_LEFT_BUTTON))
 		{
 			m_MouseControl = true;
-			input->SetMousePosition(Vector2f(800 / 2, 600 / 2));
+			input->SetMousePosition(input->GetWindow()->GetCenter());
 			input->SetCursor(false);
 		}
 		//Camera Rotation
 		if (m_MouseControl)
 		{
 			float Sensitivity = .5f;
-			Vector2f DeltaPos = input->GetMousePos();
-			DeltaPos.SetX(DeltaPos.GetX() - 400);
-			DeltaPos.SetY(DeltaPos.GetY() - 300);
+			Vector2f DeltaPos = input->GetMousePos() - input->GetWindow()->GetCenter();
 
 			bool rotY = (DeltaPos.GetX() == 0) ? false : true;
 			bool rotX = (DeltaPos.GetY() == 0) ? false : true;
@@ -75,7 +73,7 @@ namespace D3DEngine
 				GetTransform()->Rotate(GetTransform()->GetRotation()->GetRight(), TO_RADIANS(DeltaPos.GetY(), *Sensitivity));
 
 			if (rotY || rotX)
-				input->SetMousePosition(Vector2f(800 / 2, 600 / 2));
+				input->SetMousePosition(input->GetWindow()->GetCenter());
 		}
 	}
 

@@ -15,6 +15,6 @@
 int main(int argc, char** argv)
 {
 	std::string Title = "Advanced Programming Assignment";
-	D3DEngine::MainComp m_MainComp(Title, 800, 600, 120, new TestGame());
+	D3DEngine::MainComp m_MainComp(Title, 1200, 800, 120, new TestGame());
 	return 0;
 }

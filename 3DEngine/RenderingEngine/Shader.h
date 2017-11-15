@@ -36,6 +36,10 @@ namespace D3DEngine
 		//Uniforms
 		virtual void UpdateUniforms(Transform* transform, Material* material, RenderEngine* renderEngine);
 
+		void AddAllAttributes(std::string ShaderText);
+
+		void AddAllUniforms(std::string ShaderText);
+
 		void AddUniform(std::string Uniform);
 		void SetUniformI(std::string UniformName, int Value);
 		void SetUniformF(std::string UniformName, float Value);
@@ -50,10 +54,7 @@ namespace D3DEngine
 		void SetUniformSL(std::string UniformName, BaseLight* spotLight);
 
 		void SetAttribLocation(std::string AttribName, int Location);
-
-		//inline void SetRenderEngine(RenderEngine* renderEngine) { m_RenderEngine = renderEngine; }
-		//inline RenderEngine* GetRenderEngine() { return m_RenderEngine; }
-
+		
 	protected:
 		void AddProgram(std::string Text, int Type);
 		static void CheckShaderError(int Shader, int Flag, bool isProgram, const std::string& ErrorMessage);

@@ -8,8 +8,6 @@ namespace D3DEngine
 	{
 		//Init Parent Matrix
 		m_ParentMatrix = Matrix4f();
-
-		std::cerr << "I AM CREATED" << std::endl;
 	}
 
 	Transform::~Transform()
