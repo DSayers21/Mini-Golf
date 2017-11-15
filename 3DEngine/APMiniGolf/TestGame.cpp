@@ -91,11 +91,16 @@ void TestGame::Init()
 	D3DEngine::GameObject* testMesh4 = new D3DEngine::GameObject();
 	testMesh4->AddComponent(new D3DEngine::MeshRenderer(MonkeyMesh2, material2));
 	testMesh4->GetTransform()->GetPosition()->Set(0, 3, 5);
+	
+	D3DEngine::GameObject* testMesh5 = new D3DEngine::GameObject();
+	testMesh5->AddComponent(new D3DEngine::MeshRenderer(MonkeyMesh2, material2));
+	testMesh5->GetTransform()->GetPosition()->Set(5, 12, 5);
 
 	testMesh1->AddChild(testMesh2);
 	testMesh1->AddChild(CameraObject);
 
 	AddObject(PlaneObject);
+	AddObject(testMesh5);
 	AddObject(DirectionalLightObject);
 	AddObject(PointLightObject);
 	AddObject(SpotLightObject);

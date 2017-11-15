@@ -1,10 +1,16 @@
-﻿  ForwardAmbient.cpp
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\window.h(31): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\input.h(398): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
+﻿  OBJModel.cpp
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\meshloading\objmodel.cpp(49): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\meshloading\objmodel.cpp(53): warning C4018: '<': signed/unsigned mismatch
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\meshloading\objmodel.cpp(61): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\meshloading\objmodel.cpp(63): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\meshloading\objmodel.cpp(77): warning C4018: '<': signed/unsigned mismatch
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\meshloading\objmodel.cpp(130): warning C4018: '<': signed/unsigned mismatch
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\meshloading\objmodel.cpp(143): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\meshloading\objmodel.cpp(149): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\meshloading\objmodel.cpp(154): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
   Generating Code...
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\meshloading\objmodel.cpp(133): warning C4172: returning address of local variable or temporary: Result
   Skipping... (no relevant changes detected)
-  Shader.cpp
-  ForwardSpot.cpp
-  ForwardPoint.cpp
-  ForwardDirectional.cpp
+  OBJIndex.cpp
+  Mesh.cpp
   RenderingEngine.vcxproj -> C:\Users\Satan\Documents\GitHub\Pool Game\Mini-Golf\3DEngine\Debug\RenderingEngine.lib

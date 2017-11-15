@@ -4,9 +4,6 @@ namespace D3DEngine
 {
 	struct OBJIndex
 	{
-	//OBJIndex();
-	//~OBJIndex();
-
 		int VertexIndex;
 		int TexCoordIndex;
 		int NormalIndex;
