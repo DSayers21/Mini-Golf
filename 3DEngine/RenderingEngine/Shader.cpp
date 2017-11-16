@@ -8,10 +8,8 @@ namespace D3DEngine
 {
 	Shader::Shader()
 	{
+		m_ShaderResource = new ShaderResource();
 		m_UniformsStuct = std::vector<StructComponent>();
-		m_Program = glCreateProgram();
-		if (m_Program == 0)
-			std::cerr << "Shader Creation Failed: Could not find valid memory location" << std::endl;
 	}
 
 	void Shader::InitShader(std::string FileName)
@@ -39,16 +37,16 @@ namespace D3DEngine
 
 	void Shader::CompileShader()
 	{
-		glLinkProgram(m_Program);
-		CheckShaderError(m_Program, GL_LINK_STATUS, true, "Error linking shader program");
+		glLinkProgram(m_ShaderResource->GetProgram());
+		CheckShaderError(m_ShaderResource->GetProgram(), GL_LINK_STATUS, true, "Error linking shader program");
 
-		glValidateProgram(m_Program);
-		CheckShaderError(m_Program, GL_VALIDATE_STATUS, true, "Invalid shader program");
+		glValidateProgram(m_ShaderResource->GetProgram());
+		CheckShaderError(m_ShaderResource->GetProgram(), GL_VALIDATE_STATUS, true, "Invalid shader program");
 	}
 
 	void Shader::Bind()
 	{
-		glUseProgram(m_Program);
+		glUseProgram(m_ShaderResource->GetProgram());
 	}
 
 	void Shader::UpdateUniforms(Transform* transform, Material* material, RenderEngine* renderEngine)
@@ -199,7 +197,7 @@ namespace D3DEngine
 
 	void Shader::AddUniform(std::string Uniform)
 	{
-		int UniformLocation = glGetUniformLocation(m_Program, Uniform.c_str());
+		int UniformLocation = glGetUniformLocation(m_ShaderResource->GetProgram(), Uniform.c_str());
 		if (UniformLocation == -1)
 			std::cerr << "Error: Couldnt find uniform: " << Uniform << std::endl;
 		//Add Uniform to Map
@@ -261,7 +259,7 @@ namespace D3DEngine
 
 	void Shader::SetAttribLocation(std::string AttribName, int Location)
 	{
-		glBindAttribLocation(m_Program, Location, AttribName.c_str());
+		glBindAttribLocation(m_ShaderResource->GetProgram(), Location, AttribName.c_str());
 	}
 
 	void Shader::AddProgram(std::string Text, int Type)
@@ -281,7 +279,7 @@ namespace D3DEngine
 
 		CheckShaderError(Shader, GL_COMPILE_STATUS, false, "ERR");
 
-		glAttachShader(m_Program, Shader);
+		glAttachShader(m_ShaderResource->GetProgram(), Shader);
 	}
 
 	void Shader::CheckShaderError(int shader, int flag, bool isProgram, const std::string& errorMessage)

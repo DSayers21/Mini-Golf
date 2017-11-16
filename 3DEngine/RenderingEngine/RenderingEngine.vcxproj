@@ -130,6 +130,7 @@
     <ClCompile Include="MeshLoading\OBJModel.cpp" />
     <ClCompile Include="ResourceManagement\MeshResource.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="ResourceManagement\ShaderResource.cpp" />
     <ClCompile Include="stb_image.c" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="ResourceManagement\TextureResource.cpp" />
@@ -151,6 +152,7 @@
     <ClInclude Include="MeshLoading\OBJIndex.h" />
     <ClInclude Include="ResourceManagement\MeshResource.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="ResourceManagement\ShaderResource.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="ResourceManagement\TextureResource.h" />

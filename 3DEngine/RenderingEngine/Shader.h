@@ -14,6 +14,8 @@
 
 #include "BaseLight.h"
 
+#include "ResourceManagement/ShaderResource.h"
+
 namespace D3DEngine
 {
 	struct StructComponent
@@ -75,10 +77,11 @@ namespace D3DEngine
 		void AddUniformWithStructCheck(std::string UniformName, std::string UniformType, STRUCTMAP Structs);
 		std::vector<StructComponent> GetStuctFromMap(STRUCTMAP Structs, std::string Key);
 
-		int m_Program;
+		//int m_Program;
+		ShaderResource* m_ShaderResource;
+
+
 		std::map<std::string, int> m_Uniforms = std::map<std::string, int>();
-
-
 		std::vector<StructComponent> m_UniformsStuct;
 	};
 }
