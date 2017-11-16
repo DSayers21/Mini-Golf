@@ -3,12 +3,12 @@
 
 namespace D3DEngine
 {
-	BaseLight::BaseLight()
+	BaseLight::BaseLight(ShaderList* shaderList)
 	{
-		*this = BaseLight(Vector3f(0, 0, 0), 0);
+		*this = BaseLight(shaderList, Vector3f(0, 0, 0), 0);
 	}
 
-	BaseLight::BaseLight(Vector3f colour, float intensity)
+	BaseLight::BaseLight(ShaderList* shaderList, Vector3f colour, float intensity)
 	{
 		m_Colour = colour;
 		m_Intensity = intensity;

@@ -3,7 +3,6 @@
 #include "GameObject.h"
 
 #include "Shader.h"
-#include "ForwardAmbient.h"
 
 #include "BaseLight.h"
 #include "Camera.h"
@@ -13,12 +12,14 @@
 #include "Vector3f.h"
 
 #include "ResourceManagement/MappedValues.h"
+#include "ResourceManagement/ShaderList.h"
 
 #include "Input.h"
 #include "Time.h"
 
 #include <vector>
 #include <map>
+
 
 namespace D3DEngine
 {
@@ -46,6 +47,7 @@ namespace D3DEngine
 		//Getters
 		inline Vector3f GetAmbientLight() { return m_AmbientLight; }
 		inline BaseLight* GetActiveLight() { return ActiveLight; }
+		inline ShaderList* GetShaderList() { return m_ShaderList; }
 		//Add Lights
 		inline void AddLight(BaseLight* Light) { m_Lights.push_back(Light); }
 		inline void AddCamera(Camera* camera) { m_Camera = camera; }
@@ -56,6 +58,8 @@ namespace D3DEngine
 		Camera* m_Camera;
 
 		Vector3f m_AmbientLight;
+
+		ShaderList* m_ShaderList;
 
 		//Permanent Structures
 		std::vector<BaseLight*> m_Lights = std::vector<BaseLight*>();

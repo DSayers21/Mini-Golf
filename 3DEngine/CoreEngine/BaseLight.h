@@ -3,14 +3,17 @@
 #include "Vector3f.h"
 #include "GameComponent.h"
 #include "Attenuation.h"
+#include "ResourceManagement/ShaderList.h"
+#include "Shader.h"
 
 namespace D3DEngine
 {
 	class BaseLight : public GameComponent
 	{
 	public:
-		BaseLight();
-		BaseLight(Vector3f colour, float intensity);
+		BaseLight() {}
+		BaseLight(ShaderList* shaderList);
+		BaseLight(ShaderList* shaderList, Vector3f colour, float intensity);
 		~BaseLight();
 
 		void AddToRenderingEngine(RenderEngine * renderEngine);

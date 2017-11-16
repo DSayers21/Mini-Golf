@@ -6,8 +6,10 @@ namespace D3DEngine
 	{
 		MappedValues();
 		InitGraphics();
+
+		m_ShaderList = new ShaderList();
 		//Ambient Light
-		m_ShaderForwardAmbient = new ForwardAmbient();
+		m_ShaderForwardAmbient = new Shader("Forward-Ambient", m_ShaderList);
 		//Setup Lighting
 		m_AmbientLight = Vector3f(0.2f, 0.2f, 0.2f);
 

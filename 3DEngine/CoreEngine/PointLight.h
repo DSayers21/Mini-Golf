@@ -8,8 +8,8 @@ namespace D3DEngine
 	class PointLight : public BaseLight
 	{
 	public:
-		PointLight();
-		PointLight(Vector3f colour, float intensity, Attenuation& attenuation);
+		PointLight(ShaderList* shaderList);
+		PointLight(ShaderList* shaderList, Vector3f colour, float intensity, Attenuation& attenuation);
 		~PointLight();
 	};
 }

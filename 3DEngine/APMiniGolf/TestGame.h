@@ -10,7 +10,7 @@ public:
 	TestGame();
 	~TestGame();
 
-	void Init();
+	void Init(D3DEngine::RenderEngine* renderEngine);
 	void Input(D3DEngine::GetInput* input, float Delta);
 
 private:

@@ -3,13 +3,26 @@
 #include "DirectionalLight.h"
 #include "PointLight.h"
 #include "SpotLight.h"
+#include "BaseLight.h"
 
 namespace D3DEngine
 {
-	Shader::Shader()
+	Shader::Shader(std::string FileName, ShaderList* shaderList)
 	{
-		m_ShaderResource = new ShaderResource();
-		m_UniformsStuct = std::vector<StructComponent>();
+		m_ShaderList = shaderList;
+		m_ShaderResource = m_ShaderList->GetShader(FileName);
+		if (m_ShaderResource == nullptr)
+		{
+			std::cerr << "Loaded Shader: " << FileName << std::endl;
+			m_ShaderResource = new ShaderResource();
+			InitShader(FileName);
+			m_ShaderList->AddShader(FileName, m_ShaderResource);
+		}
+		else
+		{
+			std::cerr << "Cached Shader: " << FileName << std::endl;
+			m_ShaderResource->AddReference();
+		}
 	}
 
 	void Shader::InitShader(std::string FileName)
@@ -32,7 +45,7 @@ namespace D3DEngine
 
 	Shader::~Shader()
 	{
-
+		std::cerr << "Deleted Shader" << std::endl;
 	}
 
 	void Shader::CompileShader()
@@ -55,10 +68,10 @@ namespace D3DEngine
 		Matrix4f MVPMatrix = renderEngine->GetCamera()->GetViewProjection().Mult(WorldMatrix);
 
 		//Loop Over all Uniforms
-		for (int i = 0; i < m_UniformsStuct.size(); i++)
+		for (int i = 0; i < m_ShaderResource->GetUniformsStruct().size(); i++)
 		{
-			std::string UniformName = m_UniformsStuct[i].m_Name;
-			std::string UniformType = m_UniformsStuct[i].m_Type;
+			std::string UniformName = m_ShaderResource->GetUniformsStruct()[i].m_Name;
+			std::string UniformType = m_ShaderResource->GetUniformsStruct()[i].m_Type;
 
 			std::string UnprefixedUniformName = UniformName.substr(2);
 			if (UniformType == "sampler2D")	//Texture Uniform
@@ -158,7 +171,7 @@ namespace D3DEngine
 			std::string UniformName = UniformLine.substr(WhiteSpacePos, UniformLine.size());		//Gets name of the uniform name
 			std::string UniformType = UniformLine.substr(0, WhiteSpacePos - 1);
 
-			m_UniformsStuct.push_back(StructComponent(UniformName, UniformType));
+			m_ShaderResource->AddUniformsStruct(StructComponent(UniformName, UniformType));
 			AddUniformWithStructCheck(UniformName, UniformType, Structs);
 
 			UniformStartLocation = ShaderText.find(UNIFORM_KEYWORD, UniformStartLocation + UNIFORM_KEYWORD.size());
@@ -201,28 +214,28 @@ namespace D3DEngine
 		if (UniformLocation == -1)
 			std::cerr << "Error: Couldnt find uniform: " << Uniform << std::endl;
 		//Add Uniform to Map
-		m_Uniforms.insert(std::pair<std::string, int>(Uniform, UniformLocation));
+		m_ShaderResource->AddUniform(Uniform, UniformLocation);
 		std::cerr << "Uniform: " << Uniform << " added." << std::endl;
 	}
 
 	void Shader::SetUniformI(std::string UniformName, int Value)
 	{
-		glUniform1i(m_Uniforms.find(UniformName)->second, Value);
+		glUniform1i(m_ShaderResource->GetUniforms().find(UniformName)->second, Value);
 	}
 
 	void Shader::SetUniformF(std::string UniformName, float Value)
 	{
-		glUniform1f(m_Uniforms.find(UniformName)->second, Value);
+		glUniform1f(m_ShaderResource->GetUniforms().find(UniformName)->second, Value);
 	}
 
 	void Shader::SetUniformV(std::string UniformName, Vector3f Value)
 	{
-		glUniform3f(m_Uniforms.find(UniformName)->second, Value.GetX(), Value.GetY(), Value.GetZ());
+		glUniform3f(m_ShaderResource->GetUniforms().find(UniformName)->second, Value.GetX(), Value.GetY(), Value.GetZ());
 	}
 
 	void Shader::SetUniformM4(const std::string UniformName, const Matrix4f& Value)
 	{
-		glUniformMatrix4fv(m_Uniforms.at(UniformName), 1, GL_TRUE, &(Value[0][0]));
+		glUniformMatrix4fv(m_ShaderResource->GetUniforms().at(UniformName), 1, GL_TRUE, &(Value[0][0]));
 	}
 
 	void Shader::SetUniformDL(std::string UniformName, BaseLight* DirLight)

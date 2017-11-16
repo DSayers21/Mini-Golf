@@ -7,8 +7,8 @@ namespace D3DEngine
 	class SpotLight : public BaseLight
 	{
 	public:
-		SpotLight();
-		SpotLight(Vector3f colour, float intensity, Attenuation& attenuation, float cutoff);
+		SpotLight(ShaderList* shaderList);
+		SpotLight(ShaderList* shaderList, Vector3f colour, float intensity, Attenuation& attenuation, float cutoff);
 		~SpotLight();
 	};
 }

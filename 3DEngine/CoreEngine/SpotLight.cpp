@@ -1,14 +1,13 @@
 #include "SpotLight.h"
-#include "ForwardSpot.h"
 
 namespace D3DEngine
 {
-	SpotLight::SpotLight()
+	SpotLight::SpotLight(ShaderList* shaderList)
 	{
-		*this = SpotLight(Vector3f(0,1,0), 1, Attenuation(0,0,0), 0);
+		*this = SpotLight(shaderList, Vector3f(0,1,0), 1, Attenuation(0,0,0), 0);
 	}
 
-	SpotLight::SpotLight(Vector3f colour, float intensity, Attenuation& attenuation, float cutoff)
+	SpotLight::SpotLight(ShaderList* shaderList, Vector3f colour, float intensity, Attenuation& attenuation, float cutoff)
 	{
 		m_Colour = colour;
 		m_Intensity = intensity;
@@ -16,7 +15,7 @@ namespace D3DEngine
 		m_Range = CalcRange();
 		m_Cutoff = cutoff;
 
-		SetShader(new ForwardSpot());
+		SetShader(new Shader("Forward-Spot", shaderList));
 	}
 
 	SpotLight::~SpotLight()

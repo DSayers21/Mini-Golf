@@ -8,7 +8,7 @@ MainGame::~MainGame()
 {
 }
 
-void MainGame::Init()
+void MainGame::Init(D3DEngine::RenderEngine* renderEngine)
 {
 
 }

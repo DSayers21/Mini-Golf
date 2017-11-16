@@ -12,28 +12,21 @@
 
 #include "Transform.h"
 
-#include "BaseLight.h"
-
 #include "ResourceManagement/ShaderResource.h"
+#include "ResourceManagement/ShaderList.h"
 
 namespace D3DEngine
 {
-	struct StructComponent
-	{
-		StructComponent(std::string Name, std::string Type) : m_Name(Name), m_Type(Type){}
-		std::string m_Name;
-		std::string m_Type;
-	};
-
 	typedef std::map<std::string, std::vector<StructComponent>> STRUCTMAP;
 	typedef std::pair<std::string, std::vector<StructComponent>> STRUCTPAIR;
 
 	class RenderEngine;
+	class BaseLight;
 
 	class Shader
 	{
 	public:
-		Shader();
+		Shader(std::string FileName, ShaderList* shaderList);
 		~Shader();
 
 		void Shader::InitShader(std::string FileName);
@@ -77,11 +70,8 @@ namespace D3DEngine
 		void AddUniformWithStructCheck(std::string UniformName, std::string UniformType, STRUCTMAP Structs);
 		std::vector<StructComponent> GetStuctFromMap(STRUCTMAP Structs, std::string Key);
 
-		//int m_Program;
+		//
 		ShaderResource* m_ShaderResource;
-
-
-		std::map<std::string, int> m_Uniforms = std::map<std::string, int>();
-		std::vector<StructComponent> m_UniformsStuct;
+		ShaderList* m_ShaderList;
 	};
 }

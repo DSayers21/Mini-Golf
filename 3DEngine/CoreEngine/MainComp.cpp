@@ -49,7 +49,7 @@ namespace D3DEngine
 		bool Render = false;
 		int Frames = 0;
 		long FrameCounter = 0;
-		m_Game->Init();
+		m_Game->Init(m_RenderEngine);
 
 		while (!m_Window->IsClosed())
 		{

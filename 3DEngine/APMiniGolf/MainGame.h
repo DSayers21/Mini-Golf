@@ -23,7 +23,7 @@ public:
 	MainGame();
 	~MainGame();
 
-	virtual void Init();
+	virtual void Init(D3DEngine::RenderEngine* renderEngine);
 	virtual void Input(D3DEngine::GetInput* input, float Delta);
 	virtual void Update(float Delta);
 	virtual void Draw(D3DEngine::RenderEngine* renderEngine);

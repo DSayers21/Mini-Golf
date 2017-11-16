@@ -1,15 +1,14 @@
 #include "PointLight.h"
 #include "RenderEngine.h"
-#include "ForwardPoint.h"
 
 namespace D3DEngine
 {
-	PointLight::PointLight()
+	PointLight::PointLight(ShaderList* shaderList)
 	{
-		*this = PointLight(Vector3f(0,0,0), 1, Attenuation());
+		*this = PointLight(shaderList, Vector3f(0,0,0), 1, Attenuation());
 	}
 
-	PointLight::PointLight(Vector3f colour, float intensity, Attenuation& attenuation)
+	PointLight::PointLight(ShaderList* shaderList, Vector3f colour, float intensity, Attenuation& attenuation)
 	{
 		m_Colour = colour;
 		m_Intensity = intensity;
@@ -17,7 +16,7 @@ namespace D3DEngine
 
 		m_Range = CalcRange();
 	
-		SetShader(new ForwardPoint());
+		SetShader(new Shader("Forward-Point", shaderList));
 	}
 
 	PointLight::~PointLight()

@@ -117,10 +117,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Attenuation.cpp" />
-    <ClCompile Include="ForwardAmbient.cpp" />
-    <ClCompile Include="ForwardDirectional.cpp" />
-    <ClCompile Include="ForwardPoint.cpp" />
-    <ClCompile Include="ForwardSpot.cpp" />
     <ClCompile Include="ResourceManagement\MappedValues.cpp" />
     <ClCompile Include="ResourceManagement\MeshList.cpp" />
     <ClCompile Include="MeshLoading\IndexedModel.cpp" />
@@ -131,6 +127,7 @@
     <ClCompile Include="ResourceManagement\MeshResource.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ResourceManagement\ShaderResource.cpp" />
+    <ClCompile Include="ResourceManagement\ShaderList.cpp" />
     <ClCompile Include="stb_image.c" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="ResourceManagement\TextureResource.cpp" />
@@ -139,10 +136,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Attenuation.h" />
-    <ClInclude Include="ForwardAmbient.h" />
-    <ClInclude Include="ForwardDirectional.h" />
-    <ClInclude Include="ForwardPoint.h" />
-    <ClInclude Include="ForwardSpot.h" />
     <ClInclude Include="ResourceManagement\MappedValues.h" />
     <ClInclude Include="ResourceManagement\MeshList.h" />
     <ClInclude Include="MeshLoading\IndexedModel.h" />
@@ -153,6 +146,7 @@
     <ClInclude Include="ResourceManagement\MeshResource.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ResourceManagement\ShaderResource.h" />
+    <ClInclude Include="ResourceManagement\ShaderList.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="ResourceManagement\TextureResource.h" />
