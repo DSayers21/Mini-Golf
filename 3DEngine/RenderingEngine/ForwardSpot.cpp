@@ -5,35 +5,7 @@ namespace D3DEngine
 {
 	ForwardSpot::ForwardSpot()
 	{
-		AddVertexShaderFromFile("Forward-Spot.vert");
-		AddFragmentShaderFromFile("Forward-Spot.frag");
-
-		//Set Attribs
-		SetAttribLocation("Postion", 0);
-		SetAttribLocation("TexCoord", 1);
-		SetAttribLocation("Normal", 2);
-
-		CompileShader();
-		//Uniforms
-		AddUniform("Model");
-		AddUniform("MVP");
-
-		//Specular Reflection
-		AddUniform("SpecularIntensity");
-		AddUniform("SpecularExponent");
-		AddUniform("EyePos");
-
-		//Point Light
-		AddUniform("spotLight.PLight.Light.Colour");
-		AddUniform("spotLight.PLight.Light.Intensity");
-		AddUniform("spotLight.PLight.Atten.Constant");
-		AddUniform("spotLight.PLight.Atten.Linear");
-		AddUniform("spotLight.PLight.Atten.Exponent");
-		AddUniform("spotLight.PLight.Position");
-		AddUniform("spotLight.PLight.Range");
-
-		AddUniform("spotLight.Direction");
-		AddUniform("spotLight.Cutoff");
+		InitShader("Forward-Spot");
 	}
 
 	ForwardSpot::~ForwardSpot()

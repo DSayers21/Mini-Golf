@@ -16,6 +16,16 @@
 
 namespace D3DEngine
 {
+	struct StructComponent
+	{
+		StructComponent(std::string Name, std::string Type) : m_Name(Name), m_Type(Type){}
+		std::string m_Name;
+		std::string m_Type;
+	};
+
+	typedef std::map<std::string, std::vector<StructComponent>> STRUCTMAP;
+	typedef std::pair<std::string, std::vector<StructComponent>> STRUCTPAIR;
+
 	class RenderEngine;
 
 	class Shader
@@ -23,6 +33,8 @@ namespace D3DEngine
 	public:
 		Shader();
 		~Shader();
+
+		void Shader::InitShader(std::string FileName);
 
 		void CompileShader();
 		void Bind();
@@ -59,6 +71,9 @@ namespace D3DEngine
 		void AddProgram(std::string Text, int Type);
 		static void CheckShaderError(int Shader, int Flag, bool isProgram, const std::string& ErrorMessage);
 		std::string Shader::LoadShader(const std::string& fileName);
+		STRUCTMAP FindUniformStructs(std::string ShaderText);
+		void AddUniformWithStructCheck(std::string UniformName, std::string UniformType, STRUCTMAP Structs);
+		std::vector<StructComponent> GetStuctFromMap(STRUCTMAP Structs, std::string Key);
 
 		int m_Program;
 		std::map<std::string, int> m_Uniforms = std::map<std::string, int>();

@@ -13,6 +13,24 @@ namespace D3DEngine
 			std::cerr << "Shader Creation Failed: Could not find valid memory location" << std::endl;
 	}
 
+	void Shader::InitShader(std::string FileName)
+	{
+		std::string VertexShaderText = LoadShader(FileName + ".vert");
+		std::string FragmentShaderText = LoadShader(FileName + ".frag");
+
+		AddVertexShader(VertexShaderText);
+		AddFragmentShader(FragmentShaderText);
+
+		//Set Attribs
+		AddAllAttributes(VertexShaderText);
+
+		CompileShader();
+
+		//Uniforms
+		AddAllUniforms(VertexShaderText);
+		AddAllUniforms(FragmentShaderText);
+	}
+
 	Shader::~Shader()
 	{
 
@@ -65,6 +83,8 @@ namespace D3DEngine
 	
 	void Shader::AddAllUniforms(std::string ShaderText)
 	{
+		STRUCTMAP Structs = FindUniformStructs(ShaderText);
+
 		std::string UNIFORM_KEYWORD = "uniform";
 
 		size_t UniformStartLocation = ShaderText.find(UNIFORM_KEYWORD);
@@ -77,13 +97,43 @@ namespace D3DEngine
 
 			//Get The uniform name
 			std::string UniformLine = ShaderText.substr(Begin, End - Begin);
-			int SpacePos = UniformLine.find(" ");
-			std::string UniformName = UniformLine.substr(SpacePos+1, UniformLine.size());		//Gets name of the uniform name
+			
+			int WhiteSpacePos = UniformLine.find(" ") + 1;
+			std::string UniformName = UniformLine.substr(WhiteSpacePos, UniformLine.size());		//Gets name of the uniform name
+			std::string UniformType = UniformLine.substr(0, WhiteSpacePos - 1);
 
-			AddUniform(UniformName);	//Add the uniform
+			AddUniformWithStructCheck(UniformName, UniformType, Structs);
 
 			UniformStartLocation = ShaderText.find(UNIFORM_KEYWORD, UniformStartLocation + UNIFORM_KEYWORD.size());
 		}
+	}
+
+	void Shader::AddUniformWithStructCheck(std::string UniformName, std::string UniformType, STRUCTMAP Structs)
+	{
+		bool AddThis = true;
+		std::vector<StructComponent> StructComp = GetStuctFromMap(Structs, UniformType);
+
+		if (StructComp.size() != 0)
+		{
+			AddThis = false;
+			//Add all structs which reference another struct
+			for (int i = 0; i < StructComp.size(); i++)
+				AddUniformWithStructCheck(UniformName + "." + StructComp[i].m_Name, StructComp[i].m_Type, Structs);
+		}
+
+		if (AddThis)
+			AddUniform(UniformName);
+		
+	}
+
+	std::vector<StructComponent> Shader::GetStuctFromMap(STRUCTMAP Structs, std::string Key)
+	{
+		STRUCTMAP::const_iterator it = Structs.find(Key);
+		if (it != Structs.end())
+		{
+			return it->second;
+		}
+		return std::vector<StructComponent>();
 	}
 
 	void Shader::AddUniform(std::string Uniform)
@@ -218,5 +268,56 @@ namespace D3DEngine
 			std::cerr << "Unable to load shader: " << fileName << std::endl;
 
 		return Output;
+	}
+
+	STRUCTMAP Shader::FindUniformStructs(std::string ShaderText)
+	{
+		STRUCTMAP Result = STRUCTMAP();
+
+		std::string STRUCT_KEYWORD = "struct";
+
+		size_t StructStartLocation = ShaderText.find(STRUCT_KEYWORD);
+		while (StructStartLocation != std::string::npos)
+		{
+			//Get start and end pos of the struct
+			int NameBegin = StructStartLocation + STRUCT_KEYWORD.size() + 1;
+			int BraceBegin = ShaderText.find("{", NameBegin);
+			int BraceEnd = ShaderText.find("}", BraceBegin);
+
+			//Get The struct name
+			std::string StructName = ShaderText.substr(NameBegin, BraceBegin - NameBegin -1);		//Gets name of the struct name
+
+			//Add All the struct components
+			std::vector<StructComponent> StructComp = std::vector<StructComponent>();
+
+			size_t ComponentSemiColonPos = ShaderText.find(";", BraceBegin);
+			while ((ComponentSemiColonPos != std::string::npos) && (ComponentSemiColonPos < BraceEnd))
+			{
+				int ComponentNameStart = ComponentSemiColonPos;
+				//Backtrack for space
+				while (!isspace(ShaderText[ComponentNameStart - 1]))
+					ComponentNameStart--;
+
+				int ComponentTypeEnd = ComponentNameStart - 1;
+				int ComponentTypeStart = ComponentTypeEnd ;
+				//Backtrack for whitespace
+				while (!isspace(ShaderText[ComponentTypeStart - 1]))
+					ComponentTypeStart--;
+
+				std::string ComponentName = ShaderText.substr(ComponentNameStart, ComponentSemiColonPos - ComponentNameStart);
+				std::string ComponentType = ShaderText.substr(ComponentTypeStart, ComponentTypeEnd - ComponentTypeStart);
+				StructComponent NewComponent(ComponentName, ComponentType);
+				//Add the component
+				StructComp.push_back(NewComponent);
+				//std::cerr << ComponentType << " " << ComponentName << std::endl;
+
+				ComponentSemiColonPos = ShaderText.find(";", ComponentSemiColonPos + 1);
+			}
+			//Add
+			Result.insert(STRUCTPAIR(StructName, StructComp));
+
+			StructStartLocation = ShaderText.find(STRUCT_KEYWORD, StructStartLocation + STRUCT_KEYWORD.size());
+		}
+		return Result;
 	}
 }

@@ -5,28 +5,7 @@ namespace D3DEngine
 {
 	ForwardDirectional::ForwardDirectional()
 	{
-		AddVertexShaderFromFile("Forward-Directional.vert");
-		AddFragmentShaderFromFile("Forward-Directional.frag");
-
-		//Set Attribs
-		SetAttribLocation("Postion", 0);
-		SetAttribLocation("TexCoord", 1);
-		SetAttribLocation("Normal", 2);
-
-		CompileShader();
-		//Uniforms
-		AddUniform("Model");
-		AddUniform("MVP");
-
-		//Specular Reflection
-		AddUniform("SpecularIntensity");
-		AddUniform("SpecularExponent");
-		AddUniform("EyePos");
-
-		//Directional Light
-		AddUniform("directionalLight.Light.Colour");
-		AddUniform("directionalLight.Light.Intensity");
-		AddUniform("directionalLight.Direction");
+		InitShader("Forward-Directional");
 	}
 
 	ForwardDirectional::~ForwardDirectional()
