@@ -7,7 +7,7 @@ varying vec3 WorldPos0;
 #include "LightingStructs.glh"
 
 //Uniforms
-uniform SpotLight spotLight;
+uniform SpotLight R_spotLight;
 uniform sampler2D Diffuse;
 
 #include "Lighting.glh"
@@ -19,7 +19,7 @@ void main()
 	
 	vec3 Norm = normalize(Normal0);
 	
-	TotalLight += CalcSpotLight(spotLight, Norm, WorldPos0);
+	TotalLight += CalcSpotLight(R_spotLight, Norm, WorldPos0);
 	
 	gl_FragColor = TextureColour * TotalLight;
 }

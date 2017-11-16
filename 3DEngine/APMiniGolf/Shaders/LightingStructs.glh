@@ -28,6 +28,6 @@ struct SpotLight {
 	float Cutoff; //Max Distance a pixel can be from point light and still be affected
 };
 
-uniform vec3 EyePos; //Where the camera is
+uniform vec3 C_EyePos; //Where the camera is
 uniform float SpecularIntensity;
 uniform float SpecularExponent;

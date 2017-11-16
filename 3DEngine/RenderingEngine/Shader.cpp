@@ -62,29 +62,44 @@ namespace D3DEngine
 			std::string UniformName = m_UniformsStuct[i].m_Name;
 			std::string UniformType = m_UniformsStuct[i].m_Type;
 
-			if (UniformName[0] == 'T')	//Transform Uniform
+			std::string UnprefixedUniformName = UniformName.substr(2);
+			if (UniformType == "sampler2D")	//Texture Uniform
+			{
+				int SamplerSlot = renderEngine->GetSamplerSlot(UniformName);
+
+				material->GetTexture(UniformName)->Bind(SamplerSlot);
+				SetUniformI(UniformName, SamplerSlot);
+			}
+			else if (UniformName[0] == 'T')	//Transform Uniform
 			{
 				if (UniformName == "T_MVP")
-					SetUniformM4("T_MVP", MVPMatrix);
-				else if (UniformName == "T_World")
-					SetUniformM4("T_World", WorldMatrix);
+					SetUniformM4(UniformName, MVPMatrix);
+				else if (UniformName == "T_Model")
+					SetUniformM4(UniformName, WorldMatrix);
 				else
 					std::cerr << UniformName << ": Illegal Argument" << std::endl;
 			}
 			else if (UniformName[0] == 'R')	//Rendering Engine
 			{
-				std::string UnprefixedUniformName = UniformName.substr(2);
-				if (UniformType == "sampler2D")
-				{
-					int SamplerSlot = renderEngine->GetSamplerSlot(UnprefixedUniformName);
-
-					material->GetTexture(UnprefixedUniformName)->Bind(SamplerSlot);
-					SetUniformI(UniformName, SamplerSlot);
-				}
-				else if(UniformType == "vec3")
+				if (UniformType == "vec3")
 					SetUniformV(UniformName, renderEngine->GetVector3f(UnprefixedUniformName));
 				else if (UniformType == "float")
 					SetUniformF(UniformName, renderEngine->GetFloat(UnprefixedUniformName));
+				else if (UniformType == "DirectionalLight")
+					SetUniformDL(UniformName, renderEngine->GetActiveLight());
+				else if (UniformType == "PointLight")
+					SetUniformPL(UniformName, renderEngine->GetActiveLight());
+				else if (UniformType == "SpotLight")
+					SetUniformSL(UniformName, renderEngine->GetActiveLight());
+				else	//Handle Extra Struct Case if needed
+					renderEngine->UpdateUniformStruct(transform, material, *this, UniformName, UniformType);	
+			}
+			else if (UniformName[0] == 'C')	//Camera Engine
+			{
+				if (UniformName == "C_EyePos")
+					SetUniformV(UniformName, renderEngine->GetCamera()->GetTransform()->GetTransformedPos());
+				else
+					std::cerr << UniformName << ": Illegal Argument" << std::endl;
 			}
 			else							//Material
 			{
@@ -92,6 +107,8 @@ namespace D3DEngine
 					SetUniformV(UniformName, *material->GetVector3f(UniformName));
 				else if (UniformType == "float")
 					SetUniformF(UniformName, material->GetFloat(UniformName));
+				else
+					std::cerr << UniformName << ": Illegal Argument" << std::endl;
 			}
 		}
 	}
@@ -143,6 +160,7 @@ namespace D3DEngine
 			std::string UniformName = UniformLine.substr(WhiteSpacePos, UniformLine.size());		//Gets name of the uniform name
 			std::string UniformType = UniformLine.substr(0, WhiteSpacePos - 1);
 
+			m_UniformsStuct.push_back(StructComponent(UniformName, UniformType));
 			AddUniformWithStructCheck(UniformName, UniformType, Structs);
 
 			UniformStartLocation = ShaderText.find(UNIFORM_KEYWORD, UniformStartLocation + UNIFORM_KEYWORD.size());
@@ -165,7 +183,6 @@ namespace D3DEngine
 		if (AddThis)
 		{
 			AddUniform(UniformName);
-			m_UniformsStuct.push_back(StructComponent(UniformName, UniformType));
 		}
 		
 	}
@@ -208,6 +225,12 @@ namespace D3DEngine
 	void Shader::SetUniformM4(const std::string UniformName, const Matrix4f& Value)
 	{
 		glUniformMatrix4fv(m_Uniforms.at(UniformName), 1, GL_TRUE, &(Value[0][0]));
+	}
+
+	void Shader::SetUniformDL(std::string UniformName, BaseLight* DirLight)
+	{
+		SetUniformBL(UniformName + ".Light", DirLight);
+		SetUniformV(UniformName + ".Direction", DirLight->GetDirection());
 	}
 
 	void Shader::SetUniformBL(std::string UniformName, BaseLight* BaseLight)

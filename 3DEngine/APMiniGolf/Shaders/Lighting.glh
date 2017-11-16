@@ -7,7 +7,7 @@ vec4 CalcLight(BaseLight Base, vec3 Direction, vec3 Normal, vec3 WorldPos)
 	{
 		DiffuseColour = vec4(Base.Colour, 1.0) * Base.Intensity * DiffuseFactor;
 		
-		vec3 DirectionToEye = normalize(EyePos - WorldPos);
+		vec3 DirectionToEye = normalize(C_EyePos - WorldPos);
 		vec3 ReflectDirection = normalize(reflect(Direction, Normal));
 		
 		float SpecularFactor = dot(DirectionToEye, ReflectDirection); //Gives cosine between

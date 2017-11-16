@@ -77,4 +77,9 @@ namespace D3DEngine
 	{
 		return SamplerMap.find(SamplerName)->second;
 	}
+
+	void RenderEngine::UpdateUniformStruct(Transform * transform, Material * material, Shader shader, std::string UniformName, std::string UniformType)
+	{
+		std::cerr << UniformName << ": Illegal Argument" << std::endl;
+	}
 }

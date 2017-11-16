@@ -7,7 +7,7 @@ varying vec3 WorldPos0;
 #include "LightingStructs.glh"
 
 //Uniforms
-uniform PointLight pointLight;
+uniform PointLight R_pointLight;
 uniform sampler2D Diffuse;
 
 #include "Lighting.glh"
@@ -19,7 +19,7 @@ void main()
 	
 	vec3 Norm = normalize(Normal0);
 	
-	TotalLight += CalcPointLight(pointLight, Norm, WorldPos0);
+	TotalLight += CalcPointLight(R_pointLight, Norm, WorldPos0);
 	
 	gl_FragColor = TextureColour * TotalLight;
 }

@@ -7,7 +7,7 @@ varying vec3 WorldPos0;
 #include "LightingStructs.glh"
 
 //Uniforms
-uniform DirectionalLight directionalLight;
+uniform DirectionalLight R_directionalLight;
 uniform sampler2D Diffuse;
 
 #include "Lighting.glh"
@@ -19,7 +19,7 @@ void main()
 	
 	vec3 Norm = normalize(Normal0);
 	
-	TotalLight += CalcDirectionalLight(directionalLight, Norm, WorldPos0);
+	TotalLight += CalcDirectionalLight(R_directionalLight, Norm, WorldPos0);
 	
 	gl_FragColor = TextureColour * TotalLight;
 }
