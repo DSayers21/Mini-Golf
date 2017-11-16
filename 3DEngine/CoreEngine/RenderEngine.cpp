@@ -4,12 +4,17 @@ namespace D3DEngine
 {
 	RenderEngine::RenderEngine()
 	{
+		MappedValues();
 		InitGraphics();
-		//m_Camera = new Camera(TO_RADIANS(70.0f), (float)800/600, 0.1f, 1000);
 		//Ambient Light
 		m_ShaderForwardAmbient = new ForwardAmbient();
 		//Setup Lighting
 		m_AmbientLight = Vector3f(0.2f, 0.2f, 0.2f);
+
+		AddVector3f("ambient", Vector3f(0.6f, 0.6f, 0.6f));
+
+		SamplerMap = std::map<std::string, int>();
+		SamplerMap.insert(std::pair<std::string, int>("Diffuse", 0));
 	}
 
 	RenderEngine::~RenderEngine()
@@ -66,5 +71,10 @@ namespace D3DEngine
 	{
 		//Clear colour and buffer bits
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	}
+
+	int RenderEngine::GetSamplerSlot(std::string SamplerName)
+	{
+		return SamplerMap.find(SamplerName)->second;
 	}
 }

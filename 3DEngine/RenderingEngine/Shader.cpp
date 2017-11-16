@@ -8,6 +8,7 @@ namespace D3DEngine
 {
 	Shader::Shader()
 	{
+		m_UniformsStuct = std::vector<StructComponent>();
 		m_Program = glCreateProgram();
 		if (m_Program == 0)
 			std::cerr << "Shader Creation Failed: Could not find valid memory location" << std::endl;
@@ -52,7 +53,47 @@ namespace D3DEngine
 
 	void Shader::UpdateUniforms(Transform* transform, Material* material, RenderEngine* renderEngine)
 	{
+		Matrix4f WorldMatrix = transform->GetTransformation();
+		Matrix4f MVPMatrix = renderEngine->GetCamera()->GetViewProjection().Mult(WorldMatrix);
 
+		//Loop Over all Uniforms
+		for (int i = 0; i < m_UniformsStuct.size(); i++)
+		{
+			std::string UniformName = m_UniformsStuct[i].m_Name;
+			std::string UniformType = m_UniformsStuct[i].m_Type;
+
+			if (UniformName[0] == 'T')	//Transform Uniform
+			{
+				if (UniformName == "T_MVP")
+					SetUniformM4("T_MVP", MVPMatrix);
+				else if (UniformName == "T_World")
+					SetUniformM4("T_World", WorldMatrix);
+				else
+					std::cerr << UniformName << ": Illegal Argument" << std::endl;
+			}
+			else if (UniformName[0] == 'R')	//Rendering Engine
+			{
+				std::string UnprefixedUniformName = UniformName.substr(2);
+				if (UniformType == "sampler2D")
+				{
+					int SamplerSlot = renderEngine->GetSamplerSlot(UnprefixedUniformName);
+
+					material->GetTexture(UnprefixedUniformName)->Bind(SamplerSlot);
+					SetUniformI(UniformName, SamplerSlot);
+				}
+				else if(UniformType == "vec3")
+					SetUniformV(UniformName, renderEngine->GetVector3f(UnprefixedUniformName));
+				else if (UniformType == "float")
+					SetUniformF(UniformName, renderEngine->GetFloat(UnprefixedUniformName));
+			}
+			else							//Material
+			{
+				if (UniformType == "vec3")
+					SetUniformV(UniformName, *material->GetVector3f(UniformName));
+				else if (UniformType == "float")
+					SetUniformF(UniformName, material->GetFloat(UniformName));
+			}
+		}
 	}
 
 	void Shader::AddAllAttributes(std::string ShaderText)
@@ -122,7 +163,10 @@ namespace D3DEngine
 		}
 
 		if (AddThis)
+		{
 			AddUniform(UniformName);
+			m_UniformsStuct.push_back(StructComponent(UniformName, UniformType));
+		}
 		
 	}
 

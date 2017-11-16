@@ -12,14 +12,17 @@
 #include "Camera.h"
 #include "Vector3f.h"
 
+#include "ResourceManagement/MappedValues.h"
+
 #include "Input.h"
 #include "Time.h"
 
 #include <vector>
+#include <map>
 
 namespace D3DEngine
 {
-	class RenderEngine
+	class RenderEngine : public MappedValues
 	{
 	public:
 		RenderEngine();
@@ -35,6 +38,8 @@ namespace D3DEngine
 		void SetTextures(bool Enabled);
 
 		void ClearScreen();
+
+		int GetSamplerSlot(std::string SamplerName);
 
 		//Getters
 		inline Vector3f GetAmbientLight() { return m_AmbientLight; }
@@ -53,5 +58,7 @@ namespace D3DEngine
 		//Permanent Structures
 		std::vector<BaseLight*> m_Lights = std::vector<BaseLight*>();
 		BaseLight* ActiveLight;
+
+		std::map<std::string, int> SamplerMap;
 	};
 }

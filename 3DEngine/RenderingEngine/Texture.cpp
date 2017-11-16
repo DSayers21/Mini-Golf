@@ -45,10 +45,9 @@ namespace D3DEngine
 	}
 
 
-	void Texture::Bind(GLenum TextureUnit)
+	void Texture::Bind(int TextureUnit)
 	{
-		glActiveTexture(TextureUnit);
-		//std::cerr << "LTexTarget: " << m_TextureTarget << "\tLTexID: " << m_TextureID << std::endl;
+		glActiveTexture(GL_TEXTURE0 + TextureUnit);
 		glBindTexture(m_TextureTarget, m_TextureID);
 	}
 }

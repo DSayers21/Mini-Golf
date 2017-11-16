@@ -77,5 +77,8 @@ namespace D3DEngine
 
 		int m_Program;
 		std::map<std::string, int> m_Uniforms = std::map<std::string, int>();
+
+
+		std::vector<StructComponent> m_UniformsStuct;
 	};
 }

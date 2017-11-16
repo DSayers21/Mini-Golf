@@ -121,6 +121,7 @@
     <ClCompile Include="ForwardDirectional.cpp" />
     <ClCompile Include="ForwardPoint.cpp" />
     <ClCompile Include="ForwardSpot.cpp" />
+    <ClCompile Include="ResourceManagement\MappedValues.cpp" />
     <ClCompile Include="ResourceManagement\MeshList.cpp" />
     <ClCompile Include="MeshLoading\IndexedModel.cpp" />
     <ClCompile Include="Material.cpp" />
@@ -141,6 +142,7 @@
     <ClInclude Include="ForwardDirectional.h" />
     <ClInclude Include="ForwardPoint.h" />
     <ClInclude Include="ForwardSpot.h" />
+    <ClInclude Include="ResourceManagement\MappedValues.h" />
     <ClInclude Include="ResourceManagement\MeshList.h" />
     <ClInclude Include="MeshLoading\IndexedModel.h" />
     <ClInclude Include="Material.h" />
