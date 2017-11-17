@@ -1,7 +1,10 @@
-﻿  Shader.cpp
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\window.h(31): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\input.h(398): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\shader.cpp(71): warning C4018: '<': signed/unsigned mismatch
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\shader.cpp(190): warning C4018: '<': signed/unsigned mismatch
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\shader.cpp(372): warning C4018: '<': signed/unsigned mismatch
+﻿  Material.cpp
+  Generating Code...
+  Skipping... (no relevant changes detected)
+  Vert.cpp
+  Shader.cpp
+  MappedValues.cpp
+  OBJModel.cpp
+  IndexedModel.cpp
+  Mesh.cpp
   RenderingEngine.vcxproj -> C:\Users\Satan\Documents\GitHub\Pool Game\Mini-Golf\3DEngine\Debug\RenderingEngine.lib

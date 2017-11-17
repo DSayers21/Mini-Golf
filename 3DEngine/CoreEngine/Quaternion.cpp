@@ -86,14 +86,14 @@ namespace D3DEngine
 		return Quaternion(z, y, z, w);
 	}
 
-	Matrix4f* Quaternion::ToRotationMatrix()
+	Matrix4f Quaternion::ToRotationMatrix()
 	{
 		Vector3f Forward = Vector3f(2.0f * (x*z - w*y), 2.0f * (y*z + w*x), 1.0f - 2.0f * (x*x + y*y));
 		Vector3f Up = Vector3f(2.0f * (x*y + w*z), 1.0f - 2.0f * (x*x + z*z), 2.0f * (y*z - w*x));
 		Vector3f Right = Vector3f(1.0f - 2.0f * (y*y + z*z), 2.0f * (x*y - w*z), 2.0f * (x*z + w*y));
 
-		Matrix4f* RotMat = new Matrix4f();
-		RotMat->InitRotation(Forward, Up, Right);
+		Matrix4f RotMat;	//Potential Leak
+		RotMat.InitRotation(Forward, Up, Right);
 		return RotMat;
 	}
 

@@ -18,7 +18,7 @@ namespace D3DEngine
 	Matrix4f Transform::GetTransformation() 
 	{
 		Matrix4f Translation = Translation.InitTranslation(m_Position.GetX(), m_Position.GetY(), m_Position.GetZ());
-		Matrix4f Rotation = *m_Rotation.ToRotationMatrix();
+		Matrix4f Rotation = m_Rotation.ToRotationMatrix();
 		Matrix4f ScaleMatrix = ScaleMatrix.InitScaling(m_Scaling.GetX(), m_Scaling.GetY(), m_Scaling.GetZ());
 
 		//Apply Rotation First

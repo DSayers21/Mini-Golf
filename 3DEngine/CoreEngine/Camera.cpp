@@ -14,7 +14,7 @@ namespace D3DEngine
 
 	Matrix4f Camera::GetViewProjection()
 	{
-		Matrix4f CameraRotMat = *GetTransform()->GetTransformedRot().Conjugate().ToRotationMatrix();
+		Matrix4f CameraRotMat = GetTransform()->GetTransformedRot().Conjugate().ToRotationMatrix();
 		Vector3f CameraPos = GetTransform()->GetTransformedPos() * (-1);
 		Matrix4f CameraTransMat = Matrix4f().InitTranslation(
 			CameraPos.GetX(),
