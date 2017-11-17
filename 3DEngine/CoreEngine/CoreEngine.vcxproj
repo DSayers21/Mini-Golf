@@ -71,7 +71,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(SolutionDir)Include/;$(SolutionDir)RenderingEngine/;$(SolutionDir)APMiniGolf/;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)Include/;$(SolutionDir)RenderingEngine/;$(SolutionDir)APMiniGolf/;$(SolutionDir)PhysicsEngine/;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Lib/;$(SolutionDir)Debug/;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -126,6 +126,8 @@
     <ClCompile Include="MainComp.cpp" />
     <ClCompile Include="Matrix4f.cpp" />
     <ClCompile Include="MeshRenderer.cpp" />
+    <ClCompile Include="PhysicsEngineComponent.cpp" />
+    <ClCompile Include="PhysicsObjectComponent.cpp" />
     <ClCompile Include="PointLight.cpp" />
     <ClCompile Include="Quaternion.cpp" />
     <ClCompile Include="RenderEngine.cpp" />
@@ -148,6 +150,8 @@
     <ClInclude Include="MathBasics.h" />
     <ClInclude Include="Matrix4f.h" />
     <ClInclude Include="MeshRenderer.h" />
+    <ClInclude Include="PhysicsEngineComponent.h" />
+    <ClInclude Include="PhysicsObjectComponent.h" />
     <ClInclude Include="PointLight.h" />
     <ClInclude Include="Quaternion.h" />
     <ClInclude Include="RenderEngine.h" />

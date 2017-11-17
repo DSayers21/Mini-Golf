@@ -4,6 +4,8 @@
 #include "MeshRenderer.h"
 #include "DirectionalLight.h"
 #include "FreeLook.h"
+#include "PhysicsEngineComponent.h"
+#include "PhysicsObjectComponent.h"
 
 class TestGame : public MainGame
 {
