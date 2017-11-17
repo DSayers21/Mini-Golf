@@ -117,12 +117,14 @@
     <ClInclude Include="AxisAlignedBoundingBox.h" />
     <ClInclude Include="BoundingSphere.h" />
     <ClInclude Include="IntersectData.h" />
+    <ClInclude Include="Plane.h" />
     <ClInclude Include="Test.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AxisAlignedBoundingBox.cpp" />
     <ClCompile Include="BoundingSphere.cpp" />
     <ClCompile Include="IntersectData.cpp" />
+    <ClCompile Include="Plane.cpp" />
     <ClCompile Include="Test.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

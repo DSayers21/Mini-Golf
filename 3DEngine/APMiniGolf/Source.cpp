@@ -10,7 +10,10 @@
 #include "BoundingSphere.h"
 #include "IntersectData.h"
 #include "AxisAlignedBoundingBox.h"
+#include "Plane.h"
+
 #include "Vector3f.h"
+
 #ifdef _WIN32
 #undef main
 #endif
@@ -45,8 +48,22 @@ int main(int argc, char** argv)
 	std::cout << "AABB1 Intersect AABB3: " << aabb1Intersectaabb3.GetDoesIntersect() << ", Distance: " << aabb1Intersectaabb3.GetDistance() << std::endl;
 	std::cout << "AABB1 Intersect AABB4: " << aabb1Intersectaabb4.GetDoesIntersect() << ", Distance: " << aabb1Intersectaabb4.GetDistance() << std::endl;
 	std::cout << "AABB1 Intersect AABB5: " << aabb1Intersectaabb5.GetDoesIntersect() << ", Distance: " << aabb1Intersectaabb5.GetDistance() << std::endl;
-	getchar();
 
+
+	D3DEngine::Plane plane1(D3DEngine::Vector3f(0.0f, 1.0f, 0.0f),0.0f);
+
+	D3DEngine::IntersectData plane1IntersectSphere1 = plane1.IntersectSphere(sphere1);
+	D3DEngine::IntersectData plane1IntersectSphere2 = plane1.IntersectSphere(sphere2); 
+	D3DEngine::IntersectData plane1IntersectSphere3 = plane1.IntersectSphere(sphere3); 
+	D3DEngine::IntersectData plane1IntersectSphere4 = plane1.IntersectSphere(sphere4); 
+
+	std::cout << "Plane1 intersect Sphere1: " << plane1IntersectSphere1.GetDoesIntersect() << ", Distance: " << plane1IntersectSphere1.GetDistance() << std::endl;
+	std::cout << "Plane1 intersect Sphere2: " << plane1IntersectSphere2.GetDoesIntersect() << ", Distance: " << plane1IntersectSphere2.GetDistance() << std::endl;
+	std::cout << "Plane1 intersect Sphere3: " << plane1IntersectSphere3.GetDoesIntersect() << ", Distance: " << plane1IntersectSphere3.GetDistance() << std::endl;
+	std::cout << "Plane1 intersect Sphere4: " << plane1IntersectSphere4.GetDoesIntersect() << ", Distance: " << plane1IntersectSphere4.GetDistance() << std::endl;
+	
+	getchar();
+	
 	/*std::string Title = "Advanced Programming Assignment";
 	D3DEngine::MainComp m_MainComp(Title, 1200, 800, 120, new TestGame());*/
 	return 0;
