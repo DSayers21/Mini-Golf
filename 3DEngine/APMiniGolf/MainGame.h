@@ -17,6 +17,8 @@
 #include "RenderEngine.h"
 #include "ResourceManagement/MeshList.h"
 
+class MainComp;
+
 class MainGame
 {
 public:
@@ -33,6 +35,7 @@ public:
 	//Setters
 	virtual inline void SetTime(D3DEngine::Time* time) { m_Time = time; }
 	virtual void SetWindow(D3DEngine::Window* Window);
+	void SetEngine(D3DEngine::MainComp * mainComp);
 protected:
 	//Getters
 	inline D3DEngine::GameObject* GetRootObject() { return m_RootObject; }

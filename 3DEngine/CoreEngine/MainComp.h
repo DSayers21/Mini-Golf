@@ -18,6 +18,9 @@ namespace D3DEngine
 		void Start();
 		void Stop();
 
+		//Getters
+		inline RenderEngine* GetRenderEngine() { return m_RenderEngine; }
+
 	private:
 		void Run();
 		void Destroy();

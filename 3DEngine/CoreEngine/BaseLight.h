@@ -16,7 +16,7 @@ namespace D3DEngine
 		BaseLight(ShaderList* shaderList, Vector3f colour, float intensity);
 		~BaseLight();
 
-		void AddToRenderingEngine(RenderEngine * renderEngine);
+		void AddToEngine(MainComp * mainComp);
 		float CalcRange();
 
 		//Getters

@@ -12,6 +12,7 @@ namespace D3DEngine
 		//Setup Game
 		m_Game = Game;
 		m_Game->SetWindow(m_Window);
+		m_Game->SetEngine(this);
 
 		//Setup Frame Rate
 		m_Game->SetTime(m_Time);

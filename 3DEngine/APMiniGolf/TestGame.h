@@ -3,6 +3,7 @@
 #include "MainGame.h"
 #include "MeshRenderer.h"
 #include "DirectionalLight.h"
+#include "FreeLook.h"
 
 class TestGame : public MainGame
 {

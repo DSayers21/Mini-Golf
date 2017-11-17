@@ -17,16 +17,9 @@ namespace D3DEngine
 
 		Matrix4f GetViewProjection();
 		
-		void Move(Vector3f Direction, float Amount);
-
-		void AddToRenderingEngine(RenderEngine * renderEngine);
-		void Input(GetInput* input, float Delta);
+		void AddToEngine(MainComp * mainComp);
 
 	private:
-		bool m_MouseControl = false; //Move Camera With Mouse
-
-	    Vector3f yAxi = Vector3f(0,1,0);
-		
 		Matrix4f m_Projection;
 	};
 }

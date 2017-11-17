@@ -46,8 +46,8 @@ void TestGame::Init(D3DEngine::RenderEngine* renderEngine)
 	material2->AddFloat("SpecularExponent", 8);
 
 
-	/*D3DEngine::Mesh* MonkeyMesh = new D3DEngine::Mesh("./Models/Monkey.obj", m_MeshList);
-	D3DEngine::Mesh* MonkeyMesh2 = new D3DEngine::Mesh("./Models/Monkey.obj", m_MeshList);*/
+	D3DEngine::Mesh* MonkeyMesh = new D3DEngine::Mesh("./Models/Monkey.obj", m_MeshList);
+	D3DEngine::Mesh* MonkeyMesh2 = new D3DEngine::Mesh("./Models/Monkey.obj", m_MeshList);
 
 	D3DEngine::GameObject* PlaneObject = new D3DEngine::GameObject();
 	D3DEngine::MeshRenderer* meshRenderer = new D3DEngine::MeshRenderer(mesh, material);
@@ -75,7 +75,9 @@ void TestGame::Init(D3DEngine::RenderEngine* renderEngine)
 	SpotLightObject->GetTransform()->SetRotation(&D3DEngine::Quaternion(D3DEngine::Vector3f(0, 1, 0), TO_RADIANS(90.0f)));
 
 	D3DEngine::GameObject* CameraObject = new D3DEngine::GameObject();
-	CameraObject->AddComponent(new D3DEngine::Camera(TO_RADIANS(70.0f), 800/600, 0.01f, 1000.0f));
+	CameraObject->AddComponent(new D3DEngine::Camera(TO_RADIANS(90.0f), 800/600, 0.01f, 1000.0f));
+	CameraObject->GetTransform()->SetRotation(&D3DEngine::Quaternion(D3DEngine::Vector3f(0, 1, 0), TO_RADIANS(140.0f)));
+	CameraObject->AddComponent(new D3DEngine::FreeLook());
 
 	D3DEngine::MeshRenderer* meshRenderer2 = new D3DEngine::MeshRenderer(mesh2, material);
 
@@ -88,10 +90,11 @@ void TestGame::Init(D3DEngine::RenderEngine* renderEngine)
 	testMesh2->AddComponent(new D3DEngine::MeshRenderer(mesh2, material));
 	testMesh2->GetTransform()->GetPosition()->Set(0, 3, 5);
 
-	/*D3DEngine::GameObject* testMesh3 = new D3DEngine::GameObject();
+	D3DEngine::GameObject* testMesh3 = new D3DEngine::GameObject();
 	testMesh3->AddComponent(new D3DEngine::MeshRenderer(MonkeyMesh, material));
-	testMesh3->GetTransform()->GetPosition()->Set(0, 5, 7);
-
+	testMesh3->GetTransform()->GetPosition()->Set(12, 0, 12);
+	
+	/*
 	D3DEngine::GameObject* testMesh4 = new D3DEngine::GameObject();
 	testMesh4->AddComponent(new D3DEngine::MeshRenderer(MonkeyMesh2, material2));
 	testMesh4->GetTransform()->GetPosition()->Set(0, 3, 5);*/
@@ -110,7 +113,7 @@ void TestGame::Init(D3DEngine::RenderEngine* renderEngine)
 	AddObject(PointLightObject2);
 	AddObject(SpotLightObject);
 	AddObject(testMesh1);
-	//AddObject(testMesh3);
+	AddObject(testMesh3);
 	//AddObject(testMesh4);
 }
 

@@ -26,9 +26,9 @@ namespace D3DEngine
 	void RenderEngine::Render(GameObject * Object)
 	{
 		ClearScreen();
-		m_Lights.clear();
+		//m_Lights.clear();
 
-		Object->AddToRenderingEngine(this);
+		//Object->AddToRenderingEngine(this);
 
 		Object->Draw(m_ShaderForwardAmbient, this);
 

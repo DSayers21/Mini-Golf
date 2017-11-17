@@ -26,7 +26,7 @@ namespace D3DEngine
 	{
 	}
 
-	void GameComponent::AddToRenderingEngine(RenderEngine * renderEngine)
+	void GameComponent::AddToEngine(MainComp * mainComp)
 	{
 	}
 }

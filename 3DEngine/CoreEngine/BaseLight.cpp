@@ -1,5 +1,6 @@
 #include "BaseLight.h"
 #include "RenderEngine.h"
+#include "MainComp.h"
 
 namespace D3DEngine
 {
@@ -18,9 +19,9 @@ namespace D3DEngine
 	{
 	}
 
-	void BaseLight::AddToRenderingEngine(RenderEngine * renderEngine)
+	void BaseLight::AddToEngine(MainComp * mainComp)
 	{
-		renderEngine->AddLight(this);
+		mainComp->GetRenderEngine()->AddLight(this);
 	}
 
 	float BaseLight::CalcRange()

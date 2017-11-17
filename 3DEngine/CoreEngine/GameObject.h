@@ -1,5 +1,6 @@
 #pragma once
 
+#include <iostream>
 #include <vector>
 #include "Transform.h"
 #include "Input.h"
@@ -9,6 +10,7 @@ namespace D3DEngine
 	class RenderEngine;
 	class Shader;
 	class GameComponent;
+	class MainComp;
 
 	class GameObject
 	{
@@ -27,11 +29,14 @@ namespace D3DEngine
 		//Getters
 		inline Transform* GetTransform() { return m_Transform; }
 
-		void AddToRenderingEngine(RenderEngine* renderEngine);
+		void SetEngine(MainComp * mainComp);
+
+		std::vector<GameObject*> GetAllAttached();
 
 	private:
 		std::vector<GameObject*> m_Children = std::vector<GameObject*>();
 		std::vector<GameComponent*> m_Components = std::vector<GameComponent*>();
 		Transform* m_Transform;
+		MainComp* m_MainComp;
 	};
 }
