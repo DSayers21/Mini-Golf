@@ -13,6 +13,14 @@ namespace D3DEngine
 
 	}
 
+	Vector3f Vector3f::Max(const Vector3f& other) const
+	{
+		float X = (x < other.x) ? other.x : x;
+		float Y = (y < other.y) ? other.y : y;
+		float Z = (z < other.z) ? other.z : z;
+		return Vector3f(X, Y, Z);
+	}
+
 	float Vector3f::Max()
 	{
 		float Max = (x < y) ? y : x;

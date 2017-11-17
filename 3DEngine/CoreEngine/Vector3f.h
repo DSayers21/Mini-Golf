@@ -15,7 +15,7 @@ namespace D3DEngine
 		~Vector3f();
 
 		//inline float Length() { return (float)sqrt(x*x + y*y + z*z); }
-
+		Vector3f Max(const Vector3f& other) const;
 		float Max();
 		inline float Dot(Vector3f Other) { return x*Other.GetX() + y * Other.GetY() + z * Other.GetZ(); }
 		Vector3f Normalise();
