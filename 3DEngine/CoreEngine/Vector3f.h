@@ -14,7 +14,7 @@ namespace D3DEngine
 		Vector3f(float X, float Y, float Z);
 		~Vector3f();
 
-		inline float Length() { return (float)sqrt(x*x + y*y + z*z); }
+		//inline float Length() { return (float)sqrt(x*x + y*y + z*z); }
 
 		float Max();
 		inline float Dot(Vector3f Other) { return x*Other.GetX() + y * Other.GetY() + z * Other.GetZ(); }
@@ -29,6 +29,7 @@ namespace D3DEngine
 		//Operators
 		inline Vector3f& operator+(const Vector3f& Other) { return Vector3f(x + Other.x, y + Other.y, z + Other.z); }
 		inline Vector3f& operator+(const float Other) { return Vector3f(x + Other, y + Other, z + Other); }
+		inline  Vector3f& Sub(const Vector3f& Other) const { return Vector3f(x - Other.x, y - Other.y, z - Other.z); }
 		inline Vector3f& operator-(const Vector3f& Other) { return Vector3f(x - Other.x, y - Other.y, z - Other.z); }
 		inline Vector3f& operator-(const float Other) { return Vector3f(x - Other, y - Other, z - Other); }
 		inline Vector3f& operator*(const Vector3f& Other) { return Vector3f(x * Other.x, y * Other.y, z * Other.z); }
@@ -40,6 +41,7 @@ namespace D3DEngine
 		inline bool operator!=(const Vector3f& Other) { return ((x != Other.GetX()) || (y != Other.GetY()) || (z != Other.GetZ())); }
 
 		inline std::string ToString() { return std::string("(" + std::to_string(x) + " " + std::to_string(y) + " " + std::to_string(z) + ")"); }
+		inline float Length() { return sqrtf((x*x) + (y*y) + (z*z)); }
 
 		//Getters
 		inline float GetX() const { return x; }
