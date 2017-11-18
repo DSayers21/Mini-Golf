@@ -11,9 +11,9 @@ namespace D3DEngine
 		//Ambient Light
 		m_ShaderForwardAmbient = new Shader("Forward-Ambient", m_ShaderList);
 		//Setup Lighting
-		m_AmbientLight = Vector3f(0.2f, 0.2f, 0.2f);
+		m_AmbientLight = Vector3f(1.0f, 1.0f, 1.0f);
 
-		AddVector3f("ambient", Vector3f(0.6f, 0.6f, 0.6f));
+		AddVector3f("ambient", Vector3f(1.0f, 1.0f, 1.0f));
 
 		SamplerMap = std::map<std::string, int>();
 		SamplerMap.insert(std::pair<std::string, int>("Diffuse", 0));
