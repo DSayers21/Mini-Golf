@@ -3,7 +3,7 @@
 namespace D3DEngine
 {
 	BoundingSphere::BoundingSphere(Vector3f Center, float Radius) :
-		m_Center(Center), m_Radius(Radius)
+		Collider(Collider::TYPE_SPHERE), m_Center(Center), m_Radius(Radius)
 	{
 	}
 

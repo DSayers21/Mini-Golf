@@ -31,7 +31,7 @@ namespace D3DEngine
 		{
 			for (unsigned int j = i + 1; j < m_Objects.size(); j++)
 			{
-				IntersectData intersectData = m_Objects[i].GetBoundingSphere().IntersectBoundingSphere(m_Objects[j].GetBoundingSphere());
+				IntersectData intersectData = m_Objects[i].GetBoundingSphere().Intersect(m_Objects[j].GetBoundingSphere());
 				//Handle Collision response
 				if (intersectData.GetDoesIntersect())
 				{
