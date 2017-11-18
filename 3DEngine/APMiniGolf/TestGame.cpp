@@ -91,8 +91,8 @@ void TestGame::Init(D3DEngine::RenderEngine* renderEngine)
 
 
 	D3DEngine::PhysicsEngine* m_PhysicsEngine = new D3DEngine::PhysicsEngine();
-	m_PhysicsEngine->AddObject(D3DEngine::PhysicsObject(D3DEngine::Vector3f(0.0f, 0.0f, 0.0f), D3DEngine::Vector3f(0.0f, 0.0f, 1.0f), 1.0f));
-	m_PhysicsEngine->AddObject(D3DEngine::PhysicsObject(D3DEngine::Vector3f(0.0f, 0.0f, 10.0f), D3DEngine::Vector3f(0.0f, 0.0f, -1.0f), 2.0f));
+	m_PhysicsEngine->AddObject(D3DEngine::PhysicsObject(new D3DEngine::BoundingSphere(D3DEngine::Vector3f(0.0f, 0.0f, 0.0f), 1.0f), D3DEngine::Vector3f(0.0f, 0.0f, 1.0f)));
+	m_PhysicsEngine->AddObject(D3DEngine::PhysicsObject(new D3DEngine::BoundingSphere(D3DEngine::Vector3f(0.0f, 0.0f, 10.0f), 1.0f), D3DEngine::Vector3f(0.0f, 0.0f, -1.0f)));
 
 	D3DEngine::PhysicsEngineComponent* m_PhysicsEngineComponent = new D3DEngine::PhysicsEngineComponent(*m_PhysicsEngine);
 

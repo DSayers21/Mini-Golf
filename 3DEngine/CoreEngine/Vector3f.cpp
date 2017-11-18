@@ -28,16 +28,9 @@ namespace D3DEngine
 		return Max;
 	}
 
-	Vector3f Vector3f::Normalise()
+	Vector3f Vector3f::Normalise() const
 	{
-		const float Len = Length();
-		if (Len > 0)
-		{
-			x /= Len;
-			y /= Len;
-			z /= Len;
-		}
-		return Vector3f(x, y, z);
+		return Vector3f(*this/Length());
 	}
 
 	Vector3f Vector3f::Rotate(Vector3f Axis, float Angle)
@@ -75,5 +68,16 @@ namespace D3DEngine
 		float Z = x * Other.GetY() - y * Other.GetX();
 
 		return Vector3f(X, Y, Z);
+	}
+
+	Vector3f Vector3f::Reflect(const Vector3f& normal) const
+	{
+		float Dot = this->Dot(normal) * 2;
+		Vector3f One = normal *  Dot;
+		Vector3f ThisVec = *this;
+		Vector3f Two = *this - One;
+
+
+		return Two;
 	}
 }

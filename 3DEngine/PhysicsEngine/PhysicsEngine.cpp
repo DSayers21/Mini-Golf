@@ -31,14 +31,15 @@ namespace D3DEngine
 		{
 			for (unsigned int j = i + 1; j < m_Objects.size(); j++)
 			{
-				IntersectData intersectData = m_Objects[i].GetBoundingSphere().Intersect(m_Objects[j].GetBoundingSphere());
+				IntersectData intersectData = m_Objects[i].GetCollider().Intersect(m_Objects[j].GetCollider());
 				//Handle Collision response
 				if (intersectData.GetDoesIntersect())
 				{
-					Vector3f Velocityi = m_Objects[i].GetVelocity() * -1;
-					Vector3f Velocityj = m_Objects[j].GetVelocity() * -1;
-					m_Objects[i].SetVelocity(Velocityi);
-					m_Objects[j].SetVelocity(Velocityj);
+					Vector3f Direction = intersectData.GetDirection().Normalise();
+					Vector3f OtherDirection = Direction.Reflect(m_Objects[i].GetVelocity());
+					m_Objects[i].SetVelocity(m_Objects[i].GetVelocity().Reflect(OtherDirection));
+					m_Objects[j].SetVelocity(m_Objects[j].GetVelocity().Reflect(Direction));
+
 				}
 			}
 		}

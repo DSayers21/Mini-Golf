@@ -23,6 +23,6 @@ namespace D3DEngine
 		}
 		std::cerr << "Error: Collisions not implemented between specified colliders." << std::endl;
 		//This point should never be reached
-		return IntersectData(false, 0);
+		return IntersectData(false, Vector3f(0,0,0));
 	}
 }

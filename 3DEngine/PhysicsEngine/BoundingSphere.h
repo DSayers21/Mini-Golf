@@ -14,8 +14,11 @@ namespace D3DEngine
 
 		IntersectData IntersectBoundingSphere(const BoundingSphere& other);
 
+		virtual void Transform(const Vector3f Translation);
+		
+
 		//Getters
-		inline const Vector3f& GetCenter() const { return m_Center; }
+		virtual Vector3f GetCenter() const { return m_Center; }
 		inline float GetRadius() const { return m_Radius; }
 	private:
 		Vector3f m_Center;

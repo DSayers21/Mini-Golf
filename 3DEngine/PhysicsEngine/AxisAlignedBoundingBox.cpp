@@ -20,6 +20,6 @@ namespace D3DEngine
 		//Get max component
 		float MaxDistance = Distance.Max();
 
-		return IntersectData(MaxDistance < 0, MaxDistance);
+		return IntersectData(MaxDistance < 0, Distance);
 	}
 }

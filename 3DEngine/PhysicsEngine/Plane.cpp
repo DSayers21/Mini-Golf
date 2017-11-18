@@ -25,6 +25,6 @@ namespace D3DEngine
 		float DistanceFromSphereCenter = fabs(m_Normal.Dot(other.GetCenter()) + m_Distance);
 		float DistanceFromSphere = DistanceFromSphereCenter - other.GetRadius();
 		//If DistanceFromSphere < 0 then is intersecting
-		return IntersectData(DistanceFromSphere < 0, DistanceFromSphere);
+		return IntersectData(DistanceFromSphere < 0, m_Normal * DistanceFromSphere);
 	}
 }
