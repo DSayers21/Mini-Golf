@@ -15,5 +15,6 @@ namespace D3DEngine
 	void PhysicsEngineComponent::Update(float Delta)
 	{
 		m_PhysicsEngine.Simulate(Delta);
+		m_PhysicsEngine.HandleCollisions();
 	}
 }

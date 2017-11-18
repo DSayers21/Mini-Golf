@@ -35,6 +35,7 @@ namespace D3DEngine
 		inline Vector3f& operator-(const float Other) { return Vector3f(x - Other, y - Other, z - Other); }
 		inline Vector3f& operator*(const Vector3f& Other) { return Vector3f(x * Other.x, y * Other.y, z * Other.z); }
 		inline Vector3f& operator*(const float Other) { return Vector3f(x * Other, y * Other, z * Other); }
+		inline Vector3f& operator*(const float Other) const { return Vector3f(x * Other, y * Other, z * Other); }
 		inline Vector3f& operator/(const Vector3f& Other) { return Vector3f(x / Other.x, y / Other.y, z / Other.z); }
 		inline Vector3f& operator/(const float Other) const { return Vector3f(x / Other, y / Other, z / Other); }
 		inline Vector3f& operator/(const float Other) { return Vector3f(x / Other, y / Other, z / Other); }

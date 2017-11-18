@@ -13,6 +13,7 @@ namespace D3DEngine
 
 		void AddObject(const PhysicsObject& object);
 		void Simulate(float Delta); //Do simulation for all objects
+		void HandleCollisions();
 
 		//Getters TEMP
 		inline const PhysicsObject& GetObject(unsigned int index) const { return m_Objects[index]; }

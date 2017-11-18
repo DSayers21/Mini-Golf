@@ -2,8 +2,8 @@
 
 namespace D3DEngine
 {
-	PhysicsObject::PhysicsObject(const Vector3f& Position, const Vector3f& Velocity) :
-		m_Position(Position), m_Velocity(Velocity)
+	PhysicsObject::PhysicsObject(const Vector3f& Position, const Vector3f& Velocity, float Radius) :
+		m_Position(Position), m_Velocity(Velocity), m_Radius(Radius)
 	{
 	}
 

@@ -86,21 +86,24 @@ void TestGame::Init(D3DEngine::RenderEngine* renderEngine)
 	testMesh2->AddComponent(new D3DEngine::MeshRenderer(mesh2, material));
 	testMesh2->GetTransform()->GetPosition()->Set(0, 3, 5);
 
-	D3DEngine::GameObject* testMesh3 = new D3DEngine::GameObject();
-	testMesh3->AddComponent(new D3DEngine::MeshRenderer(MonkeyMesh, material));
-	testMesh3->GetTransform()->GetPosition()->Set(12, 0, 12);
+
 	
 
 
 	D3DEngine::PhysicsEngine* m_PhysicsEngine = new D3DEngine::PhysicsEngine();
-	m_PhysicsEngine->AddObject(D3DEngine::PhysicsObject(D3DEngine::Vector3f(0.0f, 0.0f, 0.0f), D3DEngine::Vector3f(1.0f, 1.0f, 0.0f)));
-	m_PhysicsEngine->AddObject(D3DEngine::PhysicsObject(D3DEngine::Vector3f(20.0f, 30.0f, -9.0f), D3DEngine::Vector3f(-0.8f, -0.9f, 0.7f)));
+	m_PhysicsEngine->AddObject(D3DEngine::PhysicsObject(D3DEngine::Vector3f(0.0f, 0.0f, 0.0f), D3DEngine::Vector3f(0.0f, 0.0f, 1.0f), 1.0f));
+	m_PhysicsEngine->AddObject(D3DEngine::PhysicsObject(D3DEngine::Vector3f(0.0f, 0.0f, 10.0f), D3DEngine::Vector3f(0.0f, 0.0f, -1.0f), 2.0f));
 
 	D3DEngine::PhysicsEngineComponent* m_PhysicsEngineComponent = new D3DEngine::PhysicsEngineComponent(*m_PhysicsEngine);
 
 	D3DEngine::GameObject* testMesh1 = new D3DEngine::GameObject();
 	testMesh1->AddComponent(new D3DEngine::MeshRenderer(MonkeyMesh2, material));
-	testMesh1->AddComponent(new D3DEngine::PhysicsObjectComponent(&m_PhysicsEngineComponent->GetPhysicsEngine().GetObject(1)));
+	testMesh1->AddComponent(new D3DEngine::PhysicsObjectComponent(&m_PhysicsEngineComponent->GetPhysicsEngine().GetObject(0)));
+
+	D3DEngine::GameObject* testMesh3 = new D3DEngine::GameObject();
+	testMesh3->AddComponent(new D3DEngine::MeshRenderer(MonkeyMesh, material));
+	testMesh3->AddComponent(new D3DEngine::PhysicsObjectComponent(&m_PhysicsEngineComponent->GetPhysicsEngine().GetObject(1)));
+
 
 	D3DEngine::GameObject* PhysicsEngineObj = new D3DEngine::GameObject();
 	PhysicsEngineObj->AddComponent(m_PhysicsEngineComponent);

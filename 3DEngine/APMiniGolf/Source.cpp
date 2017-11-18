@@ -64,7 +64,7 @@ int main(int argc, char** argv)
 	//std::cout << "Plane1 intersect Sphere4: " << plane1IntersectSphere4.GetDoesIntersect() << ", Distance: " << plane1IntersectSphere4.GetDistance() << std::endl;
 	//
 
-	D3DEngine::PhysicsObject Test(D3DEngine::Vector3f(0.0f, 1.0f, 0.0f), D3DEngine::Vector3f(1.0f, 2.0f, 3.0f));
+	D3DEngine::PhysicsObject Test(D3DEngine::Vector3f(0.0f, 1.0f, 0.0f), D3DEngine::Vector3f(1.0f, 2.0f, 3.0f), 1.0f);
 	Test.Integrate(20.0f);
 	D3DEngine::Vector3f TestPos = Test.GetPosition();
 	D3DEngine::Vector3f TestVel = Test.GetVelocity();
