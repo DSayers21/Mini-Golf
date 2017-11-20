@@ -22,17 +22,22 @@ namespace D3DEngine
 		Mesh(Vert * Vertices, int VertSize, int * Indices, int IndexSize, bool calcNormals);
 		~Mesh();
 		
-
 		void Draw();
+
+		//Getters
+		inline Vert* GetVertices() {
+			return m_Buffers->GetVertices();
+		}
+		inline int* GetIndices() { return m_Buffers->GetIndices(); }
+
 	private: 
 		void AddVertices(Vert* Vertices, int VertSize, int* Indices, int IndexSize, bool calcNormals);
 		void CalcNormals(Vert* Vertices, int VertSize, int* Indices, int IndexSize);
+
 		void LoadMesh(std::string FileName);
 
 		MeshResource* m_Buffers;
 		MeshList* m_MeshList;
 		std::string m_Name;
-		//int m_VertSize;
-		//int m_IndicesSize;
 	};
 }

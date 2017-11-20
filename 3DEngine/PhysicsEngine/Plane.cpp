@@ -2,8 +2,8 @@
 
 namespace D3DEngine
 {
-	Plane::Plane(const Vector3f& Normal, float Distance) 
-		: m_Normal(Normal), m_Distance(Distance)
+	Plane::Plane(const Vector3f& Normal, float Distance) :
+		Collider(Collider::TYPE_PLANE), m_Normal(Normal), m_Distance(Distance)
 	{
 	}
 
@@ -19,6 +19,11 @@ namespace D3DEngine
 		return Plane(m_Normal / Magnitude, m_Distance / Magnitude);
 	}
 
+	IntersectData Plane::IntersectPlane(const Plane & other) const
+	{
+		return IntersectData(1 < 0, Vector3f(0,0,0));
+	}
+
 	IntersectData Plane::IntersectSphere(const BoundingSphere & other) const
 	{
 		//Get absolute value
@@ -26,5 +31,9 @@ namespace D3DEngine
 		float DistanceFromSphere = DistanceFromSphereCenter - other.GetRadius();
 		//If DistanceFromSphere < 0 then is intersecting
 		return IntersectData(DistanceFromSphere < 0, Vector3f(m_Normal * DistanceFromSphere));
+	}
+
+	void Plane::Transform(const Vector3f Translation)
+	{
 	}
 }

@@ -7,12 +7,13 @@ namespace D3DEngine
 		m_Name = FileName;
 		m_MeshList = meshList;
 		m_Buffers = m_MeshList->GetModel(FileName);
+
 		if (m_Buffers == nullptr)
 		{
 			std::cerr << "Loaded Mesh: " << FileName << std::endl;
 			m_Buffers = new MeshResource();
 			LoadMesh(FileName);
-			m_MeshList->AddModel(FileName, m_Buffers);
+			meshList->AddModel(FileName, m_Buffers);
 		}
 		else
 		{
@@ -72,6 +73,9 @@ namespace D3DEngine
 		m_Buffers->SetINDEXSIZE(IndexSize);
 		m_Buffers->SetVERTEXSIZE(VertSize);
 
+		m_Buffers->SetVertices(Vertices);
+		m_Buffers->SetIndices(Indices);
+
 		glBindBuffer(GL_ARRAY_BUFFER, m_Buffers->GetVBO());
 		glBufferData(GL_ARRAY_BUFFER, m_Buffers->GetVERTEXSIZE() * sizeof(Vert), Vertices, GL_STATIC_DRAW);
 
@@ -119,8 +123,17 @@ namespace D3DEngine
 		IndexedModel Model = *ObjModel.ToIndexedModel();
 		Model.CalcNormals();								//Calculate Normals
 
-		std::vector<Vert> Vertices;							//Temp Buffer Vertex
-		std::vector<int> Indices = *Model.GetIndices();		//Temp Buffer Index
+		//std::vector<Vert> Vertices;	//Temp Buffer Vertex
+		//std::vector<int> Indices = *Model.GetIndices();		//Temp Buffer Index
+		
+		Vert* Vertices = new Vert[Model.GetPositions()->size()];
+		int* Indices = new int[Model.GetIndices()->size()];
+
+		for (int i = 0; i < Model.GetIndices()->size(); i++)
+			Indices[i] = Model.GetIndices()->at(i);
+
+
+
 
 		for (int i = 0; i < Model.GetPositions()->size(); i++)
 		{
@@ -130,9 +143,9 @@ namespace D3DEngine
 
 			Vector3f Testyas = TempPositions->at(i);
 			Vert CurVert(TempPositions->at(i), TempTexCoords->at(i), TempNormals->at(i));
-			Vertices.push_back(CurVert);
+			Vertices[i] = CurVert;
 		}
-		
-		AddVertices(&Vertices[0], Vertices.size(), &Indices[0], Indices.size(), false);
+
+		AddVertices(&Vertices[0], Model.GetPositions()->size(), Indices, Model.GetIndices()->size(), false);
 	}
 }

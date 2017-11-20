@@ -21,6 +21,14 @@ namespace D3DEngine
 		return Vector3f(X, Y, Z);
 	}
 
+	Vector3f Vector3f::Min(const Vector3f& other) const
+	{
+		float X = (x < other.x) ? other.x : x;
+		float Y = (y < other.y) ? other.y : y;
+		float Z = (z < other.z) ? other.z : z;
+		return Vector3f(X, Y, Z);
+	}
+
 	float Vector3f::Max()
 	{
 		float Max = (x < y) ? y : x;

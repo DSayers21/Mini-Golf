@@ -2,16 +2,23 @@
 
 #include "Vector3f.h"
 #include "IntersectData.h"
+#include "Collider.h"
+#include "BoundingSphere.h"
+
 
 namespace D3DEngine
 {
-	class AxisAlignedBoundingBox
+
+	class AxisAlignedBoundingBox : public Collider
 	{
 	public:
 		AxisAlignedBoundingBox(Vector3f MinExtents, Vector3f MaxExtents);
 		~AxisAlignedBoundingBox();
 
-		IntersectData Intersect(const AxisAlignedBoundingBox other) const;
+		IntersectData IntersectAABB(const AxisAlignedBoundingBox other) const;
+		IntersectData IntersectBoundingSphere(const BoundingSphere other) const;
+
+		virtual void Transform(const Vector3f Translation);
 
 		//Getters
 		inline const Vector3f& GetMinExtents() const { return m_MinExtents; }

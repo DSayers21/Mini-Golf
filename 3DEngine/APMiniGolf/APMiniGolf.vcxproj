@@ -126,12 +126,10 @@
     <ClCompile Include="MainGame.cpp" />
     <ClCompile Include="MiniGolf.cpp" />
     <ClCompile Include="Source.cpp" />
-    <ClCompile Include="TestGame.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainGame.h" />
     <ClInclude Include="MiniGolf.h" />
-    <ClInclude Include="TestGame.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

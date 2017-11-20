@@ -22,6 +22,9 @@ namespace D3DEngine
 		//Init Render Engine
 		m_RenderEngine = new D3DEngine::RenderEngine();
 
+		//Init Physics Engine
+		m_PhysicsEngine = new D3DEngine::PhysicsEngine();
+
 		//Start MainComp
 		Start();
 	}
@@ -50,7 +53,7 @@ namespace D3DEngine
 		bool Render = false;
 		int Frames = 0;
 		long FrameCounter = 0;
-		m_Game->Init(m_RenderEngine);
+		m_Game->Init(m_RenderEngine, m_PhysicsEngine);
 
 		while (!m_Window->IsClosed())
 		{

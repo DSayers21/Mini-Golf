@@ -20,6 +20,11 @@ namespace D3DEngine
 		m_Position = m_Position + VelocityDelta;
 	}
 
+	void PhysicsObject::ApplyImpulse(Vector3f & velocity)
+	{
+		m_Velocity = velocity;
+	}
+
 	const Collider & PhysicsObject::GetCollider()
 	{
 		Vector3f Translation = m_Position - m_OldPosition;

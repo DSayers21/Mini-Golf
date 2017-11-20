@@ -15,6 +15,7 @@
 #include <iostream>
 #include <string>
 #include "RenderEngine.h"
+#include "PhysicsEngine.h"
 #include "ResourceManagement/MeshList.h"
 
 class MainComp;
@@ -25,7 +26,7 @@ public:
 	MainGame();
 	~MainGame();
 
-	virtual void Init(D3DEngine::RenderEngine* renderEngine);
+	virtual void Init(D3DEngine::RenderEngine* renderEngine, D3DEngine::PhysicsEngine* physicsEngine);
 	virtual void Input(D3DEngine::GetInput* input, float Delta);
 	virtual void Update(float Delta);
 	virtual void Draw(D3DEngine::RenderEngine* renderEngine);

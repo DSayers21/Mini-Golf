@@ -6,6 +6,7 @@
 #include <iostream>
 #include "MainGame.h"
 #include "RenderEngine.h"
+#include "PhysicsEngine.h"
 
 namespace D3DEngine
 {
@@ -20,7 +21,7 @@ namespace D3DEngine
 
 		//Getters
 		inline RenderEngine* GetRenderEngine() { return m_RenderEngine; }
-
+		inline PhysicsEngine* GetPhysicsEngine() { return m_PhysicsEngine; }
 	private:
 		void Run();
 		void Destroy();
@@ -31,6 +32,7 @@ namespace D3DEngine
 		Time* m_Time;
 		MainGame* m_Game;
 		RenderEngine* m_RenderEngine;
+		PhysicsEngine* m_PhysicsEngine;
 		GetInput* m_Input;
 	};
 }

@@ -15,6 +15,7 @@ namespace D3DEngine
 		~Vector3f();
 
 		Vector3f Max(const Vector3f& other) const;
+		Vector3f Min(const Vector3f& other) const;
 		float Max();
 		inline float Dot(Vector3f Other) { return x*Other.GetX() + y * Other.GetY() + z * Other.GetZ(); }
 		inline float Dot(Vector3f Other) const { return (x*Other.GetX()) + (y * Other.GetY()) + (z * Other.GetZ()); }

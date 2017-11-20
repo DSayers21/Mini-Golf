@@ -9,7 +9,7 @@ MainGame::~MainGame()
 {
 }
 
-void MainGame::Init(D3DEngine::RenderEngine* renderEngine)
+void MainGame::Init(D3DEngine::RenderEngine* renderEngine, D3DEngine::PhysicsEngine* physicsEngine)
 {
 
 }

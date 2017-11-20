@@ -6,7 +6,6 @@
 #include <string>
 //My Includes
 #include <MainComp.h>
-#include "TestGame.h"
 #include "MiniGolf.h"
 
 #ifdef _WIN32

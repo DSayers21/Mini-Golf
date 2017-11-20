@@ -13,6 +13,8 @@ namespace D3DEngine
 
 		void Integrate(float Delta);
 
+		void ApplyImpulse(Vector3f& velocity);
+
 		//Getters
 		inline const Vector3f& GetPosition() const { return m_Position; }
 		inline const Vector3f& GetVelocity() const { return m_Velocity; }

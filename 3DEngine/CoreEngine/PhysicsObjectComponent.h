@@ -8,12 +8,13 @@ namespace D3DEngine
 	class PhysicsObjectComponent : public GameComponent
 	{
 	public:
-		PhysicsObjectComponent(const PhysicsObject* engine);
+		PhysicsObjectComponent(PhysicsObject* engine);
 		~PhysicsObjectComponent();
 
+		virtual void Input(GetInput* input, float Delta);
 		virtual void Update(float Delta);
 
 	private:
-		const PhysicsObject* m_PhysicsObject;
+		PhysicsObject* m_PhysicsObject;
 	};
 }

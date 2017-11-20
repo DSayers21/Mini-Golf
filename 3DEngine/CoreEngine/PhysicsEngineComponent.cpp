@@ -2,7 +2,7 @@
 
 namespace D3DEngine
 {
-	PhysicsEngineComponent::PhysicsEngineComponent(const PhysicsEngine& engine) :
+	PhysicsEngineComponent::PhysicsEngineComponent(PhysicsEngine* engine) :
 		m_PhysicsEngine(engine)
 	{
 	}
@@ -14,7 +14,7 @@ namespace D3DEngine
 
 	void PhysicsEngineComponent::Update(float Delta)
 	{
-		m_PhysicsEngine.Simulate(Delta);
-		m_PhysicsEngine.HandleCollisions();
+		m_PhysicsEngine->Simulate(Delta);
+		m_PhysicsEngine->HandleCollisions();
 	}
 }
