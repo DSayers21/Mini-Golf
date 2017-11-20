@@ -33,7 +33,7 @@ namespace D3DEngine
 														//Get max component
 		float MaxDistance = Distance.Max();
 		if(MaxDistance < other.GetRadius())
-			std::cerr << "COLLISION" << std::endl;
+			std::cerr << "COLLISION1" << std::endl;
 		return IntersectData(MaxDistance < other.GetRadius(), Distance);
 	}
 

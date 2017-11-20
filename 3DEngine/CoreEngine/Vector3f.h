@@ -19,6 +19,7 @@ namespace D3DEngine
 		float Max();
 		inline float Dot(Vector3f Other) { return x*Other.GetX() + y * Other.GetY() + z * Other.GetZ(); }
 		inline float Dot(Vector3f Other) const { return (x*Other.GetX()) + (y * Other.GetY()) + (z * Other.GetZ()); }
+		inline float Distance(Vector3f Other) { return sqrtf(pow(x-Other.GetX(), 2) + pow(y - Other.GetY(), 2) + pow(z - Other.GetZ(), 2)); }
 
 		Vector3f Normalise() const;
 		Vector3f Rotate(Vector3f Axis, float Angle);

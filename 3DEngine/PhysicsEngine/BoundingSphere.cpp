@@ -1,6 +1,7 @@
 #include "BoundingSphere.h"
 #include "AxisAlignedBoundingBox.h"
 #include "Plane.h"
+#include <algorithm>
 
 namespace D3DEngine
 {
@@ -40,39 +41,32 @@ namespace D3DEngine
 
 	IntersectData BoundingSphere::IntersectAABB(const AxisAlignedBoundingBox & other)
 	{
-		Vector3f ClosestPoint;
-		//X
-		if (m_Center.GetX() > other.GetMaxExtents().GetX())
-			ClosestPoint.SetX(other.GetMaxExtents().GetX());
-		else if (m_Center.GetX() < other.GetMinExtents().GetX())
-			ClosestPoint.SetX(other.GetMinExtents().GetX());
-		else
-			ClosestPoint.SetX(m_Center.GetX());
-		//Y
-		if (m_Center.GetY() > other.GetMaxExtents().GetY())
-			ClosestPoint.SetY(other.GetMaxExtents().GetY());
-		else if (m_Center.GetY() < other.GetMinExtents().GetY())
-			ClosestPoint.SetY(other.GetMinExtents().GetY());
-		else
-			ClosestPoint.SetY(m_Center.GetY());
-		//Z
-		if (m_Center.GetZ() > other.GetMaxExtents().GetZ())
-			ClosestPoint.SetZ(other.GetMaxExtents().GetZ());
-		else if (m_Center.GetZ() < other.GetMinExtents().GetZ())
-			ClosestPoint.SetZ(other.GetMinExtents().GetZ());
-		else
-			ClosestPoint.SetZ(m_Center.GetZ());
+		float x = std::max(other.GetMinExtents().GetX(), std::min(m_Center.GetX(), other.GetMaxExtents().GetX()));
+		float y = std::max(other.GetMinExtents().GetY(), std::min(m_Center.GetY(), other.GetMaxExtents().GetY()));
+		float z = std::max(other.GetMinExtents().GetZ(), std::min(m_Center.GetZ(), other.GetMaxExtents().GetZ()));
 
-		Vector3f DifferenceVec = m_Center - ClosestPoint;
-														
-		float DistanceSquared = pow(DifferenceVec.Length(), 2);
-		float RadiusSquared = pow(m_Radius, 2);
-														//Get max component
-		float MaxDistance = ClosestPoint.Max();
-		if (DistanceSquared < RadiusSquared)
-			std::cerr << "COLLISION" << std::endl;
+		Vector3f ClosestPoint(x, y, z);
 
-		return IntersectData(DistanceSquared < RadiusSquared, DifferenceVec);
+		float Dis = ClosestPoint.Distance(m_Center);
+
+		//std::cerr << Dis << std::endl;
+					
+		Vector3f Direction = m_Center.Sub(ClosestPoint); //Pointing at other sphere
+		float CenterDistance = Direction.Length();
+		Direction = Direction / CenterDistance;	//Manually Normalising
+		float RadiusDistance = m_Radius + Dis;
+		float Distance = CenterDistance - RadiusDistance;
+
+
+		if (Dis < m_Radius)
+		{
+			std::cerr << "COLLISION: " << Dis << std::endl;
+			std::cerr << "MaxExtents: (" << other.GetMaxExtents().GetX() << " , " << other.GetMaxExtents().GetY() << " , " << other.GetMaxExtents().GetZ() << ")";
+			std::cerr << ": MinExtents: (" << other.GetMinExtents().GetX() << " , " << other.GetMinExtents().GetY() << " , " << other.GetMinExtents().GetZ() << ")" << std::endl;
+			std::cerr << "Center: " << m_Center.ToString() << std::endl;
+		}
+
+		return IntersectData(Dis < m_Radius, Vector3f(Direction * Distance));
 	}
 
 	void BoundingSphere::Transform(const Vector3f Translation)

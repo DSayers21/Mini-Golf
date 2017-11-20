@@ -13,13 +13,23 @@ namespace D3DEngine
 
 	void PhysicsObjectComponent::Input(GetInput * input, float Delta)
 	{
-		if (input->GetKeyDown(KEY_SPACE))
-		{
-			float rndX = 0 + (1 - 0) * rand() / ((double)RAND_MAX);
-			float rndY = 0 + (1 - 0) * rand() / ((double)RAND_MAX);
-			float rndZ = 0 + (1 - 0) * rand() / ((double)RAND_MAX);
-			m_PhysicsObject->ApplyImpulse(Vector3f(rndX, 0, rndZ));
-		}
+		if (input->GetKeyDown(KEY_UP))
+			m_PhysicsObject->ApplyImpulse(Vector3f(-1.0f, 0, 0));
+		if (input->GetKeyDown(KEY_DOWN))
+			m_PhysicsObject->ApplyImpulse(Vector3f(1.0f, 0, 0));
+		if (input->GetKeyDown(KEY_LEFT))
+			m_PhysicsObject->ApplyImpulse(Vector3f(0, 0, -1.0f));
+		if (input->GetKeyDown(KEY_RIGHT))
+			m_PhysicsObject->ApplyImpulse(Vector3f(0, 0, 1.0f));
+		//Release Key
+		//if (input->GetKeyUp(KEY_UP))
+		//	m_PhysicsObject->ApplyImpulse(Vector3f(0, 0, 0));
+		//if (input->GetKeyUp(KEY_DOWN))
+		//	m_PhysicsObject->ApplyImpulse(Vector3f(0, 0, 0));
+		//if (input->GetKeyUp(KEY_LEFT))
+		//	m_PhysicsObject->ApplyImpulse(Vector3f(0, 0, 0));
+		//if (input->GetKeyUp(KEY_RIGHT))
+		//	m_PhysicsObject->ApplyImpulse(Vector3f(0, 0, 0));
 	}
 
 	void PhysicsObjectComponent::Update(float Delta)

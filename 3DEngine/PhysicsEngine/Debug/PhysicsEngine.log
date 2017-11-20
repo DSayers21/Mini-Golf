@@ -1,6 +1,7 @@
-﻿  PhysicsEngine.cpp
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(81): warning C4522: 'D3DEngine::Vector3f': multiple assignment operators specified
-  Collider.cpp
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(81): warning C4522: 'D3DEngine::Vector3f': multiple assignment operators specified
-  Generating Code...
+﻿  BoundingSphere.cpp
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(82): warning C4522: 'D3DEngine::Vector3f': multiple assignment operators specified
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(45): warning C4172: returning address of local variable or temporary
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(37): warning C4172: returning address of local variable or temporary
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(48): warning C4172: returning address of local variable or temporary
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(35): warning C4172: returning address of local variable or temporary
   PhysicsEngine.vcxproj -> C:\Users\Satan\Documents\GitHub\Pool Game\Mini-Golf\3DEngine\Debug\PhysicsEngine.lib
