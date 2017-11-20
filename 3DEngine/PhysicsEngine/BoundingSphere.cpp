@@ -41,32 +41,87 @@ namespace D3DEngine
 
 	IntersectData BoundingSphere::IntersectAABB(const AxisAlignedBoundingBox & other)
 	{
-		float x = std::max(other.GetMinExtents().GetX(), std::min(m_Center.GetX(), other.GetMaxExtents().GetX()));
-		float y = std::max(other.GetMinExtents().GetY(), std::min(m_Center.GetY(), other.GetMaxExtents().GetY()));
-		float z = std::max(other.GetMinExtents().GetZ(), std::min(m_Center.GetZ(), other.GetMaxExtents().GetZ()));
+		//float x = std::max(other.GetMinExtents().GetX(), std::min(m_Center.GetX(), other.GetMaxExtents().GetX()));
+		//float y = std::max(other.GetMinExtents().GetY(), std::min(m_Center.GetY(), other.GetMaxExtents().GetY()));
+		//float z = std::max(other.GetMinExtents().GetZ(), std::min(m_Center.GetZ(), other.GetMaxExtents().GetZ()));
 
-		Vector3f ClosestPoint(x, y, z);
-
-		float Dis = ClosestPoint.Distance(m_Center);
+		//Vector3f ClosestPoint(x, y, z);
+		////std::cerr << ClosestPoint.ToString() << std::endl;
+		//float Dis = ClosestPoint.Distance(m_Center);
 
 		//std::cerr << Dis << std::endl;
-					
-		Vector3f Direction = m_Center.Sub(ClosestPoint); //Pointing at other sphere
-		float CenterDistance = Direction.Length();
-		Direction = Direction / CenterDistance;	//Manually Normalising
-		float RadiusDistance = m_Radius + Dis;
-		float Distance = CenterDistance - RadiusDistance;
 
+		//if (Dis < m_Radius)
+		//{
+		//	std::cerr << "COLLISION: " << Dis << std::endl;
+		//	std::cerr << "MaxExtents: (" << other.GetMaxExtents().GetX() << " , " << other.GetMaxExtents().GetY() << " , " << other.GetMaxExtents().GetZ() << ")";
+		//	std::cerr << ": MinExtents: (" << other.GetMinExtents().GetX() << " , " << other.GetMinExtents().GetY() << " , " << other.GetMinExtents().GetZ() << ")" << std::endl;
+		//	std::cerr << "Center: " << m_Center.ToString() << std::endl;
+		//}
+		/*float  dmin;
+		float  r2 = pow(m_Radius, 2);
+		dmin = 0;
 
-		if (Dis < m_Radius)
+		if (m_Center.GetX() < other.GetMinExtents().GetX())
+			dmin += pow(m_Center.GetX() - other.GetMinExtents().GetX(), 2);
+		else if (m_Center.GetX() > other.GetMaxExtents().GetX())
+			dmin += pow(m_Center.GetX() - other.GetMaxExtents().GetX(), 2);
+		
+		if (m_Center.GetY() < other.GetMinExtents().GetY())
+			dmin += pow(m_Center.GetY() - other.GetMinExtents().GetY(), 2);
+		else if (m_Center.GetY() > other.GetMaxExtents().GetY())
+			dmin += pow(m_Center.GetY() - other.GetMaxExtents().GetY(), 2);
+
+		if (m_Center.GetZ() < other.GetMinExtents().GetZ())
+			dmin += pow(m_Center.GetZ() - other.GetMinExtents().GetZ(), 2);
+		else if (m_Center.GetZ() > other.GetMaxExtents().GetZ())
+			dmin += pow(m_Center.GetZ() - other.GetMaxExtents().GetZ(), 2);
+
+		if (dmin < r2)
 		{
-			std::cerr << "COLLISION: " << Dis << std::endl;
-			std::cerr << "MaxExtents: (" << other.GetMaxExtents().GetX() << " , " << other.GetMaxExtents().GetY() << " , " << other.GetMaxExtents().GetZ() << ")";
-			std::cerr << ": MinExtents: (" << other.GetMinExtents().GetX() << " , " << other.GetMinExtents().GetY() << " , " << other.GetMinExtents().GetZ() << ")" << std::endl;
-			std::cerr << "Center: " << m_Center.ToString() << std::endl;
-		}
+			return IntersectData(true, m_Center);
+		}*/
 
-		return IntersectData(Dis < m_Radius, Vector3f(Direction * Distance));
+		float  a, b;
+		float  dmin, dmax;
+		float  r2 = (float)pow(m_Radius, 2);
+		int    i, face;
+		float  Bmin[3];  /* The minimum of the box for each axis.  */
+		float  Bmax[3];  /* The maximum of the box for each axis. */
+		float  C[3];
+
+		Bmin[0] = other.GetMinExtents().GetX();
+		Bmin[1] = other.GetMinExtents().GetY();
+		Bmin[2] = other.GetMinExtents().GetZ();
+		Bmax[0] = other.GetMaxExtents().GetX();
+		Bmax[1] = other.GetMaxExtents().GetY();
+		Bmax[2] = other.GetMaxExtents().GetZ();
+		C[0] = m_Center.GetX();
+		C[1] = m_Center.GetY();
+		C[2] = m_Center.GetZ();
+
+		dmin = 0;
+		dmax = 0;
+		face = false;
+
+		for (i = 0; i < 3; i++) {
+			a = pow(C[i] - Bmin[i], 2);
+			b = pow(C[i] - Bmax[i], 2);
+			dmax += std::max(a, b);
+			if (C[i] < Bmin[i]) {
+				face = true;
+				dmin += a;
+			}
+			else if (C[i] > Bmax[i]) {
+				face = true;
+				dmin += b;
+			}
+			else if (std::min(a, b) <= r2) face = true;
+		}
+		if (face && (dmin <= r2) && (r2 <= dmax)) 
+			return(IntersectData(true, m_Center));
+
+		return IntersectData(false, m_Center);
 	}
 
 	void BoundingSphere::Transform(const Vector3f Translation)

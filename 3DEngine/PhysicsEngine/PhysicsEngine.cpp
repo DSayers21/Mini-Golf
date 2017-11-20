@@ -74,10 +74,11 @@ namespace D3DEngine
 				//Handle Collision response
 				if (intersectData.GetDoesIntersect())
 				{
-					/*Vector3f Direction = intersectData.GetDirection().Normalise();
-					Vector3f OtherDirection = Direction.Reflect(m_Objects[i].GetVelocity());
-					m_Objects[i].SetVelocity(m_Objects[i].GetVelocity().Reflect(OtherDirection));
-					m_Objects[j].SetVelocity(m_Objects[j].GetVelocity().Reflect(Direction));*/
+					//Vector3f Direction = intersectData.GetDirection().Normalise();
+					//Vector3f OtherDirection = Direction.Reflect(m_Objects[i].GetVelocity());
+					//m_Objects[i].SetVelocity(m_Objects[i].GetVelocity().Reflect(OtherDirection));
+					////m_Objects[j].SetVelocity(m_Objects[j].GetVelocity().Reflect(Direction));
+
 					Vector3f Direction = m_Objects[i].GetVelocity() * -1;
 					Vector3f OtherDirection = m_Objects[j].GetVelocity() * -1;
 					m_Objects[i].SetVelocity(Direction);

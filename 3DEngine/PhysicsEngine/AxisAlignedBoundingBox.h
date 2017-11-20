@@ -26,7 +26,7 @@ namespace D3DEngine
 
 	private:
 		//Two Extreme Corners
-		const Vector3f m_MinExtents;	//Bottom left corner
-		const Vector3f m_MaxExtents;	//Top Right Corner
+		Vector3f m_MinExtents;	//Bottom left corner
+		Vector3f m_MaxExtents;	//Top Right Corner
 	};
 }

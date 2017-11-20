@@ -21,6 +21,7 @@ namespace D3DEngine
 		const Collider& GetCollider();
 
 		//Setters
+		inline void SetPosition(const Vector3f& Position) { m_Position = Position; }
 		inline void SetVelocity(const Vector3f& Velocity) { m_Velocity = Velocity; }
 
 	private:

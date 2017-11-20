@@ -34,10 +34,13 @@ namespace D3DEngine
 		float MaxDistance = Distance.Max();
 		if(MaxDistance < other.GetRadius())
 			std::cerr << "COLLISION1" << std::endl;
+
 		return IntersectData(MaxDistance < other.GetRadius(), Distance);
 	}
 
 	void AxisAlignedBoundingBox::Transform(const Vector3f Translation)
 	{
+		//m_MaxExtents = m_MaxExtents + Translation;
+		//m_MinExtents = m_MinExtents + Translation;
 	}
 }
