@@ -8,7 +8,7 @@ namespace D3DEngine
 	class PhysicsObjectComponent : public GameComponent
 	{
 	public:
-		PhysicsObjectComponent(PhysicsObject* engine);
+		PhysicsObjectComponent(PhysicsObject* engine, bool Control = false);
 		~PhysicsObjectComponent();
 
 		virtual void Input(GetInput* input, float Delta);
@@ -16,5 +16,6 @@ namespace D3DEngine
 
 	private:
 		PhysicsObject* m_PhysicsObject;
+		bool m_Control = false;
 	};
 }

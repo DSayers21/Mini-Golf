@@ -6,6 +6,7 @@ namespace D3DEngine
 		m_Position(collider->GetCenter()), m_Velocity(Velocity),
 		m_OldPosition(collider->GetCenter()), m_Collider(collider)
 	{
+		m_Position = m_Position;
 	}
 
 
@@ -25,11 +26,14 @@ namespace D3DEngine
 		m_Velocity = velocity;
 	}
 
-	const Collider & PhysicsObject::GetCollider()
+	const Collider* PhysicsObject::GetCollider()
 	{
-		Vector3f Translation = m_Position - m_OldPosition;
-		m_OldPosition = m_Position;
-		m_Collider->Transform(Translation);
-		return *m_Collider;
+		if (m_Position != m_OldPosition)
+		{
+			Vector3f Translation = m_Position - m_OldPosition;
+			m_OldPosition = m_Position;
+			m_Collider->Transform(Translation);
+		}
+		return m_Collider;
 	}
 }

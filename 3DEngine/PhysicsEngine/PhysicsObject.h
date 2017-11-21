@@ -18,7 +18,7 @@ namespace D3DEngine
 		//Getters
 		inline const Vector3f& GetPosition() const { return m_Position; }
 		inline const Vector3f& GetVelocity() const { return m_Velocity; }
-		const Collider& GetCollider();
+		const Collider* GetCollider();
 
 		//Setters
 		inline void SetPosition(const Vector3f& Position) { m_Position = Position; }

@@ -45,11 +45,13 @@ namespace D3DEngine
 		float YDiff = sqrtf(pow(other.GetMaxExtents().GetY() - other.GetMinExtents().GetY(), 2));
 		float ZDiff = sqrtf(pow(other.GetMaxExtents().GetZ() - other.GetMinExtents().GetZ(), 2));
 
-		float HalfX = XDiff / 2;
-		float HalfY = YDiff / 2;
-		float HalfZ = ZDiff / 2;
+		float HalfX = other.GetDims().GetX() / 2;
+		float HalfY = other.GetDims().GetY() / 2;
+		float HalfZ = other.GetDims().GetZ() / 2;
 
 		Vector3f OtherCenter = other.GetCenter();
+
+		//Vector3f OtherCenter = other.GetCenterPos();
 
 		Vector3f SpherePos = m_Center;
 

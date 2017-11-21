@@ -2,11 +2,16 @@
 
 namespace D3DEngine
 {
-	AxisAlignedBoundingBox::AxisAlignedBoundingBox(Vector3f MinExtents, Vector3f MaxExtents) :
-		Collider(Collider::TYPE_AABB), m_MinExtents(MinExtents), m_MaxExtents(MaxExtents)
-	{
-	}
+	//AxisAlignedBoundingBox::AxisAlignedBoundingBox(Vector3f MinExtents, Vector3f MaxExtents) :
+	//	Collider(Collider::TYPE_AABB), m_MinExtents(MinExtents), m_MaxExtents(MaxExtents)
+	//{
+	//}
 
+	AxisAlignedBoundingBox::AxisAlignedBoundingBox(Vector3f Center, Vector3f Dims) :
+		Collider(Collider::TYPE_AABB), m_Center(Center), m_Dims(Dims)
+	{
+		std::cerr << "AABB" << std::endl;
+	}
 
 	AxisAlignedBoundingBox::~AxisAlignedBoundingBox()
 	{
@@ -40,11 +45,27 @@ namespace D3DEngine
 
 	void AxisAlignedBoundingBox::Transform(const Vector3f Translation)
 	{
-		m_MaxExtents = m_MaxExtents + Translation;
-		m_MinExtents = m_MinExtents + Translation;
+		//std::cerr << "Transform" << std::endl;
+		//std::cerr << Translation.GetX() << " " << Translation.GetY() << " " << Translation.GetZ() << std::endl;
+		//std::cerr << "Transform End" << std::endl;
+
+		//m_MaxExtents = m_MaxExtents + Translation;
+		//m_MinExtents = m_MinExtents + Translation;
+
+		m_Center = m_Center + Translation;
+		std::cerr << m_Center.GetX() << " " << m_Center.GetY() << " " << m_Center.GetZ() << std::endl;
 	}
 
 	Vector3f AxisAlignedBoundingBox::GetCenter() const
+	{
+		/*return Vector3f(
+			((m_MaxExtents.GetX() + m_MinExtents.GetX()) / 2),
+			((m_MaxExtents.GetY() + m_MinExtents.GetY()) / 2),
+			((m_MaxExtents.GetZ() + m_MinExtents.GetZ()) / 2));*/
+		return m_Center;
+	}
+
+	Vector3f AxisAlignedBoundingBox::CalcCenter() const
 	{
 		return Vector3f(
 			((m_MaxExtents.GetX() + m_MinExtents.GetX()) / 2),

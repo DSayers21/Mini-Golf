@@ -42,37 +42,28 @@ void MiniGolf::Init(D3DEngine::RenderEngine* renderEngine, D3DEngine::PhysicsEng
 	D3DEngine::MeshResource* Test2 = m_MeshList->GetModel("./Models/CourseBack2.obj");
 	physicsEngine->AddAABBFromMesh(Test->GetVertices(), Test->GetVERTEXSIZE(), Test->GetIndices(), Test->GetINDEXSIZE());
 	physicsEngine->AddAABBFromMesh(Test2->GetVertices(), Test2->GetVERTEXSIZE(), Test2->GetIndices(), Test2->GetINDEXSIZE());
-	physicsEngine->GetObject(2).SetPosition(D3DEngine::Vector3f(0,0,3));
 
+	//Sphere
 	D3DEngine::GameObject* Sphere = new D3DEngine::GameObject();
 	D3DEngine::MeshRenderer* SphereMeshRenderer = new D3DEngine::MeshRenderer(BallMesh, GolfBallMat);
 	Sphere->GetTransform()->SetScaling(D3DEngine::Vector3f(0.1f, 0.1f, 0.1f));
 	Sphere->AddComponent(SphereMeshRenderer);
-	Sphere->AddComponent(new D3DEngine::PhysicsObjectComponent(&m_PhysicsEngineComponent->GetPhysicsEngine()->GetObject(0)));
-
-	D3DEngine::GameObject* Sphere1 = new D3DEngine::GameObject();
-	D3DEngine::MeshRenderer* SphereMeshRenderer1 = new D3DEngine::MeshRenderer(BallMesh, GolfBallMat);
-	Sphere1->GetTransform()->SetScaling(D3DEngine::Vector3f(0.01f, 0.01f, 0.01f));
-	Sphere1->GetTransform()->SetPosition(D3DEngine::Vector3f(1.0f, 0.2f, -1.0f));
-
-	Sphere1->AddComponent(SphereMeshRenderer1);
-
-	D3DEngine::GameObject* Sphere2 = new D3DEngine::GameObject();
-	D3DEngine::MeshRenderer* SphereMeshRenderer2 = new D3DEngine::MeshRenderer(BallMesh, GolfBallMat);
-	Sphere2->GetTransform()->SetScaling(D3DEngine::Vector3f(0.01f, 0.01f, 0.01f));
-	Sphere2->GetTransform()->SetPosition(D3DEngine::Vector3f(-1.0f, 0.58f, -0.75f));
-	Sphere2->AddComponent(SphereMeshRenderer2);
+	Sphere->GetTransform()->SetPosition(D3DEngine::Vector3f(0.0f, 0.0f, 0.0f));
+	Sphere->AddComponent(new D3DEngine::PhysicsObjectComponent(&m_PhysicsEngineComponent->GetPhysicsEngine()->GetObject(0), true));
+	//End Sphere
 
 	D3DEngine::GameObject* PlaneObject = new D3DEngine::GameObject();
 	D3DEngine::MeshRenderer* PlaneMeshRenderer = new D3DEngine::MeshRenderer(LevelMesh, material);
 	PlaneObject->AddComponent(PlaneMeshRenderer);
-	PlaneObject->GetTransform()->SetPosition(D3DEngine::Vector3f(0.0f, 0.0f, 0.0f));
 	PlaneObject->AddChild(CameraObject);
+	PlaneObject->AddComponent(new D3DEngine::PhysicsObjectComponent(&m_PhysicsEngineComponent->GetPhysicsEngine()->GetObject(1)));
+	m_PhysicsEngineComponent->GetPhysicsEngine()->GetObject(1).SetPosition(D3DEngine::Vector3f(0.0f, 0.0f, -3.0f));
 
 	D3DEngine::GameObject* PlaneObject2 = new D3DEngine::GameObject();
 	D3DEngine::MeshRenderer* PlaneMeshRenderer2 = new D3DEngine::MeshRenderer(LevelMesh2, material);
 	PlaneObject2->AddComponent(PlaneMeshRenderer2);
-	PlaneObject2->GetTransform()->SetPosition(D3DEngine::Vector3f(0.0f, 0.0f, 3.0f));
+	m_PhysicsEngineComponent->GetPhysicsEngine()->GetObject(2).SetPosition(D3DEngine::Vector3f(0.0f, 0.0f, 3.0f));
+	PlaneObject2->AddComponent(new D3DEngine::PhysicsObjectComponent(&m_PhysicsEngineComponent->GetPhysicsEngine()->GetObject(2)));
 
 	D3DEngine::GameObject* DirectionalLightObject = new D3DEngine::GameObject();
 	D3DEngine::DirectionalLight* directionalLight = new D3DEngine::DirectionalLight(renderEngine->GetShaderList(), D3DEngine::Vector3f(1, 1, 1), 0.9f);
@@ -88,8 +79,6 @@ void MiniGolf::Init(D3DEngine::RenderEngine* renderEngine, D3DEngine::PhysicsEng
 	D3DEngine::GameObject* PhysicsEngineObj = new D3DEngine::GameObject();
 	PhysicsEngineObj->AddComponent(m_PhysicsEngineComponent);
 	
-	AddObject(Sphere1);
-	AddObject(Sphere2);
 	AddObject(Sphere);
 	AddObject(PhysicsEngineObj);
 	AddObject(DirectionalLightObject);

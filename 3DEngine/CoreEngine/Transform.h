@@ -43,7 +43,7 @@ namespace D3DEngine
 		Matrix4f* GetParentMatrix();
 
 		//Represents x,y,z of translation
-		Vector3f m_Position = Vector3f(7,0,7);
+		Vector3f m_Position = Vector3f(0,0,0);
 		Quaternion m_Rotation = Quaternion(0,0,0,1);
 		Vector3f m_Scaling = Vector3f(1,1,1);
 

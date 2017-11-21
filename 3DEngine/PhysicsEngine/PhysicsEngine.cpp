@@ -51,7 +51,18 @@ namespace D3DEngine
 				}
 			}
 		}
-		PhysicsObject* New = new PhysicsObject(new AxisAlignedBoundingBox(PointMax, PointMin), Vector3f(0.0f, 0.0f, 0.0f));
+		float XDiff = sqrtf(pow(PointMax.GetX() - PointMin.GetX(), 2));
+		float YDiff = sqrtf(pow(PointMax.GetY() - PointMin.GetY(), 2));
+		float ZDiff = sqrtf(pow(PointMax.GetZ() - PointMin.GetZ(), 2));
+		Vector3f Dims(XDiff, YDiff, ZDiff);
+		Vector3f CenterPos(
+			((PointMax.GetX() + PointMin.GetX()) / 2),
+			((PointMax.GetY() + PointMin.GetY()) / 2),
+			((PointMax.GetZ() + PointMin.GetZ()) / 2));
+
+		PhysicsObject* New = new PhysicsObject(new AxisAlignedBoundingBox(CenterPos, Dims), Vector3f(0.0f, 0.0f, 0.0f));
+		New->SetPosition(CenterPos);
+		//PhysicsObject* New = new PhysicsObject(new AxisAlignedBoundingBox(PointMax, PointMin), Vector3f(0.0f, 0.0f, 0.0f));
 		this->AddObject(*New);
 	}
 
@@ -70,7 +81,7 @@ namespace D3DEngine
 		{
 			for (unsigned int j = i + 1; j < m_Objects.size(); j++)
 			{
-				IntersectData intersectData = m_Objects[i].GetCollider().Intersect(m_Objects[j].GetCollider());
+				IntersectData intersectData = m_Objects[i].GetCollider()->Intersect(*m_Objects[j].GetCollider());
 				//Handle Collision response
 				if (intersectData.GetDoesIntersect())
 				{
