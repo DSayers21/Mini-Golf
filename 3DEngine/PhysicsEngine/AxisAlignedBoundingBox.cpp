@@ -40,7 +40,15 @@ namespace D3DEngine
 
 	void AxisAlignedBoundingBox::Transform(const Vector3f Translation)
 	{
-		//m_MaxExtents = m_MaxExtents + Translation;
-		//m_MinExtents = m_MinExtents + Translation;
+		m_MaxExtents = m_MaxExtents + Translation;
+		m_MinExtents = m_MinExtents + Translation;
+	}
+
+	Vector3f AxisAlignedBoundingBox::GetCenter() const
+	{
+		return Vector3f(
+			((m_MaxExtents.GetX() + m_MinExtents.GetX()) / 2),
+			((m_MaxExtents.GetY() + m_MinExtents.GetY()) / 2),
+			((m_MaxExtents.GetZ() + m_MinExtents.GetZ()) / 2));
 	}
 }

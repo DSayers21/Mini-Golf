@@ -23,6 +23,7 @@ namespace D3DEngine
 		//Getters
 		inline const Vector3f& GetMinExtents() const { return m_MinExtents; }
 		inline const Vector3f& GetMaxExtents() const { return m_MaxExtents; }
+		virtual Vector3f GetCenter() const;
 
 	private:
 		//Two Extreme Corners
