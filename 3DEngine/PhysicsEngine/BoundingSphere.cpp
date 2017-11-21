@@ -41,16 +41,16 @@ namespace D3DEngine
 
 	IntersectData BoundingSphere::IntersectAABB(const AxisAlignedBoundingBox & other)
 	{
-		float XDiff = sqrtf(pow(other.GetMaxExtents().GetX() - other.GetMinExtents().GetX(), 2));
-		float YDiff = sqrtf(pow(other.GetMaxExtents().GetY() - other.GetMinExtents().GetY(), 2));
-		float ZDiff = sqrtf(pow(other.GetMaxExtents().GetZ() - other.GetMinExtents().GetZ(), 2));
+		//float XDiff = sqrtf(pow(other.GetMaxExtents().GetX() - other.GetMinExtents().GetX(), 2));
+		//float YDiff = sqrtf(pow(other.GetMaxExtents().GetY() - other.GetMinExtents().GetY(), 2));
+		//float ZDiff = sqrtf(pow(other.GetMaxExtents().GetZ() - other.GetMinExtents().GetZ(), 2));
 
 		float HalfX = other.GetDims().GetX() / 2;
 		float HalfY = other.GetDims().GetY() / 2;
 		float HalfZ = other.GetDims().GetZ() / 2;
 
 		Vector3f OtherCenter = other.GetCenter();
-
+		//std::cerr << OtherCenter.ToString() << std::endl;
 		//Vector3f OtherCenter = other.GetCenterPos();
 
 		Vector3f SpherePos = m_Center;
@@ -61,7 +61,7 @@ namespace D3DEngine
 		/*std::cerr << OtherCenter.GetZ() + HalfZ << " > " << SpherePos.GetZ() << " > " << OtherCenter.GetZ() - HalfZ << std::endl;
 		std::cerr << OtherCenter.GetX() + HalfX << " > " << SpherePos.GetX() << " > " << OtherCenter.GetX() - HalfX << std::endl;*/
 		if (((OtherCenter.GetZ() + HalfZ > SpherePos.GetZ()) && (SpherePos.GetZ() + m_Radius > OtherCenter.GetZ() - HalfZ))
-			&& ((OtherCenter.GetX() + HalfX > SpherePos.GetX()) && (SpherePos.GetX() > OtherCenter.GetX() - HalfX)))
+			&& ((OtherCenter.GetX() + HalfX > SpherePos.GetX()) && (SpherePos.GetX() + m_Radius > OtherCenter.GetX() - HalfX)))
 		{
 			std::cerr << "Collision" << std::endl;
 			return IntersectData(true, m_Center);
@@ -72,5 +72,6 @@ namespace D3DEngine
 	void BoundingSphere::Transform(const Vector3f Translation)
 	{
 		m_Center = m_Center + Translation;
+		std::cerr << m_Center.GetX() << " " << m_Center.GetY() << " " << m_Center.GetZ() << std::endl;
 	}
 }

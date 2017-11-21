@@ -60,10 +60,10 @@ namespace D3DEngine
 			((PointMax.GetY() + PointMin.GetY()) / 2),
 			((PointMax.GetZ() + PointMin.GetZ()) / 2));
 
-		PhysicsObject* New = new PhysicsObject(new AxisAlignedBoundingBox(CenterPos, Dims), Vector3f(0.0f, 0.0f, 0.0f));
-		New->SetPosition(CenterPos);
+		PhysicsObject New = PhysicsObject(new AxisAlignedBoundingBox(CenterPos, Dims), Vector3f(0.0f, 0.0f, 0.0f));
+		New.SetPosition(CenterPos);
 		//PhysicsObject* New = new PhysicsObject(new AxisAlignedBoundingBox(PointMax, PointMin), Vector3f(0.0f, 0.0f, 0.0f));
-		this->AddObject(*New);
+		this->AddObject(New);
 	}
 
 	void PhysicsEngine::Simulate(float Delta)

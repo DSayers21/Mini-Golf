@@ -23,14 +23,14 @@ namespace D3DEngine
 
 		//Getters
 		inline const Vector3f& GetDims() const { return m_Dims; }
-		inline const Vector3f& GetMinExtents() const { return m_MinExtents; }
-		inline const Vector3f& GetMaxExtents() const { return m_MaxExtents; }
-		virtual Vector3f GetCenter() const;
+		//inline const Vector3f& GetMinExtents() const { return m_MinExtents; }
+		//inline const Vector3f& GetMaxExtents() const { return m_MaxExtents; }
+		virtual Vector3f GetCenter() const { return m_Center; }
 		Vector3f CalcCenter() const;
 	private:
 		//Two Extreme Corners
-		Vector3f m_MinExtents;	//Bottom left corner
-		Vector3f m_MaxExtents;	//Top Right Corner
+		//Vector3f m_MinExtents;	//Bottom left corner
+		//Vector3f m_MaxExtents;	//Top Right Corner
 
 		Vector3f m_Center;
 		Vector3f m_Dims; //Holds the dimensions of the box

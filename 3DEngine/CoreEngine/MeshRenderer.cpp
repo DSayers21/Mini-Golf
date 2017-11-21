@@ -23,6 +23,7 @@ namespace D3DEngine
 	void MeshRenderer::Draw(D3DEngine::Shader* shader, RenderEngine* renderEngine)
 	{
 		shader->Bind();
+		//std::cerr << GetTransform()->GetPosition()->ToString() << std::endl;
 		shader->UpdateUniforms(GetTransform(), m_Material, renderEngine);
 		m_Mesh->Draw();
 	}

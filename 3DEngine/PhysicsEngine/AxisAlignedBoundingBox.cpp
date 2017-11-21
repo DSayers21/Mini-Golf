@@ -19,28 +19,28 @@ namespace D3DEngine
 
 	IntersectData AxisAlignedBoundingBox::IntersectAABB(const AxisAlignedBoundingBox other) const
 	{
-		Vector3f Distance1 = other.GetMinExtents().Sub(m_MaxExtents);
-		Vector3f Distance2 = m_MinExtents.Sub(other.GetMaxExtents());
-		Vector3f Distance = Distance1.Max(Distance2);	//Get max x y and z components
-		//Get max component
-		float MaxDistance = Distance.Max();
+		//Vector3f Distance1 = other.GetMinExtents().Sub(m_MaxExtents);
+		//Vector3f Distance2 = m_MinExtents.Sub(other.GetMaxExtents());
+		//Vector3f Distance = Distance1.Max(Distance2);	//Get max x y and z components
+		////Get max component
+		//float MaxDistance = Distance.Max();
 
-		return IntersectData(MaxDistance < 0, Distance);
+		return IntersectData(2< 0, Vector3f(0,0,0));
 	}
 
 	IntersectData AxisAlignedBoundingBox::IntersectBoundingSphere(const BoundingSphere other) const
 	{
 
-		Vector3f Distance1 = other.GetCenter().Sub(m_MaxExtents);
-		Vector3f Distance2 = m_MinExtents.Sub(other.GetCenter());
+		//Vector3f Distance1 = other.GetCenter().Sub(m_MaxExtents);
+		//Vector3f Distance2 = m_MinExtents.Sub(other.GetCenter());
 
-		Vector3f Distance = Distance1.Max(Distance2);	//Get max x y and z components
-														//Get max component
-		float MaxDistance = Distance.Max();
-		if(MaxDistance < other.GetRadius())
-			std::cerr << "COLLISION1" << std::endl;
+		//Vector3f Distance = Distance1.Max(Distance2);	//Get max x y and z components
+		//												//Get max component
+		//float MaxDistance = Distance.Max();
+		//if(MaxDistance < other.GetRadius())
+		//	std::cerr << "COLLISION1" << std::endl;
 
-		return IntersectData(MaxDistance < other.GetRadius(), Distance);
+		return IntersectData(5235 < other.GetRadius(), Vector3f(0,0,0));
 	}
 
 	void AxisAlignedBoundingBox::Transform(const Vector3f Translation)
@@ -53,23 +53,15 @@ namespace D3DEngine
 		//m_MinExtents = m_MinExtents + Translation;
 
 		m_Center = m_Center + Translation;
-		std::cerr << m_Center.GetX() << " " << m_Center.GetY() << " " << m_Center.GetZ() << std::endl;
-	}
-
-	Vector3f AxisAlignedBoundingBox::GetCenter() const
-	{
-		/*return Vector3f(
-			((m_MaxExtents.GetX() + m_MinExtents.GetX()) / 2),
-			((m_MaxExtents.GetY() + m_MinExtents.GetY()) / 2),
-			((m_MaxExtents.GetZ() + m_MinExtents.GetZ()) / 2));*/
-		return m_Center;
+		//std::cerr << m_Center.GetX() << " " << m_Center.GetY() << " " << m_Center.GetZ() << std::endl;
 	}
 
 	Vector3f AxisAlignedBoundingBox::CalcCenter() const
 	{
-		return Vector3f(
-			((m_MaxExtents.GetX() + m_MinExtents.GetX()) / 2),
-			((m_MaxExtents.GetY() + m_MinExtents.GetY()) / 2),
-			((m_MaxExtents.GetZ() + m_MinExtents.GetZ()) / 2));
+		//return Vector3f(
+		//	((m_MaxExtents.GetX() + m_MinExtents.GetX()) / 2),
+		//	((m_MaxExtents.GetY() + m_MinExtents.GetY()) / 2),
+		//	((m_MaxExtents.GetZ() + m_MinExtents.GetZ()) / 2));
+		return Vector3f();
 	}
 }

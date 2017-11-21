@@ -24,14 +24,14 @@ namespace D3DEngine
 			if (input->GetKeyDown(KEY_RIGHT))
 				m_PhysicsObject->ApplyImpulse(Vector3f(0, 0, 1.0f));
 			//Release Key
-			//if (input->GetKeyUp(KEY_UP))
-			//	m_PhysicsObject->ApplyImpulse(Vector3f(0, 0, 0));
-			//if (input->GetKeyUp(KEY_DOWN))
-			//	m_PhysicsObject->ApplyImpulse(Vector3f(0, 0, 0));
-			//if (input->GetKeyUp(KEY_LEFT))
-			//	m_PhysicsObject->ApplyImpulse(Vector3f(0, 0, 0));
-			//if (input->GetKeyUp(KEY_RIGHT))
-			//	m_PhysicsObject->ApplyImpulse(Vector3f(0, 0, 0));
+			if (input->GetKeyUp(KEY_UP))
+				m_PhysicsObject->ApplyImpulse(Vector3f(0, 0, 0));
+			if (input->GetKeyUp(KEY_DOWN))
+				m_PhysicsObject->ApplyImpulse(Vector3f(0, 0, 0));
+			if (input->GetKeyUp(KEY_LEFT))
+				m_PhysicsObject->ApplyImpulse(Vector3f(0, 0, 0));
+			if (input->GetKeyUp(KEY_RIGHT))
+				m_PhysicsObject->ApplyImpulse(Vector3f(0, 0, 0));
 		}
 	}
 
@@ -39,6 +39,7 @@ namespace D3DEngine
 	{
 		//Set Position
 		//std::cerr << m_PhysicsObject->GetPosition().GetX() << " " << m_PhysicsObject->GetPosition().GetY() << " " << m_PhysicsObject->GetPosition().GetZ() << std::endl;
+		Transform* Test = GetTransform();
 		GetTransform()->SetPosition(m_PhysicsObject->GetPosition());
 	}
 }

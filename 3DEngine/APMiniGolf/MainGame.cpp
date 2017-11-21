@@ -33,6 +33,7 @@ void MainGame::SetWindow(D3DEngine::Window * Window)
 {
 	m_Window = Window;
 	m_RootObject = new D3DEngine::GameObject();
+	m_RootObject->GetTransform()->SetPosition(D3DEngine::Vector3f(0,0,0));
 }
 
 void MainGame::SetEngine(D3DEngine::MainComp* mainComp)

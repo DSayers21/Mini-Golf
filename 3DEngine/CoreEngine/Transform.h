@@ -2,6 +2,7 @@
 
 #include "Vector3f.h"
 #include "Matrix4f.h"
+#include <iostream>
 
 namespace D3DEngine
 {
@@ -17,11 +18,19 @@ namespace D3DEngine
 		Matrix4f GetTransformation();
 
 		//Getters
-		inline Vector3f* GetPosition() { return &m_Position; }
+		inline Vector3f* GetPosition() { 
+			//std::cerr << m_Position.ToString() << std::endl;
+			return &m_Position; 
+		}
 		inline Quaternion* GetRotation() { return &m_Rotation; }
 		inline Vector3f* GetScaling() { return &m_Scaling; }
 		//Setters
-		void SetPosition(Vector3f Position) { m_Position = Position; }
+		inline void SetPosition(Vector3f Position) 
+		{
+			//std::cerr << Position.ToString() << std::endl;
+			m_Position = Position; 
+			//std::cerr << m_Position.ToString() << std::endl;
+		}
 		//inline inline void SetPosition(float x, float y, float z) { m_Position = Vector3f(x,y,z); }
 		inline void SetRotation(Quaternion* Rotation) { m_Rotation = *Rotation; }
 		inline void SetRotation(float x, float y, float z, float w) { m_Rotation = Quaternion(x,y,z,w); }
