@@ -17,8 +17,8 @@
 
 namespace D3DEngine
 {
-	typedef std::map<std::string, std::vector<StructComponent>> STRUCTMAP;
-	typedef std::pair<std::string, std::vector<StructComponent>> STRUCTPAIR;
+	typedef std::map<std::string, std::vector<StructComponent*>> STRUCTMAP;
+	typedef std::pair<std::string, std::vector<StructComponent*>> STRUCTPAIR;
 
 	class RenderEngine;
 	class BaseLight;
@@ -28,6 +28,8 @@ namespace D3DEngine
 	public:
 		Shader(std::string FileName, ShaderList* shaderList);
 		~Shader();
+		Shader(const Shader &other);
+
 
 		void Shader::InitShader(std::string FileName);
 
@@ -43,24 +45,25 @@ namespace D3DEngine
 		//Uniforms
 		virtual void UpdateUniforms(Transform* transform, Material* material, RenderEngine* renderEngine);
 
-		void AddAllAttributes(std::string ShaderText);
+		void AddAllAttributes(std::string* ShaderText);
 
-		void AddAllUniforms(std::string ShaderText);
+		void AddAllUniforms(std::string* ShaderText);
 
 		void AddUniform(std::string Uniform);
-		void SetUniformI(std::string UniformName, int Value);
-		void SetUniformF(std::string UniformName, float Value);
-		void SetUniformV(std::string UniformName, Vector3f Value);
-		void SetUniformM4(const std::string UniformName, const Matrix4f& Value);
 
-		void SetUniformDL(std::string UniformName, BaseLight* DirLight);
-		void SetUniformBL(std::string UniformName, BaseLight* BaseLight);
+		void SetUniformI(const std::string& UniformName, int& Value) const;
+		void SetUniformF(const std::string& UniformName, float Value) const;
+		void SetUniformV(const std::string& UniformName, Vector3f& Value) const;
+		void SetUniformM4(const std::string& UniformName, const Matrix4f& Value) const;
 
-		void SetUniformPL(std::string UniformName, BaseLight* pointLight);
+		void SetUniformDL(const std::string& UniformName, BaseLight* DirLight) const;
+		void SetUniformBL(const std::string& UniformName, BaseLight* BaseLight) const;
 
-		void SetUniformSL(std::string UniformName, BaseLight* spotLight);
+		void SetUniformPL(const std::string& UniformName, BaseLight* pointLight) const;
 
-		void SetAttribLocation(std::string AttribName, int Location);
+		void SetUniformSL(const std::string& UniformName, BaseLight* spotLight) const;
+
+		void SetAttribLocation(const std::string& AttribName, int& Location);
 		
 	protected:
 		void AddProgram(std::string Text, int Type);
@@ -68,7 +71,7 @@ namespace D3DEngine
 		std::string Shader::LoadShader(const std::string& fileName);
 		STRUCTMAP FindUniformStructs(std::string ShaderText);
 		void AddUniformWithStructCheck(std::string UniformName, std::string UniformType, STRUCTMAP Structs);
-		std::vector<StructComponent> GetStuctFromMap(STRUCTMAP Structs, std::string Key);
+		std::vector<StructComponent*> GetStuctFromMap(STRUCTMAP Structs, std::string Key);
 
 		//
 		ShaderResource* m_ShaderResource;

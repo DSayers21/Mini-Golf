@@ -42,10 +42,10 @@ namespace D3DEngine
 
 		int GetSamplerSlot(std::string SamplerName);
 
-		void UpdateUniformStruct(Transform* transform, Material* material, Shader shader, std::string UniformName, std::string UniformType);
+		void UpdateUniformStruct(Transform* transform, Material* material, Shader* shader, std::string& UniformName, std::string& UniformType);
 
 		//Getters
-		inline Vector3f GetAmbientLight() { return m_AmbientLight; }
+		inline Vector3f* GetAmbientLight() { return m_AmbientLight; }
 		inline BaseLight* GetActiveLight() { return ActiveLight; }
 		inline ShaderList* GetShaderList() { return m_ShaderList; }
 		//Add Lights
@@ -57,7 +57,7 @@ namespace D3DEngine
 
 		Camera* m_Camera;
 
-		Vector3f m_AmbientLight;
+		Vector3f* m_AmbientLight;
 
 		ShaderList* m_ShaderList;
 

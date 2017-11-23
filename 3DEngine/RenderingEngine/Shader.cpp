@@ -34,18 +34,23 @@ namespace D3DEngine
 		AddFragmentShader(FragmentShaderText);
 
 		//Set Attribs
-		AddAllAttributes(VertexShaderText);
+		AddAllAttributes(&VertexShaderText);
 
 		CompileShader();
 
 		//Uniforms
-		AddAllUniforms(VertexShaderText);
-		AddAllUniforms(FragmentShaderText);
+		AddAllUniforms(&VertexShaderText);
+		AddAllUniforms(&FragmentShaderText);
 	}
 
 	Shader::~Shader()
 	{
 		std::cerr << "Deleted Shader" << std::endl;
+	}
+
+	Shader::Shader(const Shader & other)
+	{
+		std::cerr << "Copied Shader" << std::endl;
 	}
 
 	void Shader::CompileShader()
@@ -64,16 +69,21 @@ namespace D3DEngine
 
 	void Shader::UpdateUniforms(Transform* transform, Material* material, RenderEngine* renderEngine)
 	{
-		Matrix4f WorldMatrix = transform->GetTransformation();
-		Matrix4f MVPMatrix = renderEngine->GetCamera()->GetViewProjection().Mult(WorldMatrix);
+		Matrix4f* WorldMatrix = &transform->GetTransformation();
+		Matrix4f* MVPMatrix = &renderEngine->GetCamera()->GetViewProjection().Mult(*WorldMatrix);
 
 		//Loop Over all Uniforms
-		for (int i = 0; i < m_ShaderResource->GetUniformsStruct().size(); i++)
+		std::vector<StructComponent*> UniStruct = m_ShaderResource->GetUniformsStruct();
+		int Size = UniStruct.size();
+		for (int i = 0; i < Size; i++)
 		{
-			std::string UniformName = m_ShaderResource->GetUniformsStruct()[i].m_Name;
-			std::string UniformType = m_ShaderResource->GetUniformsStruct()[i].m_Type;
+			std::string& UniformName = UniStruct[i]->m_Name;
+			std::string& UniformType = UniStruct[i]->m_Type;
 
-			std::string UnprefixedUniformName = UniformName.substr(2);
+			std::string& UnprefixedUniformName = UniformName.substr(2);
+
+			char FirstLetter = UniformName[0];
+
 			if (UniformType == "sampler2D")	//Texture Uniform
 			{
 				int SamplerSlot = renderEngine->GetSamplerSlot(UniformName);
@@ -81,16 +91,16 @@ namespace D3DEngine
 				material->GetTexture(UniformName)->Bind(SamplerSlot);
 				SetUniformI(UniformName, SamplerSlot);
 			}
-			else if (UniformName[0] == 'T')	//Transform Uniform
+			else if (FirstLetter == 'T')	//Transform Uniform
 			{
 				if (UniformName == "T_MVP")
-					SetUniformM4(UniformName, MVPMatrix);
+					SetUniformM4(UniformName, *MVPMatrix);
 				else if (UniformName == "T_Model")
-					SetUniformM4(UniformName, WorldMatrix);
+					SetUniformM4(UniformName, *WorldMatrix);
 				else
 					std::cerr << UniformName << ": Illegal Argument" << std::endl;
 			}
-			else if (UniformName[0] == 'R')	//Rendering Engine
+			else if (FirstLetter == 'R')	//Rendering Engine
 			{
 				if (UniformType == "vec3")
 					SetUniformV(UniformName, renderEngine->GetVector3f(UnprefixedUniformName));
@@ -103,9 +113,9 @@ namespace D3DEngine
 				else if (UniformType == "SpotLight")
 					SetUniformSL(UniformName, renderEngine->GetActiveLight());
 				else	//Handle Extra Struct Case if needed
-					renderEngine->UpdateUniformStruct(transform, material, *this, UniformName, UniformType);	
+					renderEngine->UpdateUniformStruct(transform, material, this, UniformName, UniformType);	
 			}
-			else if (UniformName[0] == 'C')	//Camera Engine
+			else if (FirstLetter == 'C')	//Camera Engine
 			{
 				if (UniformName == "C_EyePos")
 					SetUniformV(UniformName, renderEngine->GetCamera()->GetTransform()->GetTransformedPos());
@@ -124,11 +134,11 @@ namespace D3DEngine
 		}
 	}
 
-	void Shader::AddAllAttributes(std::string ShaderText)
+	void Shader::AddAllAttributes(std::string* ShaderText)
 	{
 		std::string ATTRIBUTE_KEYWORD = "attribute";
 
-		size_t AttributeStartLocation = ShaderText.find(ATTRIBUTE_KEYWORD);
+		size_t AttributeStartLocation = ShaderText->find(ATTRIBUTE_KEYWORD);
 
 		int AttribCounter = 0;
 
@@ -136,59 +146,59 @@ namespace D3DEngine
 		{
 			//Get start and end pos of the Attribute
 			int Begin = AttributeStartLocation + ATTRIBUTE_KEYWORD.size() + 1;
-			int End = ShaderText.find(";", Begin);
+			int End = ShaderText->find(";", Begin);
 
 			//Get The Attribute name
-			std::string AttributeLine = ShaderText.substr(Begin, End - Begin);
+			std::string AttributeLine = ShaderText->substr(Begin, End - Begin);
 			int SpacePos = AttributeLine.find(" ");
 			std::string AttributeName = AttributeLine.substr(SpacePos + 1, AttributeLine.size());		//Gets name of the Attribute name
 
 			SetAttribLocation(AttributeName, AttribCounter);	//Add the Attribute
 			AttribCounter++;									//Increment Count
 
-			AttributeStartLocation = ShaderText.find(ATTRIBUTE_KEYWORD, AttributeStartLocation + ATTRIBUTE_KEYWORD.size());
+			AttributeStartLocation = ShaderText->find(ATTRIBUTE_KEYWORD, AttributeStartLocation + ATTRIBUTE_KEYWORD.size());
 		}
 	}
 	
-	void Shader::AddAllUniforms(std::string ShaderText)
+	void Shader::AddAllUniforms(std::string* ShaderText)
 	{
-		STRUCTMAP Structs = FindUniformStructs(ShaderText);
+		STRUCTMAP Structs = FindUniformStructs(*ShaderText);
 
 		std::string UNIFORM_KEYWORD = "uniform";
 
-		size_t UniformStartLocation = ShaderText.find(UNIFORM_KEYWORD);
+		size_t UniformStartLocation = ShaderText->find(UNIFORM_KEYWORD);
 	
 		while (UniformStartLocation != std::string::npos)
 		{
 			//Get start and end pos of the uniform
 			int Begin = UniformStartLocation + UNIFORM_KEYWORD.size() + 1;
-			int End = ShaderText.find(";", Begin);
+			int End = ShaderText->find(";", Begin);
 
 			//Get The uniform name
-			std::string UniformLine = ShaderText.substr(Begin, End - Begin);
+			std::string UniformLine = ShaderText->substr(Begin, End - Begin);
 			
 			int WhiteSpacePos = UniformLine.find(" ") + 1;
 			std::string UniformName = UniformLine.substr(WhiteSpacePos, UniformLine.size());		//Gets name of the uniform name
 			std::string UniformType = UniformLine.substr(0, WhiteSpacePos - 1);
 
-			m_ShaderResource->AddUniformsStruct(StructComponent(UniformName, UniformType));
+			m_ShaderResource->AddUniformsStruct(new StructComponent(UniformName, UniformType));
 			AddUniformWithStructCheck(UniformName, UniformType, Structs);
 
-			UniformStartLocation = ShaderText.find(UNIFORM_KEYWORD, UniformStartLocation + UNIFORM_KEYWORD.size());
+			UniformStartLocation = ShaderText->find(UNIFORM_KEYWORD, UniformStartLocation + UNIFORM_KEYWORD.size());
 		}
 	}
 
 	void Shader::AddUniformWithStructCheck(std::string UniformName, std::string UniformType, STRUCTMAP Structs)
 	{
 		bool AddThis = true;
-		std::vector<StructComponent> StructComp = GetStuctFromMap(Structs, UniformType);
+		std::vector<StructComponent*> StructComp = GetStuctFromMap(Structs, UniformType);
 
 		if (StructComp.size() != 0)
 		{
 			AddThis = false;
 			//Add all structs which reference another struct
 			for (int i = 0; i < StructComp.size(); i++)
-				AddUniformWithStructCheck(UniformName + "." + StructComp[i].m_Name, StructComp[i].m_Type, Structs);
+				AddUniformWithStructCheck(UniformName + "." + StructComp[i]->m_Name, StructComp[i]->m_Type, Structs);
 		}
 
 		if (AddThis)
@@ -198,14 +208,14 @@ namespace D3DEngine
 		
 	}
 
-	std::vector<StructComponent> Shader::GetStuctFromMap(STRUCTMAP Structs, std::string Key)
+	std::vector<StructComponent*> Shader::GetStuctFromMap(STRUCTMAP Structs, std::string Key)
 	{
 		STRUCTMAP::const_iterator it = Structs.find(Key);
 		if (it != Structs.end())
 		{
 			return it->second;
 		}
-		return std::vector<StructComponent>();
+		return std::vector<StructComponent*>();
 	}
 
 	void Shader::AddUniform(std::string Uniform)
@@ -218,39 +228,39 @@ namespace D3DEngine
 		std::cerr << "Uniform: " << Uniform << " added." << std::endl;
 	}
 
-	void Shader::SetUniformI(std::string UniformName, int Value)
+	void Shader::SetUniformI(const std::string& UniformName, int& Value) const
 	{
 		glUniform1i(m_ShaderResource->GetUniforms().find(UniformName)->second, Value);
 	}
 
-	void Shader::SetUniformF(std::string UniformName, float Value)
+	void Shader::SetUniformF(const std::string& UniformName, float Value) const
 	{
 		glUniform1f(m_ShaderResource->GetUniforms().find(UniformName)->second, Value);
 	}
 
-	void Shader::SetUniformV(std::string UniformName, Vector3f Value)
+	void Shader::SetUniformV(const std::string& UniformName, Vector3f& Value) const
 	{
 		glUniform3f(m_ShaderResource->GetUniforms().find(UniformName)->second, Value.GetX(), Value.GetY(), Value.GetZ());
 	}
 
-	void Shader::SetUniformM4(const std::string UniformName, const Matrix4f& Value)
+	void Shader::SetUniformM4(const std::string& UniformName, const Matrix4f& Value) const
 	{
 		glUniformMatrix4fv(m_ShaderResource->GetUniforms().at(UniformName), 1, GL_TRUE, &(Value[0][0]));
 	}
 
-	void Shader::SetUniformDL(std::string UniformName, BaseLight* DirLight)
+	void Shader::SetUniformDL(const std::string& UniformName, BaseLight* DirLight) const
 	{
 		SetUniformBL(UniformName + ".Light", DirLight);
 		SetUniformV(UniformName + ".Direction", DirLight->GetDirection());
 	}
 
-	void Shader::SetUniformBL(std::string UniformName, BaseLight* BaseLight)
+	void Shader::SetUniformBL(const std::string& UniformName, BaseLight* BaseLight) const
 	{
 		SetUniformV(UniformName + ".Colour", BaseLight->GetColour());
 		SetUniformF(UniformName + ".Intensity", BaseLight->GetIntensity());
 	}
 
-	void Shader::SetUniformPL(std::string UniformName, BaseLight* pointLight)
+	void Shader::SetUniformPL(const std::string& UniformName, BaseLight* pointLight) const
 	{
 		SetUniformBL(UniformName + ".Light", pointLight);
 		//Attenuation
@@ -262,7 +272,7 @@ namespace D3DEngine
 		SetUniformF(UniformName + ".Range", pointLight->GetRange());
 	}
 
-	void Shader::SetUniformSL(std::string UniformName, BaseLight* spotLight)
+	void Shader::SetUniformSL(const std::string& UniformName, BaseLight* spotLight) const
 	{
 		SetUniformPL(UniformName + ".PLight", spotLight);
 		//
@@ -270,7 +280,7 @@ namespace D3DEngine
 		SetUniformF(UniformName + ".Cutoff", spotLight->GetCutoff());
 	}
 
-	void Shader::SetAttribLocation(std::string AttribName, int Location)
+	void Shader::SetAttribLocation(const std::string& AttribName, int& Location)
 	{
 		glBindAttribLocation(m_ShaderResource->GetProgram(), Location, AttribName.c_str());
 	}
@@ -366,7 +376,7 @@ namespace D3DEngine
 			std::string StructName = ShaderText.substr(NameBegin, BraceBegin - NameBegin -1);		//Gets name of the struct name
 
 			//Add All the struct components
-			std::vector<StructComponent> StructComp = std::vector<StructComponent>();
+			std::vector<StructComponent*> StructComp = std::vector<StructComponent*>();
 
 			size_t ComponentSemiColonPos = ShaderText.find(";", BraceBegin);
 			while ((ComponentSemiColonPos != std::string::npos) && (ComponentSemiColonPos < BraceEnd))
@@ -384,7 +394,7 @@ namespace D3DEngine
 
 				std::string ComponentName = ShaderText.substr(ComponentNameStart, ComponentSemiColonPos - ComponentNameStart);
 				std::string ComponentType = ShaderText.substr(ComponentTypeStart, ComponentTypeEnd - ComponentTypeStart);
-				StructComponent NewComponent(ComponentName, ComponentType);
+				StructComponent* NewComponent = new StructComponent(ComponentName, ComponentType);
 				//Add the component
 				StructComp.push_back(NewComponent);
 				//std::cerr << ComponentType << " " << ComponentName << std::endl;

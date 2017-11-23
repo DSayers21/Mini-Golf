@@ -11,9 +11,9 @@ namespace D3DEngine
 		//Ambient Light
 		m_ShaderForwardAmbient = new Shader("Forward-Ambient", m_ShaderList);
 		//Setup Lighting
-		m_AmbientLight = Vector3f(1.0f, 1.0f, 1.0f);
+		m_AmbientLight = new Vector3f(1.0f, 1.0f, 1.0f);
 
-		AddVector3f("ambient", Vector3f(1.0f, 1.0f, 1.0f));
+		AddVector3f("ambient", *m_AmbientLight);
 
 		SamplerMap = std::map<std::string, int>();
 		SamplerMap.insert(std::pair<std::string, int>("Diffuse", 0));
@@ -26,9 +26,6 @@ namespace D3DEngine
 	void RenderEngine::Render(GameObject * Object)
 	{
 		ClearScreen();
-		//m_Lights.clear();
-
-		//Object->AddToRenderingEngine(this);
 
 		Object->Draw(m_ShaderForwardAmbient, this);
 
@@ -80,7 +77,7 @@ namespace D3DEngine
 		return SamplerMap.find(SamplerName)->second;
 	}
 
-	void RenderEngine::UpdateUniformStruct(Transform * transform, Material * material, Shader shader, std::string UniformName, std::string UniformType)
+	void RenderEngine::UpdateUniformStruct(Transform * transform, Material * material, Shader* shader, std::string& UniformName, std::string& UniformType)
 	{
 		std::cerr << UniformName << ": Illegal Argument" << std::endl;
 	}
