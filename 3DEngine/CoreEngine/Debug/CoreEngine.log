@@ -1,51 +1,53 @@
 ﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(387,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (Core Engine.vcxproj).  This can lead to incorrect clean and rebuild behavior.
-  BaseLight.cpp
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(81): warning C4522: 'D3DEngine::Vector3f': multiple assignment operators specified
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\window.h(31): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\input.h(398): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
-  Generating Code...
-  Compiling...
   Vector3f.cpp
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(81): warning C4522: 'D3DEngine::Vector3f': multiple assignment operators specified
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(82): warning C4522: 'D3DEngine::Vector3f': multiple assignment operators specified
+  Generating Code...
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(48): warning C4172: returning address of local variable or temporary
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(45): warning C4172: returning address of local variable or temporary
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(33): warning C4172: returning address of local variable or temporary
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(38): warning C4172: returning address of local variable or temporary
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(35): warning C4172: returning address of local variable or temporary
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(39): warning C4172: returning address of local variable or temporary
+  Compiling...
   Transform.cpp
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(81): warning C4522: 'D3DEngine::Vector3f': multiple assignment operators specified
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(82): warning C4522: 'D3DEngine::Vector3f': multiple assignment operators specified
   SpotLight.cpp
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(81): warning C4522: 'D3DEngine::Vector3f': multiple assignment operators specified
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(82): warning C4522: 'D3DEngine::Vector3f': multiple assignment operators specified
 c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\window.h(31): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\input.h(398): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
   RenderEngine.cpp
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(81): warning C4522: 'D3DEngine::Vector3f': multiple assignment operators specified
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(82): warning C4522: 'D3DEngine::Vector3f': multiple assignment operators specified
 c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\window.h(31): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\input.h(398): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\renderengine.cpp(42): warning C4018: '<': signed/unsigned mismatch
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\renderengine.cpp(40): warning C4018: '<': signed/unsigned mismatch
   Quaternion.cpp
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(81): warning C4522: 'D3DEngine::Vector3f': multiple assignment operators specified
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(82): warning C4522: 'D3DEngine::Vector3f': multiple assignment operators specified
   PointLight.cpp
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(81): warning C4522: 'D3DEngine::Vector3f': multiple assignment operators specified
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(82): warning C4522: 'D3DEngine::Vector3f': multiple assignment operators specified
 c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\window.h(31): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\input.h(398): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
   PhysicsObjectComponent.cpp
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(81): warning C4522: 'D3DEngine::Vector3f': multiple assignment operators specified
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(82): warning C4522: 'D3DEngine::Vector3f': multiple assignment operators specified
 c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\window.h(31): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\input.h(398): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
   PhysicsEngineComponent.cpp
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(81): warning C4522: 'D3DEngine::Vector3f': multiple assignment operators specified
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(82): warning C4522: 'D3DEngine::Vector3f': multiple assignment operators specified
 c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\window.h(31): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\input.h(398): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
   MeshRenderer.cpp
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(81): warning C4522: 'D3DEngine::Vector3f': multiple assignment operators specified
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(82): warning C4522: 'D3DEngine::Vector3f': multiple assignment operators specified
 c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\window.h(31): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\input.h(398): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
   Matrix4f.cpp
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(81): warning C4522: 'D3DEngine::Vector3f': multiple assignment operators specified
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(82): warning C4522: 'D3DEngine::Vector3f': multiple assignment operators specified
   MainComp.cpp
 c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\window.h(31): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\input.h(398): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(81): warning C4522: 'D3DEngine::Vector3f': multiple assignment operators specified
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\maincomp.cpp(69): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\maincomp.cpp(76): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(82): warning C4522: 'D3DEngine::Vector3f': multiple assignment operators specified
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\maincomp.cpp(72): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\maincomp.cpp(79): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
   GameObject.cpp
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(81): warning C4522: 'D3DEngine::Vector3f': multiple assignment operators specified
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(82): warning C4522: 'D3DEngine::Vector3f': multiple assignment operators specified
 c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\window.h(31): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\input.h(398): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
 c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\gameobject.cpp(38): warning C4018: '<': signed/unsigned mismatch
@@ -58,34 +60,32 @@ c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\gameobje
 c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\gameobject.cpp(73): warning C4018: '<': signed/unsigned mismatch
 c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\gameobject.cpp(82): warning C4018: '<': signed/unsigned mismatch
   GameComponent.cpp
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(81): warning C4522: 'D3DEngine::Vector3f': multiple assignment operators specified
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(82): warning C4522: 'D3DEngine::Vector3f': multiple assignment operators specified
 c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\window.h(31): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\input.h(398): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
   FreeLook.cpp
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(81): warning C4522: 'D3DEngine::Vector3f': multiple assignment operators specified
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(82): warning C4522: 'D3DEngine::Vector3f': multiple assignment operators specified
 c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\window.h(31): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\input.h(398): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
 c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\freelook.cpp(18): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
 c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\freelook.cpp(55): warning C4002: too many actual parameters for macro 'TO_RADIANS'
   DirectionalLight.cpp
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(81): warning C4522: 'D3DEngine::Vector3f': multiple assignment operators specified
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(82): warning C4522: 'D3DEngine::Vector3f': multiple assignment operators specified
 c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\window.h(31): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\input.h(398): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
   Camera.cpp
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(81): warning C4522: 'D3DEngine::Vector3f': multiple assignment operators specified
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(82): warning C4522: 'D3DEngine::Vector3f': multiple assignment operators specified
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\window.h(31): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\input.h(398): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
+  BaseLight.cpp
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(82): warning C4522: 'D3DEngine::Vector3f': multiple assignment operators specified
 c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\window.h(31): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\input.h(398): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
   Generating Code...
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(44): warning C4172: returning address of local variable or temporary
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(44): warning C4172: returning address of local variable or temporary
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(32): warning C4172: returning address of local variable or temporary
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(45): warning C4172: returning address of local variable or temporary
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(33): warning C4172: returning address of local variable or temporary
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(45): warning C4172: returning address of local variable or temporary
 c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector2f.h(28): warning C4172: returning address of local variable or temporary
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(34): warning C4172: returning address of local variable or temporary
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(44): warning C4172: returning address of local variable or temporary
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(47): warning C4172: returning address of local variable or temporary
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(44): warning C4172: returning address of local variable or temporary
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(37): warning C4172: returning address of local variable or temporary
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(34): warning C4172: returning address of local variable or temporary
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(32): warning C4172: returning address of local variable or temporary
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(38): warning C4172: returning address of local variable or temporary
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(35): warning C4172: returning address of local variable or temporary
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(45): warning C4172: returning address of local variable or temporary
   CoreEngine.vcxproj -> C:\Users\Satan\Documents\GitHub\Pool Game\Mini-Golf\3DEngine\Debug\CoreEngine.lib

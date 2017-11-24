@@ -4,6 +4,7 @@ namespace D3DEngine
 {
 	RenderEngine::RenderEngine()
 	{
+		//m_Renderer = SDL_CreateRenderer(window->GetSDLWindow(), -1, SDL_RENDERER_ACCELERATED);
 		MappedValues();
 		InitGraphics();
 

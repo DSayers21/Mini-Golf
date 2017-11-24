@@ -25,10 +25,11 @@ namespace D3DEngine
 		void Warp(Vector2f WarpPos);
 
 		//Getters
-		bool IsClosed() { return m_isClosed; }
-		int GetWidth() { return m_Width; }
-		int GetHeight() { return m_Height; }
-		Vector2f GetCenter() { return Vector2f(m_Width / 2, m_Height / 2); }
+		inline bool IsClosed() { return m_isClosed; }
+		inline int GetWidth() { return m_Width; }
+		inline int GetHeight() { return m_Height; }
+		inline Vector2f GetCenter() { return Vector2f(m_Width / 2, m_Height / 2); }
+		inline SDL_Window* GetSDLWindow() { return m_Window; }
 
 	private:
 		SDL_Window* m_Window;

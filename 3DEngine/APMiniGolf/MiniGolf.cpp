@@ -1,6 +1,7 @@
 #include "MiniGolf.h"
 
 #include "DirectionalLight.h"
+#include "GolfClub.h"
 
 MiniGolf::MiniGolf()
 {
@@ -40,11 +41,16 @@ void MiniGolf::Init(D3DEngine::RenderEngine* renderEngine, D3DEngine::PhysicsEng
 	SideMat->AddFloat("SpecularIntensity", 1);
 	SideMat->AddFloat("SpecularExponent", 8);
 
+	D3DEngine::Material* MetalMat = new D3DEngine::Material();
+	MetalMat->AddTexture("Diffuse", new D3DEngine::Texture("./Textures/Metal.png"));
+	MetalMat->AddFloat("SpecularIntensity", 1);
+	MetalMat->AddFloat("SpecularExponent", 8);
 
-	D3DEngine::Mesh* BallMesh = new D3DEngine::Mesh("./Models/Sphere.obj", m_MeshList);
+	D3DEngine::Mesh* BallMesh = new D3DEngine::Mesh("./Models/Ball.obj", m_MeshList);
 	D3DEngine::Mesh* BackMesh = new D3DEngine::Mesh("./Models/CourseBack.obj", m_MeshList);
 	D3DEngine::Mesh* SideMesh = new D3DEngine::Mesh("./Models/CourseSide.obj", m_MeshList);
 	D3DEngine::Mesh* GroundTileMesh = new D3DEngine::Mesh("./Models/GroundTile.obj", m_MeshList);
+	D3DEngine::Mesh* GolfClubMesh = new D3DEngine::Mesh("./Models/GolfClub.obj", m_MeshList);
 
 	D3DEngine::MeshResource* BackRes = m_MeshList->GetModel("./Models/CourseBack.obj");
 	D3DEngine::MeshResource* SideRes = m_MeshList->GetModel("./Models/CourseSide.obj");
@@ -69,13 +75,25 @@ void MiniGolf::Init(D3DEngine::RenderEngine* renderEngine, D3DEngine::PhysicsEng
 	m_PhysicsEngineComponent->GetPhysicsEngine()->GetObject(9).SetPosition(D3DEngine::Vector3f(4.1f - (2.089 * 2), 0.0f, -1.078f));
 	m_PhysicsEngineComponent->GetPhysicsEngine()->GetObject(10).SetPosition(D3DEngine::Vector3f(4.1f - (2.089 * 3), 0.0f, -1.078f));
 
+	D3DEngine::GameObject* GolfClubObject = new D3DEngine::GameObject();
+	GolfClubObject->AddComponent(new D3DEngine::MeshRenderer(GolfClubMesh, MetalMat));
+	GolfClubObject->GetTransform()->SetPosition(D3DEngine::Vector3f(-1.4, 0, 0));
+	GolfClubObject->GetTransform()->SetScaling(D3DEngine::Vector3f(8, 8, 6));
+	
+
 	//Sphere
 	D3DEngine::GameObject* Sphere = new D3DEngine::GameObject();
 	D3DEngine::MeshRenderer* SphereMeshRenderer = new D3DEngine::MeshRenderer(BallMesh, GolfBallMat);
 	Sphere->GetTransform()->SetScaling(D3DEngine::Vector3f(0.1f, 0.1f, 0.1f));
 	Sphere->AddComponent(SphereMeshRenderer);
 	Sphere->AddComponent(new D3DEngine::PhysicsObjectComponent(&m_PhysicsEngineComponent->GetPhysicsEngine()->GetObject(0), true));
+	GolfClubObject->AddComponent(new GolfClub(Sphere, &m_PhysicsEngineComponent->GetPhysicsEngine()->GetObject(0), 16, 0.5, 10));
+	Sphere->AddChild(GolfClubObject);
 	//End Sphere
+
+
+
+
 
 	D3DEngine::GameObject* FrontBarrier = new D3DEngine::GameObject();
 	D3DEngine::MeshRenderer* PlaneMeshRenderer = new D3DEngine::MeshRenderer(BackMesh, SideMat);
@@ -136,6 +154,10 @@ void MiniGolf::Init(D3DEngine::RenderEngine* renderEngine, D3DEngine::PhysicsEng
 	D3DEngine::GameObject* Side8 = new D3DEngine::GameObject();
 	Side8->AddComponent(new D3DEngine::MeshRenderer(SideMesh, SideMat));
 	Side8->AddComponent(new D3DEngine::PhysicsObjectComponent(&m_PhysicsEngineComponent->GetPhysicsEngine()->GetObject(10)));
+
+
+	
+	
 
 	//Lights
 	D3DEngine::GameObject* DirectionalLightObject = new D3DEngine::GameObject();

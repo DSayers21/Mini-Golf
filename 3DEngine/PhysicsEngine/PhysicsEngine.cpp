@@ -88,7 +88,13 @@ namespace D3DEngine
 					//Vector3f Direction = intersectData.GetDirection().Normalise();
 					//Vector3f OtherDirection = Direction.Reflect(m_Objects[i].GetVelocity());
 					//m_Objects[i].SetVelocity(m_Objects[i].GetVelocity().Reflect(OtherDirection));
-					////m_Objects[j].SetVelocity(m_Objects[j].GetVelocity().Reflect(Direction));
+					//m_Objects[j].SetVelocity(m_Objects[j].GetVelocity().Reflect(Direction));
+					
+					//double comp = m_Objects[i].GetVelocity().Dot(intersectData.GetDirection() * (1.0));
+					//Vector3f delta = (intersectData.GetDirection() * comp)*-1;
+					//Vector3f NewVel = m_Objects[i].GetVelocity();
+					//NewVel = NewVel + delta;
+					//m_Objects[i].SetVelocity(NewVel);
 
 					Vector3f Direction = m_Objects[i].GetVelocity() * -1;
 					Vector3f OtherDirection = m_Objects[j].GetVelocity() * -1;

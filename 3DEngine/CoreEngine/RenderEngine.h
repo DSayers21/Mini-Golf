@@ -6,6 +6,7 @@
 
 #include "BaseLight.h"
 #include "Camera.h"
+#include "Window.h"
 
 #include "MathBasics.h"
 #include "Camera.h"
@@ -48,11 +49,13 @@ namespace D3DEngine
 		inline Vector3f* GetAmbientLight() { return m_AmbientLight; }
 		inline BaseLight* GetActiveLight() { return ActiveLight; }
 		inline ShaderList* GetShaderList() { return m_ShaderList; }
+		//inline SDL_Renderer* GetSDLRenderer() { return m_Renderer; }
 		//Add Lights
 		inline void AddLight(BaseLight* Light) { m_Lights.push_back(Light); }
 		inline void AddCamera(Camera* camera) { m_Camera = camera; }
 
 	private:
+		//SDL_Renderer* m_Renderer = NULL;
 		Shader* m_ShaderForwardAmbient;
 
 		Camera* m_Camera;
