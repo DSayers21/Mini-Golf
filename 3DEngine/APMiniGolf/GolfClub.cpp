@@ -20,6 +20,14 @@ void GolfClub::Input(D3DEngine::GetInput* input, float Delta)
 {
 	D3DEngine::Vector3f BallPos = *m_Ball->GetTransform()->GetPosition();
 
+	if (input->GetKeyDown(D3DEngine::KEY_R))
+	{
+		m_BallPhysics->ApplyImpulse(D3DEngine::Vector3f(0,0,0));
+		m_BallPhysics->SetPosition(D3DEngine::Vector3f(0, 0, 0));
+		m_Parent->SetVisible(true);
+		m_Parent->SetActive(true);
+	}
+
 	//Rotation
 	if (input->GetKeyDown(D3DEngine::KEY_LEFT))
 	{
@@ -55,6 +63,9 @@ void GolfClub::Input(D3DEngine::GetInput* input, float Delta)
 	//HitBall
 	if (input->GetKeyDown(D3DEngine::KEY_SPACE))
 	{
+		m_Parent->SetVisible(false);
+		m_Parent->SetActive(false);
+
 		float CueAngle = m_Rotation;
 		float CuePower = m_Distance/10.0f;
 		float CueBallFactor = 8.0;
@@ -67,4 +78,14 @@ void GolfClub::Input(D3DEngine::GetInput* input, float Delta)
 		m_BallPhysics->ApplyImpulse(Impulse);
 	}
 	//End HitBall
+}
+
+void GolfClub::Update(float Delta)
+{
+	D3DEngine::Vector3f BallVel = m_BallPhysics->GetVelocity();
+	if (BallVel == D3DEngine::Vector3f(0, 0, 0))
+	{
+		m_Parent->SetVisible(true);
+		m_Parent->SetActive(true);
+	}
 }

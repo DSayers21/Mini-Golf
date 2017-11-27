@@ -1,6 +1,7 @@
 #include "BoundingSphere.h"
 #include "AxisAlignedBoundingBox.h"
 #include "Plane.h"
+#include <iostream>
 #include <algorithm>
 
 namespace D3DEngine
@@ -39,12 +40,14 @@ namespace D3DEngine
 		return IntersectData(CenterDistance < RadiusDistance, Vector3f(Direction * Distance));
 	}
 
+	//https://stackoverflow.com/questions/9323903/most-efficient-elegant-way-to-clip-a-number
+	float clamp(float n, float lower, float upper)
+	{
+		return std::max(lower, std::min(n, upper));
+	}
+
 	IntersectData BoundingSphere::IntersectAABB(const AxisAlignedBoundingBox & other)
 	{
-		//float XDiff = sqrtf(pow(other.GetMaxExtents().GetX() - other.GetMinExtents().GetX(), 2));
-		//float YDiff = sqrtf(pow(other.GetMaxExtents().GetY() - other.GetMinExtents().GetY(), 2));
-		//float ZDiff = sqrtf(pow(other.GetMaxExtents().GetZ() - other.GetMinExtents().GetZ(), 2));
-
 		float HalfX = other.GetDims().GetX() / 2;
 		float HalfY = other.GetDims().GetY() / 2;
 		float HalfZ = other.GetDims().GetZ() / 2;
@@ -57,26 +60,45 @@ namespace D3DEngine
 		Vector3f CollisionThingB(OtherCenter.GetX() - HalfX, OtherCenter.GetY() - HalfY, OtherCenter.GetZ() - HalfZ);
 		Vector3f CollisionThingC(OtherCenter.GetX() - HalfX, OtherCenter.GetY(), OtherCenter.GetZ() - HalfZ);
 
-		if (((OtherCenter.GetZ() + HalfZ > SpherePos.GetZ()) && (SpherePos.GetZ() + m_Radius > OtherCenter.GetZ() - HalfZ))
-			&& ((OtherCenter.GetX() + HalfX > SpherePos.GetX()) && (SpherePos.GetX() + m_Radius > OtherCenter.GetX() - HalfX)))
+		if (((OtherCenter.GetZ() + HalfZ > SpherePos.GetZ()) && (SpherePos.GetZ() > OtherCenter.GetZ() - HalfZ))
+			&& ((OtherCenter.GetX() + HalfX > SpherePos.GetX()) && (SpherePos.GetX() > OtherCenter.GetX() - HalfX)))
 		{
-			std::cerr << "Collision" << std::endl;
-			Vector3f Direction(0,0,0);
-			//Get Normal, not working
-			Vector3f a = CollisionThingB;
-			Vector3f b = CollisionThingA;
-			Vector3f c = CollisionThingC;
+			//std::cerr << other.ClosestPoint(m_Center).ToString() << std::endl;
+			Vector3f Closest = other.ClosestPoint(m_Center);
+			Vector3f N = (m_Center - other.GetCenter());
+			Vector3f Normal = (N - Closest);
 
-			Vector3f Vertex1 = (a - c);
-			Vertex1 = Vertex1.Normalise();
-			Vector3f Vertex2 = (b - c);
-			Vertex2 = Vertex2.Normalise();
-			//Calc Normal
-			Vector3f Normal = Vertex1.CrossProduct(Vertex2);
+			Normal.SetX(N.GetX());
+			Normal.SetZ(N.GetZ());
 
-			std::cerr << Normal.ToString() << std::endl;
+			Normal = Normal.Normalise();
 
-			return IntersectData(true, Vector3f(0.1,0,0));
+			Vector3f ColNormal = other.GetCenter() - m_Center;
+			float uX = sqrtf(pow(ColNormal.GetX(), 2));
+			float uZ = sqrtf(pow(ColNormal.GetZ(), 2));
+
+			if (uX == 0)
+				uX = 100;
+			if (uZ == 0)
+				uZ = 100;
+
+			if (other.GetCenter().GetX() == m_Center.GetX())
+			{
+				std::cerr << "X SAME" << std::endl;
+			}
+
+			if (uX > uZ)
+			{
+				Normal.SetX(0);
+				(Normal.GetZ() < 0) ? Normal.SetZ(-1) : Normal.SetZ(1);
+			}
+			else
+			{
+				Normal.SetZ(0);
+				(Normal.GetX() < 0) ? Normal.SetX(-1) : Normal.SetX(1);
+			}
+
+			return IntersectData(true, Normal);
 		}
 		return IntersectData(false, m_Center);
 	}

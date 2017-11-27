@@ -87,7 +87,7 @@ void MiniGolf::Init(D3DEngine::RenderEngine* renderEngine, D3DEngine::PhysicsEng
 	Sphere->GetTransform()->SetScaling(D3DEngine::Vector3f(0.1f, 0.1f, 0.1f));
 	Sphere->AddComponent(SphereMeshRenderer);
 	Sphere->AddComponent(new D3DEngine::PhysicsObjectComponent(&m_PhysicsEngineComponent->GetPhysicsEngine()->GetObject(0), true));
-	GolfClubObject->AddComponent(new GolfClub(Sphere, &m_PhysicsEngineComponent->GetPhysicsEngine()->GetObject(0), 16, 0.5, 10));
+	GolfClubObject->AddComponent(new GolfClub(Sphere, &m_PhysicsEngineComponent->GetPhysicsEngine()->GetObject(0), 8, 0.5, 10));
 	Sphere->AddChild(GolfClubObject);
 	//End Sphere
 

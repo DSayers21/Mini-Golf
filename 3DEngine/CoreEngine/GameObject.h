@@ -33,10 +33,16 @@ namespace D3DEngine
 
 		std::vector<GameObject*> GetAllAttached();
 
+		//Setters
+		inline void SetVisible(bool Visible) { m_Visible = Visible; }
+		inline void SetActive(bool Active) { m_Active = Active; }
 	private:
 		std::vector<GameObject*> m_Children = std::vector<GameObject*>();
 		std::vector<GameComponent*> m_Components = std::vector<GameComponent*>();
 		Transform* m_Transform;
 		MainComp* m_MainComp;
+
+		bool m_Visible = true;
+		bool m_Active = true;
 	};
 }

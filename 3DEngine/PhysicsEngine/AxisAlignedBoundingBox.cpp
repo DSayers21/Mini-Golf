@@ -7,8 +7,8 @@ namespace D3DEngine
 	//{
 	//}
 
-	AxisAlignedBoundingBox::AxisAlignedBoundingBox(Vector3f Center, Vector3f Dims) :
-		Collider(Collider::TYPE_AABB), m_Center(Center), m_Dims(Dims)
+	AxisAlignedBoundingBox::AxisAlignedBoundingBox(Vector3f MinExtents, Vector3f MaxExtents, Vector3f Center, Vector3f Dims, Vector2f Normal) :
+		Collider(Collider::TYPE_AABB), m_MinExtents(MinExtents), m_MaxExtents(MaxExtents), m_Center(Center), m_Dims(Dims), m_Normal(Normal)
 	{
 		std::cerr << "AABB" << std::endl;
 	}
@@ -46,6 +46,8 @@ namespace D3DEngine
 	void AxisAlignedBoundingBox::Transform(const Vector3f Translation)
 	{
 		m_Center = m_Center + Translation;
+		m_MinExtents = m_MinExtents + Translation;
+		m_MaxExtents = m_MaxExtents + Translation;
 	}
 
 	Vector3f AxisAlignedBoundingBox::CalcCenter() const
@@ -55,5 +57,33 @@ namespace D3DEngine
 		//	((m_MaxExtents.GetY() + m_MinExtents.GetY()) / 2),
 		//	((m_MaxExtents.GetZ() + m_MinExtents.GetZ()) / 2));
 		return Vector3f();
+	}
+
+	Vector3f AxisAlignedBoundingBox::ClosestPoint(Vector3f point) const
+	{
+		Vector3f ClosestP = point;
+		//X
+		if (point.GetX() > m_MaxExtents.GetX())
+			ClosestP.SetX(m_MaxExtents.GetX());
+		else if (point.GetX() < m_MinExtents.GetX())
+			ClosestP.SetX(m_MinExtents.GetX());
+		else
+			ClosestP.SetX(point.GetX());
+		//Y
+		if (point.GetY() > m_MaxExtents.GetY())
+			ClosestP.SetY(m_MaxExtents.GetY());
+		else if (point.GetY() < m_MinExtents.GetY())
+			ClosestP.SetY(m_MinExtents.GetY());
+		else
+			ClosestP.SetY(point.GetY());
+		//Z
+		if (point.GetZ() > m_MaxExtents.GetZ())
+			ClosestP.SetZ(m_MaxExtents.GetZ());
+		else if (point.GetZ() < m_MinExtents.GetZ())
+			ClosestP.SetZ(m_MinExtents.GetZ());
+		else
+			ClosestP.SetZ(point.GetZ());
+
+		return ClosestP;
 	}
 }

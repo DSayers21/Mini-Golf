@@ -20,6 +20,7 @@ namespace D3DEngine
 		inline float Dot(Vector3f Other) { return x*Other.GetX() + y * Other.GetY() + z * Other.GetZ(); }
 		inline float Dot(Vector3f Other) const { return (x*Other.GetX()) + (y * Other.GetY()) + (z * Other.GetZ()); }
 		inline float Distance(Vector3f Other) { return sqrtf(pow(x-Other.GetX(), 2) + pow(y - Other.GetY(), 2) + pow(z - Other.GetZ(), 2)); }
+		inline float Magnitude(void) const { return(sqrt((x * x) + (y * y) + (z * z))); }
 
 		Vector3f Normalise() const;
 		Vector3f Rotate(Vector3f Axis, float Angle);

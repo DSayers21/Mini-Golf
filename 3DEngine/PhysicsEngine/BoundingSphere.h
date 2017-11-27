@@ -28,5 +28,6 @@ namespace D3DEngine
 	private:
 		Vector3f m_Center;
 		float m_Radius;
+		AxisAlignedBoundingBox* m_LastAABBCol = nullptr;
 	};
 }

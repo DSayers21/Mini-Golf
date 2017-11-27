@@ -36,7 +36,8 @@ namespace D3DEngine
 	{
 		m_Transform->Update();
 		for (int i = 0; i < m_Components.size(); i++)
-			m_Components[i]->Input(input, Delta);
+			if (m_Active)
+				m_Components[i]->Input(input, Delta);
 
 		for (int i = 0; i < m_Children.size(); i++)
 			m_Children[i]->Input(input, Delta);
@@ -54,7 +55,10 @@ namespace D3DEngine
 	void GameObject::Draw(Shader* shader, RenderEngine* renderEngine)
 	{
 		for (int i = 0; i < m_Components.size(); i++)
-			m_Components[i]->Draw(shader, renderEngine);
+		{
+			if(m_Visible)
+				m_Components[i]->Draw(shader, renderEngine);
+		}
 
 		for (int i = 0; i < m_Children.size(); i++)
 			m_Children[i]->Draw(shader, renderEngine);

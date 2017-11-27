@@ -60,7 +60,11 @@ namespace D3DEngine
 			((PointMax.GetY() + PointMin.GetY()) / 2),
 			((PointMax.GetZ() + PointMin.GetZ()) / 2));
 
-		PhysicsObject New = PhysicsObject(new AxisAlignedBoundingBox(CenterPos, Dims), Vector3f(0.0f, 0.0f, 0.0f));
+		Vector2f Temp = Vector3f(PointMax - PointMin).GetXZ();
+		Vector2f Normal(Temp.GetY(), -Temp.GetX());
+		Normal = Normal.Normalise();
+
+		PhysicsObject New = PhysicsObject(new AxisAlignedBoundingBox(PointMin, PointMax, CenterPos, Dims, Normal), Vector3f(0.0f, 0.0f, 0.0f));
 		New.SetPosition(CenterPos);
 		//PhysicsObject* New = new PhysicsObject(new AxisAlignedBoundingBox(PointMax, PointMin), Vector3f(0.0f, 0.0f, 0.0f));
 		this->AddObject(New);
@@ -85,22 +89,30 @@ namespace D3DEngine
 				//Handle Collision response
 				if (intersectData.GetDoesIntersect())
 				{
-					//Vector3f Direction = intersectData.GetDirection().Normalise();
-					//Vector3f OtherDirection = Direction.Reflect(m_Objects[i].GetVelocity());
-					//m_Objects[i].SetVelocity(m_Objects[i].GetVelocity().Reflect(OtherDirection));
-					//m_Objects[j].SetVelocity(m_Objects[j].GetVelocity().Reflect(Direction));
-					
-					//double comp = m_Objects[i].GetVelocity().Dot(intersectData.GetDirection() * (1.0));
-					//Vector3f delta = (intersectData.GetDirection() * comp)*-1;
-					//Vector3f NewVel = m_Objects[i].GetVelocity();
-					//NewVel = NewVel + delta;
-					//m_Objects[i].SetVelocity(NewVel);
+					std::cerr << "COLLLLL" << std::endl;
+					Vector3f V = m_Objects[i].GetVelocity();
+					Vector3f N = intersectData.GetDirection();
+					//Vector3f N(0,0,1);
+					Vector3f U = N * (V.Dot(N) / N.Dot(N));
+					Vector3f W = V - U;
+					Vector3f ReflectedVel = W - U;
 
-					Vector3f Direction = m_Objects[i].GetVelocity() * -1;
-					Vector3f OtherDirection = m_Objects[j].GetVelocity() * -1;
-					m_Objects[i].SetVelocity(Direction);
-					m_Objects[j].SetVelocity(OtherDirection);
+					//if moving away from plane, cannot hit
+					float Test = V.Dot(N);
+					if (V.Dot(N) >= 0.0)
+					{
+						std::cerr << "MOVING AWAY" << std::endl;
+						return;
+						
+					}
+					std::cerr << "Normal: " << N.ToString() << std::endl;
 
+					Vector3f OldVel = m_Objects[i].GetVelocity();
+					std::cerr << "Vel: " << OldVel.ToString() << std::endl;
+					Vector3f InvVel = OldVel *-1;
+
+					m_Objects[i].SetVelocity(ReflectedVel);
+					break;
 				}
 			}
 		}

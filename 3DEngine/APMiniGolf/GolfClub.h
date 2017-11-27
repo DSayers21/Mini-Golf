@@ -10,6 +10,7 @@ public:
 	GolfClub(D3DEngine::GameObject* Ball, D3DEngine::PhysicsObject* BallPhysics, float MaxDist, float DisIncrement, float RotIncrement);
 	~GolfClub();
 	virtual void Input(D3DEngine::GetInput* input, float Delta);
+	virtual void Update(float Delta);
 
 private:
 	D3DEngine::GameObject* m_Ball;

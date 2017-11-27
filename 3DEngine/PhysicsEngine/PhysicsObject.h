@@ -13,6 +13,8 @@ namespace D3DEngine
 
 		void Integrate(float Delta);
 
+		void ApplyFrictionForce(float Delta);
+
 		void ApplyImpulse(Vector3f& velocity);
 
 		//Getters
