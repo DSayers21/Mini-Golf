@@ -97,7 +97,7 @@ namespace D3DEngine
 				Normal.SetZ(0);
 				(Normal.GetX() < 0) ? Normal.SetX(-1) : Normal.SetX(1);
 			}
-
+			Normal.SetY(0);
 			return IntersectData(true, Normal);
 		}
 		return IntersectData(false, m_Center);
