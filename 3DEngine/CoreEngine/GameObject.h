@@ -18,6 +18,8 @@ namespace D3DEngine
 		GameObject();
 		~GameObject();
 
+		void ClearGameObject();
+
 		GameObject* AddChild(GameObject* Child);
 		GameObject* AddComponent(GameComponent* Component);
 
