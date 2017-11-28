@@ -15,8 +15,10 @@
 
 enum TYPE{
 	BALL,
-	WALLBACK,
-	WALLSIDE
+	WALLBACKF,
+	WALLBACKB,
+	WALLSIDEL,
+	WALLSIDER
 };
 
 //Change to bitflagging if works

@@ -75,10 +75,27 @@ Level::Level(int LevelData[7][7],
 		for (int j = PaddOffset; j <  5 + PaddOffset; j++)
 			m_TileMap.insert(std::pair<std::string, Tile>(std::to_string(i) + std::to_string(j), Tile()));
 
+	//Find the Ball And make sure it is created first
 	for (int i = PaddOffset; i < 5 + PaddOffset; i++)
 	{
 		for (int j = PaddOffset; j < 5 + PaddOffset; j++)
 		{
+			if (LevelData[i][j] == 2)
+			{
+				D3DEngine::Vector3f TileCenter = D3DEngine::Vector3f(i * 2, -0.05, j * 2);
+				m_PhysicsEngineComponent->GetPhysicsEngine()->AddObject(D3DEngine::PhysicsObject(new D3DEngine::BoundingSphere(D3DEngine::Vector3f(i * 2, -0.5f, j * 2), .2f), D3DEngine::Vector3f(0.0f, 0.0f, 0.0f)));
+				m_ObjectsMap.push_back(LevelID(i, j, ObjectCount, TileCenter, TYPE::BALL));
+				ObjectCount++;
+			}
+		}
+	}
+	//Create remaing physics objects
+	for (int i = PaddOffset; i < 5 + PaddOffset; i++)
+	{
+		for (int j = PaddOffset; j < 5 + PaddOffset; j++)
+		{
+			std::string Key = std::to_string(i) + std::to_string(j);
+			Tile* CurrentTile = &m_TileMap.find(Key)->second;
 			if ((LevelData[i][j] == 1) || (LevelData[i][j] == 2))
 			{
 				D3DEngine::Vector3f TileCenter = D3DEngine::Vector3f(i * 2, -0.05, j * 2);
@@ -87,50 +104,47 @@ Level::Level(int LevelData[7][7],
 				Tile->GetTransform()->SetPosition(TileCenter);
 				RootObject->AddChild(Tile);
 
-				if (LevelData[i][j] == 2)
-				{
-					m_PhysicsEngineComponent->GetPhysicsEngine()->AddObject(D3DEngine::PhysicsObject(new D3DEngine::BoundingSphere(D3DEngine::Vector3f(i * 2, -0.5f, j * 2), .2f), D3DEngine::Vector3f(0.0f, 0.0f, 0.0f)));
-					m_ObjectsMap.push_back(LevelID(i, j, ObjectCount, TileCenter, TYPE::BALL));
-					ObjectCount++;
-				}
-
 				if (j - 1 >= 0)
 				{
-					if (LevelData[i][j - 1] <= 0)
+					if ((LevelData[i][j - 1] <= 0) && (CurrentTile->Left == false))
 					{
 						LevelData[i][j - 1] -= 1;
 						m_PhysicsEngineComponent->GetPhysicsEngine()->AddAABBFromMesh(SideRes->GetVertices(), SideRes->GetVERTEXSIZE(), SideRes->GetIndices(), SideRes->GetINDEXSIZE());
-						m_ObjectsMap.push_back(LevelID(i, j, ObjectCount, TileCenter, TYPE::WALLSIDE));
+						m_ObjectsMap.push_back(LevelID(i, j, ObjectCount, TileCenter, TYPE::WALLSIDEL));
+						CurrentTile->Left = true;
 						ObjectCount++;
 					}
 				}
 				if (j + 1 < 7)
 				{
-					if (LevelData[i][j + 1] <= 0)
+					if ((LevelData[i][j + 1] <= 0) && (CurrentTile->Right == false))
 					{
 						LevelData[i][j + 1] -= 1;
 						m_PhysicsEngineComponent->GetPhysicsEngine()->AddAABBFromMesh(SideRes->GetVertices(), SideRes->GetVERTEXSIZE(), SideRes->GetIndices(), SideRes->GetINDEXSIZE());
-						m_ObjectsMap.push_back(LevelID(i, j, ObjectCount, TileCenter, TYPE::WALLSIDE));
+						m_ObjectsMap.push_back(LevelID(i, j, ObjectCount, TileCenter, TYPE::WALLSIDER));
+						CurrentTile->Right = true;
 						ObjectCount++;
 					}
 				}
 				if (i - 1 >= 0)
 				{
-					if (LevelData[i - 1][j] <= 0)
+					if ((LevelData[i - 1][j] <= 0)&&(CurrentTile->Top == false))
 					{
 						LevelData[i - 1][j] -= 1;
 						m_PhysicsEngineComponent->GetPhysicsEngine()->AddAABBFromMesh(BackRes->GetVertices(), SideRes->GetVERTEXSIZE(), BackRes->GetIndices(), BackRes->GetINDEXSIZE());
-						m_ObjectsMap.push_back(LevelID(i, j, ObjectCount, TileCenter, TYPE::WALLBACK));
+						m_ObjectsMap.push_back(LevelID(i, j, ObjectCount, TileCenter, TYPE::WALLBACKF));
+						CurrentTile->Top = true;
 						ObjectCount++;
 					}
 				}
 				if (i + 1 < 7)
 				{
-					if (LevelData[i + 1][j] <= 0)
+					if ((LevelData[i + 1][j] <= 0) && (CurrentTile->Bottom == false))
 					{
 						LevelData[i + 1][j] -= 1;
 						m_PhysicsEngineComponent->GetPhysicsEngine()->AddAABBFromMesh(BackRes->GetVertices(), BackRes->GetVERTEXSIZE(), BackRes->GetIndices(), BackRes->GetINDEXSIZE());
-						m_ObjectsMap.push_back(LevelID(i, j, ObjectCount, TileCenter, TYPE::WALLBACK));
+						m_ObjectsMap.push_back(LevelID(i, j, ObjectCount, TileCenter, TYPE::WALLBACKB));
+						CurrentTile->Bottom = true;
 						ObjectCount++;
 					}
 				}
@@ -140,6 +154,7 @@ Level::Level(int LevelData[7][7],
 	//Update Objects
 	for (int i = 0; i < m_ObjectsMap.size(); i++)
 	{
+		std::cerr << "Processing Physics Object: " << i << std::endl;
 		int PosI = m_ObjectsMap[i].I;
 		int PosJ = m_ObjectsMap[i].J;
 		std::string Key = std::to_string(PosI) + std::to_string(PosJ);
@@ -151,6 +166,7 @@ Level::Level(int LevelData[7][7],
 
 		if (ObjectType == TYPE::BALL)
 		{
+			std::cerr << "Ball Proc" << std::endl;
 			//GolfClub
 			D3DEngine::GameObject* GolfClubObject = new D3DEngine::GameObject();
 			GolfClubObject->AddComponent(new D3DEngine::MeshRenderer(GolfClubMesh, MetalMat));
@@ -176,72 +192,57 @@ Level::Level(int LevelData[7][7],
 			m_GameObjects.back()->AddComponent(new D3DEngine::PhysicsObjectComponent(&m_PhysicsEngineComponent->GetPhysicsEngine()->GetObject(ObjectPos), true));
 			GolfClubObject->AddComponent(new GolfClub(m_GameObjects.back(), &m_PhysicsEngineComponent->GetPhysicsEngine()->GetObject(ObjectPos), 8, 0.5, 10));
 			m_GameObjects.back()->AddChild(GolfClubObject);
-			
+
 			//CameraObject->GetTransform()->SetRotation(m_GameObjects.back()->GetTransform()->GetRotation()); //Tilt Down
 			//m_GameObjects.back()->AddChild(CameraObject);
 			//End Sphere
 		}
-		if (ObjectType == TYPE::WALLBACK)
+	}
+
+	//Update Objects
+	for (int i = 0; i < m_ObjectsMap.size(); i++)
+	{
+		std::cerr << "Processing Physics Object: " << i << std::endl;
+		int PosI = m_ObjectsMap[i].I;
+		int PosJ = m_ObjectsMap[i].J;
+		std::string Key = std::to_string(PosI) + std::to_string(PosJ);
+		Tile* CurrentTile = &m_TileMap.find(Key)->second;
+
+		int ObjectPos = m_ObjectsMap[i].Pos;
+		TYPE ObjectType = m_ObjectsMap[i].m_Type;
+		D3DEngine::Vector3f TileCenter = m_ObjectsMap[i].TileCenter;
+
+		if (ObjectType == TYPE::WALLBACKF)
 		{
-			std::cerr << "Wall Back" << std::endl;
-			if (PosI - 1 >= 0)
-			{
-				if (LevelData[PosI - 1][PosJ] < 0)
-				{
-					if (CurrentTile->Top == false)
-					{
-						CurrentTile->Top = true;
-						TranslateHelper(1.08f, 0.0f, ObjectPos, TileCenter, m_PhysicsEngineComponent);
-						CreateHelper(ObjectPos, BackMesh, SideMat, m_PhysicsEngineComponent, RootObject);
-						continue;
-					}
-				}
-			}
-			if (PosI + 1 < 7)
-			{
-				if (LevelData[PosI + 1][PosJ] < 0)
-				{
-					if (CurrentTile->Bottom == false)
-					{
-						CurrentTile->Bottom = true;
-						TranslateHelper(-1.08f, 0.0f, ObjectPos, TileCenter, m_PhysicsEngineComponent);
-						CreateHelper(ObjectPos, BackMesh, SideMat, m_PhysicsEngineComponent, RootObject);
-						continue;
-					}
-				}
-			}
+			std::cerr << "Wall Back Proc" << std::endl;
+			std::cerr << "Wall Back: Moved Up" << std::endl;
+			TranslateHelper(1.08f, 0.0f, ObjectPos, TileCenter, m_PhysicsEngineComponent);
+			CreateHelper(ObjectPos, BackMesh, SideMat, m_PhysicsEngineComponent, RootObject);
+			continue;
 		}
-		if (ObjectType == TYPE::WALLSIDE)
-		{ 
-			std::cerr << "Wall Side" << std::endl;
-			if (PosJ - 1 >= 0)
-			{
-				if (LevelData[PosI][PosJ - 1] < 0)
-				{
-					if (CurrentTile->Left == false)
-					{
-						std::cerr << "Wall Side: Moved left" << std::endl;
-						CurrentTile->Left = true;
-						TranslateHelper(0.0f, 1.08f, ObjectPos, TileCenter, m_PhysicsEngineComponent);
-						CreateHelper(ObjectPos, SideMesh, SideMat, m_PhysicsEngineComponent, RootObject);
-						continue;
-					}
-				}
-			}
-			if (PosJ + 1 < 7)
-			{
-				if (LevelData[PosI][PosJ + 1] < 0)
-				{
-					if (CurrentTile->Right == false)
-					{
-						std::cerr << "Wall Side: Moved Right" << std::endl;
-						CurrentTile->Right = true;
-						TranslateHelper(0.0f, -1.08f, ObjectPos, TileCenter, m_PhysicsEngineComponent);
-						CreateHelper(ObjectPos, SideMesh, SideMat, m_PhysicsEngineComponent, RootObject);
-						continue;
-					}
-				}
-			}
+		if (ObjectType == TYPE::WALLBACKB)
+		{
+			std::cerr << "Wall Back Proc" << std::endl;
+			std::cerr << "Wall Back: Moved Up" << std::endl;
+			TranslateHelper(-1.08f, 0.0f, ObjectPos, TileCenter, m_PhysicsEngineComponent);
+			CreateHelper(ObjectPos, BackMesh, SideMat, m_PhysicsEngineComponent, RootObject);
+			continue;
+		}
+		if (ObjectType == TYPE::WALLSIDER)
+		{
+			std::cerr << "Wall Side Proc" << std::endl;
+			std::cerr << "Wall Back: Moved Right" << std::endl;
+			TranslateHelper(0.0f, -1.08f, ObjectPos, TileCenter, m_PhysicsEngineComponent);
+			CreateHelper(ObjectPos, SideMesh, SideMat, m_PhysicsEngineComponent, RootObject);
+			continue;
+		}
+		if (ObjectType == TYPE::WALLSIDEL)
+		{
+			std::cerr << "Wall Side Proc" << std::endl;
+			std::cerr << "Wall Back: Moved Left" << std::endl;
+			TranslateHelper(0.0f, 1.08f, ObjectPos, TileCenter, m_PhysicsEngineComponent);
+			CreateHelper(ObjectPos, SideMesh, SideMat, m_PhysicsEngineComponent, RootObject);
+			continue;
 		}
 	}
 	

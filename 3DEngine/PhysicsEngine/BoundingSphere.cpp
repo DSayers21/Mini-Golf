@@ -60,8 +60,10 @@ namespace D3DEngine
 		Vector3f CollisionThingB(OtherCenter.GetX() - HalfX, OtherCenter.GetY() - HalfY, OtherCenter.GetZ() - HalfZ);
 		Vector3f CollisionThingC(OtherCenter.GetX() - HalfX, OtherCenter.GetY(), OtherCenter.GetZ() - HalfZ);
 
+		//std::cerr << SpherePos.ToString() << std::endl;
+
 		if (((OtherCenter.GetZ() + HalfZ > SpherePos.GetZ()) && (SpherePos.GetZ() > OtherCenter.GetZ() - HalfZ))
-			&& ((OtherCenter.GetX() + HalfX > SpherePos.GetX()) && (SpherePos.GetX() > OtherCenter.GetX() - HalfX)))
+			&& ((OtherCenter.GetX() + HalfX > SpherePos.GetX()) && (SpherePos.GetX() > OtherCenter.GetX() - HalfX))) 
 		{
 			//std::cerr << other.ClosestPoint(m_Center).ToString() << std::endl;
 			Vector3f Closest = other.ClosestPoint(m_Center);
