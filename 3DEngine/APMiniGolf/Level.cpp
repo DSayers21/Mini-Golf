@@ -38,11 +38,11 @@ Level::Level(int LevelData[7][7],
 	CameraObject->GetTransform()->SetPosition(D3DEngine::Vector3f(-8.0f, 22.0f, 0.0f));
 	CameraObject->AddComponent(new D3DEngine::FreeLook());
 
-	//MaterialOne
-	D3DEngine::Material* material = new D3DEngine::Material();
-	material->AddTexture("Diffuse", new D3DEngine::Texture("./Textures/GolfTexture.png"));
-	material->AddFloat("SpecularIntensity", 1);
-	material->AddFloat("SpecularExponent", 8);
+	//Materials
+	D3DEngine::Material* GroundTexture = new D3DEngine::Material();
+	GroundTexture->AddTexture("Diffuse", new D3DEngine::Texture("./Textures/GolfTexture.png"));
+	GroundTexture->AddFloat("SpecularIntensity", 0.01);
+	GroundTexture->AddFloat("SpecularExponent", 42);
 
 	D3DEngine::Material* GolfBallMat = new D3DEngine::Material();
 	GolfBallMat->AddTexture("Diffuse", new D3DEngine::Texture("./Textures/GolfBallTexture.png"));
@@ -59,14 +59,34 @@ Level::Level(int LevelData[7][7],
 	MetalMat->AddFloat("SpecularIntensity", 1);
 	MetalMat->AddFloat("SpecularExponent", 8);
 
+	D3DEngine::Material* FlagMat = new D3DEngine::Material();
+	FlagMat->AddTexture("Diffuse", new D3DEngine::Texture("./Textures/FlagTexture.png"));
+	FlagMat->AddFloat("SpecularIntensity", 1);
+	FlagMat->AddFloat("SpecularExponent", 8);
+
+	D3DEngine::Material* StartZoneMat = new D3DEngine::Material();
+	StartZoneMat->AddTexture("Diffuse", new D3DEngine::Texture("./Textures/GolfStrtZone.png"));
+	StartZoneMat->AddFloat("SpecularIntensity", 1);
+	StartZoneMat->AddFloat("SpecularExponent", 8);
+	//End Materials
+
+	//Load Meshes
 	D3DEngine::Mesh* BallMesh = new D3DEngine::Mesh("./Models/Ball.obj", m_MeshList);
+	D3DEngine::Mesh* BallStrtZoneMesh = new D3DEngine::Mesh("./Models/GolfBallStart.obj", m_MeshList);
+
 	D3DEngine::Mesh* BackMesh = new D3DEngine::Mesh("./Models/CourseBack.obj", m_MeshList);
 	D3DEngine::Mesh* SideMesh = new D3DEngine::Mesh("./Models/CourseSide.obj", m_MeshList);
 	D3DEngine::Mesh* GroundTileMesh = new D3DEngine::Mesh("./Models/GroundTile.obj", m_MeshList);
 	D3DEngine::Mesh* GolfClubMesh = new D3DEngine::Mesh("./Models/GolfClub.obj", m_MeshList);
+	D3DEngine::Mesh* FlagShaftMesh = new D3DEngine::Mesh("./Models/FlagShaft.obj", m_MeshList);
+	D3DEngine::Mesh* FlagMesh = new D3DEngine::Mesh("./Models/Flag.obj", m_MeshList);
+	D3DEngine::Mesh* HoleMesh = new D3DEngine::Mesh("./Models/Hole.obj", m_MeshList);
+	//End Load Meshes
 
+	//Get Mesh Resources for Physics Objects
 	D3DEngine::MeshResource* BackRes = m_MeshList->GetModel("./Models/CourseBack.obj");
 	D3DEngine::MeshResource* SideRes = m_MeshList->GetModel("./Models/CourseSide.obj");
+	//End Get Mesh Resources for Physics Objects
 
 	int PaddOffset = 1;
 
@@ -75,17 +95,73 @@ Level::Level(int LevelData[7][7],
 		for (int j = PaddOffset; j <  5 + PaddOffset; j++)
 			m_TileMap.insert(std::pair<std::string, Tile>(std::to_string(i) + std::to_string(j), Tile()));
 
-	//Find the Ball And make sure it is created first
+	//Find the Ball And make sure it is created first,// Specials
 	for (int i = PaddOffset; i < 5 + PaddOffset; i++)
 	{
 		for (int j = PaddOffset; j < 5 + PaddOffset; j++)
 		{
-			if (LevelData[i][j] == 2)
+			if (LevelData[i][j] == 2) //Ball
 			{
 				D3DEngine::Vector3f TileCenter = D3DEngine::Vector3f(i * 2, -0.05, j * 2);
+
+				D3DEngine::GameObject* TileStrt = new D3DEngine::GameObject();
+				TileStrt->AddComponent(new D3DEngine::MeshRenderer(BallStrtZoneMesh, StartZoneMat));
+				TileStrt->GetTransform()->Rotate(D3DEngine::Vector3f(0, 1, 0), TO_RADIANS(90));
+				D3DEngine::Vector3f MyPos = TileCenter;
+
+				MyPos.SetY(-0.07f);
+				TileStrt->GetTransform()->SetPosition(MyPos);
+				TileStrt->GetTransform()->SetScaling(D3DEngine::Vector3f(0.5,1,0.5));
+				RootObject->AddChild(TileStrt);
+
 				m_PhysicsEngineComponent->GetPhysicsEngine()->AddObject(D3DEngine::PhysicsObject(new D3DEngine::BoundingSphere(D3DEngine::Vector3f(i * 2, -0.5f, j * 2), .2f), D3DEngine::Vector3f(0.0f, 0.0f, 0.0f)));
 				m_ObjectsMap.push_back(LevelID(i, j, ObjectCount, TileCenter, TYPE::BALL));
 				ObjectCount++;
+			}
+			if (LevelData[i][j] == 3) //Flag
+			{
+				D3DEngine::Vector3f TileCenter = D3DEngine::Vector3f(i * 2, 0.0, j * 2);
+
+				//Add Hole
+				D3DEngine::GameObject* Hole = new D3DEngine::GameObject();
+				Hole->AddComponent(new D3DEngine::MeshRenderer(HoleMesh, StartZoneMat));
+				D3DEngine::Vector3f MyPos = TileCenter;
+				MyPos.SetY(-0.02f);
+				Hole->GetTransform()->SetPosition(MyPos);
+				Hole->GetTransform()->SetScaling(D3DEngine::Vector3f(0.1f, 0.0f, 0.1f));
+				RootObject->AddChild(Hole);
+				//End Add Hole
+
+				//Create Point Light
+				D3DEngine::GameObject* PointLightObject = new D3DEngine::GameObject();
+				PointLightObject->AddComponent(new D3DEngine::PointLight(renderEngine->GetShaderList(), D3DEngine::Vector3f(1, 1, 1), 2.0f, D3DEngine::Attenuation(0, 0, 1)));
+				PointLightObject->GetTransform()->GetPosition()->Set(0, 3, 0);
+
+				//Add Flag
+				D3DEngine::GameObject* FlagBack = new D3DEngine::GameObject();
+				FlagBack->AddComponent(new D3DEngine::MeshRenderer(FlagMesh, FlagMat));
+				FlagBack->GetTransform()->SetPosition(D3DEngine::Vector3f(0.8f, 2.35f, 0.0f));
+				FlagBack->GetTransform()->SetScaling(D3DEngine::Vector3f(1.0f, 0.3f, 1.0f));
+				FlagBack->GetTransform()->Rotate(D3DEngine::Vector3f(0, 1, 0), TO_RADIANS(270));
+				D3DEngine::GameObject* FlagFront = new D3DEngine::GameObject();
+				FlagFront->AddComponent(new D3DEngine::MeshRenderer(FlagMesh, FlagMat));
+				FlagFront->GetTransform()->SetPosition(D3DEngine::Vector3f(0.8f, 2.5f, 0.0f));
+				FlagFront->GetTransform()->SetScaling(D3DEngine::Vector3f(1.0f, 0.3f, 1.0f));
+				FlagFront->GetTransform()->SetRotation(0, 1, 0, 0);
+				FlagFront->GetTransform()->Rotate(D3DEngine::Vector3f(0, 1, 0), TO_RADIANS(270));
+				FlagFront->GetTransform()->Rotate(D3DEngine::Vector3f(0, 0, 1), TO_RADIANS(180));
+				//End Add Flag
+
+				//Add Flag Shaft
+				D3DEngine::GameObject* FlagShaft = new D3DEngine::GameObject();
+				FlagShaft->AddComponent(new D3DEngine::MeshRenderer(FlagShaftMesh, MetalMat));
+				FlagShaft->GetTransform()->SetPosition(TileCenter);
+				FlagShaft->GetTransform()->SetScaling(D3DEngine::Vector3f(0.2f, 1.0f, 0.2f));
+				RootObject->AddChild(FlagShaft);
+				FlagShaft->AddChild(FlagBack);
+				FlagShaft->AddChild(FlagFront);
+				FlagShaft->AddChild(PointLightObject);
+				//End Add Flag Shaft
 			}
 		}
 	}
@@ -96,11 +172,11 @@ Level::Level(int LevelData[7][7],
 		{
 			std::string Key = std::to_string(i) + std::to_string(j);
 			Tile* CurrentTile = &m_TileMap.find(Key)->second;
-			if ((LevelData[i][j] == 1) || (LevelData[i][j] == 2))
+			if ((LevelData[i][j] == 1) || (LevelData[i][j] == 2) || (LevelData[i][j] == 3))
 			{
 				D3DEngine::Vector3f TileCenter = D3DEngine::Vector3f(i * 2, -0.05, j * 2);
 				D3DEngine::GameObject* Tile = new D3DEngine::GameObject();
-				Tile->AddComponent(new D3DEngine::MeshRenderer(GroundTileMesh, material));
+				Tile->AddComponent(new D3DEngine::MeshRenderer(GroundTileMesh, GroundTexture));
 				Tile->GetTransform()->SetPosition(TileCenter);
 				RootObject->AddChild(Tile);
 
@@ -454,10 +530,7 @@ Level::Level(
 	RootObject->AddChild(Side6);
 	RootObject->AddChild(Side7);
 	RootObject->AddChild(Side8);
-
-
 }
-
 
 Level::~Level()
 {

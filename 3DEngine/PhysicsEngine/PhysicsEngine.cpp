@@ -89,7 +89,7 @@ namespace D3DEngine
 				//Handle Collision response
 				if (intersectData.GetDoesIntersect())
 				{
-					std::cerr << "COLLLLL" << std::endl;
+					//std::cerr << "COLISION" << std::endl;
 					Vector3f V = m_Objects[i].GetVelocity();
 					Vector3f N = intersectData.GetDirection();
 					//Vector3f N(0,0,1);
@@ -101,14 +101,14 @@ namespace D3DEngine
 					float Test = V.Dot(N);
 					if (V.Dot(N) >= 0.0)
 					{
-						std::cerr << "MOVING AWAY" << std::endl;
+						//std::cerr << "MOVING AWAY" << std::endl;
 						return;
 						
 					}
-					std::cerr << "Normal: " << N.ToString() << std::endl;
+					//std::cerr << "Normal: " << N.ToString() << std::endl;
 
 					Vector3f OldVel = m_Objects[i].GetVelocity();
-					std::cerr << "Vel: " << OldVel.ToString() << std::endl;
+					//std::cerr << "Vel: " << OldVel.ToString() << std::endl;
 					Vector3f InvVel = OldVel *-1;
 
 					m_Objects[i].SetVelocity(ReflectedVel);

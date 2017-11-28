@@ -8,7 +8,10 @@
 #include "FreeLook.h"
 #include "MeshRenderer.h"
 #include "GolfClub.h"
+//Lights
 #include "DirectionalLight.h"
+#include "PointLight.h"
+//End Lights
 #include <vector>
 #include <map>
 #include <string> 
@@ -35,14 +38,12 @@ struct LevelID {
 	LevelID(int i, int j, int pos, D3DEngine::Vector3f tileCenter, TYPE type) {
 		I = i; J = j; Pos = pos; TileCenter = tileCenter; m_Type = type;
 	}
-	
 	int I;
 	int J;
 	int Pos;
 	D3DEngine::Vector3f TileCenter;
 
 	TYPE m_Type;
-
 };
 
 
