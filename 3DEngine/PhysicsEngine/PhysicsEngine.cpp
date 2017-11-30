@@ -100,16 +100,7 @@ namespace D3DEngine
 					//if moving away from plane, cannot hit
 					float Test = V.Dot(N);
 					if (V.Dot(N) >= 0.0)
-					{
-						//std::cerr << "MOVING AWAY" << std::endl;
 						return;
-						
-					}
-					//std::cerr << "Normal: " << N.ToString() << std::endl;
-
-					Vector3f OldVel = m_Objects[i].GetVelocity();
-					//std::cerr << "Vel: " << OldVel.ToString() << std::endl;
-					Vector3f InvVel = OldVel *-1;
 
 					m_Objects[i].SetVelocity(ReflectedVel);
 					break;

@@ -59,7 +59,7 @@ namespace D3DEngine
 		return Vector3f();
 	}
 
-	Vector3f AxisAlignedBoundingBox::ClosestPoint(Vector3f point) const
+	Vector3f& AxisAlignedBoundingBox::ClosestPoint(const Vector3f& point) const
 	{
 		Vector3f ClosestP = point;
 		//X

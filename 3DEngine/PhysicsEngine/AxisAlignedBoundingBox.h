@@ -30,7 +30,7 @@ namespace D3DEngine
 		inline const Vector3f& GetMaxExtents() const { return m_MaxExtents; }
 		virtual Vector3f GetCenter() const { return m_Center; }
 		Vector3f CalcCenter() const;
-		Vector3f ClosestPoint(Vector3f point) const;
+		Vector3f& AxisAlignedBoundingBox::ClosestPoint(const Vector3f& point) const;
 	private:
 		//Two Extreme Corners
 		Vector3f m_MinExtents;	//Bottom left corner
