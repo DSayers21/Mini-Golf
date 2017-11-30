@@ -13,7 +13,7 @@ MiniGolf::~MiniGolf()
 
 void MiniGolf::Init(D3DEngine::RenderEngine* renderEngine, D3DEngine::PhysicsEngine* physicsEngine)
 {
-	int LevelNum = 2;
+	int LevelNum = 0;
 
 	//ZeroPadded
 	int BlankData[7][7] = {
@@ -73,6 +73,21 @@ void MiniGolf::Init(D3DEngine::RenderEngine* renderEngine, D3DEngine::PhysicsEng
 				{ 0, 1, 0, 2, 0, 1, 0 } ,  //Row 2
 				{ 0, 1, 0, 0, 0, 1, 0 } ,  //Row 3
 				{ 0, 1, 1, 1, 1, 1, 0 } ,   //Row 4
+				{ 0, 0, 0, 0, 0, 0, 0 } ,
+			};
+			Level Test(LevelData, m_Window, renderEngine, physicsEngine, GetRootObject());
+			break;
+		}
+		case 3:
+		{
+			//ZeroPadded
+			int LevelData[7][7] = {
+				{ 0, 0, 0, 0, 0, 0, 0 } ,
+				{ 0, 0, 0, 0, 0, 0, 0 } ,  //Row 0
+				{ 0, 0, 0, 0, 0, 0, 0 } ,  //Row 1
+				{ 0, 0, 0, 2, 0, 0, 0 } ,  //Row 2
+				{ 0, 0, 0, 0, 0, 0, 0 } ,  //Row 3
+				{ 0, 0, 0, 0, 0, 0, 0 } ,   //Row 4
 				{ 0, 0, 0, 0, 0, 0, 0 } ,
 			};
 			Level Test(LevelData, m_Window, renderEngine, physicsEngine, GetRootObject());

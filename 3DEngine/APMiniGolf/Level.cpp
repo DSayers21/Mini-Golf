@@ -114,7 +114,7 @@ Level::Level(int LevelData[7][7],
 				TileStrt->GetTransform()->SetScaling(D3DEngine::Vector3f(0.5,1,0.5));
 				RootObject->AddChild(TileStrt);
 
-				m_PhysicsEngineComponent->GetPhysicsEngine()->AddObject(D3DEngine::PhysicsObject(new D3DEngine::BoundingSphere(D3DEngine::Vector3f(i * 2, -0.5f, j * 2), .2f), D3DEngine::Vector3f(0.0f, 0.0f, 0.0f)));
+				m_PhysicsEngineComponent->GetPhysicsEngine()->AddObject(D3DEngine::PhysicsObject(new D3DEngine::BoundingSphere(D3DEngine::Vector3f(i * 2, -0.5f, j * 2), .1f), D3DEngine::Vector3f(0.0f, 0.0f, 0.0f)));
 				m_ObjectsMap.push_back(LevelID(i, j, ObjectCount, TileCenter, TYPE::BALL));
 				ObjectCount++;
 			}

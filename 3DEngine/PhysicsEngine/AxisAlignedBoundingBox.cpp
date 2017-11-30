@@ -86,4 +86,35 @@ namespace D3DEngine
 
 		return ClosestP;
 	}
+
+	Vector3f& AxisAlignedBoundingBox::ClosestPtPointAABB(const Vector3f& point) const    // P131
+	{
+		// For each coordinate axis, if the point coordinate value is outside box,
+		// clamp it to the box, else keep it as is
+		Vector3f min = m_MinExtents;
+		Vector3f max = m_MaxExtents;
+		/*float X = min.GetX();
+		min.SetX(max.GetX());
+		max.SetX(X);*/
+
+		Vector3f q = Vector3f(0,0,0);
+		float v = 0;
+
+		v = point.GetX();
+		v = fmax(v, min.GetX());
+		v = fmin(v, max.GetX());
+		q.SetX(v);
+
+		v = point.GetY();
+		v = fmax(v, min.GetY());
+		v = fmin(v, max.GetY());
+		q.SetY(v);
+
+		v = point.GetZ();
+		v = fmax(v, min.GetZ());
+		v = fmin(v, max.GetZ());
+		q.SetZ(v);
+
+		return q;
+	}
 }

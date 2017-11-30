@@ -64,6 +64,14 @@ namespace D3DEngine
 		Vector2f Normal(Temp.GetY(), -Temp.GetX());
 		Normal = Normal.Normalise();
 
+		if (PointMin.GetX() > PointMax.GetX())
+		{
+			float X = PointMin.GetX();
+			PointMin.SetX(PointMax.GetX());
+			PointMax.SetX(X);
+		}
+
+
 		PhysicsObject New = PhysicsObject(new AxisAlignedBoundingBox(PointMin, PointMax, CenterPos, Dims, Normal), Vector3f(0.0f, 0.0f, 0.0f));
 		New.SetPosition(CenterPos);
 		//PhysicsObject* New = new PhysicsObject(new AxisAlignedBoundingBox(PointMax, PointMin), Vector3f(0.0f, 0.0f, 0.0f));

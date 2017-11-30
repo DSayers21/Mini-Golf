@@ -45,63 +45,39 @@ namespace D3DEngine
 	{
 		return std::max(lower, std::min(n, upper));
 	}
-
+	//https://www.gamedev.net/forums/topic/550776-solved-c-spherebox-collision---correct-normal-but-resolution-is-not-correct/
 	IntersectData BoundingSphere::IntersectAABB(const AxisAlignedBoundingBox & other)
 	{
-		float HalfX = other.GetDims().GetX() / 2;
-		float HalfY = other.GetDims().GetY() / 2;
-		float HalfZ = other.GetDims().GetZ() / 2;
+		// Find point (p) on AABB closest to Sphere center
+		Vector3f p = other.ClosestPtPointAABB(m_Center);
 
-		Vector3f OtherCenter = other.GetCenter();
-
-		Vector3f SpherePos = m_Center;
-
-		Vector3f CollisionThingA(OtherCenter.GetX() + HalfX, OtherCenter.GetY() + HalfY, OtherCenter.GetZ() + HalfZ);
-		Vector3f CollisionThingB(OtherCenter.GetX() - HalfX, OtherCenter.GetY() - HalfY, OtherCenter.GetZ() - HalfZ);
-		Vector3f CollisionThingC(OtherCenter.GetX() - HalfX, OtherCenter.GetY(), OtherCenter.GetZ() - HalfZ);
-
-		//std::cerr << SpherePos.ToString() << std::endl;
-
-		if (((OtherCenter.GetZ() + HalfZ > SpherePos.GetZ()) && (SpherePos.GetZ() > OtherCenter.GetZ() - HalfZ))
-			&& ((OtherCenter.GetX() + HalfX > SpherePos.GetX()) && (SpherePos.GetX() > OtherCenter.GetX() - HalfX))) 
+		// Sphere and AABB intersect if the (squared) distance from sphere center to point (p)
+		// is less than the (squared) sphere radius
+		Vector3f v = p.Sub(m_Center);
+		
+		if (v.Dot(v) <= powf(m_Radius, 2))
 		{
-			//std::cerr << other.ClosestPoint(m_Center).ToString() << std::endl;
-			Vector3f Closest = other.ClosestPoint(m_Center);
-			Vector3f N = (m_Center - other.GetCenter());
-			Vector3f Normal = (N - Closest);
+			float Distance = other.GetCenter().Distance(m_Center);
 
-			Normal.SetX(N.GetX());
-			Normal.SetZ(N.GetZ());
+			// Calculate normal using sphere center a closest point on AABB
+			Vector3f contact_Normal = m_Center - p;
 
-			Normal = Normal.Normalise();
-
-			Vector3f ColNormal = other.GetCenter() - m_Center;
-			float uX = sqrtf(pow(ColNormal.GetX(), 2));
-			float uZ = sqrtf(pow(ColNormal.GetZ(), 2));
-
-			if (uX == 0)
-				uX = 100;
-			if (uZ == 0)
-				uZ = 100;
-
-			if (other.GetCenter().GetX() == m_Center.GetX())
+			if (contact_Normal != Vector3f(0,0,0))
 			{
-				std::cerr << "X SAME" << std::endl;
-			}
-
-			if (uX > uZ)
-			{
-				Normal.SetX(0);
-				(Normal.GetZ() < 0) ? Normal.SetZ(-1) : Normal.SetZ(1);
+				std::cerr << "Collision" << std::endl;
+				contact_Normal = contact_Normal.Normalise();
 			}
 			else
 			{
-				Normal.SetZ(0);
-				(Normal.GetX() < 0) ? Normal.SetX(-1) : Normal.SetX(1);
+				std::cerr << "Inside Collision" << std::endl;
+				// Sphere is inside AABB
+				contact_Normal = Vector3f(1,0,0);
 			}
-			Normal.SetY(0);
-			return IntersectData(true, Normal);
+
+			return IntersectData(true, contact_Normal);
 		}
+
+		// No intersection
 		return IntersectData(false, m_Center);
 	}
 
