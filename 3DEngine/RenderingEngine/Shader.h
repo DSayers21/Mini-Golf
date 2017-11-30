@@ -51,9 +51,9 @@ namespace D3DEngine
 
 		void AddUniform(std::string Uniform);
 
-		void SetUniformI(const std::string& UniformName, int& Value) const;
+		void SetUniformI(const std::string& UniformName, const int& Value) const;
 		void SetUniformF(const std::string& UniformName, float Value) const;
-		void SetUniformV(const std::string& UniformName, Vector3f& Value) const;
+		void SetUniformV(const std::string& UniformName, Vector3f Value) const;
 		void SetUniformM4(const std::string& UniformName, const Matrix4f& Value) const;
 
 		void SetUniformDL(const std::string& UniformName, BaseLight* DirLight) const;

@@ -229,7 +229,7 @@ namespace D3DEngine
 		std::cerr << "Uniform: " << Uniform << " added." << std::endl;
 	}
 
-	void Shader::SetUniformI(const std::string& UniformName, int& Value) const
+	void Shader::SetUniformI(const std::string& UniformName, const int& Value) const
 	{
 		glUniform1i(m_ShaderResource->GetUniforms()->find(UniformName)->second, Value);
 	}
@@ -239,7 +239,7 @@ namespace D3DEngine
 		glUniform1f(m_ShaderResource->GetUniforms()->find(UniformName)->second, Value);
 	}
 
-	void Shader::SetUniformV(const std::string& UniformName, Vector3f& Value) const
+	void Shader::SetUniformV(const std::string& UniformName, Vector3f Value) const
 	{
 		glUniform3f(m_ShaderResource->GetUniforms()->find(UniformName)->second, Value.GetX(), Value.GetY(), Value.GetZ());
 	}

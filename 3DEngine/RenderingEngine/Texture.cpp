@@ -45,7 +45,7 @@ namespace D3DEngine
 	}
 
 
-	void Texture::Bind(int TextureUnit)
+	void Texture::Bind(const int& TextureUnit)
 	{
 		glActiveTexture(GL_TEXTURE0 + TextureUnit);
 		glBindTexture(m_TextureTarget, m_TextureID);

@@ -78,6 +78,6 @@ namespace D3DEngine
 
 	void RenderEngine::UpdateUniformStruct(Transform * transform, Material * material, Shader* shader, std::string& UniformName, std::string& UniformType)
 	{
-		std::cerr << UniformName << ": Illegal Argument" << std::endl;
+		//std::cerr << UniformName << ": Illegal Argument" << std::endl;
 	}
 }

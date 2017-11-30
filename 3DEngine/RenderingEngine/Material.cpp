@@ -13,7 +13,7 @@ namespace D3DEngine
 	{
 	}
 
-	Texture* Material::GetTexture(std::string Name)
+	Texture* Material::GetTexture(const std::string& Name)
 	{
 		Texture* Return = m_TextureHashMap.find(Name)->second;
 

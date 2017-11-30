@@ -20,7 +20,7 @@ namespace D3DEngine
 		float CalcRange();
 
 		//Getters
-		inline Vector3f& GetColour() { return m_Colour; }
+		inline Vector3f GetColour() { return m_Colour; }
 		inline float GetIntensity() { return m_Intensity; }
 		inline Shader* GetShader() { return m_Shader; }
 		inline Attenuation GetAttenuation() { return m_Attenuation; }
@@ -28,7 +28,7 @@ namespace D3DEngine
 		Vector3f* GetDirection() { return &GetTransform()->GetTransformedRot().GetForward(); }
 		inline float& GetCutoff() { return m_Cutoff; }
 		//Setters
-		inline void SetColour(Vector3f colour) { m_Colour = colour; }
+		inline void SetColour(const Vector3f& colour) { m_Colour = colour; }
 		inline void SetIntensity(float intensity) { m_Intensity = intensity; }
 		inline void SetShader(Shader* shader) { m_Shader = shader; }
 		inline void SetAttenuation(Attenuation& attenuation) { m_Attenuation = attenuation; }

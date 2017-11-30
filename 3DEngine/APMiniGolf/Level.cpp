@@ -328,15 +328,15 @@ Level::Level(int LevelData[7][7],
 	DirectionalLightObject->AddComponent(directionalLight);
 	DirectionalLightObject->GetTransform()->SetRotation(&D3DEngine::Quaternion(D3DEngine::Vector3f(1, 1, 1), TO_RADIANS(-45.0f)));
 
-	D3DEngine::GameObject* DirectionalLightObject2 = new D3DEngine::GameObject();
+	/*D3DEngine::GameObject* DirectionalLightObject2 = new D3DEngine::GameObject();
 	D3DEngine::DirectionalLight* directionalLight2 = new D3DEngine::DirectionalLight(renderEngine->GetShaderList(), D3DEngine::Vector3f(0.5, 0.5, 0.5), 0.1f);
 	DirectionalLightObject2->AddComponent(directionalLight2);
-	DirectionalLightObject2->GetTransform()->SetRotation(&D3DEngine::Quaternion(D3DEngine::Vector3f(1, 1, 1), TO_RADIANS(45.0f)));
+	DirectionalLightObject2->GetTransform()->SetRotation(&D3DEngine::Quaternion(D3DEngine::Vector3f(1, 1, 1), TO_RADIANS(45.0f)));*/
 	//Lights End
 
 	RootObject->AddChild(CameraObject);
 	RootObject->AddChild(DirectionalLightObject);
-	RootObject->AddChild(DirectionalLightObject2);
+	//RootObject->AddChild(DirectionalLightObject2);
 
 	for (int i = 0; i < m_GameObjects.size(); i++)
 		RootObject->AddChild(m_GameObjects.at(i));

@@ -13,6 +13,7 @@ namespace D3DEngine
 		Vector3f() {};
 		Vector3f(float X, float Y, float Z);
 		~Vector3f();
+		//Vector3f(const Vector3f& Other) { x = Other.x; y = Other.y; z = Other.z; }
 
 		Vector3f Max(const Vector3f& other) const;
 		Vector3f Min(const Vector3f& other) const;

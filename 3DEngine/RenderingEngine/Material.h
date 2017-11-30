@@ -17,7 +17,7 @@ namespace D3DEngine
 		inline void Material::AddVector3f(std::string Name, Vector3f * vector3f) { m_Vector3fHashMap.insert(std::pair<std::string, Vector3f*>(Name, vector3f)); }
 		inline void Material::AddFloat(std::string Name, float Float) { m_FloatHashMap.insert(std::pair<std::string, float>(Name, Float)); }
 		//Get From HashMaps
-		Texture* Material::GetTexture(std::string Name);
+		Texture* Material::GetTexture(const std::string& Name);
 		Vector3f* Material::GetVector3f(std::string Name);
 		float Material::GetFloat(std::string Name);
 
