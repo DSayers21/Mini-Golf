@@ -1,6 +1,5 @@
 #include "PhysicsEngine.h"
 #include "AxisAlignedBoundingBox.h"
-#include "Plane.h"
 
 namespace D3DEngine
 {
@@ -93,14 +92,13 @@ namespace D3DEngine
 		{
 			for (unsigned int j = i + 1; j < m_Objects.size(); j++)
 			{
-				IntersectData intersectData = m_Objects[i].GetCollider()->Intersect(*m_Objects[j].GetCollider());
+				IntersectData* intersectData = m_Objects[i].GetCollider()->Intersect(*m_Objects[j].GetCollider());
 				//Handle Collision response
-				if (intersectData.GetDoesIntersect())
+				if (intersectData->GetDoesIntersect())
 				{
 					//std::cerr << "COLISION" << std::endl;
 					Vector3f V = m_Objects[i].GetVelocity();
-					Vector3f N = intersectData.GetDirection();
-					//Vector3f N(0,0,1);
+					Vector3f N = intersectData->GetDirection();
 					Vector3f U = N * (V.Dot(N) / N.Dot(N));
 					Vector3f W = V - U;
 					Vector3f ReflectedVel = W - U;
@@ -113,6 +111,7 @@ namespace D3DEngine
 					m_Objects[i].SetVelocity(ReflectedVel);
 					break;
 				}
+				delete intersectData;
 			}
 		}
 	}

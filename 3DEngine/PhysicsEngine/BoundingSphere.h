@@ -7,17 +7,14 @@
 namespace D3DEngine
 {
 	class AxisAlignedBoundingBox;
-	class Plane;
 	class BoundingSphere : public Collider
 	{
 	public:
 		BoundingSphere(Vector3f Center, float Radius);
 		~BoundingSphere();
 
-		IntersectData IntersectSphere(const Plane & other) const;
-
-		IntersectData IntersectBoundingSphere(const BoundingSphere& other);
-		IntersectData IntersectAABB(const AxisAlignedBoundingBox& other);
+		IntersectData* IntersectBoundingSphere(const BoundingSphere& other);
+		IntersectData* IntersectAABB(const AxisAlignedBoundingBox& other);
 
 		virtual void Transform(const Vector3f Translation);
 		

@@ -16,9 +16,6 @@ namespace D3DEngine
 		AxisAlignedBoundingBox(Vector3f MinExtents, Vector3f MaxExtents, Vector3f Center, Vector3f Dims, Vector2f Normal);
 		~AxisAlignedBoundingBox();
 
-		IntersectData IntersectAABB(const AxisAlignedBoundingBox other) const;
-		IntersectData IntersectBoundingSphere(const BoundingSphere other) const;
-
 		virtual void Transform(const Vector3f Translation);
 
 		inline bool operator==(const AxisAlignedBoundingBox& Other) { return ((m_Center == Other.m_Center) && (m_Dims == Other.m_Dims)); }
@@ -29,9 +26,8 @@ namespace D3DEngine
 		inline const Vector3f& GetMinExtents() const { return m_MinExtents; }
 		inline const Vector3f& GetMaxExtents() const { return m_MaxExtents; }
 		virtual Vector3f GetCenter() const { return m_Center; }
-		Vector3f CalcCenter() const;
 		Vector3f& ClosestPoint(const Vector3f& point) const;
-		Vector3f& ClosestPtPointAABB(const Vector3f& point) const;
+		Vector3f* ClosestPtPointAABB(const Vector3f& point) const;
 	private:
 		//Two Extreme Corners
 		Vector3f m_MinExtents;	//Bottom left corner

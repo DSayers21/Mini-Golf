@@ -120,7 +120,6 @@
     <ClInclude Include="IntersectData.h" />
     <ClInclude Include="PhysicsEngine.h" />
     <ClInclude Include="PhysicsObject.h" />
-    <ClInclude Include="Plane.h" />
     <ClInclude Include="Test.h" />
   </ItemGroup>
   <ItemGroup>
@@ -130,7 +129,6 @@
     <ClCompile Include="IntersectData.cpp" />
     <ClCompile Include="PhysicsEngine.cpp" />
     <ClCompile Include="PhysicsObject.cpp" />
-    <ClCompile Include="Plane.cpp" />
     <ClCompile Include="Test.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

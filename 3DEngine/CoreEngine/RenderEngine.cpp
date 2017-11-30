@@ -9,12 +9,10 @@ namespace D3DEngine
 		InitGraphics();
 
 		m_ShaderList = new ShaderList();
+
 		//Ambient Light
 		m_ShaderForwardAmbient = new Shader("Forward-Ambient", m_ShaderList);
-		//Setup Lighting
-		m_AmbientLight = new Vector3f(1.0f, 1.0f, 1.0f);
-
-		AddVector3f("ambient", *m_AmbientLight);
+		AddVector3f("AmbientIntensity", Vector3f(0.6f, 0.6f, 0.6f));
 
 		SamplerMap = std::map<std::string, int>();
 		SamplerMap.insert(std::pair<std::string, int>("Diffuse", 0));
@@ -73,7 +71,7 @@ namespace D3DEngine
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
-	int RenderEngine::GetSamplerSlot(std::string SamplerName)
+	int RenderEngine::GetSamplerSlot(const std::string& SamplerName)
 	{
 		return SamplerMap.find(SamplerName)->second;
 	}

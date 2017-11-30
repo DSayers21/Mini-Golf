@@ -28,18 +28,18 @@ namespace D3DEngine
 
 		//Getters
 		inline int GetProgram() { return m_Program; }
-		inline const std::map<std::string, int>& GetUniforms() { return m_Uniforms; }
-		inline const std::vector<StructComponent*>& GetUniformsStruct() const { return m_UniformsStuct; }
+		inline std::map<std::string, int>* GetUniforms() { return m_Uniforms; }
+		inline std::vector<StructComponent*>* GetUniformsStruct() { return m_UniformsStuct; }
 		//Setters
 		inline void SetProgram(int Program) { m_Program = Program; }
-		inline void AddUniform(std::string UniformName, int UniformLoc) { m_Uniforms.insert(std::pair<std::string, int>(UniformName, UniformLoc)); }
-		inline void AddUniformsStruct(StructComponent* uniformsstruct) { m_UniformsStuct.push_back(uniformsstruct); }
+		inline void AddUniform(std::string UniformName, int UniformLoc) { m_Uniforms->insert(std::pair<std::string, int>(UniformName, UniformLoc)); }
+		inline void AddUniformsStruct(StructComponent* uniformsstruct) { m_UniformsStuct->push_back(uniformsstruct); }
 
 	private:
 		int m_Program;
 		int m_RefCount = 0;
 
-		std::map<std::string, int> m_Uniforms;
-		std::vector<StructComponent*> m_UniformsStuct;
+		std::map<std::string, int>* m_Uniforms;
+		std::vector<StructComponent*>* m_UniformsStuct;
 	};
 }

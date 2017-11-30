@@ -13,14 +13,13 @@ namespace D3DEngine
 		{
 			TYPE_SPHERE,
 			TYPE_AABB,
-			TYPE_PLANE,
 			TYPE_SIZE
 		};
 
 		Collider(int Type);
 		~Collider();
 
-		IntersectData Intersect(const Collider& other) const;
+		IntersectData* Intersect(const Collider& other) const;
 		virtual void Transform(const Vector3f Translation) {};
 		
 		//Getters

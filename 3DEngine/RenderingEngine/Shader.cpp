@@ -73,12 +73,13 @@ namespace D3DEngine
 		Matrix4f* MVPMatrix = &renderEngine->GetCamera()->GetViewProjection().Mult(*WorldMatrix);
 
 		//Loop Over all Uniforms
-		std::vector<StructComponent*> UniStruct = m_ShaderResource->GetUniformsStruct();
-		int Size = UniStruct.size();
+		std::vector<StructComponent*>* UniStruct = m_ShaderResource->GetUniformsStruct();
+		int Size = UniStruct->size();
 		for (int i = 0; i < Size; i++)
 		{
-			std::string& UniformName = UniStruct[i]->m_Name;
-			std::string& UniformType = UniStruct[i]->m_Type;
+			StructComponent* CurrentComp = UniStruct->at(i);
+			std::string& UniformName = CurrentComp->m_Name;
+			std::string& UniformType = CurrentComp->m_Type;
 
 			std::string& UnprefixedUniformName = UniformName.substr(2);
 
@@ -230,28 +231,28 @@ namespace D3DEngine
 
 	void Shader::SetUniformI(const std::string& UniformName, int& Value) const
 	{
-		glUniform1i(m_ShaderResource->GetUniforms().find(UniformName)->second, Value);
+		glUniform1i(m_ShaderResource->GetUniforms()->find(UniformName)->second, Value);
 	}
 
 	void Shader::SetUniformF(const std::string& UniformName, float Value) const
 	{
-		glUniform1f(m_ShaderResource->GetUniforms().find(UniformName)->second, Value);
+		glUniform1f(m_ShaderResource->GetUniforms()->find(UniformName)->second, Value);
 	}
 
 	void Shader::SetUniformV(const std::string& UniformName, Vector3f& Value) const
 	{
-		glUniform3f(m_ShaderResource->GetUniforms().find(UniformName)->second, Value.GetX(), Value.GetY(), Value.GetZ());
+		glUniform3f(m_ShaderResource->GetUniforms()->find(UniformName)->second, Value.GetX(), Value.GetY(), Value.GetZ());
 	}
 
 	void Shader::SetUniformM4(const std::string& UniformName, const Matrix4f& Value) const
 	{
-		glUniformMatrix4fv(m_ShaderResource->GetUniforms().at(UniformName), 1, GL_TRUE, &(Value[0][0]));
+		glUniformMatrix4fv(m_ShaderResource->GetUniforms()->at(UniformName), 1, GL_TRUE, &(Value[0][0]));
 	}
 
 	void Shader::SetUniformDL(const std::string& UniformName, BaseLight* DirLight) const
 	{
 		SetUniformBL(UniformName + ".Light", DirLight);
-		SetUniformV(UniformName + ".Direction", DirLight->GetDirection());
+		SetUniformV(UniformName + ".Direction", *DirLight->GetDirection());
 	}
 
 	void Shader::SetUniformBL(const std::string& UniformName, BaseLight* BaseLight) const
@@ -276,7 +277,7 @@ namespace D3DEngine
 	{
 		SetUniformPL(UniformName + ".PLight", spotLight);
 		//
-		SetUniformV(UniformName + ".Direction", spotLight->GetDirection());
+		SetUniformV(UniformName + ".Direction", *spotLight->GetDirection());
 		SetUniformF(UniformName + ".Cutoff", spotLight->GetCutoff());
 	}
 

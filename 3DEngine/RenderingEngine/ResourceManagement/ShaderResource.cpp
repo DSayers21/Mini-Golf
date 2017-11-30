@@ -6,8 +6,8 @@ namespace D3DEngine
 	{
 		m_Program = glCreateProgram();
 
-		m_Uniforms = std::map<std::string, int>();
-		m_UniformsStuct = std::vector<StructComponent*>();
+		m_Uniforms = new std::map<std::string, int>();
+		m_UniformsStuct = new std::vector<StructComponent*>();
 
 		if (m_Program == 0)
 			std::cerr << "Shader Creation Failed: Could not find valid memory location" << std::endl;
