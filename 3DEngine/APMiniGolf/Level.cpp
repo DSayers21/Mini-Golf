@@ -71,21 +71,23 @@ Level::Level(int LevelData[7][7],
 	//End Materials
 
 	//Load Meshes
-	D3DEngine::Mesh* BallMesh = new D3DEngine::Mesh("./Models/Ball.obj", m_MeshList);
-	D3DEngine::Mesh* BallStrtZoneMesh = new D3DEngine::Mesh("./Models/GolfBallStart.obj", m_MeshList);
+	//D3DEngine::Mesh* BallMesh = new D3DEngine::Mesh("./Models/Ball.obj", m_MeshList);
+	//D3DEngine::Mesh* BallStrtZoneMesh = new D3DEngine::Mesh("./Models/GolfBallStart.obj", m_MeshList);
 
 	D3DEngine::Mesh* BackMesh = new D3DEngine::Mesh("./Models/CourseBack.obj", m_MeshList);
 	D3DEngine::Mesh* SideMesh = new D3DEngine::Mesh("./Models/CourseSide.obj", m_MeshList);
-	D3DEngine::Mesh* GroundTileMesh = new D3DEngine::Mesh("./Models/GroundTile.obj", m_MeshList);
-	D3DEngine::Mesh* GolfClubMesh = new D3DEngine::Mesh("./Models/GolfClub.obj", m_MeshList);
-	D3DEngine::Mesh* FlagShaftMesh = new D3DEngine::Mesh("./Models/FlagShaft.obj", m_MeshList);
-	D3DEngine::Mesh* FlagMesh = new D3DEngine::Mesh("./Models/Flag.obj", m_MeshList);
-	D3DEngine::Mesh* HoleMesh = new D3DEngine::Mesh("./Models/Hole.obj", m_MeshList);
+	//D3DEngine::Mesh* GroundTileMesh = new D3DEngine::Mesh("./Models/GroundTile.obj", m_MeshList);
+	//D3DEngine::Mesh* GolfClubMesh = new D3DEngine::Mesh("./Models/GolfClub.obj", m_MeshList);
+	//D3DEngine::Mesh* FlagShaftMesh = new D3DEngine::Mesh("./Models/FlagShaft.obj", m_MeshList);
+	//D3DEngine::Mesh* FlagMesh = new D3DEngine::Mesh("./Models/Flag.obj", m_MeshList);
+	//D3DEngine::Mesh* FlagMesh2 = new D3DEngine::Mesh("./Models/Flag.obj", m_MeshList);
+	//D3DEngine::Mesh* HoleMesh = new D3DEngine::Mesh("./Models/Hole.obj", m_MeshList);
 	//End Load Meshes
 
 	//Get Mesh Resources for Physics Objects
 	D3DEngine::MeshResource* BackRes = m_MeshList->GetModel("./Models/CourseBack.obj");
 	D3DEngine::MeshResource* SideRes = m_MeshList->GetModel("./Models/CourseSide.obj");
+	D3DEngine::MeshResource* Tes = m_MeshList->GetModel("./Models/Flag.obj");
 	//End Get Mesh Resources for Physics Objects
 
 	int PaddOffset = 1;
@@ -105,7 +107,7 @@ Level::Level(int LevelData[7][7],
 				D3DEngine::Vector3f TileCenter = D3DEngine::Vector3f(i * 2, -0.05, j * 2);
 
 				D3DEngine::GameObject* TileStrt = new D3DEngine::GameObject();
-				TileStrt->AddComponent(new D3DEngine::MeshRenderer(BallStrtZoneMesh, StartZoneMat));
+				TileStrt->AddComponent(new D3DEngine::MeshRenderer(new D3DEngine::Mesh("./Models/GolfBallStart.obj", m_MeshList), StartZoneMat));
 				TileStrt->GetTransform()->Rotate(D3DEngine::Vector3f(0, 1, 0), TO_RADIANS(90));
 				D3DEngine::Vector3f MyPos = TileCenter;
 
@@ -124,7 +126,7 @@ Level::Level(int LevelData[7][7],
 
 				//Add Hole
 				D3DEngine::GameObject* Hole = new D3DEngine::GameObject();
-				Hole->AddComponent(new D3DEngine::MeshRenderer(HoleMesh, StartZoneMat));
+				Hole->AddComponent(new D3DEngine::MeshRenderer(new D3DEngine::Mesh("./Models/Hole.obj", m_MeshList), StartZoneMat));
 				D3DEngine::Vector3f MyPos = TileCenter;
 				MyPos.SetY(-0.02f);
 				Hole->GetTransform()->SetPosition(MyPos);
@@ -139,12 +141,12 @@ Level::Level(int LevelData[7][7],
 
 				//Add Flag
 				D3DEngine::GameObject* FlagBack = new D3DEngine::GameObject();
-				FlagBack->AddComponent(new D3DEngine::MeshRenderer(FlagMesh, FlagMat));
+				FlagBack->AddComponent(new D3DEngine::MeshRenderer(new D3DEngine::Mesh("./Models/Flag.obj", m_MeshList), FlagMat));
 				FlagBack->GetTransform()->SetPosition(D3DEngine::Vector3f(0.8f, 2.35f, 0.0f));
 				FlagBack->GetTransform()->SetScaling(D3DEngine::Vector3f(1.0f, 0.3f, 1.0f));
 				FlagBack->GetTransform()->Rotate(D3DEngine::Vector3f(0, 1, 0), TO_RADIANS(270));
 				D3DEngine::GameObject* FlagFront = new D3DEngine::GameObject();
-				FlagFront->AddComponent(new D3DEngine::MeshRenderer(FlagMesh, FlagMat));
+				FlagFront->AddComponent(new D3DEngine::MeshRenderer(new D3DEngine::Mesh("./Models/Flag.obj", m_MeshList), FlagMat));
 				FlagFront->GetTransform()->SetPosition(D3DEngine::Vector3f(0.8f, 2.5f, 0.0f));
 				FlagFront->GetTransform()->SetScaling(D3DEngine::Vector3f(1.0f, 0.3f, 1.0f));
 				FlagFront->GetTransform()->SetRotation(0, 1, 0, 0);
@@ -154,7 +156,7 @@ Level::Level(int LevelData[7][7],
 
 				//Add Flag Shaft
 				D3DEngine::GameObject* FlagShaft = new D3DEngine::GameObject();
-				FlagShaft->AddComponent(new D3DEngine::MeshRenderer(FlagShaftMesh, MetalMat));
+				FlagShaft->AddComponent(new D3DEngine::MeshRenderer(new D3DEngine::Mesh("./Models/FlagShaft.obj", m_MeshList), MetalMat));
 				FlagShaft->GetTransform()->SetPosition(TileCenter);
 				FlagShaft->GetTransform()->SetScaling(D3DEngine::Vector3f(0.2f, 1.0f, 0.2f));
 				RootObject->AddChild(FlagShaft);
@@ -176,7 +178,7 @@ Level::Level(int LevelData[7][7],
 			{
 				D3DEngine::Vector3f TileCenter = D3DEngine::Vector3f(i * 2, -0.05, j * 2);
 				D3DEngine::GameObject* Tile = new D3DEngine::GameObject();
-				Tile->AddComponent(new D3DEngine::MeshRenderer(GroundTileMesh, GroundTexture));
+				Tile->AddComponent(new D3DEngine::MeshRenderer(new D3DEngine::Mesh("./Models/GroundTile.obj", m_MeshList), GroundTexture));
 				Tile->GetTransform()->SetPosition(TileCenter);
 				RootObject->AddChild(Tile);
 
@@ -245,7 +247,7 @@ Level::Level(int LevelData[7][7],
 			std::cerr << "Ball Proc" << std::endl;
 			//GolfClub
 			D3DEngine::GameObject* GolfClubObject = new D3DEngine::GameObject();
-			GolfClubObject->AddComponent(new D3DEngine::MeshRenderer(GolfClubMesh, MetalMat));
+			GolfClubObject->AddComponent(new D3DEngine::MeshRenderer(new D3DEngine::Mesh("./Models/GolfClub.obj", m_MeshList), MetalMat));
 			GolfClubObject->GetTransform()->SetPosition(D3DEngine::Vector3f(-1.4, 0, 0));
 			GolfClubObject->GetTransform()->SetScaling(D3DEngine::Vector3f(8, 8, 6));
 			//End GolfClub
@@ -264,7 +266,7 @@ Level::Level(int LevelData[7][7],
 
 			m_PhysicsEngineComponent->GetPhysicsEngine()->GetObject(ObjectPos).SetPosition(MyCenter);
 
-			m_GameObjects.back()->AddComponent(new D3DEngine::MeshRenderer(BallMesh, GolfBallMat));
+			m_GameObjects.back()->AddComponent(new D3DEngine::MeshRenderer(new D3DEngine::Mesh("./Models/Ball.obj", m_MeshList), GolfBallMat));
 			m_GameObjects.back()->AddComponent(new D3DEngine::PhysicsObjectComponent(&m_PhysicsEngineComponent->GetPhysicsEngine()->GetObject(ObjectPos), true));
 			GolfClubObject->AddComponent(new GolfClub(m_GameObjects.back(), &m_PhysicsEngineComponent->GetPhysicsEngine()->GetObject(ObjectPos), 8, 0.5, 10));
 			m_GameObjects.back()->AddChild(GolfClubObject);
@@ -293,7 +295,7 @@ Level::Level(int LevelData[7][7],
 			std::cerr << "Wall Back Proc" << std::endl;
 			std::cerr << "Wall Back: Moved Up" << std::endl;
 			TranslateHelper(1.08f, 0.0f, ObjectPos, TileCenter, m_PhysicsEngineComponent);
-			CreateHelper(ObjectPos, BackMesh, SideMat, m_PhysicsEngineComponent, RootObject);
+			CreateHelper(ObjectPos, new D3DEngine::Mesh("./Models/CourseBack.obj", m_MeshList), SideMat, m_PhysicsEngineComponent, RootObject);
 			continue;
 		}
 		if (ObjectType == TYPE::WALLBACKB)
@@ -301,7 +303,7 @@ Level::Level(int LevelData[7][7],
 			std::cerr << "Wall Back Proc" << std::endl;
 			std::cerr << "Wall Back: Moved Up" << std::endl;
 			TranslateHelper(-1.08f, 0.0f, ObjectPos, TileCenter, m_PhysicsEngineComponent);
-			CreateHelper(ObjectPos, BackMesh, SideMat, m_PhysicsEngineComponent, RootObject);
+			CreateHelper(ObjectPos, new D3DEngine::Mesh("./Models/CourseBack.obj", m_MeshList), SideMat, m_PhysicsEngineComponent, RootObject);
 			continue;
 		}
 		if (ObjectType == TYPE::WALLSIDER)
@@ -309,7 +311,7 @@ Level::Level(int LevelData[7][7],
 			std::cerr << "Wall Side Proc" << std::endl;
 			std::cerr << "Wall Back: Moved Right" << std::endl;
 			TranslateHelper(0.0f, -1.08f, ObjectPos, TileCenter, m_PhysicsEngineComponent);
-			CreateHelper(ObjectPos, SideMesh, SideMat, m_PhysicsEngineComponent, RootObject);
+			CreateHelper(ObjectPos, new D3DEngine::Mesh("./Models/CourseSide.obj", m_MeshList), SideMat, m_PhysicsEngineComponent, RootObject);
 			continue;
 		}
 		if (ObjectType == TYPE::WALLSIDEL)
@@ -317,7 +319,7 @@ Level::Level(int LevelData[7][7],
 			std::cerr << "Wall Side Proc" << std::endl;
 			std::cerr << "Wall Back: Moved Left" << std::endl;
 			TranslateHelper(0.0f, 1.08f, ObjectPos, TileCenter, m_PhysicsEngineComponent);
-			CreateHelper(ObjectPos, SideMesh, SideMat, m_PhysicsEngineComponent, RootObject);
+			CreateHelper(ObjectPos, new D3DEngine::Mesh("./Models/CourseSide.obj", m_MeshList), SideMat, m_PhysicsEngineComponent, RootObject);
 			continue;
 		}
 	}
@@ -534,4 +536,9 @@ Level::Level(
 
 Level::~Level()
 {
+}
+
+void Level::Destroy()
+{
+	delete m_MeshList;
 }

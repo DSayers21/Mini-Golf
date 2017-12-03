@@ -10,6 +10,8 @@ namespace D3DEngine
 
 	PhysicsObjectComponent::~PhysicsObjectComponent()
 	{
+		std::cerr << "Destructor: Physics Object Component" << std::endl;
+		//delete &m_PhysicsObject;
 	}
 
 	void PhysicsObjectComponent::Input(GetInput * input, float Delta)

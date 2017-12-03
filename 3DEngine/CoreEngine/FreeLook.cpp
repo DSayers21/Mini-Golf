@@ -10,6 +10,7 @@ namespace D3DEngine
 
 	FreeLook::~FreeLook()
 	{
+		std::cerr << "Destructor: Free Look Component" << std::endl;
 	}
 
 	void FreeLook::Input(GetInput* input, float Delta)

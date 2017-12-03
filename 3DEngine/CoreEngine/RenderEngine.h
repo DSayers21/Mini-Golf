@@ -20,7 +20,7 @@
 
 #include <vector>
 #include <map>
-
+#include <thread>
 
 namespace D3DEngine
 {
@@ -54,7 +54,9 @@ namespace D3DEngine
 		inline void AddLight(BaseLight* Light) { m_Lights.push_back(Light); }
 		inline void AddCamera(Camera* camera) { m_Camera = camera; }
 
-	private:
+		inline void SetActiveLight(BaseLight* Light) { ActiveLight = Light; }
+
+	private: 
 		//SDL_Renderer* m_Renderer = NULL;
 		Shader* m_ShaderForwardAmbient;
 

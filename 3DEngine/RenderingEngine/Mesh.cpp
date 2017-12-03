@@ -36,9 +36,12 @@ namespace D3DEngine
 
 	Mesh::~Mesh()
 	{
-		if (m_Buffers->RemoveReference())
+		if (m_Buffers != nullptr)
 		{
-			m_MeshList->RemoveModel(m_Name);
+			if (m_Buffers->RemoveReference())
+			{
+				m_MeshList->RemoveModel(m_Name);
+			}
 		}
 	}
 

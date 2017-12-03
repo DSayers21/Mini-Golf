@@ -46,6 +46,8 @@ void MiniGolf::Init(D3DEngine::RenderEngine* renderEngine, D3DEngine::PhysicsEng
 				{ 0, 0, 0, 0, 0, 0, 0 } ,
 			};
 			Level Test(LevelData, m_Window, renderEngine, physicsEngine, GetRootObject());
+			GetRootObject()->ClearGameObject();
+			Test.Destroy();
 			break;
 		}
 		case 1:
@@ -94,7 +96,8 @@ void MiniGolf::Init(D3DEngine::RenderEngine* renderEngine, D3DEngine::PhysicsEng
 			break;
 		}
 	}
-	
+
+
 	//Level Test(m_Window, renderEngine, physicsEngine, GetRootObject());
 }
 

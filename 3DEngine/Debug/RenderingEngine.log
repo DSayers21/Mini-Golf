@@ -1,8 +1,17 @@
-﻿  Shader.cpp
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(84): warning C4522: 'D3DEngine::Vector3f': multiple assignment operators specified
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\window.h(31): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\input.h(398): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\shader.cpp(201): warning C4018: '<': signed/unsigned mismatch
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\shader.cpp(383): warning C4018: '<': signed/unsigned mismatch
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\baselight.h(28): warning C4172: returning address of local variable or temporary
+﻿  TextureResource.cpp
+  Generating Code...
+  Skipping... (no relevant changes detected)
+  Window.cpp
+  Texture.cpp
+  Shader.cpp
+  ShaderResource.cpp
+  ShaderList.cpp
+  MeshResource.cpp
+  MeshList.cpp
+  MappedValues.cpp
+  OBJModel.cpp
+  IndexedModel.cpp
+  Mesh.cpp
+  Material.cpp
+  stb_image.c
   RenderingEngine.vcxproj -> C:\Users\Satan\Documents\GitHub\Pool Game\Mini-Golf\3DEngine\Debug\RenderingEngine.lib

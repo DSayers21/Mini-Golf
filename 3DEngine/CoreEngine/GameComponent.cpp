@@ -12,6 +12,7 @@ namespace D3DEngine
 
 	GameComponent::~GameComponent()
 	{
+		std::cerr << "Destructor: Game Component" << std::endl;
 	}
 
 	void GameComponent::Input(GetInput* input, float Delta)

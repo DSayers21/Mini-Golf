@@ -12,7 +12,7 @@ namespace D3DEngine
 	{
 	public:
 		GameComponent();
-		~GameComponent();
+		virtual ~GameComponent();
 
 		virtual void Input(GetInput* input, float Delta);
 		virtual void Update(float Delta);

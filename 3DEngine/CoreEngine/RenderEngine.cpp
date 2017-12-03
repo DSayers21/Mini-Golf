@@ -22,6 +22,15 @@ namespace D3DEngine
 	{
 	}
 
+	void RenderOne(RenderEngine* self, std::vector<BaseLight*>& Lights, BaseLight* ActiveLight, GameObject * Object, int i)
+	{
+		//Draw All Lights
+
+		self->SetActiveLight(Lights[i]);
+		Object->Draw(self->GetActiveLight()->GetShader(), self);
+		
+	}
+
 	void RenderEngine::Render(GameObject * Object)
 	{
 		ClearScreen();
@@ -34,11 +43,14 @@ namespace D3DEngine
 		glDepthFunc(GL_EQUAL);		 //Only change the pixel, if it has the exact same depth value
 		//Any Code here will be blended into the image
 
+
+		std::vector<std::thread> Threads = std::vector<std::thread>();
+
+
 		//Draw All Lights
 		for (int i = 0; i < m_Lights.size(); i++)
 		{
-			ActiveLight = m_Lights[i];
-			Object->Draw(ActiveLight->GetShader(), this);
+			RenderOne( this, m_Lights, ActiveLight, Object, i);
 		}
 
 		//end of blending

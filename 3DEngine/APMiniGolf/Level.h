@@ -60,6 +60,7 @@ public:
 		D3DEngine::GameObject* RootObject);
 	Level(D3DEngine::Window * Window, D3DEngine::RenderEngine * renderEngine, D3DEngine::PhysicsEngine * physicsEngine, D3DEngine::GameObject * RootObject);
 	~Level();
+	void Destroy();
 
 private:
 	D3DEngine::MeshList* m_MeshList = new D3DEngine::MeshList();

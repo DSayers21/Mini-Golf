@@ -14,19 +14,26 @@ namespace D3DEngine
 
 	GameObject::~GameObject()
 	{
-		//ClearGameObject();
-
-		//delete[] m_Transform;
-		//delete[] m_MainComp;
+		std::cerr << "Destructor: Game Object" << std::endl;
+		delete[] m_Transform;
 	}
 
 	void GameObject::ClearGameObject()
 	{
 		for (int i = 0; i < m_Components.size(); i++)
-			delete m_Components[i];
+			m_Components.pop_back();
 
 		for (int i = 0; i < m_Children.size(); i++)
-			delete m_Children[i];
+		{
+			m_Children[i]->ClearGameObject();
+			m_Children.pop_back();
+		}
+	}
+
+	void GameObject::Destroy()
+	{
+		//for (int i = 0; i < m_Components.size(); i++)
+			//delete m_Components[i];
 	}
 
 	GameObject* GameObject::AddChild(GameObject* Child)
