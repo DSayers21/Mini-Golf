@@ -64,8 +64,10 @@ public:
 
 private:
 	D3DEngine::MeshList* m_MeshList = new D3DEngine::MeshList();
-	std::vector<D3DEngine::GameObject*> m_GameObjects = std::vector<D3DEngine::GameObject*>();
+	std::vector<D3DEngine::Material*> m_MaterialList = std::vector<D3DEngine::Material*>();
 
+	std::vector<D3DEngine::GameObject*> m_GameObjects = std::vector<D3DEngine::GameObject*>();
+	D3DEngine::PhysicsEngineComponent* m_PhysicsEngineComponent;
 	std::vector<LevelID> m_ObjectsMap = std::vector<LevelID>();
 	std::map<std::string, Tile> m_TileMap = std::map<std::string, Tile>();
 };

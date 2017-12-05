@@ -12,7 +12,7 @@ namespace D3DEngine
 	{
 		std::cerr << "Destructor: Mesh Renderer Component" << std::endl;
 		delete m_Mesh;
-		//delete m_Material;
+		m_Material = nullptr;
 	}
 
 	void MeshRenderer::Input(float Delta)

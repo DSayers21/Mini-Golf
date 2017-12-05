@@ -17,8 +17,8 @@
 
 namespace D3DEngine
 {
-	typedef std::map<std::string, std::vector<StructComponent*>> STRUCTMAP;
-	typedef std::pair<std::string, std::vector<StructComponent*>> STRUCTPAIR;
+	typedef std::map<std::string, std::vector<StructComponent>> STRUCTMAP;
+	typedef std::pair<std::string, std::vector<StructComponent>> STRUCTPAIR;
 
 	class RenderEngine;
 	class BaseLight;
@@ -71,9 +71,10 @@ namespace D3DEngine
 		std::string Shader::LoadShader(const std::string& fileName);
 		STRUCTMAP FindUniformStructs(std::string ShaderText);
 		void AddUniformWithStructCheck(std::string UniformName, std::string UniformType, STRUCTMAP Structs);
-		std::vector<StructComponent*> GetStuctFromMap(STRUCTMAP Structs, std::string Key);
+		std::vector<StructComponent> GetStuctFromMap(STRUCTMAP Structs, std::string Key);
 
 		//
+		std::string m_Name;
 		ShaderResource* m_ShaderResource;
 		ShaderList* m_ShaderList;
 	};

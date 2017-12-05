@@ -13,7 +13,7 @@ MiniGolf::~MiniGolf()
 
 void MiniGolf::Init(D3DEngine::RenderEngine* renderEngine, D3DEngine::PhysicsEngine* physicsEngine)
 {
-	int LevelNum = 0;
+	int LevelNum = -1;
 
 	//ZeroPadded
 	int BlankData[7][7] = {
@@ -31,6 +31,9 @@ void MiniGolf::Init(D3DEngine::RenderEngine* renderEngine, D3DEngine::PhysicsEng
 		case -1:	//Original Test Level World
 		{
 			Level Test(m_Window, renderEngine, physicsEngine, GetRootObject());
+			GetRootObject()->ClearGameObject();
+			renderEngine->ResetEngine();
+			Test.Destroy();
 			break;
 		}
 		case 0:
@@ -47,6 +50,7 @@ void MiniGolf::Init(D3DEngine::RenderEngine* renderEngine, D3DEngine::PhysicsEng
 			};
 			Level Test(LevelData, m_Window, renderEngine, physicsEngine, GetRootObject());
 			GetRootObject()->ClearGameObject();
+			renderEngine->ResetEngine();
 			Test.Destroy();
 			break;
 		}

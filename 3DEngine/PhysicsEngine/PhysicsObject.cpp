@@ -12,7 +12,8 @@ namespace D3DEngine
 
 	PhysicsObject::~PhysicsObject()
 	{
-		//delete m_Collider;
+		std::cerr << "Physics Object Destroyed" << std::endl;
+		delete m_Collider;
 	}
 
 	void PhysicsObject::Integrate(float Delta)

@@ -4,14 +4,14 @@ c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f
 c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\window.h(31): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\input.h(398): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
 c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\gameobject.cpp(23): warning C4018: '<': signed/unsigned mismatch
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\gameobject.cpp(26): warning C4018: '<': signed/unsigned mismatch
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\gameobject.cpp(57): warning C4018: '<': signed/unsigned mismatch
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\gameobject.cpp(61): warning C4018: '<': signed/unsigned mismatch
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\gameobject.cpp(67): warning C4018: '<': signed/unsigned mismatch
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\gameobject.cpp(70): warning C4018: '<': signed/unsigned mismatch
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\gameobject.cpp(76): warning C4018: '<': signed/unsigned mismatch
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\gameobject.cpp(82): warning C4018: '<': signed/unsigned mismatch
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\gameobject.cpp(93): warning C4018: '<': signed/unsigned mismatch
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\gameobject.cpp(96): warning C4018: '<': signed/unsigned mismatch
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\gameobject.cpp(105): warning C4018: '<': signed/unsigned mismatch
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\gameobject.cpp(29): warning C4018: '<': signed/unsigned mismatch
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\gameobject.cpp(62): warning C4018: '<': signed/unsigned mismatch
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\gameobject.cpp(66): warning C4018: '<': signed/unsigned mismatch
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\gameobject.cpp(72): warning C4018: '<': signed/unsigned mismatch
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\gameobject.cpp(75): warning C4018: '<': signed/unsigned mismatch
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\gameobject.cpp(81): warning C4018: '<': signed/unsigned mismatch
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\gameobject.cpp(87): warning C4018: '<': signed/unsigned mismatch
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\gameobject.cpp(98): warning C4018: '<': signed/unsigned mismatch
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\gameobject.cpp(101): warning C4018: '<': signed/unsigned mismatch
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\gameobject.cpp(110): warning C4018: '<': signed/unsigned mismatch
   CoreEngine.vcxproj -> C:\Users\Satan\Documents\GitHub\Pool Game\Mini-Golf\3DEngine\Debug\CoreEngine.lib

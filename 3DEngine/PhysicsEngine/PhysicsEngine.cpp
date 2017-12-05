@@ -12,7 +12,7 @@ namespace D3DEngine
 	{
 	}
 
-	void PhysicsEngine::AddObject(const PhysicsObject& object)
+	void PhysicsEngine::AddObject(PhysicsObject* object)
 	{
 		m_Objects.push_back(object);
 	}
@@ -71,8 +71,8 @@ namespace D3DEngine
 		}
 
 
-		PhysicsObject New = PhysicsObject(new AxisAlignedBoundingBox(PointMin, PointMax, CenterPos, Dims, Normal), Vector3f(0.0f, 0.0f, 0.0f));
-		New.SetPosition(CenterPos);
+		PhysicsObject* New = new PhysicsObject(new AxisAlignedBoundingBox(PointMin, PointMax, CenterPos, Dims, Normal), Vector3f(0.0f, 0.0f, 0.0f));
+		New->SetPosition(CenterPos);
 		//PhysicsObject* New = new PhysicsObject(new AxisAlignedBoundingBox(PointMax, PointMin), Vector3f(0.0f, 0.0f, 0.0f));
 		this->AddObject(New);
 	}
@@ -81,7 +81,7 @@ namespace D3DEngine
 	{
 		for (unsigned int i = 0; i < m_Objects.size(); i++)
 		{
-			m_Objects[i].Integrate(Delta);
+			m_Objects[i]->Integrate(Delta);
 		}
 	}
 
@@ -92,12 +92,12 @@ namespace D3DEngine
 		{
 			for (unsigned int j = i + 1; j < m_Objects.size(); j++)
 			{
-				IntersectData* intersectData = m_Objects[i].GetCollider()->Intersect(*m_Objects[j].GetCollider());
+				IntersectData* intersectData = m_Objects[i]->GetCollider()->Intersect(*m_Objects[j]->GetCollider());
 				//Handle Collision response
 				if (intersectData->GetDoesIntersect())
 				{
 					//std::cerr << "COLISION" << std::endl;
-					Vector3f V = m_Objects[i].GetVelocity();
+					Vector3f V = m_Objects[i]->GetVelocity();
 					Vector3f N = intersectData->GetDirection();
 					Vector3f U = N * (V.Dot(N) / N.Dot(N));
 					Vector3f W = V - U;
@@ -105,10 +105,9 @@ namespace D3DEngine
 
 					//if moving away from plane, cannot hit
 					float Test = V.Dot(N);
-					if (V.Dot(N) >= 0.0)
-						return;
 
-					m_Objects[i].SetVelocity(ReflectedVel);
+
+					m_Objects[i]->SetVelocity(ReflectedVel);
 					break;
 				}
 				delete intersectData;

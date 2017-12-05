@@ -15,19 +15,24 @@ namespace D3DEngine
 	GameObject::~GameObject()
 	{
 		std::cerr << "Destructor: Game Object" << std::endl;
-		delete[] m_Transform;
+		delete m_Transform;
 	}
 
 	void GameObject::ClearGameObject()
 	{
 		for (int i = 0; i < m_Components.size(); i++)
-			m_Components.pop_back();
-
+		{
+			delete m_Components[i];
+			m_Components.erase(m_Components.begin() + i);
+		}
+		m_Components.clear();
 		for (int i = 0; i < m_Children.size(); i++)
 		{
 			m_Children[i]->ClearGameObject();
-			m_Children.pop_back();
+			delete m_Children[i];
+			m_Children.erase(m_Children.begin() + i);
 		}
+		m_Children.clear();
 	}
 
 	void GameObject::Destroy()

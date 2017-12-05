@@ -56,6 +56,8 @@ namespace D3DEngine
 
 		inline void SetActiveLight(BaseLight* Light) { ActiveLight = Light; }
 
+		void ResetEngine();
+
 	private: 
 		//SDL_Renderer* m_Renderer = NULL;
 		Shader* m_ShaderForwardAmbient;

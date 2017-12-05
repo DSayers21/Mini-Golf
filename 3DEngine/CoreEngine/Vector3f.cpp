@@ -1,4 +1,5 @@
 #include "Vector3f.h"
+#include <iostream>
 
 namespace D3DEngine
 {
@@ -10,7 +11,7 @@ namespace D3DEngine
 
 	Vector3f::~Vector3f()
 	{
-
+		//std::cerr << "Destructor: Vector3f" << std::endl;
 	}
 
 	Vector3f Vector3f::Max(const Vector3f& other) const

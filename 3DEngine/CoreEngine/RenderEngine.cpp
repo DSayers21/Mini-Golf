@@ -20,6 +20,8 @@ namespace D3DEngine
 
 	RenderEngine::~RenderEngine()
 	{
+		std::cerr << "Destructor: Render Engine" << std::endl;
+
 	}
 
 	void RenderOne(RenderEngine* self, std::vector<BaseLight*>& Lights, BaseLight* ActiveLight, GameObject * Object, int i)
@@ -91,5 +93,22 @@ namespace D3DEngine
 	void RenderEngine::UpdateUniformStruct(Transform * transform, Material * material, Shader* shader, std::string& UniformName, std::string& UniformType)
 	{
 		//std::cerr << UniformName << ": Illegal Argument" << std::endl;
+	}
+
+	void RenderEngine::ResetEngine()
+	{
+		delete m_ShaderList;
+
+		//Permanent Structures
+		std::vector<BaseLight*> m_Lights = std::vector<BaseLight*>();
+
+		for (int i = 0; i < m_Lights.size(); i++)
+		{
+			delete m_Lights[i];
+			m_Lights.erase(m_Lights.begin() + i);
+		}
+
+
+		ActiveLight = nullptr;
 	}
 }
