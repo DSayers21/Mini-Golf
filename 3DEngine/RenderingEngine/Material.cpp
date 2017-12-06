@@ -11,10 +11,12 @@ namespace D3DEngine
 
 	Material::~Material()
 	{
+		std::cerr << "Destructor: Material" << std::endl;
 		for (std::map<std::string, Texture*>::iterator itr = m_TextureHashMap.begin(); itr != m_TextureHashMap.end(); itr++)
 		{
 			delete itr->second;
 		}
+		m_TextureHashMap.clear();
 	}
 
 	Texture* Material::GetTexture(const std::string& Name)

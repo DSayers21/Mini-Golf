@@ -3,15 +3,4 @@
 c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(84): warning C4522: 'D3DEngine::Vector3f': multiple assignment operators specified
 c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\window.h(31): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\input.h(398): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
-  Generating Code...
-  Skipping... (no relevant changes detected)
-  SpotLight.cpp
-  RenderEngine.cpp
-  PointLight.cpp
-  GameComponent.cpp
-  DirectionalLight.cpp
-  MeshRenderer.cpp
-  MainComp.cpp
-  GameObject.cpp
-  Camera.cpp
   CoreEngine.vcxproj -> C:\Users\Satan\Documents\GitHub\Pool Game\Mini-Golf\3DEngine\Debug\CoreEngine.lib

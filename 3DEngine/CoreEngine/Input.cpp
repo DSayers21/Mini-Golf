@@ -5,7 +5,7 @@ namespace D3DEngine
 	GetInput::GetInput(Window* Window)
 	{
 		m_Window = Window;
-		m_WarpMousePos = new Vector2f(0,0);
+		m_WarpMousePos = Vector2f(0,0);
 	}
 
 	GetInput::~GetInput()
@@ -90,7 +90,7 @@ namespace D3DEngine
 	void GetInput::SetMousePosition(Vector2f Pos)
 	{
 		m_warpMouse = true;
-		m_WarpMousePos->SetX(Pos.GetX());
-		m_WarpMousePos->SetY(Pos.GetY());
+		m_WarpMousePos.SetX(Pos.GetX());
+		m_WarpMousePos.SetY(Pos.GetY());
 	}
 }

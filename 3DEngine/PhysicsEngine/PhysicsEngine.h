@@ -11,6 +11,7 @@ namespace D3DEngine
 	public:
 		PhysicsEngine();
 		~PhysicsEngine();
+		void ClearObjects();
 
 		void AddObject(PhysicsObject* object);
 		void AddAABBFromMesh(Vert* Vertices, int VertSize, int* Indices, int IndexSize);

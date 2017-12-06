@@ -10,6 +10,7 @@ namespace D3DEngine
 
 	PhysicsEngineComponent::~PhysicsEngineComponent()
 	{
+		std::cerr << "Destructor: Physics Engine Component" << std::endl;
 	}
 
 	void PhysicsEngineComponent::Update(float Delta)

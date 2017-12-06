@@ -1,4 +1,5 @@
 #include "MeshResource.h"
+#include <iostream>
 
 namespace D3DEngine
 {
@@ -11,8 +12,11 @@ namespace D3DEngine
 
 	MeshResource::~MeshResource()
 	{
+		std::cerr << "Destructor: MeshResource" << std::endl;
 		if (VBO) glDeleteBuffers(1, &VBO);
 		if (IBO) glDeleteBuffers(1, &IBO);
+		delete[] m_Vertices;
+		delete[] m_Indices;
 	}
 
 	MeshResource::MeshResource(const MeshResource & other)

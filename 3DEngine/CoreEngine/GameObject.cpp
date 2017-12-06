@@ -23,14 +23,14 @@ namespace D3DEngine
 		for (int i = 0; i < m_Components.size(); i++)
 		{
 			delete m_Components[i];
-			m_Components.erase(m_Components.begin() + i);
+			//m_Components.erase(m_Components.begin() + i);
 		}
 		m_Components.clear();
 		for (int i = 0; i < m_Children.size(); i++)
 		{
 			m_Children[i]->ClearGameObject();
 			delete m_Children[i];
-			m_Children.erase(m_Children.begin() + i);
+			//m_Children.erase(m_Children.begin() + i);
 		}
 		m_Children.clear();
 	}

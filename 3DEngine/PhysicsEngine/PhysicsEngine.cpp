@@ -12,6 +12,15 @@ namespace D3DEngine
 	{
 	}
 
+	void PhysicsEngine::ClearObjects()
+	{
+		for (int i = 0; i < m_Objects.size(); i++)
+		{
+			delete m_Objects[i];
+		}
+		m_Objects.clear();
+	}
+
 	void PhysicsEngine::AddObject(PhysicsObject* object)
 	{
 		m_Objects.push_back(object);

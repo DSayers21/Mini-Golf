@@ -10,6 +10,7 @@ MainGame::~MainGame()
 	std::cerr << "Deleted Main Game" << std::endl;
 	m_RootObject->ClearGameObject();
 	delete m_RootObject;
+	delete m_MeshList;
 }
 
 void MainGame::Init(D3DEngine::RenderEngine* renderEngine, D3DEngine::PhysicsEngine* physicsEngine)

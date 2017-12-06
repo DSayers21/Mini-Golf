@@ -15,6 +15,6 @@ namespace D3DEngine
 		void AddModel(std::string Name, MeshResource* meshResource);
 		void RemoveModel(std::string Name);
 	private:
-		std::map<std::string, MeshResource*>* LoadedModels;
+		std::map<std::string, MeshResource*> LoadedModels;
 	};
 }

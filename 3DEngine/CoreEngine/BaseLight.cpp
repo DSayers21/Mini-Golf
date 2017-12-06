@@ -19,7 +19,7 @@ namespace D3DEngine
 	{
 		std::cerr << "Destructor: BLight Component" << std::endl;
 
-		delete m_Shader;
+		//delete m_Shader;
 	}
 
 	void BaseLight::AddToEngine(MainComp * mainComp)

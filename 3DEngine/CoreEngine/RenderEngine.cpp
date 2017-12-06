@@ -21,7 +21,7 @@ namespace D3DEngine
 	RenderEngine::~RenderEngine()
 	{
 		std::cerr << "Destructor: Render Engine" << std::endl;
-
+		delete m_ShaderForwardAmbient;
 	}
 
 	void RenderOne(RenderEngine* self, std::vector<BaseLight*>& Lights, BaseLight* ActiveLight, GameObject * Object, int i)

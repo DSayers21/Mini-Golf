@@ -15,6 +15,6 @@ namespace D3DEngine
 		void AddShader(std::string Name, ShaderResource* shaderResource);
 		void RemoveShader(std::string Name);
 	private:
-		std::map<std::string, ShaderResource*>* LoadedShaders;
+		std::map<std::string, ShaderResource*> LoadedShaders;
 	};
 }

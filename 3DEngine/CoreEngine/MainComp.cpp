@@ -76,7 +76,7 @@ namespace D3DEngine
 				m_Game->Input(m_Input, m_FrameTime);
 				if (m_Input->GetIsWarpMouse())
 				{
-					m_Window->Warp(*m_Input->GetWarpMousePos()); 
+					m_Window->Warp(m_Input->GetWarpMousePos()); 
 					m_Input->SetIsWarpMouse(false);
 				}
 				if (m_Input->GetIsClosed()) m_Window->Close();
@@ -93,7 +93,6 @@ namespace D3DEngine
 			if (Render)
 			{
 				m_Game->Draw(m_RenderEngine);
-				//m_RenderEngine->Render(m_Game->GetRootObject());
 				m_Window->Update();
 
 				Frames++;
