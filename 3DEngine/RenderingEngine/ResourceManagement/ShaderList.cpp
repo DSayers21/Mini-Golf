@@ -10,6 +10,10 @@ namespace D3DEngine
 
 	ShaderList::~ShaderList()
 	{
+		for (std::map<std::string, ShaderResource*>::iterator itr = LoadedShaders->begin(); itr != LoadedShaders->end(); itr++)
+		{
+			delete itr->second;
+		}
 	}
 
 	ShaderResource* ShaderList::GetShader(std::string Name)

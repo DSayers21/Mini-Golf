@@ -7,10 +7,6 @@ MiniGolf::MiniGolf()
 }
 
 
-MiniGolf::~MiniGolf()
-{
-}
-
 void MiniGolf::Init(D3DEngine::RenderEngine* renderEngine, D3DEngine::PhysicsEngine* physicsEngine)
 {
 	int LevelNum = -1;

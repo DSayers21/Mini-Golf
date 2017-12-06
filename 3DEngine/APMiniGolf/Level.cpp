@@ -373,13 +373,14 @@ Level::Level(
 	SideMat->AddTexture("Diffuse", new D3DEngine::Texture("./Textures/Wood.png"));
 	SideMat->AddFloat("SpecularIntensity", 1);
 	SideMat->AddFloat("SpecularExponent", 8);
+	m_MaterialList.push_back(SideMat);
 
 	D3DEngine::Mesh* SideMesh = new D3DEngine::Mesh("./Models/CourseSide.obj", m_MeshList);
 	D3DEngine::MeshResource* SideRes = m_MeshList->GetModel("./Models/CourseSide.obj");
 
 	//Sides
 	physicsEngine->AddAABBFromMesh(SideRes->GetVertices(), SideRes->GetVERTEXSIZE(), SideRes->GetIndices(), SideRes->GetINDEXSIZE());
-
+	delete SideRes;
 
 	//SideA
 	m_PhysicsEngineComponent->GetPhysicsEngine()->GetObject(0)->SetPosition(D3DEngine::Vector3f(4.1f, 0.0f, 1.089f));
@@ -399,6 +400,7 @@ Level::Level(
 
 Level::~Level()
 {
+	std::cerr << "Destructor: Level" << std::endl;
 }
 
 void Level::Destroy()

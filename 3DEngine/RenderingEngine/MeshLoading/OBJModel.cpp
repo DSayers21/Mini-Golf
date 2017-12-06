@@ -67,9 +67,8 @@ namespace D3DEngine
 			std::cerr << "Unable to load mesh: " << FileName << std::endl;
 	}
 
-	IndexedModel* OBJModel::ToIndexedModel()
+	IndexedModel& OBJModel::ToIndexedModel()
 	{
-		IndexedModel Result;
 		IndexedModel NormalResult;
 		std::map<OBJIndex, int> ResultIndexMap = std::map<OBJIndex, int>();
 		std::map<int, int> NormalIndexMap = std::map<int, int>();
@@ -93,13 +92,13 @@ namespace D3DEngine
 
 			if (ModelVertIndex == -1)	//No pre exisitng point
 			{
-				ModelVertIndex = Result.GetPositions()->size();
+				ModelVertIndex = Result.GetPositions().size();
 				ResultIndexMap.insert(std::pair<OBJIndex, int>(CurrentIndex, ModelVertIndex));
 
 				//Add All Data to Indexed Model
-				Result.GetPositions()->push_back(CurrentPosition);
-				Result.GetTexCoords()->push_back(CurrentTexCoord);
-				Result.GetNormals()->push_back(CurrentNormal);
+				Result.GetPositions().push_back(CurrentPosition);
+				Result.GetTexCoords().push_back(CurrentTexCoord);
+				Result.GetNormals().push_back(CurrentNormal);
 			}
 
 			int ModelNormalIndex = -1;
@@ -110,27 +109,27 @@ namespace D3DEngine
 
 			if (ModelNormalIndex == -1)	//No pre exisitng point
 			{
-				ModelNormalIndex = NormalResult.GetPositions()->size();
+				ModelNormalIndex = NormalResult.GetPositions().size();
 				NormalIndexMap.insert(std::pair<int, int>(CurrentIndex.VertexIndex, ModelNormalIndex));
 
 				//Add All Data to Indexed Model
-				NormalResult.GetPositions()->push_back(CurrentPosition);
-				NormalResult.GetTexCoords()->push_back(CurrentTexCoord);
-				NormalResult.GetNormals()->push_back(CurrentNormal);
+				NormalResult.GetPositions().push_back(CurrentPosition);
+				NormalResult.GetTexCoords().push_back(CurrentTexCoord);
+				NormalResult.GetNormals().push_back(CurrentNormal);
 			}
 
-			Result.GetIndices()->push_back(ModelVertIndex);
-			NormalResult.GetIndices()->push_back(ModelNormalIndex);
+			Result.GetIndices().push_back(ModelVertIndex);
+			NormalResult.GetIndices().push_back(ModelNormalIndex);
 			IndexMap.insert(std::pair<int, int>(ModelVertIndex, ModelNormalIndex));
 		}
 
 		if (!m_HasNormals)
 		{
 			NormalResult.CalcNormals();
-			for (int i = 0; i < Result.GetNormals()->size(); i++)
-				Result.GetNormals()->at(i).Set(NormalResult.GetNormals()->at(IndexMap.find(i)->second));
+			for (int i = 0; i < Result.GetNormals().size(); i++)
+				Result.GetNormals()[i].Set(NormalResult.GetNormals()[IndexMap.find(i)->second]);
 		}
-		return &Result;
+		return Result;
 	}
 
 	OBJIndex OBJModel::ParseObjIndex(std::string Token)

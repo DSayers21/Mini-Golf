@@ -10,7 +10,7 @@ namespace D3DEngine
 
 	Texture::~Texture()
 	{
-
+		delete m_LastBind;
 	}
 
 	void Texture::LoadTexture(std::string FileName, GLenum TextureTarget, GLfloat Filter)

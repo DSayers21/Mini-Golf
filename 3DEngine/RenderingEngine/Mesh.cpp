@@ -123,32 +123,30 @@ namespace D3DEngine
 	void Mesh::LoadMesh(std::string FileName)
 	{
 		OBJModel ObjModel(FileName);
-		IndexedModel Model = *ObjModel.ToIndexedModel();
+		IndexedModel Model = ObjModel.ToIndexedModel();
 		Model.CalcNormals();								//Calculate Normals
 
 		//std::vector<Vert> Vertices;	//Temp Buffer Vertex
 		//std::vector<int> Indices = *Model.GetIndices();		//Temp Buffer Index
 		
-		Vert* Vertices = new Vert[Model.GetPositions()->size()];
-		int* Indices = new int[Model.GetIndices()->size()];
+		Vert* Vertices = new Vert[Model.GetPositions().size()];
+		int* Indices = new int[Model.GetIndices().size()];
 
-		for (int i = 0; i < Model.GetIndices()->size(); i++)
-			Indices[i] = Model.GetIndices()->at(i);
-
-
+		for (int i = 0; i < Model.GetIndices().size(); i++)
+			Indices[i] = Model.GetIndices()[i];
 
 
-		for (int i = 0; i < Model.GetPositions()->size(); i++)
+		for (int i = 0; i < Model.GetPositions().size(); i++)
 		{
-			std::vector<Vector3f>* TempPositions = Model.GetPositions();
-			std::vector<Vector2f>* TempTexCoords = Model.GetTexCoords();
-			std::vector<Vector3f>* TempNormals = Model.GetNormals();
+			std::vector<Vector3f> TempPositions = Model.GetPositions();
+			std::vector<Vector2f> TempTexCoords = Model.GetTexCoords();
+			std::vector<Vector3f> TempNormals = Model.GetNormals();
 
-			Vector3f Testyas = TempPositions->at(i);
-			Vert CurVert(TempPositions->at(i), TempTexCoords->at(i), TempNormals->at(i));
+			Vector3f Testyas = TempPositions[i];
+			Vert CurVert(TempPositions[i], TempTexCoords[i], TempNormals[i]);
 			Vertices[i] = CurVert;
 		}
 
-		AddVertices(&Vertices[0], Model.GetPositions()->size(), Indices, Model.GetIndices()->size(), false);
+		AddVertices(&Vertices[0], Model.GetPositions().size(), Indices, Model.GetIndices().size(), false);
 	}
 }

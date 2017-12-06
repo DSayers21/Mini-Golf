@@ -20,7 +20,7 @@ namespace D3DEngine
 
 		void LoadMesh(std::string FileName);
 
-		IndexedModel* ToIndexedModel();
+		IndexedModel& ToIndexedModel();
 
 		//Getters
 		/*inline std::vector<Vector3f> GetPositions() { return m_Positons; }
@@ -30,6 +30,8 @@ namespace D3DEngine
 
 	private:
 		OBJIndex ParseObjIndex(std::string Token);
+		
+		IndexedModel Result;
 
 		std::vector<Vector3f> m_Positons;
 		std::vector<Vector2f> m_TexCoords;
