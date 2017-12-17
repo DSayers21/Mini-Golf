@@ -10,6 +10,7 @@ namespace D3DEngine
 
 	MeshList::~MeshList()
 	{
+
 	}
 
 	MeshResource* MeshList::GetModel(std::string Name)

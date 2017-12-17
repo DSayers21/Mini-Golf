@@ -10,6 +10,7 @@ namespace D3DEngine
 	public:
 		PhysicsObject(Collider* collider, const Vector3f& Velocity);
 		~PhysicsObject();
+		void DeleteCollider() { delete m_Collider; }
 
 		void Integrate(float Delta);
 

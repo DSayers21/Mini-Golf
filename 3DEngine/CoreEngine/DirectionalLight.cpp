@@ -16,6 +16,5 @@ namespace D3DEngine
 	DirectionalLight::~DirectionalLight()
 	{
 		std::cerr << "Destructor: DLight Component" << std::endl;
-
 	}
 }

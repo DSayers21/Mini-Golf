@@ -14,7 +14,7 @@ namespace D3DEngine
 		BaseLight() {}
 		BaseLight(ShaderList* shaderList);
 		BaseLight(ShaderList* shaderList, Vector3f colour, float intensity);
-		~BaseLight();
+		virtual ~BaseLight();
 
 		void AddToEngine(MainComp * mainComp);
 		float CalcRange();
@@ -25,7 +25,7 @@ namespace D3DEngine
 		inline Shader* GetShader() { return m_Shader; }
 		inline Attenuation GetAttenuation() { return m_Attenuation; }
 		inline float GetRange() { return m_Range; }
-		Vector3f* GetDirection() { return &GetTransform()->GetTransformedRot().GetForward(); }
+		Vector3f& GetDirection() { return GetTransform()->GetTransformedRot().GetForward(); }
 		inline float& GetCutoff() { return m_Cutoff; }
 		//Setters
 		inline void SetColour(const Vector3f& colour) { m_Colour = colour; }

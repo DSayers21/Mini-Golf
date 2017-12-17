@@ -12,7 +12,7 @@ namespace D3DEngine
 
 	PhysicsObject::~PhysicsObject()
 	{
-		std::cerr << "Physics Object Destroyed" << std::endl;
+		std::cerr << "Destructor: PhysicsObject" << std::endl;
 		delete m_Collider;
 	}
 

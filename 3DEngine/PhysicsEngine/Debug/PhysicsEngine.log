@@ -1,6 +1,7 @@
-﻿  PhysicsEngine.cpp
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(84): warning C4522: 'D3DEngine::Vector3f': multiple assignment operators specified
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\physicsengine\physicsengine.cpp(17): warning C4018: '<': signed/unsigned mismatch
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(47): warning C4172: returning address of local variable or temporary
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(40): warning C4172: returning address of local variable or temporary
+﻿  Skipping... (no relevant changes detected)
+  PhysicsObject.cpp
+  PhysicsEngine.cpp
+  Collider.cpp
+  BoundingSphere.cpp
+  AxisAlignedBoundingBox.cpp
   PhysicsEngine.vcxproj -> C:\Users\Satan\Documents\GitHub\Pool Game\Mini-Golf\3DEngine\Debug\PhysicsEngine.lib

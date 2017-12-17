@@ -13,6 +13,7 @@ namespace D3DEngine
 
 	BoundingSphere::~BoundingSphere()
 	{
+		delete m_LastAABBCol;
 	}
 
 	IntersectData* BoundingSphere::IntersectBoundingSphere(const BoundingSphere & other)

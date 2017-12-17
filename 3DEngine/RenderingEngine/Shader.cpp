@@ -49,8 +49,12 @@ namespace D3DEngine
 		if (m_ShaderResource->RemoveReference())
 		{
 			m_ShaderList->RemoveShader(m_Name);
-			delete m_ShaderResource;
-			std::cerr << "Deleted Shader" << std::endl;
+			//delete m_ShaderResource;
+			std::cerr << "Destructor: Shader: " << m_Name << std::endl;
+		}
+		else
+		{
+			std::cerr << "Destructor: Shader - Removed Reference" << std::endl;
 		}
 	}
 
@@ -260,7 +264,7 @@ namespace D3DEngine
 	void Shader::SetUniformDL(const std::string& UniformName, BaseLight* DirLight) const
 	{
 		SetUniformBL(UniformName + ".Light", DirLight);
-		SetUniformV(UniformName + ".Direction", *DirLight->GetDirection());
+		SetUniformV(UniformName + ".Direction", DirLight->GetDirection());
 	}
 
 	void Shader::SetUniformBL(const std::string& UniformName, BaseLight* BaseLight) const
@@ -285,7 +289,7 @@ namespace D3DEngine
 	{
 		SetUniformPL(UniformName + ".PLight", spotLight);
 		//
-		SetUniformV(UniformName + ".Direction", *spotLight->GetDirection());
+		SetUniformV(UniformName + ".Direction", spotLight->GetDirection());
 		SetUniformF(UniformName + ".Cutoff", spotLight->GetCutoff());
 	}
 

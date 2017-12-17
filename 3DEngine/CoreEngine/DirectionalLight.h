@@ -10,6 +10,6 @@ namespace D3DEngine
 	public:
 		DirectionalLight(ShaderList* shaderList);
 		DirectionalLight(ShaderList* shaderList, Vector3f Colour, float Intensity);
-		~DirectionalLight();
+		virtual ~DirectionalLight();
 	};
 }

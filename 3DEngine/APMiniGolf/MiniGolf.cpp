@@ -9,7 +9,7 @@ MiniGolf::MiniGolf()
 
 void MiniGolf::Init(D3DEngine::RenderEngine* renderEngine, D3DEngine::PhysicsEngine* physicsEngine)
 {
-	int LevelNum = 4;
+	int LevelNum = 3;
 
 	//ZeroPadded
 	int BlankData[7][7] = {
@@ -99,6 +99,10 @@ void MiniGolf::Init(D3DEngine::RenderEngine* renderEngine, D3DEngine::PhysicsEng
 				{ 0, 0, 0, 0, 0, 0, 0 } ,
 			};
 			Level Test(LevelData, m_Window, renderEngine, physicsEngine, GetRootObject());
+			GetRootObject()->ClearGameObject();
+			renderEngine->ResetEngine();
+			Test;
+			Test.Destroy();
 			break;
 		}
 		case 4:

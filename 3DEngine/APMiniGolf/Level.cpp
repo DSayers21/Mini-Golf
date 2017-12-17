@@ -228,8 +228,6 @@ Level::Level(int LevelData[7][7],
 			}
 		}
 	}
-	//delete BackRes;
-	//delete SideRes;
 
 	//Update Objects
 	for (int i = 0; i < m_ObjectsMap.size(); i++)
@@ -388,6 +386,14 @@ Level::Level(
 	Side1->AddComponent(new D3DEngine::MeshRenderer(new D3DEngine::Mesh("./Models/CourseSide.obj", &m_MeshList), SideMat));
 	Side1->AddComponent(new D3DEngine::PhysicsObjectComponent(m_PhysicsEngineComponent->GetPhysicsEngine()->GetObject(0)));
 
+	D3DEngine::GameObject* DirectionalLightObject = new D3DEngine::GameObject();
+	D3DEngine::DirectionalLight* directionalLight = new D3DEngine::DirectionalLight(renderEngine->GetShaderList(), D3DEngine::Vector3f(0.5, 0.5, 0.5), 0.1f);
+	DirectionalLightObject->AddComponent(directionalLight);
+	DirectionalLightObject->GetTransform()->SetRotation(&D3DEngine::Quaternion(D3DEngine::Vector3f(1, 1, 1), TO_RADIANS(-45.0f)));
+	
+	
+	RootObject->AddChild(DirectionalLightObject);
+
 	RootObject->AddChild(CameraObject);
 
 	RootObject->AddChild(Side1);
@@ -397,8 +403,6 @@ Level::Level(
 Level::~Level()
 {
 	std::cerr << "Destructor: Level" << std::endl;
-	//delete m_MeshList;
-	m_GameObjects;
 }
 
 void Level::Destroy()

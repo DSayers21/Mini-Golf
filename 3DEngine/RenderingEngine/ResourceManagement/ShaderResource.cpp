@@ -17,7 +17,7 @@ namespace D3DEngine
 
 	ShaderResource::~ShaderResource()
 	{
-		std::cerr << "Deleted Shader" << std::endl;
+		std::cerr << "Destructor: Shader Resource" << std::endl;
 	}
 
 	ShaderResource::ShaderResource(const ShaderResource &other)

@@ -22,6 +22,7 @@ namespace D3DEngine
 	{
 		std::cerr << "Destructor: Render Engine" << std::endl;
 		delete m_ShaderForwardAmbient;
+		delete m_ShaderList;
 	}
 
 	void RenderOne(RenderEngine* self, std::vector<BaseLight*>& Lights, BaseLight* ActiveLight, GameObject * Object, int i)
@@ -97,18 +98,16 @@ namespace D3DEngine
 
 	void RenderEngine::ResetEngine()
 	{
-		delete m_ShaderList;
-
 		//Permanent Structures
 		std::vector<BaseLight*> m_Lights = std::vector<BaseLight*>();
 
 		for (int i = 0; i < m_Lights.size(); i++)
 		{
 			delete m_Lights[i];
-			m_Lights.erase(m_Lights.begin() + i);
+			//m_Lights.erase(m_Lights.begin() + i);
 		}
-
-
+		m_Lights.clear();
+		//m_ShaderList
 		ActiveLight = nullptr;
 	}
 }
