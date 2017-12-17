@@ -18,14 +18,10 @@ void Level::CreateHelper(int CurCount,
 	D3DEngine::PhysicsEngineComponent* PhysicsEngineComponent, D3DEngine::GameObject* RootObject)
 {
 
-	//D3DEngine::GameObject* Test = new D3DEngine::GameObject();
-	//Test->AddComponent(new D3DEngine::MeshRenderer(mesh, material));
-	//Test->AddComponent(new D3DEngine::PhysicsObjectComponent(PhysicsEngineComponent->GetPhysicsEngine()->GetObject(CurCount)));
-	//RootObject->AddChild(Test);
-
-	m_GameObjects.push_back(new D3DEngine::GameObject());
-	m_GameObjects.back()->AddComponent(new D3DEngine::MeshRenderer(mesh, material));
-	m_GameObjects.back()->AddComponent(new D3DEngine::PhysicsObjectComponent(PhysicsEngineComponent->GetPhysicsEngine()->GetObject(CurCount)));
+	D3DEngine::GameObject* Test = new D3DEngine::GameObject();
+	Test->AddComponent(new D3DEngine::MeshRenderer(mesh, material));
+	Test->AddComponent(new D3DEngine::PhysicsObjectComponent(PhysicsEngineComponent->GetPhysicsEngine()->GetObject(CurCount)));
+	RootObject->AddChild(Test);
 }
 
 Level::Level(int LevelData[7][7],
@@ -144,6 +140,7 @@ Level::Level(int LevelData[7][7],
 				FlagBack->GetTransform()->SetPosition(D3DEngine::Vector3f(0.8f, 2.35f, 0.0f));
 				FlagBack->GetTransform()->SetScaling(D3DEngine::Vector3f(1.0f, 0.3f, 1.0f));
 				FlagBack->GetTransform()->Rotate(D3DEngine::Vector3f(0, 1, 0), TO_RADIANS(270));
+
 				D3DEngine::GameObject* FlagFront = new D3DEngine::GameObject();
 				FlagFront->AddComponent(new D3DEngine::MeshRenderer(new D3DEngine::Mesh("./Models/Flag.obj", &m_MeshList), FlagMat));
 				FlagFront->GetTransform()->SetPosition(D3DEngine::Vector3f(0.8f, 2.5f, 0.0f));
@@ -157,11 +154,12 @@ Level::Level(int LevelData[7][7],
 				D3DEngine::GameObject* FlagShaft = new D3DEngine::GameObject();
 				FlagShaft->AddComponent(new D3DEngine::MeshRenderer(new D3DEngine::Mesh("./Models/FlagShaft.obj", &m_MeshList), MetalMat));
 				FlagShaft->GetTransform()->SetPosition(TileCenter);
-				FlagShaft->GetTransform()->SetScaling(D3DEngine::Vector3f(0.2f, 1.0f, 0.2f));
-				RootObject->AddChild(FlagShaft);
+				FlagShaft->GetTransform()->SetScaling(D3DEngine::Vector3f(0.2f, 1.0f, 0.2f));;
+
 				FlagShaft->AddChild(FlagBack);
 				FlagShaft->AddChild(FlagFront);
 				FlagShaft->AddChild(PointLightObject);
+				RootObject->AddChild(FlagShaft);
 				//End Add Flag Shaft
 			}
 		}
@@ -172,7 +170,7 @@ Level::Level(int LevelData[7][7],
 		for (int j = PaddOffset; j < 5 + PaddOffset; j++)
 		{
 			std::string Key = std::to_string(i) + std::to_string(j);
-			Tile* CurrentTile = &m_TileMap.find(Key)->second;
+			Tile CurrentTile = m_TileMap.find(Key)->second;
 			if ((LevelData[i][j] == 1) || (LevelData[i][j] == 2) || (LevelData[i][j] == 3))
 			{
 				D3DEngine::Vector3f TileCenter = D3DEngine::Vector3f(i * 2, -0.05, j * 2);
@@ -183,45 +181,45 @@ Level::Level(int LevelData[7][7],
 
 				if (j - 1 >= 0)
 				{
-					if ((LevelData[i][j - 1] <= 0) && (CurrentTile->Left == false))
+					if ((LevelData[i][j - 1] <= 0) && (CurrentTile.Left == false))
 					{
 						LevelData[i][j - 1] -= 1;
 						m_PhysicsEngineComponent->GetPhysicsEngine()->AddAABBFromMesh(SideRes->GetVertices(), SideRes->GetVERTEXSIZE(), SideRes->GetIndices(), SideRes->GetINDEXSIZE());
 						m_ObjectsMap.push_back(LevelID(i, j, ObjectCount, TileCenter, TYPE::WALLSIDEL));
-						CurrentTile->Left = true;
+						CurrentTile.Left = true;
 						ObjectCount++;
 					}
 				}
 				if (j + 1 < 7)
 				{
-					if ((LevelData[i][j + 1] <= 0) && (CurrentTile->Right == false))
+					if ((LevelData[i][j + 1] <= 0) && (CurrentTile.Right == false))
 					{
 						LevelData[i][j + 1] -= 1;
 						m_PhysicsEngineComponent->GetPhysicsEngine()->AddAABBFromMesh(SideRes->GetVertices(), SideRes->GetVERTEXSIZE(), SideRes->GetIndices(), SideRes->GetINDEXSIZE());
 						m_ObjectsMap.push_back(LevelID(i, j, ObjectCount, TileCenter, TYPE::WALLSIDER));
-						CurrentTile->Right = true;
+						CurrentTile.Right = true;
 						ObjectCount++;
 					}
 				}
 				if (i - 1 >= 0)
 				{
-					if ((LevelData[i - 1][j] <= 0)&&(CurrentTile->Top == false))
+					if ((LevelData[i - 1][j] <= 0)&&(CurrentTile.Top == false))
 					{
 						LevelData[i - 1][j] -= 1;
 						m_PhysicsEngineComponent->GetPhysicsEngine()->AddAABBFromMesh(BackRes->GetVertices(), SideRes->GetVERTEXSIZE(), BackRes->GetIndices(), BackRes->GetINDEXSIZE());
 						m_ObjectsMap.push_back(LevelID(i, j, ObjectCount, TileCenter, TYPE::WALLBACKF));
-						CurrentTile->Top = true;
+						CurrentTile.Top = true;
 						ObjectCount++;
 					}
 				}
 				if (i + 1 < 7)
 				{
-					if ((LevelData[i + 1][j] <= 0) && (CurrentTile->Bottom == false))
+					if ((LevelData[i + 1][j] <= 0) && (CurrentTile.Bottom == false))
 					{
 						LevelData[i + 1][j] -= 1;
 						m_PhysicsEngineComponent->GetPhysicsEngine()->AddAABBFromMesh(BackRes->GetVertices(), BackRes->GetVERTEXSIZE(), BackRes->GetIndices(), BackRes->GetINDEXSIZE());
 						m_ObjectsMap.push_back(LevelID(i, j, ObjectCount, TileCenter, TYPE::WALLBACKB));
-						CurrentTile->Bottom = true;
+						CurrentTile.Bottom = true;
 						ObjectCount++;
 					}
 				}
@@ -244,7 +242,7 @@ Level::Level(int LevelData[7][7],
 
 		if (ObjectType == TYPE::BALL)
 		{
-			std::cerr << "Ball Proc" << std::endl;
+			std::cerr << "Ball Proccessing" << std::endl;
 			//GolfClub
 			D3DEngine::GameObject* GolfClubObject = new D3DEngine::GameObject();
 			GolfClubObject->AddComponent(new D3DEngine::MeshRenderer(new D3DEngine::Mesh("./Models/GolfClub.obj", &m_MeshList), MetalMat));
@@ -252,8 +250,9 @@ Level::Level(int LevelData[7][7],
 			GolfClubObject->GetTransform()->SetScaling(D3DEngine::Vector3f(8, 8, 6));
 			//End GolfClub
 			//Sphere
-			m_GameObjects.push_back(new D3DEngine::GameObject());
-			m_GameObjects.back()->GetTransform()->SetScaling(D3DEngine::Vector3f(0.1f, 0.1f, 0.1f));
+
+			D3DEngine::GameObject* GolfBall = new D3DEngine::GameObject();
+			GolfBall->GetTransform()->SetScaling(D3DEngine::Vector3f(0.1f, 0.1f, 0.1f));
 
 			D3DEngine::Vector3f MyCenter = TileCenter;
 			MyCenter.SetY(0.1f);
@@ -265,14 +264,12 @@ Level::Level(int LevelData[7][7],
 			CameraObject->GetTransform()->SetPosition(CameraPos); //Update Camera to Ball
 
 			m_PhysicsEngineComponent->GetPhysicsEngine()->GetObject(ObjectPos)->SetPosition(MyCenter);
+			GolfBall->AddComponent(new D3DEngine::MeshRenderer(new D3DEngine::Mesh("./Models/Ball.obj", &m_MeshList), GolfBallMat));
+			GolfBall->AddComponent(new D3DEngine::PhysicsObjectComponent(m_PhysicsEngineComponent->GetPhysicsEngine()->GetObject(ObjectPos), true));
 
-			m_GameObjects.back()->AddComponent(new D3DEngine::MeshRenderer(new D3DEngine::Mesh("./Models/Ball.obj", &m_MeshList), GolfBallMat));
-			m_GameObjects.back()->AddComponent(new D3DEngine::PhysicsObjectComponent(m_PhysicsEngineComponent->GetPhysicsEngine()->GetObject(ObjectPos), true));
-			GolfClubObject->AddComponent(new GolfClub(m_GameObjects.back(), m_PhysicsEngineComponent->GetPhysicsEngine()->GetObject(ObjectPos), 8, 0.5, 10));
-			m_GameObjects.back()->AddChild(GolfClubObject);
-
-			//CameraObject->GetTransform()->SetRotation(m_GameObjects.back()->GetTransform()->GetRotation()); //Tilt Down
-			//m_GameObjects.back()->AddChild(CameraObject);
+			GolfClubObject->AddComponent(new GolfClub(GolfBall, m_PhysicsEngineComponent->GetPhysicsEngine()->GetObject(ObjectPos), 8, 0.5, 10));
+			GolfBall->AddChild(GolfClubObject);
+			RootObject->AddChild(GolfBall);
 			//End Sphere
 		}
 	}
@@ -292,35 +289,27 @@ Level::Level(int LevelData[7][7],
 
 		if (ObjectType == TYPE::WALLBACKF)
 		{
-			std::cerr << "Wall Back Proc" << std::endl;
-			std::cerr << "Wall Back: Moved Up" << std::endl;
+			std::cerr << "Wall Back Proccessing: Moved Up" << std::endl;
 			TranslateHelper(1.08f, 0.0f, ObjectPos, TileCenter, m_PhysicsEngineComponent);
 			CreateHelper(ObjectPos, new D3DEngine::Mesh("./Models/CourseBack.obj", &m_MeshList), SideMat, m_PhysicsEngineComponent, RootObject);
-			continue;
 		}
 		if (ObjectType == TYPE::WALLBACKB)
 		{
-			std::cerr << "Wall Back Proc" << std::endl;
-			std::cerr << "Wall Back: Moved Up" << std::endl;
+			std::cerr << "Wall Back Proccessing: Moved Down" << std::endl;
 			TranslateHelper(-1.08f, 0.0f, ObjectPos, TileCenter, m_PhysicsEngineComponent);
 			CreateHelper(ObjectPos, new D3DEngine::Mesh("./Models/CourseBack.obj", &m_MeshList), SideMat, m_PhysicsEngineComponent, RootObject);
-			continue;
 		}
 		if (ObjectType == TYPE::WALLSIDER)
 		{
-			std::cerr << "Wall Side Proc" << std::endl;
-			std::cerr << "Wall Back: Moved Right" << std::endl;
+			std::cerr << "Wall Back Proccessing: Moved Right" << std::endl;
 			TranslateHelper(0.0f, -1.08f, ObjectPos, TileCenter, m_PhysicsEngineComponent);
 			CreateHelper(ObjectPos, new D3DEngine::Mesh("./Models/CourseSide.obj", &m_MeshList), SideMat, m_PhysicsEngineComponent, RootObject);
-			continue;
 		}
 		if (ObjectType == TYPE::WALLSIDEL)
 		{
-			std::cerr << "Wall Side Proc" << std::endl;
-			std::cerr << "Wall Back: Moved Left" << std::endl;
+			std::cerr << "Wall Back Proccessing: Moved Left" << std::endl;
 			TranslateHelper(0.0f, 1.08f, ObjectPos, TileCenter, m_PhysicsEngineComponent);
 			CreateHelper(ObjectPos, new D3DEngine::Mesh("./Models/CourseSide.obj", &m_MeshList), SideMat, m_PhysicsEngineComponent, RootObject);
-			continue;
 		}
 	}
 	
@@ -330,18 +319,9 @@ Level::Level(int LevelData[7][7],
 	DirectionalLightObject->AddComponent(directionalLight);
 	DirectionalLightObject->GetTransform()->SetRotation(&D3DEngine::Quaternion(D3DEngine::Vector3f(1, 1, 1), TO_RADIANS(-45.0f)));
 
-	/*D3DEngine::GameObject* DirectionalLightObject2 = new D3DEngine::GameObject();
-	D3DEngine::DirectionalLight* directionalLight2 = new D3DEngine::DirectionalLight(renderEngine->GetShaderList(), D3DEngine::Vector3f(0.5, 0.5, 0.5), 0.1f);
-	DirectionalLightObject2->AddComponent(directionalLight2);
-	DirectionalLightObject2->GetTransform()->SetRotation(&D3DEngine::Quaternion(D3DEngine::Vector3f(1, 1, 1), TO_RADIANS(45.0f)));*/
-	//Lights End
 
 	RootObject->AddChild(CameraObject);
 	RootObject->AddChild(DirectionalLightObject);
-	//RootObject->AddChild(DirectionalLightObject2);
-
-	for (int i = 0; i < m_GameObjects.size(); i++)
-		RootObject->AddChild(m_GameObjects.at(i));
 }
 
 Level::Level(
@@ -374,7 +354,6 @@ Level::Level(
 
 	//Sides
 	physicsEngine->AddAABBFromMesh(SideRes->GetVertices(), SideRes->GetVERTEXSIZE(), SideRes->GetIndices(), SideRes->GetINDEXSIZE());
-	delete SideRes;
 
 	//SideA
 	m_PhysicsEngineComponent->GetPhysicsEngine()->GetObject(0)->SetPosition(D3DEngine::Vector3f(4.1f, 0.0f, 1.089f));
@@ -410,7 +389,6 @@ void Level::Destroy()
 	for (int i = 0; i < m_MaterialList.size(); i++)
 	{
 		delete m_MaterialList[i];
-		m_MaterialList.erase(m_MaterialList.begin() + i);
 	}
 	m_MaterialList.clear();
 }
