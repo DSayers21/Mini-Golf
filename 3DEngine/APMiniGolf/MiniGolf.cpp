@@ -4,32 +4,60 @@ MiniGolf::MiniGolf()
 {
 }
 
+MiniGolf::~MiniGolf()
+{
+	std::cerr << "Destructor: MiniGolf" << std::endl;
+	ResetLevel();
+}
+
 
 void MiniGolf::Init(D3DEngine::RenderEngine* renderEngine, D3DEngine::PhysicsEngine* physicsEngine)
 {
 	m_RenderEngine = renderEngine;
 	m_PhysicsEngine = physicsEngine;
 
-	LoadLevel(3);
+	LoadLevel(0);
+	LevelEmpty = false;
 }
 
 void MiniGolf::Input(D3DEngine::GetInput* input, float Delta)
 {
 	input->Update();
 	bool Created = false;
-	if (input->GetKeyDown(D3DEngine::KEY_1))
+	if (LevelEmpty == true)
 	{
-		LoadLevel(1);
-		Created = true;
+		if (input->GetKeyDown(D3DEngine::KEY_1))
+		{
+			LoadLevel(0);
+			Created = true;
+			LevelEmpty = false;
+		}
+		if (input->GetKeyDown(D3DEngine::KEY_2))
+		{
+			LoadLevel(1);
+			Created = true;
+			LevelEmpty = false;
+		}
+		if (input->GetKeyDown(D3DEngine::KEY_3))
+		{
+			LoadLevel(2);
+			Created = true;
+			LevelEmpty = false;
+		}
+		if (input->GetKeyDown(D3DEngine::KEY_4))
+		{
+			LoadLevel(3);
+			Created = true;
+			LevelEmpty = false;
+		}
 	}
-	if (input->GetKeyDown(D3DEngine::KEY_2))
+	else
 	{
-		LoadLevel(3);
-		Created = true;
-	}
-	if (input->GetKeyDown(D3DEngine::KEY_3))
-	{
-		ResetLevel();
+		if (input->GetKeyDown(D3DEngine::KEY_0))
+		{
+			ResetLevel();
+			LevelEmpty = true;
+		}
 	}
 	if(!Created)
 		m_RootObject->Input(input, Delta);
@@ -69,11 +97,11 @@ bool MiniGolf::LoadLevel(int LevelNum)
 			//ZeroPadded
 			int NewLevelData[7][7] = {
 				{ 0, 0, 0, 0, 0, 0, 0 } ,
-				{ 0, 1, 1, 2, 1, 1, 0 } ,  //Row 0
-				{ 0, 1, 0, 1, 0, 1, 0 } ,  //Row 1
-				{ 0, 1, 1, 1, 0, 1, 0 } ,  //Row 2
-				{ 0, 1, 0, 0, 3, 1, 0 } ,  //Row 3
-				{ 0, 1, 1, 1, 1, 1, 0 } ,   //Row 4
+				{ 0, 3, 1, 1, 1, 0, 0 } ,  //Row 0
+				{ 0, 0, 0, 0, 1, 0, 0 } ,  //Row 1
+				{ 0, 0, 2, 1, 1, 0, 0 } ,  //Row 2
+				{ 0, 0, 0, 0, 0, 0, 0 } ,  //Row 3
+				{ 0, 0, 0, 0, 0, 0, 0 } ,   //Row 4
 				{ 0, 0, 0, 0, 0, 0, 0 } ,
 			};
 			NewLevel.SetLevelData(NewLevelData);
@@ -84,32 +112,17 @@ bool MiniGolf::LoadLevel(int LevelNum)
 			//ZeroPadded
 			int NewLevelData[7][7] = {
 				{ 0, 0, 0, 0, 0, 0, 0 } ,
-				{ 0, 3, 0, 1, 1, 1, 0 } ,  //Row 0
-				{ 0, 1, 0, 1, 0, 1, 0 } ,  //Row 1
-				{ 0, 1, 0, 2, 0, 1, 0 } ,  //Row 2
-				{ 0, 1, 0, 0, 0, 1, 0 } ,  //Row 3
-				{ 0, 1, 1, 1, 1, 1, 0 } ,   //Row 4
-				{ 0, 0, 0, 0, 0, 0, 0 } ,
-			}; 
-			NewLevel.SetLevelData(NewLevelData);
-			break;
-		}
-		case 3:
-		{
-			//ZeroPadded
-			int NewLevelData[7][7] = {
-				{ 0, 0, 0, 0, 0, 0, 0 } ,
-				{ 0, 3, 1, 1, 1, 0, 0 } ,  //Row 0
-				{ 0, 0, 0, 0, 1, 0, 0 } ,  //Row 1
-				{ 0, 0, 1, 2, 1, 0, 0 } ,  //Row 2
-				{ 0, 0, 0, 0, 0, 0, 0 } ,  //Row 3
-				{ 0, 0, 0, 0, 0, 0, 0 } ,   //Row 4
+				{ 0, 0, 0, 1, 0, 0, 0 } ,  //Row 0
+				{ 0, 0, 0, 1, 0, 0, 0 } ,  //Row 1
+				{ 0, 0, 0, 1, 0, 0, 0 } ,  //Row 2
+				{ 0, 0, 0, 1, 0, 0, 0 } ,  //Row 3
+				{ 0, 0, 0, 2, 0, 0, 0 } ,   //Row 4
 				{ 0, 0, 0, 0, 0, 0, 0 } ,
 			};
 			NewLevel.SetLevelData(NewLevelData);
 			break;
 		}
-		case 4:
+		case 3:
 		{
 			//ZeroPadded
 			int NewLevelData[7][7] = {

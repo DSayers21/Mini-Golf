@@ -7,10 +7,19 @@
 
 namespace D3DEngine
 {
-	struct StructComponent
+	class StructComponent
 	{
+	public:
 		StructComponent() : m_Name(""), m_Type("") {}
 		StructComponent(std::string Name, std::string Type) : m_Name(Name), m_Type(Type) {}
+
+		inline std::string* GetName() { return &m_Name; }
+		inline std::string* GetType() { return &m_Type; }
+
+		inline void SetName(const std::string& Name) { m_Name = Name; }
+		inline void SetType(const std::string& Type) { m_Type = Type; }
+
+	private:
 		std::string m_Name;
 		std::string m_Type;
 	};

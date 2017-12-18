@@ -33,8 +33,6 @@ namespace D3DEngine
 		Vector3f PointMax;
 
 		float Largest = 0;
-		//for (int i = 0; i < VertSize; i++)
-			//std::cerr << "VERT: " << Vertices[i].GetPos().ToString() << std::endl;
 
 		for (int i = 0; i < VertSize; i++)
 		{
@@ -52,9 +50,6 @@ namespace D3DEngine
 						Largest = Res;
 						PointMin = Vertices[i].GetPos();
 						PointMax = Vertices[j].GetPos();
-
-						//std::cerr << "i: " << i << "  PosMin: " << Vertices[i].GetPos().ToString() << std::endl;
-						//std::cerr << "j: " << j << "  PosMax: " << Vertices[j].GetPos().ToString() << std::endl;
 					}
 				}
 			}
@@ -82,7 +77,7 @@ namespace D3DEngine
 
 		PhysicsObject* New = new PhysicsObject(new AxisAlignedBoundingBox(PointMin, PointMax, CenterPos, Dims, Normal), Vector3f(0.0f, 0.0f, 0.0f));
 		New->SetPosition(CenterPos);
-		//PhysicsObject* New = new PhysicsObject(new AxisAlignedBoundingBox(PointMax, PointMin), Vector3f(0.0f, 0.0f, 0.0f));
+
 		this->AddObject(New);
 	}
 
@@ -117,7 +112,6 @@ namespace D3DEngine
 
 
 					m_Objects[i]->SetVelocity(ReflectedVel);
-					break;
 				}
 				delete intersectData;
 			}

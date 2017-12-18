@@ -28,7 +28,7 @@ class MiniGolf : public MainGame
 {
 public:
 	MiniGolf();
-	//~MiniGolf();
+	virtual ~MiniGolf();
 
 	void Init(D3DEngine::RenderEngine* renderEngine, D3DEngine::PhysicsEngine* physicsEngine);
 	void Input(D3DEngine::GetInput* input, float Delta);
@@ -37,6 +37,7 @@ public:
 	void ResetLevel();
 
 private:
+	bool LevelEmpty = true;
 	Level* m_CurrentLevel;
 	D3DEngine::RenderEngine* m_RenderEngine;
 	D3DEngine::PhysicsEngine* m_PhysicsEngine;

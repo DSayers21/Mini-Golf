@@ -31,11 +31,12 @@ namespace D3DEngine
 
 	MainComp::~MainComp()
 	{
+		delete m_Game;
 		delete m_Window;
 		delete m_Input;
 		delete m_RenderEngine;
 		delete m_PhysicsEngine;
-		delete m_Game;
+		delete m_Time;
 	}
 
 	void MainComp::Start()

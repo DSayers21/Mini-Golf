@@ -7,7 +7,7 @@ MainGame::MainGame()
 
 MainGame::~MainGame()
 {
-	std::cerr << "Deleted Main Game" << std::endl;
+	std::cerr << "Destructor: Main Game" << std::endl;
 	m_RootObject->ClearGameObject();
 	delete m_RootObject;
 	delete m_MeshList;

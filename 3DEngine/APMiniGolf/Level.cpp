@@ -129,11 +129,6 @@ Level::Level(int LevelData[7][7],
 				RootObject->AddChild(Hole);
 				//End Add Hole
 
-				//Create Point Light
-				D3DEngine::GameObject* PointLightObject = new D3DEngine::GameObject();
-				PointLightObject->AddComponent(new D3DEngine::PointLight(renderEngine->GetShaderList(), D3DEngine::Vector3f(1, 1, 1), 2.0f, D3DEngine::Attenuation(0, 0, 1)));
-				PointLightObject->GetTransform()->GetPosition()->Set(0, 3, 0);
-
 				//Add Flag
 				D3DEngine::GameObject* FlagBack = new D3DEngine::GameObject();
 				FlagBack->AddComponent(new D3DEngine::MeshRenderer(new D3DEngine::Mesh("./Models/Flag.obj", &m_MeshList), FlagMat));
@@ -158,7 +153,7 @@ Level::Level(int LevelData[7][7],
 
 				FlagShaft->AddChild(FlagBack);
 				FlagShaft->AddChild(FlagFront);
-				FlagShaft->AddChild(PointLightObject);
+
 				RootObject->AddChild(FlagShaft);
 				//End Add Flag Shaft
 			}

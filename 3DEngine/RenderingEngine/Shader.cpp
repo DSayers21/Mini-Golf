@@ -79,17 +79,16 @@ namespace D3DEngine
 
 	void Shader::UpdateUniforms(Transform* transform, Material* material, RenderEngine* renderEngine)
 	{
-		Matrix4f* WorldMatrix = &transform->GetTransformation();
-		Matrix4f* MVPMatrix = &renderEngine->GetCamera()->GetViewProjection().Mult(*WorldMatrix);
+		Matrix4f& WorldMatrix = transform->GetTransformation();
+		Matrix4f& MVPMatrix = renderEngine->GetCamera()->GetViewProjection().Mult(WorldMatrix);
 
 		//Loop Over all Uniforms
 		std::vector<StructComponent>* UniStruct = m_ShaderResource->GetUniformsStruct();
 		int Size = UniStruct->size();
 		for (int i = 0; i < Size; i++)
 		{
-			StructComponent CurrentComp = UniStruct->at(i);
-			std::string& UniformName = CurrentComp.m_Name;
-			std::string& UniformType = CurrentComp.m_Type;
+			std::string& UniformName = *(&UniStruct->at(i))->GetName();
+			std::string& UniformType = *(&UniStruct->at(i))->GetType();
 
 			std::string& UnprefixedUniformName = UniformName.substr(2);
 
@@ -105,9 +104,9 @@ namespace D3DEngine
 			else if (FirstLetter == 'T')	//Transform Uniform
 			{
 				if (UniformName == "T_MVP")
-					SetUniformM4(UniformName, *MVPMatrix);
+					SetUniformM4(UniformName, MVPMatrix);
 				else if (UniformName == "T_Model")
-					SetUniformM4(UniformName, *WorldMatrix);
+					SetUniformM4(UniformName, WorldMatrix);
 				else
 					std::cerr << UniformName << ": Illegal Argument" << std::endl;
 			}
@@ -142,6 +141,7 @@ namespace D3DEngine
 				else
 					std::cerr << UniformName << ": Illegal Argument" << std::endl;
 			}
+
 		}
 		//delete WorldMatrix;
 		//delete MVPMatrix;
@@ -211,7 +211,7 @@ namespace D3DEngine
 			AddThis = false;
 			//Add all structs which reference another struct
 			for (int i = 0; i < StructComp.size(); i++)
-				AddUniformWithStructCheck(UniformName + "." + StructComp[i].m_Name, StructComp[i].m_Type, Structs);
+				AddUniformWithStructCheck(UniformName + "." + *StructComp[i].GetName(), *StructComp[i].GetType(), Structs);
 		}
 
 		if (AddThis)

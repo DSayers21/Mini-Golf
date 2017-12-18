@@ -49,7 +49,6 @@ namespace D3DEngine
 
 		std::vector<std::thread> Threads = std::vector<std::thread>();
 
-
 		//Draw All Lights
 		for (int i = 0; i < m_Lights.size(); i++)
 		{

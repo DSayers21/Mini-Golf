@@ -24,7 +24,7 @@ class MainGame
 {
 public:
 	MainGame();
-	~MainGame();
+	virtual ~MainGame();
 
 	virtual void Init(D3DEngine::RenderEngine* renderEngine, D3DEngine::PhysicsEngine* physicsEngine);
 	virtual void Input(D3DEngine::GetInput* input, float Delta);

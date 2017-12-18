@@ -5,7 +5,7 @@ namespace D3DEngine
 	AxisAlignedBoundingBox::AxisAlignedBoundingBox(Vector3f MinExtents, Vector3f MaxExtents, Vector3f Center, Vector3f Dims, Vector2f Normal) :
 		Collider(Collider::TYPE_AABB), m_MinExtents(MinExtents), m_MaxExtents(MaxExtents), m_Center(Center), m_Dims(Dims), m_Normal(Normal)
 	{
-		std::cerr << "AABB" << std::endl;
+		std::cerr << "Axis Aligned Bounding Box: Created" << std::endl;
 	}
 
 	AxisAlignedBoundingBox::~AxisAlignedBoundingBox()
