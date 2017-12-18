@@ -19,10 +19,15 @@ void MiniGolf::Input(D3DEngine::GetInput* input, float Delta)
 	bool Created = false;
 	if (input->GetKeyDown(D3DEngine::KEY_1))
 	{
-		LoadLevel(-1);
+		LoadLevel(1);
 		Created = true;
 	}
 	if (input->GetKeyDown(D3DEngine::KEY_2))
+	{
+		LoadLevel(3);
+		Created = true;
+	}
+	if (input->GetKeyDown(D3DEngine::KEY_3))
 	{
 		ResetLevel();
 	}
@@ -131,6 +136,7 @@ void MiniGolf::ResetLevel()
 {
 	GetRootObject()->ClearGameObject();
 	m_RenderEngine->ResetEngine();
+	m_PhysicsEngine->ClearObjects();
 	m_CurrentLevel->Destroy();
 	delete m_CurrentLevel;
 }

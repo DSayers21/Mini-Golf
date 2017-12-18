@@ -8,7 +8,7 @@ namespace D3DEngine
 		m_Window = new D3DEngine::Window();
 		m_Window->Init(Title, Width, Height);
 		m_Input = new GetInput(m_Window);
-
+		m_Time = new Time();
 		//Setup Game
 		m_Game = Game;
 		m_Game->SetWindow(m_Window);
