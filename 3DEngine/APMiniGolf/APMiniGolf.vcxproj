@@ -124,6 +124,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="GolfClub.cpp" />
+    <ClCompile Include="GolfCourse.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="MainGame.cpp" />
     <ClCompile Include="MiniGolf.cpp" />
@@ -131,6 +132,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GolfClub.h" />
+    <ClInclude Include="GolfCourse.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="MainGame.h" />
     <ClInclude Include="MiniGolf.h" />

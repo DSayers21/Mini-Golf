@@ -14,10 +14,6 @@ namespace D3DEngine
 
 	void PhysicsEngine::ClearObjects()
 	{
-		//for (int i = 0; i < m_Objects.size(); i++)
-		//{
-			//delete m_Objects[i];
-		//}
 		m_Objects.clear();
 	}
 
@@ -91,29 +87,38 @@ namespace D3DEngine
 
 	void PhysicsEngine::HandleCollisions()
 	{
+		unsigned int Size = m_Objects.size();
+		bool Collided;
 		//Go through every object and check for collisions
-		for (unsigned int i = 0; i < m_Objects.size(); i++)
+		for (unsigned int i = 0; i < Size; i++)
 		{
-			for (unsigned int j = i + 1; j < m_Objects.size(); j++)
+			Collided = false;
+			for (unsigned int j = i + 1; j < Size; j++)
 			{
-				IntersectData* intersectData = m_Objects[i]->GetCollider()->Intersect(*m_Objects[j]->GetCollider());
-				//Handle Collision response
-				if (intersectData->GetDoesIntersect())
+				if (!Collided)
 				{
-					//std::cerr << "COLISION" << std::endl;
-					Vector3f V = m_Objects[i]->GetVelocity();
-					Vector3f N = intersectData->GetDirection();
-					Vector3f U = N * (V.Dot(N) / N.Dot(N));
-					Vector3f W = V - U;
-					Vector3f ReflectedVel = W - U;
+					IntersectData* intersectData = m_Objects[i]->GetCollider()->Intersect(*m_Objects[j]->GetCollider());
+					//Handle Collision response
+					if (intersectData->GetDoesIntersect())
+					{
+						//std::cerr << "COLISION" << std::endl;
+						Vector3f V = m_Objects[i]->GetVelocity();
+						Vector3f N = intersectData->GetDirection();
+						Vector3f U = N * (V.Dot(N) / N.Dot(N));
+						Vector3f W = V - U;
+						Vector3f ReflectedVel = W - U;
 
-					//if moving away from plane, cannot hit
-					float Test = V.Dot(N);
+						//if moving away from plane, cannot hit
+						float Test = V.Dot(N);
 
 
-					m_Objects[i]->SetVelocity(ReflectedVel);
+						m_Objects[i]->SetVelocity(ReflectedVel);
+
+						//Protected against colliding against multiple objects, only can collide with one object in a frame
+						Collided = true;
+					}
+					delete intersectData;
 				}
-				delete intersectData;
 			}
 		}
 	}

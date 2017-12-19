@@ -2,6 +2,7 @@
 
 MiniGolf::MiniGolf()
 {
+	m_Course = GolfCourse("Courses/CourseOne.txt");
 }
 
 MiniGolf::~MiniGolf()
@@ -22,126 +23,28 @@ void MiniGolf::Init(D3DEngine::RenderEngine* renderEngine, D3DEngine::PhysicsEng
 
 void MiniGolf::Input(D3DEngine::GetInput* input, float Delta)
 {
+	//Update the Input object
 	input->Update();
-	bool Created = false;
-	if (LevelEmpty == true)
+
+	//Check for manual next level progress
+	if (input->GetKeyDown(D3DEngine::KEY_1))
 	{
-		if (input->GetKeyDown(D3DEngine::KEY_1))
-		{
-			LoadLevel(0);
-			Created = true;
-			LevelEmpty = false;
-		}
-		if (input->GetKeyDown(D3DEngine::KEY_2))
-		{
-			LoadLevel(1);
-			Created = true;
-			LevelEmpty = false;
-		}
-		if (input->GetKeyDown(D3DEngine::KEY_3))
-		{
-			LoadLevel(2);
-			Created = true;
-			LevelEmpty = false;
-		}
-		if (input->GetKeyDown(D3DEngine::KEY_4))
-		{
-			LoadLevel(3);
-			Created = true;
-			LevelEmpty = false;
-		}
+		//Reset Level
+		ResetLevel();
+		//Progress to next hole
+		bool IsReset = m_Course.NextHole();
+		if (!IsReset) 
+			std::cout << "No more holes, looped back to start!" << std::endl;
+		//Load the next hole
+		LoadLevel(m_Course.GetCurrentHole());
 	}
-	else
-	{
-		if (input->GetKeyDown(D3DEngine::KEY_0))
-		{
-			ResetLevel();
-			LevelEmpty = true;
-		}
-	}
-	if(!Created)
-		m_RootObject->Input(input, Delta);
+	//Get Input for all objects in scene
+	m_RootObject->Input(input, Delta);
 }
 
 bool MiniGolf::LoadLevel(int LevelNum)
 {
-	bool TestWorld = false;
-	int LevelData[7][7];
-	LevelArray NewLevel;
-
-	switch (LevelNum)
-	{
-		case -1:	//Original Test Level World
-		{
-			TestWorld = true;
-			m_CurrentLevel = new Level(m_Window, m_RenderEngine, m_PhysicsEngine, GetRootObject());
-			break;
-		}
-		case 0:
-		{
-			//ZeroPadded
-			int NewLevelData[7][7] = {
-				{ 0, 0, 0, 0, 0, 0, 0 } ,
-				{ 0, 0, 1, 1, 3, 0, 0 } ,  //Row 0
-				{ 0, 0, 1, 0, 0, 0, 0 } ,  //Row 1
-				{ 0, 0, 1, 1, 1, 0, 0 } ,  //Row 2
-				{ 0, 0, 0, 0, 1, 0, 0 } ,  //Row 3
-				{ 0, 0, 2, 1, 1, 0, 0 } ,   //Row 4
-				{ 0, 0, 0, 0, 0, 0, 0 } ,
-			};
-			NewLevel.SetLevelData(NewLevelData);
-			break;
-		}
-		case 1:
-		{
-			//ZeroPadded
-			int NewLevelData[7][7] = {
-				{ 0, 0, 0, 0, 0, 0, 0 } ,
-				{ 0, 3, 1, 1, 1, 0, 0 } ,  //Row 0
-				{ 0, 0, 0, 0, 1, 0, 0 } ,  //Row 1
-				{ 0, 0, 2, 1, 1, 0, 0 } ,  //Row 2
-				{ 0, 0, 0, 0, 0, 0, 0 } ,  //Row 3
-				{ 0, 0, 0, 0, 0, 0, 0 } ,   //Row 4
-				{ 0, 0, 0, 0, 0, 0, 0 } ,
-			};
-			NewLevel.SetLevelData(NewLevelData);
-			break;
-		}
-		case 2:
-		{
-			//ZeroPadded
-			int NewLevelData[7][7] = {
-				{ 0, 0, 0, 0, 0, 0, 0 } ,
-				{ 0, 0, 0, 1, 0, 0, 0 } ,  //Row 0
-				{ 0, 0, 0, 1, 0, 0, 0 } ,  //Row 1
-				{ 0, 0, 0, 1, 0, 0, 0 } ,  //Row 2
-				{ 0, 0, 0, 1, 0, 0, 0 } ,  //Row 3
-				{ 0, 0, 0, 2, 0, 0, 0 } ,   //Row 4
-				{ 0, 0, 0, 0, 0, 0, 0 } ,
-			};
-			NewLevel.SetLevelData(NewLevelData);
-			break;
-		}
-		case 3:
-		{
-			//ZeroPadded
-			int NewLevelData[7][7] = {
-				{ 0, 0, 0, 0, 0, 0, 0 } ,
-				{ 0, 0, 0, 0, 0, 0, 0 } ,  //Row 0
-				{ 0, 0, 0, 0, 0, 0, 0 } ,  //Row 1
-				{ 0, 0, 0, 2, 0, 0, 0 } ,  //Row 2
-				{ 0, 0, 0, 0, 0, 0, 0 } ,  //Row 3
-				{ 0, 0, 0, 0, 0, 0, 0 } ,   //Row 4
-				{ 0, 0, 0, 0, 0, 0, 0 } ,
-			};
-			NewLevel.SetLevelData(NewLevelData);
-			break;
-		}
-	}
-	
-	D3DEngine::GameObject* Temp = GetRootObject();
-	if (!TestWorld)
-		m_CurrentLevel = new Level(NewLevel.m_LevelData, m_Window, m_RenderEngine, m_PhysicsEngine, GetRootObject());
+	m_CurrentLevel = new Level(m_Course.GetLevel(LevelNum).m_LevelData, m_Window, m_RenderEngine, m_PhysicsEngine, GetRootObject());
 	return true;
 }
 
