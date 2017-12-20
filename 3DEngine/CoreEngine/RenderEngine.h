@@ -24,6 +24,22 @@
 
 namespace D3DEngine
 {
+	struct TextToRender
+	{
+		TextToRender(std::string Text, Vector3f Colour, int x, int y)
+		{
+			m_Text = Text;
+			m_Colour = Colour;
+			X = x;
+			Y = y;
+		}
+
+		std::string m_Text;
+		Vector3f m_Colour;
+		int X, Y;
+	};
+
+
 	class TextRendering;
 	class RenderEngine : public MappedValues
 	{
@@ -53,6 +69,8 @@ namespace D3DEngine
 		//inline SDL_Renderer* GetSDLRenderer() { return m_Renderer; }
 		//Add Lights
 		inline void AddLight(BaseLight* Light) { m_Lights.push_back(Light); }
+		void AddText(std::string Name, TextToRender Content);
+		void RemoveText(std::string Name);
 		inline void AddCamera(Camera* camera) { m_Camera = camera; }
 
 		inline void SetActiveLight(BaseLight* Light) { ActiveLight = Light; }
@@ -71,6 +89,7 @@ namespace D3DEngine
 		ShaderList* m_ShaderList;
 
 		//Permanent Structures
+		std::map<std::string, TextToRender> m_Text = std::map<std::string, TextToRender>();
 		std::vector<BaseLight*> m_Lights = std::vector<BaseLight*>();
 		BaseLight* ActiveLight;
 

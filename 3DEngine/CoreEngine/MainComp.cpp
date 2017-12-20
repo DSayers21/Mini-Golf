@@ -61,6 +61,8 @@ namespace D3DEngine
 		long FrameCounter = 0;
 		m_Game->Init(m_RenderEngine, m_PhysicsEngine);
 
+		m_RenderEngine->AddText("TITLE", TextToRender("Mini-Golf Game", Vector3f(255, 255, 255), m_Window->GetWidth()-175, m_Window->GetHeight() - 24));
+
 		while (!m_Window->IsClosed())
 		{
 			Render = false;
@@ -84,9 +86,16 @@ namespace D3DEngine
 				if (m_Input->GetIsClosed()) m_Window->Close();
 				m_Game->Update(m_FrameTime);
 
+				if (m_Input->GetKeyDown(KEY_5))
+				{
+					m_RenderEngine->RemoveText("FPS");
+				}
+
 				if (FrameCounter >= m_Time->SECOND)
 				{
-					std::cout << "Current FPS: " << Frames << "/" << m_FrameCap << std::endl;
+					//std::cout << "Current FPS: " << Frames << "/" << m_FrameCap << std::endl;
+					std::string FPS = "Current FPS: " + std::to_string(Frames) + "/" + std::to_string(m_FrameCap);
+					m_RenderEngine->AddText("FPS", TextToRender(FPS, Vector3f(0, 255, 255), 5, m_Window->GetHeight()-24));
 					Frames = 0;
 					FrameCounter = 0;
 				}

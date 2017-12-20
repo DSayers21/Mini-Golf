@@ -65,9 +65,14 @@ namespace D3DEngine
 		glDepthMask(true);			 //Enable writing to the depth buffer
 		
 		glDisable(GL_BLEND);
-		//m_Text->RenderText(this, "Hello World", 12, 12, 1, Vector3f(1, 1, 1));
-		m_TextRender->Render("Hello World", Vector3f( 0, 0, 255), 200, 200);
-		m_TextRender->Render("Finally!!", Vector3f(255, 0, 0), 4, 4);
+
+		//Render All Text
+		for (std::pair<std::string, TextToRender> element : m_Text)
+		{
+			m_TextRender->Render(element.second.m_Text, element.second.m_Colour, element.second.X, element.second.Y);
+		}
+
+
 		glFlush();
 	}
 
@@ -104,6 +109,31 @@ namespace D3DEngine
 	{
 		//std::cerr << UniformName << ": Illegal Argument" << std::endl;
 	}
+
+	void RenderEngine::AddText(std::string Name, TextToRender Content)
+	{
+		if (m_Text.find(Name) == m_Text.end()) 
+		{
+			//Not found
+			m_Text.insert(std::pair<std::string, TextToRender>(Name, Content));
+		}
+		else 
+		{
+			//Found
+			m_Text.find(Name)->second = Content;
+		}
+	}
+	void RenderEngine::RemoveText(std::string Name)
+	{
+		for (std::map<std::string, TextToRender>::iterator it = m_Text.begin(); it != m_Text.end();)
+		{
+			if ((it->first) == Name)
+				it = m_Text.erase(it);
+			else
+				it++;
+		}
+	}
+
 
 	void RenderEngine::ResetEngine()
 	{
