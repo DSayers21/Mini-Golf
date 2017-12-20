@@ -24,10 +24,11 @@
 
 namespace D3DEngine
 {
+	class TextRendering;
 	class RenderEngine : public MappedValues
 	{
 	public:
-		RenderEngine();
+		RenderEngine(Window* Window);
 		~RenderEngine();
 
 		void Render(GameObject* Object);
@@ -60,6 +61,7 @@ namespace D3DEngine
 
 	private: 
 		//SDL_Renderer* m_Renderer = NULL;
+		Window* m_Window;
 		Shader* m_ShaderForwardAmbient;
 
 		Camera* m_Camera;
@@ -73,5 +75,7 @@ namespace D3DEngine
 		BaseLight* ActiveLight;
 
 		std::map<std::string, int> SamplerMap;
+
+		TextRendering* m_TextRender;
 	};
 }

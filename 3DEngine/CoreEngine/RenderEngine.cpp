@@ -1,9 +1,11 @@
 #include "RenderEngine.h"
+#include "TextRendering.h"
 
 namespace D3DEngine
 {
-	RenderEngine::RenderEngine()
+	RenderEngine::RenderEngine(Window* Window)
 	{
+		m_Window = Window;
 		//m_Renderer = SDL_CreateRenderer(window->GetSDLWindow(), -1, SDL_RENDERER_ACCELERATED);
 		MappedValues();
 		InitGraphics();
@@ -16,6 +18,8 @@ namespace D3DEngine
 
 		SamplerMap = std::map<std::string, int>();
 		SamplerMap.insert(std::pair<std::string, int>("Diffuse", 0));
+
+		m_TextRender = new TextRendering(m_Window);
 	}
 
 	RenderEngine::~RenderEngine()
@@ -23,6 +27,7 @@ namespace D3DEngine
 		std::cerr << "Destructor: Render Engine" << std::endl;
 		delete m_ShaderForwardAmbient;
 		delete m_ShaderList;
+		delete m_TextRender;
 	}
 
 	void RenderOne(RenderEngine* self, std::vector<BaseLight*>& Lights, BaseLight* ActiveLight, GameObject * Object, int i)
@@ -33,7 +38,6 @@ namespace D3DEngine
 		Object->Draw(self->GetActiveLight()->GetShader(), self);
 		
 	}
-
 	void RenderEngine::Render(GameObject * Object)
 	{
 		ClearScreen();
@@ -55,10 +59,16 @@ namespace D3DEngine
 			RenderOne( this, m_Lights, ActiveLight, Object, i);
 		}
 
+		
 		//end of blending
 		glDepthFunc(GL_LESS);
 		glDepthMask(true);			 //Enable writing to the depth buffer
+		
 		glDisable(GL_BLEND);
+		//m_Text->RenderText(this, "Hello World", 12, 12, 1, Vector3f(1, 1, 1));
+		m_TextRender->Render("Hello World", Vector3f( 0, 0, 255), 200, 200);
+		m_TextRender->Render("Finally!!", Vector3f(255, 0, 0), 4, 4);
+		glFlush();
 	}
 
 	void RenderEngine::InitGraphics()

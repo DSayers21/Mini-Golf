@@ -81,6 +81,9 @@
       <AdditionalIncludeDirectories>.\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
+    <Lib>
+      <AdditionalLibraryDirectories>./lib</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -130,6 +133,7 @@
     <ClCompile Include="ResourceManagement\ShaderResource.cpp" />
     <ClCompile Include="ResourceManagement\ShaderList.cpp" />
     <ClCompile Include="stb_image.c" />
+    <ClCompile Include="TextRendering.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="ResourceManagement\TextureResource.cpp" />
     <ClCompile Include="Vert.cpp" />
@@ -150,6 +154,7 @@
     <ClInclude Include="ResourceManagement\ShaderResource.h" />
     <ClInclude Include="ResourceManagement\ShaderList.h" />
     <ClInclude Include="stb_image.h" />
+    <ClInclude Include="TextRendering.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="ResourceManagement\TextureResource.h" />
     <ClInclude Include="Vert.h" />

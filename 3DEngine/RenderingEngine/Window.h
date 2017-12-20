@@ -34,6 +34,7 @@ namespace D3DEngine
 	private:
 		SDL_Window* m_Window;
 		SDL_GLContext m_glContext;
+
 		bool m_isClosed;
 
 		int m_Width, m_Height;

@@ -20,10 +20,11 @@ namespace D3DEngine
 		m_FrameCap = FrameRate;
 
 		//Init Render Engine
-		m_RenderEngine = new D3DEngine::RenderEngine();
+		m_RenderEngine = new D3DEngine::RenderEngine(m_Window);
 
 		//Init Physics Engine
 		m_PhysicsEngine = new D3DEngine::PhysicsEngine();
+	
 
 		//Start MainComp
 		Start();
@@ -94,6 +95,7 @@ namespace D3DEngine
 			if (Render)
 			{
 				m_Game->Draw(m_RenderEngine);
+
 				m_Window->Update();
 
 				Frames++;
