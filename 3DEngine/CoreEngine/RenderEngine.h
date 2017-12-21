@@ -49,6 +49,8 @@ namespace D3DEngine
 
 		void Render(GameObject* Object);
 
+		void RenderText();
+
 		//inline void SetCamera(Camera* camera) { m_Camera = camera; }
 		inline Camera* GetCamera() { return m_Camera; }
 

@@ -7,13 +7,16 @@ c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\renderen
   Generating Code...
   Skipping... (no relevant changes detected)
   SpotLight.cpp
-  PointLight.cpp
-  PhysicsObjectComponent.cpp
   PhysicsEngineComponent.cpp
   MeshRenderer.cpp
   Input.cpp
-  GameObject.cpp
-  GameComponent.cpp
   FreeLook.cpp
   DirectionalLight.cpp
+  PointLight.cpp
+  PhysicsObjectComponent.cpp
+  MainComp.cpp
+  GameObject.cpp
+  GameComponent.cpp
+  Camera.cpp
+  BaseLight.cpp
   CoreEngine.vcxproj -> C:\Users\Satan\Documents\GitHub\Pool Game\Mini-Golf\3DEngine\Debug\CoreEngine.lib

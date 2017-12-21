@@ -24,6 +24,7 @@ public:
 
 	inline D3DEngine::PhysicsObject* GetBall() { return m_BallPhysics; }
 	inline int GetScore() { return m_Score; }
+	inline int GetID() { return m_PlayerID; }
 
 private:
 	bool m_WasMoving = false;

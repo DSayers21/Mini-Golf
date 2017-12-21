@@ -68,7 +68,10 @@ public:
 
 	bool Update(float Delta);
 
+	inline std::vector<Player*> GetPlayers() { return m_Players; }
+
 private:
+	bool m_Finished = false;
 	int m_CurrentPlayer = 0;
 	Pocket* m_Pocket;
 	std::vector<Player*> m_Players;

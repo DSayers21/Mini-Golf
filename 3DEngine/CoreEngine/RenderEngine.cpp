@@ -65,6 +65,12 @@ namespace D3DEngine
 		glDisable(GL_BLEND);
 
 		//Render All Text
+		RenderText();
+	}
+
+	void RenderEngine::RenderText()
+	{
+		//Render All Text
 		for (std::pair<std::string, TextToRender> element : m_Text)
 		{
 			m_TextRender->Render(element.second.m_Text, element.second.m_Colour, element.second.X, element.second.Y);

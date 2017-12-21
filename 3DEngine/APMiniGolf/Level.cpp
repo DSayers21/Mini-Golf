@@ -364,30 +364,31 @@ void Level::ResetBall()
 
 bool Level::Update(float Delta)
 {
-	if (m_Pocket->IsColliding(m_Players[m_CurrentPlayer]->GetBall()))
+	if (!m_Finished)
 	{
-		//Add Point for current player, as the ball went into the hole
-		m_Players[m_CurrentPlayer]->IncreaseScore();
+		if (m_Pocket->IsColliding(m_Players[m_CurrentPlayer]->GetBall()))
+		{
+			//Add Point for current player, as the ball went into the hole
+			m_Players[m_CurrentPlayer]->IncreaseScore();
 
-		if (m_CurrentPlayer < m_Players.size() - 1)
-		{
-			//Move to next player
-			m_CurrentPlayer++;
-			//Set Next Player to Being Active
-			m_Players[m_CurrentPlayer]->Active();
-		}
-		else
-		{
-			std::cerr << "No More Players" << std::endl;
-			for (int i = 0; i < m_Players.size(); i++)
+			if (m_CurrentPlayer < m_Players.size() - 1)
 			{
-				std::string Text = "Player " + std::to_string(i + 1) + " Final Score:" + std::to_string(m_Players[i]->GetScore());
-				std::cerr << Text << std::endl;
+				//Move to next player
+				m_CurrentPlayer++;
+				//Set Next Player to Being Active
+				m_Players[m_CurrentPlayer]->Active();
 			}
-			return true;
-		}
-	}
+			else
+			{
+				std::cerr << "No More Players" << std::endl;
+				m_Players[m_CurrentPlayer]->GetBall()->SetVelocity(D3DEngine::Vector3f(0.1f, 0.00f, 0.1f));
 
-	m_Players[m_CurrentPlayer]->Update(Delta);
+				m_Finished = true;
+				return true;
+			}
+		}
+
+		m_Players[m_CurrentPlayer]->Update(Delta);
+	}
 	return false;
 }

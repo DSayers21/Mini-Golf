@@ -38,21 +38,15 @@ void MiniGolf::Input(D3DEngine::GetInput* input, float Delta)
 		LoadLevel(m_Course.GetCurrentHole());
 	}
 
-	if (input->GetKeyDown(D3DEngine::KEY_2))
-	{
-		m_CurrentLevel->ResetBall();
-
-	}
-
 	//Get Input for all objects in scene
 	m_RootObject->Input(input, Delta);
 }
 
 void MiniGolf::Update(float Delta)
 {
-	GetRootObject()->Update(Delta);
-	if (m_CurrentLevel->Update(Delta))
+	if (m_MoveToNextLevel == -1)
 	{
+		m_MoveToNextLevel = -2;
 		//Reset Level
 		ResetLevel();
 		//Progress to next hole
@@ -61,6 +55,29 @@ void MiniGolf::Update(float Delta)
 			std::cout << "No more holes, looped back to start!" << std::endl;
 		//Load the next hole
 		LoadLevel(m_Course.GetCurrentHole());
+	}
+	else if(m_MoveToNextLevel >= 0)
+	{
+		m_MoveToNextLevel--;
+	}
+
+	GetRootObject()->Update(Delta);
+	if (m_CurrentLevel->Update(Delta))
+	{
+		std::vector<Player*> Players = m_CurrentLevel->GetPlayers();
+
+		for (int i = 0; i < Players.size(); i++)
+		{
+			int PlrID = Players[i]->GetID();
+			int Y = 5 + (PlrID * 24);
+			std::string Name = "PLAYER" + std::to_string(PlrID) + "SCORE";
+			std::string Text = "Player " + std::to_string(i + 1) + " Final Score: " + std::to_string(Players[i]->GetScore());
+			m_RenderEngine->AddText(Name, D3DEngine::TextToRender(Text, D3DEngine::Vector3f(255, 0, 255), 5, Y));
+		}
+		//Wait to reset until next update
+		m_MoveToNextLevel = 10;
+		Draw(m_RenderEngine);
+		//m_RenderEngine->RenderText();
 	}
 }
 

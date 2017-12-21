@@ -18,6 +18,7 @@ public:
 	void ResetLevel();
 
 private:
+	int m_MoveToNextLevel = -2;
 	bool LevelEmpty = true;
 	GolfCourse m_Course;
 	Level* m_CurrentLevel;
