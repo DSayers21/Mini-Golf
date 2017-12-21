@@ -2,7 +2,7 @@
 
 MiniGolf::MiniGolf()
 {
-	m_Course = GolfCourse("Courses/CourseOne.txt");
+	m_Course = GolfCourse("Courses/CourseTwo.txt");
 }
 
 MiniGolf::~MiniGolf()

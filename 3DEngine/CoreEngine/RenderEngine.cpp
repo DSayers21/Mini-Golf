@@ -50,7 +50,6 @@ namespace D3DEngine
 		glDepthFunc(GL_EQUAL);		 //Only change the pixel, if it has the exact same depth value
 		//Any Code here will be blended into the image
 
-
 		std::vector<std::thread> Threads = std::vector<std::thread>();
 
 		//Draw All Lights
@@ -58,7 +57,6 @@ namespace D3DEngine
 		{
 			RenderOne( this, m_Lights, ActiveLight, Object, i);
 		}
-
 		
 		//end of blending
 		glDepthFunc(GL_LESS);
@@ -71,7 +69,6 @@ namespace D3DEngine
 		{
 			m_TextRender->Render(element.second.m_Text, element.second.m_Colour, element.second.X, element.second.Y);
 		}
-
 
 		glFlush();
 	}
@@ -133,7 +130,6 @@ namespace D3DEngine
 				it++;
 		}
 	}
-
 
 	void RenderEngine::ResetEngine()
 	{
