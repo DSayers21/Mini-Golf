@@ -18,7 +18,6 @@ void MiniGolf::Init(D3DEngine::RenderEngine* renderEngine, D3DEngine::PhysicsEng
 	m_PhysicsEngine = physicsEngine;
 
 	LoadLevel(0);
-	LevelEmpty = false;
 }
 
 void MiniGolf::Input(D3DEngine::GetInput* input, float Delta)
@@ -38,8 +37,21 @@ void MiniGolf::Input(D3DEngine::GetInput* input, float Delta)
 		//Load the next hole
 		LoadLevel(m_Course.GetCurrentHole());
 	}
+
+	if (input->GetKeyDown(D3DEngine::KEY_2))
+	{
+		m_CurrentLevel->ResetBall();
+
+	}
+
 	//Get Input for all objects in scene
 	m_RootObject->Input(input, Delta);
+}
+
+void MiniGolf::Update(float Delta)
+{
+	GetRootObject()->Update(Delta);
+	m_CurrentLevel->Update(Delta);
 }
 
 bool MiniGolf::LoadLevel(int LevelNum)

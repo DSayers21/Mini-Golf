@@ -4,6 +4,7 @@
 #include "GameObject.h"
 #include "PhysicsEngineComponent.h"
 #include "PhysicsObjectComponent.h"
+#include "Player.h"
 
 #include "FreeLook.h"
 #include "MeshRenderer.h"
@@ -62,7 +63,13 @@ public:
 	~Level();
 	void Destroy();
 
+	void ResetBall();
+
+	void Update(float Delta);
+
 private:
+	Player* m_Player;
+
 	D3DEngine::MeshList m_MeshList = D3DEngine::MeshList();
 	std::vector<D3DEngine::Material*> m_MaterialList = std::vector<D3DEngine::Material*>();
 

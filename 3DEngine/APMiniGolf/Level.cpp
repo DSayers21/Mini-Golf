@@ -266,6 +266,10 @@ Level::Level(int LevelData[7][7],
 			GolfBall->AddChild(GolfClubObject);
 			RootObject->AddChild(GolfBall);
 			//End Sphere
+
+			//Create Player
+			m_Player = new Player(renderEngine, GolfBall, m_PhysicsEngineComponent->GetPhysicsEngine()->GetObject(ObjectPos), 1);
+			m_Player->SetBallStartPos(m_PhysicsEngineComponent->GetPhysicsEngine()->GetObject(ObjectPos)->GetPosition());
 		}
 	}
 
@@ -386,4 +390,15 @@ void Level::Destroy()
 		delete m_MaterialList[i];
 	}
 	m_MaterialList.clear();
+	delete m_Player;
+}
+
+void Level::ResetBall()
+{
+	m_Player->Active();
+}
+
+void Level::Update(float Delta)
+{
+	m_Player->Update(Delta);
 }

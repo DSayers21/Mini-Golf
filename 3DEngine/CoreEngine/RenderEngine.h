@@ -66,6 +66,7 @@ namespace D3DEngine
 		inline Vector3f GetAmbientLight() { return m_AmbientLight; }
 		inline BaseLight* GetActiveLight() { return ActiveLight; }
 		inline ShaderList* GetShaderList() { return m_ShaderList; }
+		inline Window* GetWindow() { return m_Window; }
 		//inline SDL_Renderer* GetSDLRenderer() { return m_Renderer; }
 		//Add Lights
 		inline void AddLight(BaseLight* Light) { m_Lights.push_back(Light); }
