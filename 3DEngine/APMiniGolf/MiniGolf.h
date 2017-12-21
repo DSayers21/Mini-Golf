@@ -22,7 +22,7 @@ private:
 	GolfCourse m_Course;
 	Level* m_CurrentLevel;
 
-	Player* m_Player;
+	int m_NumOfPlayers = 4;
 
 	D3DEngine::RenderEngine* m_RenderEngine;
 	D3DEngine::PhysicsEngine* m_PhysicsEngine;

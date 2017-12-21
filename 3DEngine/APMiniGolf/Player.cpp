@@ -5,7 +5,7 @@
 Player::Player(D3DEngine::RenderEngine* RenderEngine, D3DEngine::GameObject* Ball, D3DEngine::PhysicsObject* BallPhysics, int PlayerID) :
 	m_RenderEngine(RenderEngine), m_Ball(Ball), m_BallPhysics(BallPhysics), m_PlayerID(PlayerID)
 {
-	IncreaseScore();
+	
 }
 
 Player::~Player()
@@ -22,6 +22,7 @@ void Player::Active()
 {
 	//Set the ball back to the start position
 	m_BallPhysics->SetPosition(m_BallStartPos);
+	m_BallPhysics->SetVelocity(D3DEngine::Vector3f(0.0f, 0.0f, 0.0f));
 }
 
 
@@ -44,9 +45,11 @@ void Player::Update(float Delta)
 
 void Player::IncreaseScore()
 {
+	int Y = 5 + (m_PlayerID * 24);
 	//Increase Score for current level by 1
 	m_Score++;
 	std::string Text = "Player " + std::to_string(m_PlayerID) + ", Score: " + std::to_string(m_Score);
 	//Update the UI
-	m_RenderEngine->AddText("SCORE", D3DEngine::TextToRender(Text, D3DEngine::Vector3f(255, 0, 255), 5, 5));
+	std::string Name = "PLAYER" + std::to_string(m_PlayerID) + "SCORE";
+	m_RenderEngine->AddText(Name, D3DEngine::TextToRender(Text, D3DEngine::Vector3f(255, 0, 255), 5, Y));
 }

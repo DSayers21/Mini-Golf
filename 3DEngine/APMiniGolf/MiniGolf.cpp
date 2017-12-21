@@ -2,7 +2,7 @@
 
 MiniGolf::MiniGolf()
 {
-	m_Course = GolfCourse("Courses/CourseTwo.txt");
+	m_Course = GolfCourse("Courses/CourseOne.txt");
 }
 
 MiniGolf::~MiniGolf()
@@ -51,12 +51,22 @@ void MiniGolf::Input(D3DEngine::GetInput* input, float Delta)
 void MiniGolf::Update(float Delta)
 {
 	GetRootObject()->Update(Delta);
-	m_CurrentLevel->Update(Delta);
+	if (m_CurrentLevel->Update(Delta))
+	{
+		//Reset Level
+		ResetLevel();
+		//Progress to next hole
+		bool IsReset = m_Course.NextHole();
+		if (!IsReset)
+			std::cout << "No more holes, looped back to start!" << std::endl;
+		//Load the next hole
+		LoadLevel(m_Course.GetCurrentHole());
+	}
 }
 
 bool MiniGolf::LoadLevel(int LevelNum)
 {
-	m_CurrentLevel = new Level(m_Course.GetLevel(LevelNum).m_LevelData, m_Window, m_RenderEngine, m_PhysicsEngine, GetRootObject());
+	m_CurrentLevel = new Level(m_NumOfPlayers, m_Course.GetLevel(LevelNum).m_LevelData, m_Window, m_RenderEngine, m_PhysicsEngine, GetRootObject());
 	return true;
 }
 

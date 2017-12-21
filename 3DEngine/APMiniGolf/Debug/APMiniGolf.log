@@ -1,4 +1,8 @@
-﻿  Level.cpp
+﻿  MiniGolf.cpp
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\window.h(31): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\input.h(398): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(84): warning C4522: 'D3DEngine::Vector3f': multiple assignment operators specified
+  Level.cpp
 c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(84): warning C4522: 'D3DEngine::Vector3f': multiple assignment operators specified
 c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\window.h(31): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\input.h(398): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
@@ -8,12 +12,17 @@ c:\users\satan\documents\github\pool game\mini-golf\3dengine\apminigolf\level.cp
 c:\users\satan\documents\github\pool game\mini-golf\3dengine\apminigolf\level.cpp(102): warning C4305: 'argument': truncation from 'double' to 'float'
 c:\users\satan\documents\github\pool game\mini-golf\3dengine\apminigolf\level.cpp(114): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 c:\users\satan\documents\github\pool game\mini-golf\3dengine\apminigolf\level.cpp(120): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\apminigolf\level.cpp(171): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\apminigolf\level.cpp(171): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\apminigolf\level.cpp(226): warning C4018: '<': signed/unsigned mismatch
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\apminigolf\level.cpp(244): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\apminigolf\level.cpp(277): warning C4018: '<': signed/unsigned mismatch
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\apminigolf\level.cpp(337): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\apminigolf\level.cpp(388): warning C4018: '<': signed/unsigned mismatch
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\apminigolf\level.cpp(174): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\apminigolf\level.cpp(174): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\apminigolf\level.cpp(229): warning C4018: '<': signed/unsigned mismatch
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\apminigolf\level.cpp(247): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\apminigolf\level.cpp(289): warning C4018: '<': signed/unsigned mismatch
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\apminigolf\level.cpp(345): warning C4018: '<': signed/unsigned mismatch
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\apminigolf\level.cpp(351): warning C4018: '<': signed/unsigned mismatch
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\apminigolf\level.cpp(372): warning C4018: '<': signed/unsigned mismatch
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\apminigolf\level.cpp(382): warning C4018: '<': signed/unsigned mismatch
+  Generating Code...
+  Skipping... (no relevant changes detected)
+  Source.cpp
   APMiniGolf.vcxproj -> C:\Users\Satan\Documents\GitHub\Pool Game\Mini-Golf\3DEngine\Debug\APMiniGolf.exe
   APMiniGolf.vcxproj -> C:\Users\Satan\Documents\GitHub\Pool Game\Mini-Golf\3DEngine\Debug\APMiniGolf.pdb (Partial PDB)

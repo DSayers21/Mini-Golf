@@ -22,6 +22,9 @@ public:
 
 	void IncreaseScore();
 
+	inline D3DEngine::PhysicsObject* GetBall() { return m_BallPhysics; }
+	inline int GetScore() { return m_Score; }
+
 private:
 	bool m_WasMoving = false;
 	int m_PlayerID = 0; // Player Number, 1, 2, 3, etc

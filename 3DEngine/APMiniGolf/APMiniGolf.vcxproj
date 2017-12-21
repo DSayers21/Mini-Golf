@@ -129,6 +129,7 @@
     <ClCompile Include="MainGame.cpp" />
     <ClCompile Include="MiniGolf.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Pocket.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -138,6 +139,7 @@
     <ClInclude Include="MainGame.h" />
     <ClInclude Include="MiniGolf.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Pocket.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

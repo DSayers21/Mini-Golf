@@ -24,7 +24,7 @@ void Level::CreateHelper(int CurCount,
 	RootObject->AddChild(Test);
 }
 
-Level::Level(int LevelData[7][7],
+Level::Level(int NumOfPlayers, int LevelData[7][7],
 	D3DEngine::Window* Window, D3DEngine::RenderEngine* renderEngine, D3DEngine::PhysicsEngine* physicsEngine,
 	D3DEngine::GameObject* RootObject)
 {
@@ -118,6 +118,9 @@ Level::Level(int LevelData[7][7],
 			if (LevelData[i][j] == 3) //Flag
 			{
 				D3DEngine::Vector3f TileCenter = D3DEngine::Vector3f(i * 2, 0.0, j * 2);
+
+				//Add Pocket
+				m_Pocket = new Pocket(TileCenter, 0.2f);
 
 				//Add Hole
 				D3DEngine::GameObject* Hole = new D3DEngine::GameObject();
@@ -267,9 +270,18 @@ Level::Level(int LevelData[7][7],
 			RootObject->AddChild(GolfBall);
 			//End Sphere
 
-			//Create Player
-			m_Player = new Player(renderEngine, GolfBall, m_PhysicsEngineComponent->GetPhysicsEngine()->GetObject(ObjectPos), 1);
-			m_Player->SetBallStartPos(m_PhysicsEngineComponent->GetPhysicsEngine()->GetObject(ObjectPos)->GetPosition());
+			//Create Players
+			m_Players = std::vector<Player*>();
+			for (int i = 0; i < NumOfPlayers; i++)
+			{
+				Player* m_Player = new Player(renderEngine, GolfBall, m_PhysicsEngineComponent->GetPhysicsEngine()->GetObject(ObjectPos), i + 1);
+				m_Player->SetBallStartPos(m_PhysicsEngineComponent->GetPhysicsEngine()->GetObject(ObjectPos)->GetPosition());
+
+				m_Players.push_back(m_Player);
+			}
+			//Set ALL players Score to 0
+			for (int i = NumOfPlayers -1; i > -1; i--)
+				m_Players[i]->IncreaseScore();
 		}
 	}
 
@@ -323,61 +335,6 @@ Level::Level(int LevelData[7][7],
 	RootObject->AddChild(DirectionalLightObject);
 }
 
-Level::Level(
-	D3DEngine::Window* Window, D3DEngine::RenderEngine* renderEngine, D3DEngine::PhysicsEngine* physicsEngine,
-	D3DEngine::GameObject* RootObject)
-{
-
-	m_PhysicsEngineComponent = new D3DEngine::PhysicsEngineComponent(physicsEngine);
-	D3DEngine::GameObject* PhysicsEngineObj = new D3DEngine::GameObject();
-	PhysicsEngineObj->AddComponent(m_PhysicsEngineComponent);
-	RootObject->AddChild(PhysicsEngineObj);
-
-	D3DEngine::GameObject* CameraObject = new D3DEngine::GameObject();
-	float Aspect = Window->GetWidth() / Window->GetHeight();
-	CameraObject->AddComponent(new D3DEngine::Camera(TO_RADIANS(90.0f), Aspect, 0.01f, 1000.0f));
-	CameraObject->GetTransform()->SetRotation(&D3DEngine::Quaternion(D3DEngine::Vector3f(0, 1, 0), TO_RADIANS(180.0f)));
-	CameraObject->GetTransform()->SetPosition(D3DEngine::Vector3f(0.0f, 2.0f, 2.0f));
-	CameraObject->AddComponent(new D3DEngine::FreeLook());
-
-	//MaterialOne
-
-	D3DEngine::Material* SideMat = new D3DEngine::Material();
-	SideMat->AddTexture("Diffuse", new D3DEngine::Texture("./Textures/Wood.png"));
-	SideMat->AddFloat("SpecularIntensity", 1);
-	SideMat->AddFloat("SpecularExponent", 8);
-	m_MaterialList.push_back(SideMat);
-
-	D3DEngine::Mesh SideMesh = D3DEngine::Mesh("./Models/CourseSide.obj", &m_MeshList);
-	D3DEngine::MeshResource* SideRes = m_MeshList.GetModel("./Models/CourseSide.obj");
-
-	//Sides
-	physicsEngine->AddAABBFromMesh(SideRes->GetVertices(), SideRes->GetVERTEXSIZE(), SideRes->GetIndices(), SideRes->GetINDEXSIZE());
-
-	//SideA
-	m_PhysicsEngineComponent->GetPhysicsEngine()->GetObject(0)->SetPosition(D3DEngine::Vector3f(4.1f, 0.0f, 1.089f));
-	
-
-	//4.1f, 0.0f, 1.089f)
-	//SideA
-	D3DEngine::GameObject* Side1 = new D3DEngine::GameObject();
-	Side1->AddComponent(new D3DEngine::MeshRenderer(new D3DEngine::Mesh("./Models/CourseSide.obj", &m_MeshList), SideMat));
-	Side1->AddComponent(new D3DEngine::PhysicsObjectComponent(m_PhysicsEngineComponent->GetPhysicsEngine()->GetObject(0)));
-
-	D3DEngine::GameObject* DirectionalLightObject = new D3DEngine::GameObject();
-	D3DEngine::DirectionalLight* directionalLight = new D3DEngine::DirectionalLight(renderEngine->GetShaderList(), D3DEngine::Vector3f(0.5, 0.5, 0.5), 0.1f);
-	DirectionalLightObject->AddComponent(directionalLight);
-	DirectionalLightObject->GetTransform()->SetRotation(&D3DEngine::Quaternion(D3DEngine::Vector3f(1, 1, 1), TO_RADIANS(-45.0f)));
-	
-	
-	RootObject->AddChild(DirectionalLightObject);
-
-	RootObject->AddChild(CameraObject);
-
-	RootObject->AddChild(Side1);
-
-}
-
 Level::~Level()
 {
 	std::cerr << "Destructor: Level" << std::endl;
@@ -390,15 +347,47 @@ void Level::Destroy()
 		delete m_MaterialList[i];
 	}
 	m_MaterialList.clear();
-	delete m_Player;
+
+	for (int i = 0; i < m_Players.size(); i++)
+	{
+		delete m_Players[i];
+	}
+	m_Players.clear();
+
+	delete m_Pocket;
 }
 
 void Level::ResetBall()
 {
-	m_Player->Active();
+	m_Players[m_CurrentPlayer]->Active();
 }
 
-void Level::Update(float Delta)
+bool Level::Update(float Delta)
 {
-	m_Player->Update(Delta);
+	if (m_Pocket->IsColliding(m_Players[m_CurrentPlayer]->GetBall()))
+	{
+		//Add Point for current player, as the ball went into the hole
+		m_Players[m_CurrentPlayer]->IncreaseScore();
+
+		if (m_CurrentPlayer < m_Players.size() - 1)
+		{
+			//Move to next player
+			m_CurrentPlayer++;
+			//Set Next Player to Being Active
+			m_Players[m_CurrentPlayer]->Active();
+		}
+		else
+		{
+			std::cerr << "No More Players" << std::endl;
+			for (int i = 0; i < m_Players.size(); i++)
+			{
+				std::string Text = "Player " + std::to_string(i + 1) + " Final Score:" + std::to_string(m_Players[i]->GetScore());
+				std::cerr << Text << std::endl;
+			}
+			return true;
+		}
+	}
+
+	m_Players[m_CurrentPlayer]->Update(Delta);
+	return false;
 }

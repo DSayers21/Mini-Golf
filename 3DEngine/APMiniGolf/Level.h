@@ -5,6 +5,7 @@
 #include "PhysicsEngineComponent.h"
 #include "PhysicsObjectComponent.h"
 #include "Player.h"
+#include "Pocket.h"
 
 #include "FreeLook.h"
 #include "MeshRenderer.h"
@@ -56,19 +57,21 @@ public:
 	void CreateHelper(int CurCount, D3DEngine::Mesh * mesh, D3DEngine::Material * material, D3DEngine::PhysicsEngineComponent * PhysicsEngineComponent, D3DEngine::GameObject * RootObject);
 
 	//9 across by 7 long
-	Level(int LevelData[7][7],
+	Level(int NumOfPlayers, int LevelData[7][7],
 		D3DEngine::Window* Window, D3DEngine::RenderEngine* renderEngine, D3DEngine::PhysicsEngine* physicsEngine,
 		D3DEngine::GameObject* RootObject);
-	Level(D3DEngine::Window * Window, D3DEngine::RenderEngine * renderEngine, D3DEngine::PhysicsEngine * physicsEngine, D3DEngine::GameObject * RootObject);
+
 	~Level();
 	void Destroy();
 
 	void ResetBall();
 
-	void Update(float Delta);
+	bool Update(float Delta);
 
 private:
-	Player* m_Player;
+	int m_CurrentPlayer = 0;
+	Pocket* m_Pocket;
+	std::vector<Player*> m_Players;
 
 	D3DEngine::MeshList m_MeshList = D3DEngine::MeshList();
 	std::vector<D3DEngine::Material*> m_MaterialList = std::vector<D3DEngine::Material*>();
