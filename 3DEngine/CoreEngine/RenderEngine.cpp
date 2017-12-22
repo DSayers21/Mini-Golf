@@ -138,6 +138,11 @@ namespace D3DEngine
 		}
 	}
 
+	void RenderEngine::RemoveAllText()
+	{
+		m_Text.clear();
+	}
+
 	void RenderEngine::ResetEngine()
 	{
 		m_Lights.clear();

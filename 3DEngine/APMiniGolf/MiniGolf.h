@@ -30,14 +30,21 @@ private:
 	Rectangle m_OnePlayer;
 	Rectangle m_TwoPlayer;
 	Rectangle m_FourPlayer;
+	Rectangle m_SixteenPlayer;
+
+	Rectangle m_CourseOne;
+	Rectangle m_CourseTwo;
+	Rectangle m_CourseThree;
+
 	Rectangle m_StartGame;
 
-	int m_NumOfPlayers = 4;
+	Rectangle m_MainMenu;
 
+	int m_NumOfPlayers = 4;
+	std::string m_CourseFileName = "";
 
 	int* m_TotalPlayerScores = new int[m_NumOfPlayers];
 
 	D3DEngine::RenderEngine* m_RenderEngine;
 	D3DEngine::PhysicsEngine* m_PhysicsEngine;
-
 };

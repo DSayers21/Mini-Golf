@@ -2,17 +2,22 @@
 
 MiniGolf::MiniGolf()
 {
-	//m_Course = GolfCourse("Courses/CourseThree.txt");
+	m_NumOfPlayers = 2;
 
-	////Set all total scores to 0
-	//for (int i = 0; i < m_NumOfPlayers; i++)
-	//	m_TotalPlayerScores[i] = 0;
-
-	m_OnePlayer = Rectangle("One Player", 100, 300, 24, 68, D3DEngine::Vector3f(255, 0, 0), D3DEngine::Vector3f(0, 255, 0), false);
-	m_TwoPlayer = Rectangle("Two Player", 250, 300, 24, 68, D3DEngine::Vector3f(255, 0, 0), D3DEngine::Vector3f(0, 255, 0), true);
-	m_FourPlayer = Rectangle("Four Player", 400, 300, 24, 68, D3DEngine::Vector3f(255, 0, 0), D3DEngine::Vector3f(0, 255, 0), false);
+	m_OnePlayer = Rectangle("One Player", 100, 250, 24, 68, D3DEngine::Vector3f(255, 0, 0), D3DEngine::Vector3f(0, 255, 0), false);
+	m_TwoPlayer = Rectangle("Two Players", 250, 250, 24, 68, D3DEngine::Vector3f(255, 0, 0), D3DEngine::Vector3f(0, 255, 0), true);
+	m_FourPlayer = Rectangle("Four Players", 400, 250, 24, 68, D3DEngine::Vector3f(255, 0, 0), D3DEngine::Vector3f(0, 255, 0), false);
+	m_SixteenPlayer = Rectangle("Sixteen Players", 550, 250, 24, 68, D3DEngine::Vector3f(255, 0, 0), D3DEngine::Vector3f(0, 255, 0), false);
+	
+	m_CourseFileName = "Courses/CourseOne.txt";
+	m_CourseOne = Rectangle("Course One", 100, 200, 24, 68, D3DEngine::Vector3f(255, 0, 0), D3DEngine::Vector3f(0, 255, 0), true);
+	m_CourseTwo = Rectangle("Course Two", 250, 200, 24, 68, D3DEngine::Vector3f(255, 0, 0), D3DEngine::Vector3f(0, 255, 0), false);
+	m_CourseThree = Rectangle("Course Three", 400, 200, 24, 68, D3DEngine::Vector3f(255, 0, 0), D3DEngine::Vector3f(0, 255, 0), false);
 
 	m_StartGame = Rectangle("Start Game", 100, 150, 24, 68, D3DEngine::Vector3f(255,0,0), D3DEngine::Vector3f(0, 255, 0), false);
+
+	//ScoreBoard Button
+	m_MainMenu = Rectangle("Main Menu", 100, 150, 24, 68, D3DEngine::Vector3f(255, 0, 0), D3DEngine::Vector3f(0, 255, 0), false);
 }
 
 MiniGolf::~MiniGolf()
@@ -39,6 +44,8 @@ void MiniGolf::Input(D3DEngine::GetInput* input, float Delta)
 			m_OnePlayer.SetActive(true);
 			m_TwoPlayer.SetActive(false);
 			m_FourPlayer.SetActive(false);
+			m_SixteenPlayer.SetActive(false);
+			m_NumOfPlayers = 1;
 		}
 
 		if (m_TwoPlayer.Input(input, m_Window->GetHeight()))
@@ -46,16 +53,50 @@ void MiniGolf::Input(D3DEngine::GetInput* input, float Delta)
 			m_TwoPlayer.SetActive(true);
 			m_OnePlayer.SetActive(false);
 			m_FourPlayer.SetActive(false);
+			m_SixteenPlayer.SetActive(false);
+			m_NumOfPlayers = 2;
 		}
 		if (m_FourPlayer.Input(input, m_Window->GetHeight()))
 		{
 			m_FourPlayer.SetActive(true);
 			m_OnePlayer.SetActive(false);
 			m_TwoPlayer.SetActive(false);
+			m_SixteenPlayer.SetActive(false);
+			m_NumOfPlayers = 4;
+		}
+		if (m_SixteenPlayer.Input(input, m_Window->GetHeight()))
+		{
+			m_SixteenPlayer.SetActive(true);
+			m_OnePlayer.SetActive(false);
+			m_TwoPlayer.SetActive(false);
+			m_FourPlayer.SetActive(false);
+			m_NumOfPlayers = 16;
+		}
+		if (m_CourseOne.Input(input, m_Window->GetHeight()))
+		{
+			m_CourseOne.SetActive(true);
+			m_CourseTwo.SetActive(false);
+			m_CourseThree.SetActive(false);
+			m_CourseFileName = "Courses/CourseOne.txt";
+		}
+		if (m_CourseTwo.Input(input, m_Window->GetHeight()))
+		{
+			m_CourseOne.SetActive(false);
+			m_CourseTwo.SetActive(true);
+			m_CourseThree.SetActive(false);
+			m_CourseFileName = "Courses/CourseTwo.txt";
+		}
+		if (m_CourseThree.Input(input, m_Window->GetHeight()))
+		{
+			m_CourseOne.SetActive(false);
+			m_CourseTwo.SetActive(false);
+			m_CourseThree.SetActive(true);
+			m_CourseFileName = "Courses/CourseThree.txt";
 		}
 		if (m_StartGame.Input(input, m_Window->GetHeight()))
 		{
-			m_Course = GolfCourse("Courses/CourseThree.txt");
+			m_RenderEngine->RemoveAllText();
+			m_Course = GolfCourse(m_CourseFileName);
 
 			//Set all total scores to 0
 			for (int i = 0; i < m_NumOfPlayers; i++)
@@ -66,20 +107,27 @@ void MiniGolf::Input(D3DEngine::GetInput* input, float Delta)
 		}
 
 	}
-	else
+
+	if (m_CourseFinished)
 	{
-		//Get Input for all objects in scene
-		m_RootObject->Input(input, Delta);
+		if (m_MainMenu.Input(input, m_Window->GetHeight()))
+		{
+			//Return to main menu
+			m_RenderEngine->RemoveAllText();
+			m_Menu = true;
+			m_CourseFinished = false;
+		}
+		
 	}
+
+	//Get Input for all objects in scene
+	m_RootObject->Input(input, Delta);
+	
 }
 
 void MiniGolf::Update(float Delta)
 {
-	if (m_Menu)
-	{
-
-	}
-	else
+	if (!m_Menu)
 	{
 		if (m_MoveToNextLevel == -1)
 		{
@@ -100,9 +148,7 @@ void MiniGolf::Update(float Delta)
 			}
 		}
 		else if (m_MoveToNextLevel >= 0)
-		{
 			m_MoveToNextLevel--;
-		}
 
 		GetRootObject()->Update(Delta);
 		if (m_CurrentLevel->Update(Delta))
@@ -144,13 +190,23 @@ void MiniGolf::Draw(D3DEngine::RenderEngine* renderEngine)
 {
 	if (m_Menu)
 	{
+		m_RenderEngine->AddText("TITLE", D3DEngine::TextToRender("Mini-Golf", D3DEngine::Vector3f(0,255,0), m_Window->GetWidth()/2-60, m_Window->GetHeight()-140));
+		//Player Number Buttons
 		m_OnePlayer.Render(renderEngine);
 		m_TwoPlayer.Render(renderEngine);
 		m_FourPlayer.Render(renderEngine);
+		m_SixteenPlayer.Render(renderEngine);
+		//Course Number Buttons
+		m_CourseOne.Render(renderEngine);
+		m_CourseTwo.Render(renderEngine);
+		m_CourseThree.Render(renderEngine);
+
 		m_StartGame.Render(renderEngine);
-
 	}
-
+	if (m_CourseFinished)
+	{
+		m_MainMenu.Render(renderEngine);
+	}
 	renderEngine->Render(GetRootObject());
 }
 

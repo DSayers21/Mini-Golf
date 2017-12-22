@@ -74,6 +74,7 @@ namespace D3DEngine
 		inline void AddLight(BaseLight* Light) { m_Lights.push_back(Light); }
 		void AddText(std::string Name, TextToRender Content);
 		void RemoveText(std::string Name);
+		void RemoveAllText();
 		inline void AddCamera(Camera* camera) { m_Camera = camera; }
 
 		inline void SetActiveLight(BaseLight* Light) { ActiveLight = Light; }
