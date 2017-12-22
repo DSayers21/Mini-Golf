@@ -77,6 +77,11 @@ namespace D3DEngine
 		glUseProgram(m_ShaderResource->GetProgram());
 	}
 
+	void Shader::UnBind()
+	{
+		glUseProgram(-1);
+	}
+
 	void Shader::UpdateUniforms(Transform* transform, Material* material, RenderEngine* renderEngine)
 	{
 		Matrix4f& WorldMatrix = transform->GetTransformation();

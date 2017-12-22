@@ -36,6 +36,8 @@ namespace D3DEngine
 		void CompileShader();
 		void Bind();
 
+		void UnBind();
+
 		inline void AddVertexShader(std::string Text) { AddProgram(Text, GL_VERTEX_SHADER); }
 		inline void AddFragmentShader(std::string Text) { AddProgram(Text, GL_FRAGMENT_SHADER); }
 		inline void AddGeometryShader(std::string Text) { AddProgram(Text, GL_GEOMETRY_SHADER); }

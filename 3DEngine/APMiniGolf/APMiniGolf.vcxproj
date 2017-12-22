@@ -127,6 +127,7 @@
     <ClCompile Include="GolfCourse.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="MainGame.cpp" />
+    <ClCompile Include="Menu.cpp" />
     <ClCompile Include="MiniGolf.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Pocket.cpp" />
@@ -137,6 +138,7 @@
     <ClInclude Include="GolfCourse.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="MainGame.h" />
+    <ClInclude Include="Menu.h" />
     <ClInclude Include="MiniGolf.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Pocket.h" />

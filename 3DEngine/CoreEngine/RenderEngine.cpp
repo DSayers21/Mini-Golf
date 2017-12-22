@@ -56,6 +56,7 @@ namespace D3DEngine
 		for (int i = 0; i < m_Lights.size(); i++)
 		{
 			RenderOne( this, m_Lights, ActiveLight, Object, i);
+			ActiveLight->GetShader()->UnBind();
 		}
 		
 		//end of blending

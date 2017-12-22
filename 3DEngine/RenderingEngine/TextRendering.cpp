@@ -5,6 +5,8 @@ namespace D3DEngine
 	TextRendering::TextRendering(Window* Window)
 	{
 		m_Window = Window;
+
+
 	}
 
 
@@ -34,6 +36,7 @@ namespace D3DEngine
 		{
 			glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, (int)message[i]);
 		}
+
 
 		glEnable(GL_TEXTURE_2D);
 		glEnable(GL_TEXTURE);
