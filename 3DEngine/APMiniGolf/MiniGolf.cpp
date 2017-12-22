@@ -171,7 +171,7 @@ void MiniGolf::Update(float Delta)
 			std::string Name = "PLAYER" + std::to_string(PlrID) + "SCORE";
 			std::string Text = "Player " + std::to_string(i + 1) + " Total Score: " + std::to_string(m_TotalPlayerScores[i]);
 			//Update the UI
-			m_RenderEngine->AddText(Name, D3DEngine::TextToRender(Text, D3DEngine::Vector3f(255, 0, 255), m_Window->GetCenter().GetX() - 100, Y));
+			m_RenderEngine->AddText(Name, D3DEngine::TextToRender(Text, D3DEngine::Vector3f(255, 0, 255), m_Window->GetCenter().GetX() - 110, Y));
 		}
 	}
 }
