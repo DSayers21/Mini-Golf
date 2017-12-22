@@ -1,3 +1,4 @@
+//Includes
 #include "Player.h"
 #include "RenderEngine.h"
 
@@ -5,11 +6,12 @@
 Player::Player(D3DEngine::RenderEngine* RenderEngine, D3DEngine::GameObject* Ball, D3DEngine::PhysicsObject* BallPhysics, int PlayerID) :
 	m_RenderEngine(RenderEngine), m_Ball(Ball), m_BallPhysics(BallPhysics), m_PlayerID(PlayerID)
 {
-	
+	//Empty
 }
 
 Player::~Player()
 {
+	//Empty
 }
 
 void Player::SetBallStartPos(D3DEngine::Vector3f BallStartPos)
@@ -28,6 +30,7 @@ void Player::Active()
 
 void Player::Update(float Delta)
 {
+	//Get current balls velocity
 	D3DEngine::Vector3f BallVel = m_BallPhysics->GetVelocity();
 	//Check if ball is not moving
 	if (BallVel == D3DEngine::Vector3f(0, 0, 0)) //Not Moving
@@ -45,6 +48,7 @@ void Player::Update(float Delta)
 
 void Player::IncreaseScore()
 {
+	//Get Y offset for player
 	int Y = 5 + (m_PlayerID * 24);
 	//Increase Score for current level by 1
 	m_Score++;

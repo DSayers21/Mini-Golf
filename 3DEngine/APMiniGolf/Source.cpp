@@ -8,17 +8,16 @@
 #include <MainComp.h>
 #include "MiniGolf.h"
 
-#include "GolfCourse.h"
-
+//Main update
 #ifdef _WIN32
 #undef main
 #endif
-const int COLOR_MODE_CYAN = 0;
-int gColorMode = COLOR_MODE_CYAN;
 
 int main(int argc, char** argv)
 {
+	//Create Title
 	std::string Title = "Advanced Programming Assignment";
+	//Create main component with a MiniGolf game
 	D3DEngine::MainComp m_MainComp(Title, 1200, 800, 120, new MiniGolf());
 
 	return 0;
