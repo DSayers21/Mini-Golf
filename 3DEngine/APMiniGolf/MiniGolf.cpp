@@ -2,13 +2,18 @@
 
 MiniGolf::MiniGolf()
 {
-	m_Course = GolfCourse("Courses/CourseOne.txt");
+	m_Course = GolfCourse("Courses/CourseThree.txt");
+
+	//Set all total scores to 0
+	for (int i = 0; i < m_NumOfPlayers; i++)
+		m_TotalPlayerScores[i] = 0;
 }
 
 MiniGolf::~MiniGolf()
 {
 	std::cerr << "Destructor: MiniGolf" << std::endl;
-	ResetLevel();
+	if(!m_CourseFinished)
+		ResetLevel();
 }
 
 
@@ -16,6 +21,7 @@ void MiniGolf::Init(D3DEngine::RenderEngine* renderEngine, D3DEngine::PhysicsEng
 {
 	m_RenderEngine = renderEngine;
 	m_PhysicsEngine = physicsEngine;
+
 
 	LoadLevel(0);
 }
@@ -33,9 +39,12 @@ void MiniGolf::Input(D3DEngine::GetInput* input, float Delta)
 		//Progress to next hole
 		bool IsReset = m_Course.NextHole();
 		if (!IsReset) 
-			std::cout << "No more holes, looped back to start!" << std::endl;
-		//Load the next hole
-		LoadLevel(m_Course.GetCurrentHole());
+			std::cout << "No more holes! Course Finished" << std::endl;
+		else
+		{
+			//Load the next hole
+			LoadLevel(m_Course.GetCurrentHole());
+		}
 	}
 
 	//Get Input for all objects in scene
@@ -52,9 +61,15 @@ void MiniGolf::Update(float Delta)
 		//Progress to next hole
 		bool IsReset = m_Course.NextHole();
 		if (!IsReset)
-			std::cout << "No more holes, looped back to start!" << std::endl;
-		//Load the next hole
-		LoadLevel(m_Course.GetCurrentHole());
+		{
+			std::cout << "No more holes! Course Finished" << std::endl;
+			m_CourseFinished = true;
+		}
+		else
+		{
+			//Load the next hole
+			LoadLevel(m_Course.GetCurrentHole());
+		}
 	}
 	else if(m_MoveToNextLevel >= 0)
 	{
@@ -70,15 +85,35 @@ void MiniGolf::Update(float Delta)
 		{
 			int PlrID = Players[i]->GetID();
 			int Y = 5 + (PlrID * 24);
+			int PlayerScore = Players[i]->GetScore();
+			m_TotalPlayerScores[i] += PlayerScore;
 			std::string Name = "PLAYER" + std::to_string(PlrID) + "SCORE";
-			std::string Text = "Player " + std::to_string(i + 1) + " Final Score: " + std::to_string(Players[i]->GetScore());
+			std::string Text = "Player " + std::to_string(i + 1) + " Final Score: " + std::to_string(PlayerScore);
 			m_RenderEngine->AddText(Name, D3DEngine::TextToRender(Text, D3DEngine::Vector3f(255, 0, 255), 5, Y));
 		}
 		//Wait to reset until next update
 		m_MoveToNextLevel = 10;
-		Draw(m_RenderEngine);
-		//m_RenderEngine->RenderText();
 	}
+	//If course is finished
+	if (m_CourseFinished)
+	{
+		m_RenderEngine->AddText("SCORETITLE", D3DEngine::TextToRender("Score Board", D3DEngine::Vector3f(150, 0, 255), 
+			m_Window->GetCenter().GetX() - 55, (m_Window->GetHeight()-124)));
+
+		for (int i = 0; i < m_NumOfPlayers; i++)
+		{
+			int PlrID = i+1;
+			int Y = (m_Window->GetHeight() - 150) - (PlrID * 24);
+			std::string Name = "PLAYER" + std::to_string(PlrID) + "SCORE";
+			std::string Text = "Player " + std::to_string(i + 1) + " Total Score: " + std::to_string(m_TotalPlayerScores[i]);
+			m_RenderEngine->AddText(Name, D3DEngine::TextToRender(Text, D3DEngine::Vector3f(255, 0, 255), m_Window->GetCenter().GetX()-100, Y));
+		}
+	}
+}
+
+void MiniGolf::Draw(D3DEngine::RenderEngine* renderEngine)
+{
+	renderEngine->Render(GetRootObject());
 }
 
 bool MiniGolf::LoadLevel(int LevelNum)
