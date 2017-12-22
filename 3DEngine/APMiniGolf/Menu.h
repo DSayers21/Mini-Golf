@@ -1,7 +1,6 @@
 #pragma once
 
-
-#include <vector>
+#include <map>
 #include "Window.h"
 #include "Vector3f.h"
 
@@ -11,13 +10,13 @@ namespace D3DEngine
 	class GetInput;
 }
 
-class Rectangle
+class Button
 {
 public:
-	Rectangle() {}
-	Rectangle(std::string Text, int x, int y, int h, int w, 
+	Button() {}
+	Button(std::string Text, int x, int y, int h, int w,
 		D3DEngine::Vector3f Colour, D3DEngine::Vector3f OverColour, bool Active);
-	~Rectangle() {}
+	~Button() {}
 
 	bool Input(D3DEngine::GetInput * Inpt, int ScreenHeight);
 
@@ -33,4 +32,22 @@ private:
 	bool m_Active = false;
 	D3DEngine::Vector3f m_Colour;
 	D3DEngine::Vector3f m_OverColour;
+};
+
+class ButtonGroup
+{
+public:
+	ButtonGroup() {}
+	~ButtonGroup() {}
+
+	void SetAllToNotActive();
+
+	std::string InputButtons(D3DEngine::GetInput * Inpt, int ScreenHeight);
+
+	void RenderButtons(D3DEngine::RenderEngine* Render);
+
+	void AddButton(Button& button);
+
+private:
+	std::map<std::string, Button> m_Buttons = std::map<std::string, Button>();
 };
