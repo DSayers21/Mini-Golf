@@ -1,9 +1,11 @@
 #pragma once
 
+//Includes
 #include <tchar.h>
 #include <string>
 #include <SDL2/SDL.h>
 #include <iostream>
+
 #include "Vector2f.h"
 
 namespace D3DEngine
@@ -11,17 +13,19 @@ namespace D3DEngine
 	class Window
 	{
 	public:
+		//Constructor
 		Window();
+		//Destructor
 		~Window();
-
+		//Init the window
 		void Init(std::string& Title, int Width, int Height);
-
+		//Swap the buffers
 		void SwapBuffers();
-
+		//Update the window
 		void Update();
-
+		//Close the window
 		void Close();
-
+		//Warp the mouse to a position
 		void Warp(Vector2f WarpPos);
 
 		//Getters
@@ -32,11 +36,11 @@ namespace D3DEngine
 		inline SDL_Window* GetSDLWindow() { return m_Window; }
 
 	private:
-		SDL_Window* m_Window;
-		SDL_GLContext m_glContext;
+		SDL_Window* m_Window;		//Pointer to the SDL window
+		SDL_GLContext m_glContext;	//Ponter to the gl context
 
-		bool m_isClosed;
+		bool m_isClosed;			//If the window has been closed
 
-		int m_Width, m_Height;
+		int m_Width, m_Height;		//Width and height of the windoe
 	};
 }

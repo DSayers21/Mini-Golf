@@ -120,7 +120,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Attenuation.cpp" />
-    <ClCompile Include="MaterialList.cpp" />
     <ClCompile Include="ResourceManagement\MappedValues.cpp" />
     <ClCompile Include="ResourceManagement\MeshList.cpp" />
     <ClCompile Include="MeshLoading\IndexedModel.cpp" />
@@ -141,7 +140,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Attenuation.h" />
-    <ClInclude Include="MaterialList.h" />
     <ClInclude Include="ResourceManagement\MappedValues.h" />
     <ClInclude Include="ResourceManagement\MeshList.h" />
     <ClInclude Include="MeshLoading\IndexedModel.h" />

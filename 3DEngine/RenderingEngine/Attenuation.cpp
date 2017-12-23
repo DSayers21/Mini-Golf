@@ -1,9 +1,11 @@
+
 #include "Attenuation.h"
 
 namespace D3DEngine
 {
 	Attenuation::Attenuation()
 	{
+		//Create default Attenuation
 		*this = Attenuation(0,0,0);
 	}
 
