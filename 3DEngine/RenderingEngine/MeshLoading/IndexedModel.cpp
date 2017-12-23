@@ -1,9 +1,11 @@
+//Includes
 #include "IndexedModel.h"
 
 namespace D3DEngine
 {
 	IndexedModel::IndexedModel()
 	{
+		//Init Variables
 		m_Positons = std::vector<Vector3f>();
 		m_TexCoords = std::vector<Vector2f>();
 		m_Normals = std::vector<Vector3f>();
@@ -12,38 +14,37 @@ namespace D3DEngine
 
 	IndexedModel::~IndexedModel()
 	{
+		//Empty
 	}
 
 	void IndexedModel::CalcNormals()
 	{
-
-		for (int i = 0; i < m_Indices.size(); i += 3)
+		//Get amount of indices
+		unsigned int Size = m_Indices.size();
+		//Loop Over all indices
+		for (int i = 0; i < Size; i += 3)
 		{
-			int i0 = m_Indices[i];
-			int i1 = m_Indices[i + 1];
-			int i2 = m_Indices[i + 2];
+			//Get indicies of triangle
+			int i0 = m_Indices[i];		//Get first indices
+			int i1 = m_Indices[i + 1];	//Get second indices
+			int i2 = m_Indices[i + 2];	//Get third indices
 
-			Vector3f a = m_Positons[i1];
-			Vector3f b = m_Positons[i2];
-			Vector3f c = m_Positons[i0];
+			//Calculate both Vertexs
+			Vector3f Vertex1 = Vector3f(m_Positons[i1] - m_Positons[i0]).Normalise();
+			Vector3f Vertex2 = Vector3f(m_Positons[i2] - m_Positons[i0]).Normalise();
 
-			Vector3f Vertex1 = (a - c);
-			Vertex1 = Vertex1.Normalise();
-			Vector3f Vertex2 = (b - c);
-			Vertex2 = Vertex2.Normalise();
-			//Calc Normal
+			//Calculate Normal
 			Vector3f Normal = Vertex1.CrossProduct(Vertex2);
-			//Normal = Normal.Normalise();
+
+			//Set the normals values
 			m_Normals[i0].Set(Normal);
 			m_Normals[i1].Set(Normal);
 			m_Normals[i2].Set(Normal);
 		}
-
-		for (int i = 0; i < m_Normals.size(); i++)
-		{
-			Vector3f New = m_Normals[i];
-			Vector3f NewN = New.Normalise();
-			m_Normals[i].Set(NewN);
-		}
+		//Get amount of normals
+		Size = m_Normals.size();
+		//Loop over all normals and normalise the normal
+		for (int i = 0; i < Size; i++)
+			m_Normals[i].Set(Vector3f(m_Normals[i]).Normalise());
 	}
 }

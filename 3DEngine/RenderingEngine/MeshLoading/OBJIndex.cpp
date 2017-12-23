@@ -1,17 +1,11 @@
+//Includes
 #include "OBJIndex.h"
 
 namespace D3DEngine
 {
-	/*OBJIndex::OBJIndex()
-	{
-	}
-
-	OBJIndex::~OBJIndex()
-	{
-	}
-*/
 	bool OBJIndex::operator<(const OBJIndex &other) const
 	{
+		//Tests if all elements are less than the same variable in the other OBJIndex
 		if (VertexIndex < other.VertexIndex)
 			return true;
 		else if (VertexIndex == other.VertexIndex)
@@ -24,18 +18,5 @@ namespace D3DEngine
 					return false;
 
 		return false;
-	}
-
-	int OBJIndex::HashCode()
-	{
-		int BASE = 17;
-		int MULTIPLIER = 31;
-		int Result = BASE;
-
-		Result = MULTIPLIER * Result + VertexIndex;
-		Result = MULTIPLIER * Result + TexCoordIndex;
-		Result = MULTIPLIER * Result + NormalIndex;
-
-		return Result;
 	}
 }

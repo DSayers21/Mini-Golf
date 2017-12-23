@@ -4,13 +4,11 @@ namespace D3DEngine
 {
 	struct OBJIndex
 	{
-		int VertexIndex;
-		int TexCoordIndex;
-		int NormalIndex;
+		int VertexIndex;	//Vertex Index
+		int TexCoordIndex;	//TexCoord Index
+		int NormalIndex;	//Normal Index
 
-		//Operators
+		//Operators, Overloaded Map Key
 		bool operator<(const OBJIndex &other) const;
-
-		int HashCode();
 	};
 }

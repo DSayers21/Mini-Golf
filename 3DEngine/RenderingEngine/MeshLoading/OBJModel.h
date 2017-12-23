@@ -1,5 +1,6 @@
 #pragma once
 
+//Includes
 #include <map>
 #include <vector>
 #include <iostream>
@@ -15,30 +16,25 @@ namespace D3DEngine
 	class OBJModel
 	{
 	public:
-		OBJModel(std::string FileName);
+		//Constructor
+		OBJModel(const std::string& FileName);
+		//Destructor
 		~OBJModel();
-
-		void LoadMesh(std::string FileName);
-
-		IndexedModel& ToIndexedModel();
-
-		//Getters
-		/*inline std::vector<Vector3f> GetPositions() { return m_Positons; }
-		inline std::vector<Vector2f> GetTexCoords() { return m_TexCoords; }
-		inline std::vector<Vector3f> GetNormals() { return m_Normals; }
-		inline std::vector<OBJIndex> GetIndices() { return m_Indices; }*/
+		//Load the mesh at the filename
+		void LoadMesh(const std::string& FileName);
+		//Convert the OBJ model to being an indexed model
+		IndexedModel ToIndexedModel();
 
 	private:
-		OBJIndex ParseObjIndex(std::string Token);
-		
-		IndexedModel Result;
+		//Parse the string into a OBJ index
+		OBJIndex ParseObjIndex(const std::string& Token);
 
-		std::vector<Vector3f> m_Positons;
-		std::vector<Vector2f> m_TexCoords;
-		std::vector<Vector3f> m_Normals;
-		std::vector<OBJIndex> m_Indices;
+		std::vector<Vector3f> m_Positons;		//Vector of vert positions for the mesh
+		std::vector<Vector2f> m_TexCoords;		//Vector of texture coords for the mesh
+		std::vector<Vector3f> m_Normals;		//Vector of normals for the mesh
+		std::vector<OBJIndex> m_Indices;		//Vector of indicies for the mesh
 
-		bool m_HasTexCoords;
-		bool m_HasNormals;
+		bool m_HasTexCoords;					//If the mesh being loaded has texture coords
+		bool m_HasNormals;						//If the mesh being loaded has normals
 	};
 }
