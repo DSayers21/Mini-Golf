@@ -1,5 +1,6 @@
 #pragma once
 
+//Includes
 #include <SDL2/SDL.h>
 #include "Window.h"
 #include "Vector2f.h"
@@ -7,7 +8,9 @@
 
 namespace D3DEngine
 {
+	//Number of Keys
 	static const int NUM_KEYS = 512;
+	//Number of mouse buttons
 	static const int NUM_MOUSEBUTTONS = 256;
 	//MouseCodes for SDL2
 	enum
@@ -368,56 +371,59 @@ namespace D3DEngine
 		KEY_APP2 = 284,
 	};
 
-
 	class GetInput
 	{
 	public:
+		//Constructor
 		GetInput(Window* Window);
+		//Destructor
 		~GetInput();
-
+		//Poll for input events
 		SDL_Event PollEvent();
-
+		//Update the input
 		void Update();
-
+		//Set the cursor to either visible or invisible
 		void SetCursor(bool Visible);
-
+		//Set the position of the mouse
 		void SetMousePosition(Vector2f Ppos);
 
-		inline bool GetKey(int keyCode)  const { return m_Inputs[keyCode]; }
-		inline bool GetKeyDown(int keyCode)  const { return m_DownKeys[keyCode]; }
-		inline bool GetKeyUp(int keyCode)  const { return m_UpKeys[keyCode]; }
+		inline bool GetKey(int keyCode)  const { return m_Inputs[keyCode]; }			//Get status of key
+		inline bool GetKeyDown(int keyCode)  const { return m_DownKeys[keyCode]; }		//Get status of key down
+		inline bool GetKeyUp(int keyCode)  const { return m_UpKeys[keyCode]; }			//Get status of key up
 		
-		inline bool GetMouse(int keyCode)  const { return m_MouseInput[keyCode]; }
-		inline bool GetMouseDown(int keyCode)  const { return m_DownMouse[keyCode]; }
-		inline bool GetMouseUp(int keyCode)  const { return m_UpMouse[keyCode]; }
+		inline bool GetMouse(int keyCode)  const { return m_MouseInput[keyCode]; }		//Get status of mouse key
+		inline bool GetMouseDown(int keyCode)  const { return m_DownMouse[keyCode]; }	//Get status of mouse key down
+		inline bool GetMouseUp(int keyCode)  const { return m_UpMouse[keyCode]; }		//Get status of mouse up
 
-		inline bool GetIsClosed()  const { return m_isClosed; }
-		inline bool GetIsWarpMouse()  const { return m_warpMouse; }
-		inline void SetIsWarpMouse(bool WarpMouse) { m_warpMouse = WarpMouse; }
-
+		inline bool GetIsClosed()  const { return m_isClosed; }							//Check if the window has been closed
+		inline bool GetIsWarpMouse()  const { return m_warpMouse; }						//Check if mouse needs to be warped
+		inline void SetIsWarpMouse(bool WarpMouse) { m_warpMouse = WarpMouse; }			//Set mouse warped
+		//Get mouse positons
 		inline Vector2f GetMousePos() const { return Vector2f(m_MouseX, m_MouseY); }
 		inline Vector2f GetWarpMousePos() const { return m_WarpMousePos; }
-
+		//Get the window
 		inline Window* GetWindow() const { return m_Window; }
 	private:
+		//SDL event access;
 	    SDL_Event e;
-
+		//Mouse Position
 		int m_MouseX = 0;
 		int m_MouseY = 0;
-
+		//Bool arrays representing the key states
 		bool m_Inputs[NUM_KEYS];
 		bool m_DownKeys[NUM_KEYS];
 		bool m_UpKeys[NUM_KEYS];
-
+		//Bool arrays representing the mouse key states
 		bool m_MouseInput[NUM_MOUSEBUTTONS];
 		bool m_DownMouse[NUM_MOUSEBUTTONS];
 		bool m_UpMouse[NUM_MOUSEBUTTONS];
-
+		//Is the window closed
 		bool m_isClosed = false;
+		//Does the mouse need to be warped
 		bool m_warpMouse = false;
-
+		//Warp mouse position
 		Vector2f m_WarpMousePos;
-
+		//Pointer to the window
 		Window* m_Window;
 	};
 }
