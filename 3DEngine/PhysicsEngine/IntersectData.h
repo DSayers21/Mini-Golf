@@ -1,5 +1,6 @@
 #pragma once
 
+//Includes
 #include "Vector3f.h"
 
 namespace D3DEngine
@@ -7,7 +8,9 @@ namespace D3DEngine
 	class IntersectData
 	{
 	public:
+		//Constructor
 		IntersectData(const bool DoesIntersect, const Vector3f& Direction);
+		//Destructor
 		~IntersectData();
 
 		//Getters
@@ -16,7 +19,7 @@ namespace D3DEngine
 		inline const Vector3f& GetDirection() const { return m_Direction; }
 
 	private:
-		const bool m_DoesIntersect;
+		const bool m_DoesIntersect;	//If the intersect did happen
 		const Vector3f m_Direction; //Store Direction, length is the distance
 	};
 }

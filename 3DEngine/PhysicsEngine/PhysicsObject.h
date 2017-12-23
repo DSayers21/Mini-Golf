@@ -1,5 +1,6 @@
 #pragma once
 
+//Includes
 #include "Vector3f.h"
 #include "BoundingSphere.h"
 
@@ -8,14 +9,17 @@ namespace D3DEngine
 	class PhysicsObject
 	{
 	public:
+		//Constructor
 		PhysicsObject(Collider* collider, const Vector3f& Velocity);
+		//Destructor
 		~PhysicsObject();
-		void DeleteCollider() { delete m_Collider; }
 
+		//Integrate the physics object (update)s
 		void Integrate(float Delta);
 
+		//Apply Friction to the physics object
 		void ApplyFrictionForce(float Delta);
-
+		//Apply impulse to the physics object
 		void ApplyImpulse(Vector3f& velocity);
 
 		//Getters
@@ -28,9 +32,9 @@ namespace D3DEngine
 		inline void SetVelocity(const Vector3f& Velocity) { m_Velocity = Velocity; }
 
 	private:
-		Vector3f m_Position;
-		Vector3f m_Velocity;
-		Vector3f m_OldPosition;
-		Collider* m_Collider;
+		Vector3f m_Position;		//Position of physics object
+		Vector3f m_Velocity;		//Velocity of physics object
+		Vector3f m_OldPosition;		//Old Position of physics object
+		Collider* m_Collider;		//Pointer to Collider of physics object
 	};
 }
