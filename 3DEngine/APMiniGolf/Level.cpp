@@ -21,13 +21,13 @@ void Level::CreateHelper(int CurCount,
 	D3DEngine::PhysicsEngineComponent* PhysicsEngineComponent, D3DEngine::GameObject* RootObject)
 {
 	//Create new game object
-	D3DEngine::GameObject* Test = new D3DEngine::GameObject();
+	D3DEngine::GameObject* NewObject = new D3DEngine::GameObject();
 	//Add a mesh renderer component to the object
-	Test->AddComponent(new D3DEngine::MeshRenderer(mesh, material));
+	NewObject->AddComponent(new D3DEngine::MeshRenderer(mesh, material));
 	//Add a physics object component to the object
-	Test->AddComponent(new D3DEngine::PhysicsObjectComponent(PhysicsEngineComponent->GetPhysicsEngine()->GetObject(CurCount)));
+	NewObject->AddComponent(new D3DEngine::PhysicsObjectComponent(PhysicsEngineComponent->GetPhysicsEngine()->GetObject(CurCount)));
 	//Add the object to the scene
-	RootObject->AddChild(Test);
+	RootObject->AddChild(NewObject);
 }
 
 Level::Level(int NumOfPlayers, int LevelData[7][7],

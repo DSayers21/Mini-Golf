@@ -4,8 +4,29 @@
 //Constructor
 MiniGolf::MiniGolf()
 {
+	//Empty
+}
+
+MiniGolf::~MiniGolf()
+{
+	//Display message
+	std::cerr << "Destructor: MiniGolf" << std::endl;
+	//If the level needs to be deleted, then delete it
+	if(m_GameState == GameState::GAME)
+		ResetLevel();
+	//Delete the players
+	delete[] m_TotalPlayerScores;
+}
+
+void MiniGolf::Init(D3DEngine::RenderEngine* renderEngine, D3DEngine::PhysicsEngine* physicsEngine)
+{
+	//Set the two pointers to point at the games rendering and physics handeling components
+	m_RenderEngine = renderEngine;
+	m_PhysicsEngine = physicsEngine;
+
 	//Set Default amount of players as 2
 	m_NumOfPlayers = 2;
+	m_TotalPlayerScores = new int[m_NumOfPlayers];
 
 	//Initalise the player options set of buttons
 	m_PlayerOptions.AddButton(Button("One Player", 100, 250, 24, 68, D3DEngine::Vector3f(255, 0, 0), D3DEngine::Vector3f(0, 255, 0), false));
@@ -18,32 +39,22 @@ MiniGolf::MiniGolf()
 	m_CourseOptions.AddButton(Button("Course Two", 250, 200, 24, 68, D3DEngine::Vector3f(255, 0, 0), D3DEngine::Vector3f(0, 255, 0), false));
 	m_CourseOptions.AddButton(Button("Course Three", 400, 200, 24, 68, D3DEngine::Vector3f(255, 0, 0), D3DEngine::Vector3f(0, 255, 0), false));
 	//Initalise the Start Game button
-	m_StartGame = Button("Start Game", 100, 150, 24, 68, D3DEngine::Vector3f(255,0,0), D3DEngine::Vector3f(0, 255, 0), false);
+	m_StartGame = Button("Start Game", 100, 150, 24, 68, D3DEngine::Vector3f(255, 0, 0), D3DEngine::Vector3f(0, 255, 0), false);
+	//Exit Game button
+	m_ExitGame = Button("Exit", 100, 100, 24, 24, D3DEngine::Vector3f(255, 0, 0), D3DEngine::Vector3f(0, 255, 0), false);
+
+	//In game buttons
+	m_QuitGame = Button("Quit Game", m_RenderEngine->GetWindow()->GetWidth() - 160, 50, 24, 58, D3DEngine::Vector3f(255, 0, 0), D3DEngine::Vector3f(0, 255, 0), false);
 
 	//Initalise the ScoreBoard return to main menu Button
 	m_MainMenu = Button("Main Menu", 100, 150, 24, 68, D3DEngine::Vector3f(255, 0, 0), D3DEngine::Vector3f(0, 255, 0), false);
-}
-
-MiniGolf::~MiniGolf()
-{
-	//Display message
-	std::cerr << "Destructor: MiniGolf" << std::endl;
-	//If the level needs to be deleted, then delete it
-	if(m_GameState == GameState::GAME)
-		ResetLevel();
-}
-
-void MiniGolf::Init(D3DEngine::RenderEngine* renderEngine, D3DEngine::PhysicsEngine* physicsEngine)
-{
-	//Set the two pointers to point at the games rendering and physics handeling components
-	m_RenderEngine = renderEngine;
-	m_PhysicsEngine = physicsEngine;
 }
 
 void MiniGolf::Input(D3DEngine::GetInput* input, float Delta)
 {
 	//Update the Input object
 	input->Update();
+
 	//Check if in the main menu screen
 	if (m_GameState == GameState::MAINMENU)
 	{
@@ -56,6 +67,9 @@ void MiniGolf::Input(D3DEngine::GetInput* input, float Delta)
 			if (ButtonPressedName == "Two Players") m_NumOfPlayers = 2;
 			if (ButtonPressedName == "Four Players") m_NumOfPlayers = 4;
 			if (ButtonPressedName == "Sixteen Players") m_NumOfPlayers = 16;
+			//Update Player Score Array
+			delete[] m_TotalPlayerScores;
+			m_TotalPlayerScores = new int[m_NumOfPlayers];
 		}
 		//Get the input from the Course options set of buttons
 		ButtonPressedName = m_CourseOptions.InputButtons(input, m_Window->GetHeight());
@@ -82,7 +96,27 @@ void MiniGolf::Input(D3DEngine::GetInput* input, float Delta)
 			//Load the first Level from the course
 			LoadLevel(0);
 		}
+		//Check if the exit game button has been pressed
+		if (m_ExitGame.Input(input, m_Window->GetHeight()))
+			m_Window->Close(); //Close the window
 	}
+
+	//In game menu buttons
+	if (m_GameState == GameState::GAME)
+	{
+		//Check if the return to main menu button is pressed
+		if (m_QuitGame.Input(input, m_Window->GetHeight()))
+		{
+			//Delete Level
+			ResetLevel();
+
+			//Clean the UI 
+			m_RenderEngine->RemoveAllText();
+			//Set to indicate the game is now at the main menu
+			m_GameState = GameState::MAINMENU;
+		}
+	}
+
 	//Check if the game is in the scoreboard screen
 	if (m_GameState == GameState::SCOREBOARD)
 	{
@@ -190,10 +224,18 @@ void MiniGolf::Draw(D3DEngine::RenderEngine* renderEngine)
 		m_CourseOptions.RenderButtons(renderEngine);
 		//Draw the start button to the screen
 		m_StartGame.Render(renderEngine);
+		//Render the exit game button
+		m_ExitGame.Render(renderEngine);
 	}
+
+	//If in game then render game UI buttons
+	if (m_GameState == GameState::GAME)
+		m_QuitGame.Render(renderEngine);
+
 	//If course is finished, render return to main menu button
 	if (m_GameState == GameState::SCOREBOARD)
 		m_MainMenu.Render(renderEngine);
+
 	//Render all the current objects loaded
 	renderEngine->Render(GetRootObject());
 }

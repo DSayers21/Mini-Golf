@@ -48,9 +48,14 @@ private:
 	Level* m_CurrentLevel;
 
 	//Main Menu Buttons
+	Button m_ExitGame;
 	Button m_StartGame;
 	ButtonGroup m_PlayerOptions;
 	ButtonGroup m_CourseOptions;
+
+	//In game buttons
+	Button m_QuitGame;
+
 	//Score Board Buttons
 	Button m_MainMenu;
 
@@ -58,7 +63,7 @@ private:
 	int m_NumOfPlayers = 4;
 	std::string m_CourseFileName = "";
 	//Setup Total Scores Array
-	int* m_TotalPlayerScores = new int[m_NumOfPlayers];
+	int* m_TotalPlayerScores = nullptr;
 
 	//Pointers to Render and Physics Engines
 	D3DEngine::RenderEngine* m_RenderEngine;
