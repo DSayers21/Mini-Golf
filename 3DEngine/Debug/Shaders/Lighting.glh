@@ -1,0 +1,62 @@
+vec4 CalcLight(BaseLight Base, vec3 Direction, vec3 Normal, vec3 WorldPos)
+{
+	float DiffuseFactor = dot( -Direction ,Normal);
+	vec4 DiffuseColour = vec4(0,0,0,0);
+	vec4 SpecularColour = vec4(0,0,0,0);
+	if(DiffuseFactor > 0)
+	{
+		DiffuseColour = vec4(Base.Colour, 1.0) * Base.Intensity * DiffuseFactor;
+		
+		vec3 DirectionToEye = normalize(C_EyePos - WorldPos);
+		vec3 ReflectDirection = normalize(reflect(Direction, Normal));
+		
+		float SpecularFactor = dot(DirectionToEye, ReflectDirection); //Gives cosine between
+		SpecularFactor = pow(SpecularFactor, SpecularExponent);
+		
+		if(SpecularFactor > 0)
+		{
+			SpecularColour = vec4(Base.Colour, 1.0) * SpecularIntensity * SpecularFactor;
+		}
+	}
+	return DiffuseColour + SpecularColour;
+}
+
+
+vec4 CalcPointLight(PointLight pointLight, vec3 Normal, vec3 WorldPos)
+{
+	vec3 LightDirection = WorldPos - pointLight.Position;
+	float DistanceToPLight = length(LightDirection);
+	
+	if(DistanceToPLight > pointLight.Range)
+		return vec4(0,0,0,0);
+		
+	LightDirection = normalize(LightDirection);
+	//Get Colour From Light
+	vec4 Colour = CalcLight(pointLight.Light, LightDirection, Normal, WorldPos);
+	
+	//Apply Attenuation, gets larger as the distance increases
+	float Attenuation = pointLight.Atten.Constant + 
+						pointLight.Atten.Linear * DistanceToPLight + 
+						pointLight.Atten.Exponent * DistanceToPLight * DistanceToPLight +
+						0.0001f; //Add small value to circumvent divide by zero
+	
+	return Colour / Attenuation;
+}
+
+vec4 CalcDirectionalLight(DirectionalLight DirLight, vec3 Normal, vec3 WorldPos)
+{
+	return CalcLight(DirLight.Light, -DirLight.Direction, Normal, WorldPos);
+}
+
+vec4 CalcSpotLight(SpotLight spotLight, vec3 Normal, vec3 WorldPos)
+{
+	vec3 LightDirection = normalize(WorldPos0 - spotLight.PLight.Position);
+	float SpotFactor = dot(LightDirection, spotLight.Direction);
+	vec4 Colour = vec4(0,0,0,0);
+	if(SpotFactor > spotLight.Cutoff)	//Is the pixel in the cone of the spot light?
+	{
+		Colour = CalcPointLight(spotLight.PLight, Normal, WorldPos) * 
+				(1.0 - (1.0 - SpotFactor)/(1.0 - spotLight.Cutoff));
+	}
+	return Colour;
+}

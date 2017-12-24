@@ -1,0 +1,33 @@
+struct BaseLight {
+	vec3 Colour;
+	float Intensity;
+};
+
+//How long light lasts, fading out from point
+struct Attenuation {
+	float Constant;
+	float Linear;
+	float Exponent;
+};
+
+struct PointLight {
+	BaseLight Light;
+	Attenuation Atten;
+	vec3 Position;
+	float Range; //Max Distance a pixel can be from point light and still be affected
+};
+
+struct DirectionalLight {
+	BaseLight Light;
+	vec3 Direction;
+};
+
+struct SpotLight {
+	PointLight PLight;
+	vec3 Direction;
+	float Cutoff; //Max Distance a pixel can be from point light and still be affected
+};
+
+uniform vec3 C_EyePos; //Where the camera is
+uniform float SpecularIntensity;
+uniform float SpecularExponent;
