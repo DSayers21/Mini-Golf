@@ -61,13 +61,22 @@ namespace D3DEngine
 			}
 		}
 
-		//Check if the X component is larger than the max X component
+		//Check if the min X component is larger than the max X component
 		if (PointMin.GetX() > PointMax.GetX())
 		{
 			//Swap the X components
 			float X = PointMin.GetX();
 			PointMin.SetX(PointMax.GetX());
 			PointMax.SetX(X);
+		}
+
+		//Check if the min Z component is larger than the max Z component
+		if (PointMin.GetZ() > PointMax.GetZ())
+		{
+			//Swap the X components
+			float Z = PointMin.GetZ();
+			PointMin.SetZ(PointMax.GetZ());
+			PointMax.SetZ(Z);
 		}
 
 		//Get the center position of the AABB

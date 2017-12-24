@@ -6,8 +6,6 @@ void Level::TranslateHelper(float x, float z, int CurCount, D3DEngine::Vector3f 
 {
 	//Get the tile center
 	D3DEngine::Vector3f MyCenter = tileCenter;
-	//Get the psotion of the physics object
-	D3DEngine::Vector3f Pos = PhysicsEngineComponent->GetPhysicsEngine()->GetObject(CurCount)->GetPosition();
 	//Update the center to the object position
 	MyCenter.SetX(MyCenter.GetX() - x);
 	MyCenter.SetZ(MyCenter.GetZ() - z);
@@ -192,7 +190,7 @@ Level::Level(int NumOfPlayers, int LevelData[7][7],
 			if ((LevelData[i][j] == 1) || (LevelData[i][j] == 2) || (LevelData[i][j] == 3))
 			{
 				//Get the tile center
-				D3DEngine::Vector3f TileCenter = D3DEngine::Vector3f(i * 2, -0.05, j * 2);
+				D3DEngine::Vector3f TileCenter = D3DEngine::Vector3f(floor(i * 2), -0.05, floor(j * 2));
 				//Create a tile object (the ground tile)
 				D3DEngine::GameObject* Tile = new D3DEngine::GameObject();
 				Tile->AddComponent(new D3DEngine::MeshRenderer(new D3DEngine::Mesh("./Models/GroundTile.obj", &m_MeshList), GroundTexture));
@@ -327,7 +325,7 @@ Level::Level(int NumOfPlayers, int LevelData[7][7],
 			//Display message
 			std::cerr << "Wall Back Proccessing: Moved Up" << std::endl;
 			//Update the objects position, then create it
-			TranslateHelper(1.08f, 0.0f, ObjectPos, TileCenter, m_PhysicsEngineComponent);
+			TranslateHelper(1.11f, 0.0f, ObjectPos, TileCenter, m_PhysicsEngineComponent);
 			CreateHelper(ObjectPos, new D3DEngine::Mesh("./Models/CourseBack.obj", &m_MeshList), SideMat, m_PhysicsEngineComponent, RootObject);
 		}
 		if (ObjectType == TYPE::WALLBACKB)	//If the object is a bottom wall
@@ -335,7 +333,7 @@ Level::Level(int NumOfPlayers, int LevelData[7][7],
 			//Display message
 			std::cerr << "Wall Back Proccessing: Moved Down" << std::endl;
 			//Update the objects position, then create it
-			TranslateHelper(-1.08f, 0.0f, ObjectPos, TileCenter, m_PhysicsEngineComponent);
+			TranslateHelper(-1.12f, 0.0f, ObjectPos, TileCenter, m_PhysicsEngineComponent);
 			CreateHelper(ObjectPos, new D3DEngine::Mesh("./Models/CourseBack.obj", &m_MeshList), SideMat, m_PhysicsEngineComponent, RootObject);
 		}
 		if (ObjectType == TYPE::WALLSIDER)	//If the object is a right wall
