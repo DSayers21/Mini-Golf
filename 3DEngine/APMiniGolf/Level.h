@@ -19,44 +19,6 @@
 #include <map>
 #include <string> 
 
-//Type enum, for physics objects
-enum TYPE{
-	BALL,
-	WALLBACKF,
-	WALLBACKB,
-	WALLSIDEL,
-	WALLSIDER
-};
-
-//Tile struct to remember which walls a tile has
-struct Tile 
-{
-	//Empty Constructor
-	Tile() {}
-	//Bool flags to remember which directions have walls
-	bool Top = false;
-	bool Bottom = false;
-	bool Right = false;
-	bool Left = false;
-};
-
-//LevelID struct
-struct LevelID 
-{
-	//Constructor
-	LevelID(int i, int j, int pos, D3DEngine::Vector3f tileCenter, TYPE type) :
-		I(i), J(j), Pos(pos), TileCenter(tileCenter), m_Type(type)
-	{
-		//empty
-	}
-	//I, J and position created
-	int I, J, Pos;
-	//Center of tile
-	D3DEngine::Vector3f TileCenter;
-	//The type of object e.g. ball, wall etc
-	TYPE m_Type;
-};
-
 class Level
 {
 public:
@@ -98,8 +60,4 @@ private:
 	std::vector<D3DEngine::Material*> m_MaterialList = std::vector<D3DEngine::Material*>();
 	//Physics Component
 	D3DEngine::PhysicsEngineComponent* m_PhysicsEngineComponent;
-
-	//Objects and Tile map, for use when level being created
-	std::vector<LevelID> m_ObjectsMap = std::vector<LevelID>();
-	std::map<std::string, Tile> m_TileMap = std::map<std::string, Tile>();
 };

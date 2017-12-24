@@ -97,11 +97,6 @@ Level::Level(int NumOfPlayers, int LevelData[7][7],
 	//Init object count to 0
 	int ObjectCount = 0;
 
-	//Loop through all the level data and create a tile at each one
-	for (int i = PaddOffset; i < 5 + PaddOffset; i++)
-		for (int j = PaddOffset; j <  5 + PaddOffset; j++)
-			m_TileMap.insert(std::pair<std::string, Tile>(std::to_string(i) + std::to_string(j), Tile()));
-
 	//Find the Special objects And make sure it is created first. (Ball and Flag
 	for (int i = PaddOffset; i < 5 + PaddOffset; i++)
 	{
@@ -124,8 +119,54 @@ Level::Level(int NumOfPlayers, int LevelData[7][7],
 				RootObject->AddChild(TileStrt);	//Add the tile starting zone to the scene
 				//Add a Bounding Sphere object to the physics engine
 				m_PhysicsEngineComponent->GetPhysicsEngine()->AddObject(new D3DEngine::PhysicsObject(new D3DEngine::BoundingSphere(D3DEngine::Vector3f(i * 2, -0.5f, j * 2), .1f), D3DEngine::Vector3f(0.0f, 0.0f, 0.0f)));
-				//Add LevelID to the object map
-				m_ObjectsMap.push_back(LevelID(i, j, ObjectCount, TileCenter, TYPE::BALL));
+
+				//Display Message
+				std::cerr << "Ball Proccessing" << std::endl;
+				//GolfClub
+				D3DEngine::GameObject* GolfClubObject = new D3DEngine::GameObject();
+				GolfClubObject->AddComponent(new D3DEngine::MeshRenderer(new D3DEngine::Mesh("./Models/GolfClub.obj", &m_MeshList), MetalMat));
+				GolfClubObject->GetTransform()->SetPosition(D3DEngine::Vector3f(-1.4, 0, 0));
+				GolfClubObject->GetTransform()->SetScaling(D3DEngine::Vector3f(8, 8, 6));
+				//End GolfClub
+
+				//Sphere
+				D3DEngine::GameObject* GolfBall = new D3DEngine::GameObject();
+				GolfBall->GetTransform()->SetScaling(D3DEngine::Vector3f(0.1f, 0.1f, 0.1f));
+
+				D3DEngine::Vector3f MyCenter = TileCenter;
+				MyCenter.SetY(0.1f);
+
+				//Update Camera Position
+				D3DEngine::Vector3f CameraPos = MyCenter;
+				CameraPos.SetX(CameraPos.GetX() + 0);
+				CameraPos.SetY(CameraPos.GetY() + 2);
+				CameraPos.SetZ(CameraPos.GetZ() - 1);
+				CameraObject->GetTransform()->SetPosition(CameraPos); //Update Camera to Ball
+																	  //End Update Camera Position
+																	  //Update position
+				m_PhysicsEngineComponent->GetPhysicsEngine()->GetObject(ObjectCount)->SetPosition(MyCenter);
+				GolfBall->AddComponent(new D3DEngine::MeshRenderer(new D3DEngine::Mesh("./Models/Ball.obj", &m_MeshList), GolfBallMat));
+				GolfBall->AddComponent(new D3DEngine::PhysicsObjectComponent(m_PhysicsEngineComponent->GetPhysicsEngine()->GetObject(ObjectCount), true));
+
+				GolfClubObject->AddComponent(new GolfClub(GolfBall, m_PhysicsEngineComponent->GetPhysicsEngine()->GetObject(ObjectCount), 8, 0.5, 10));
+				GolfBall->AddChild(GolfClubObject);
+				RootObject->AddChild(GolfBall);	//Add golf ball to the scene
+				//End Sphere
+
+				//Create Players
+				m_Players = std::vector<Player*>();
+				for (int i = 0; i < NumOfPlayers; i++)
+				{
+					//Create new player
+					Player* m_Player = new Player(renderEngine, GolfBall, m_PhysicsEngineComponent->GetPhysicsEngine()->GetObject(ObjectCount), i + 1);
+					m_Player->SetBallStartPos(m_PhysicsEngineComponent->GetPhysicsEngine()->GetObject(ObjectCount)->GetPosition());
+					//Add player to the players list
+					m_Players.push_back(m_Player);
+				}
+				//Set ALL players Score to 0
+				for (int i = NumOfPlayers - 1; i > -1; i--)
+					m_Players[i]->IncreaseScore();
+
 				ObjectCount++;	//Increment the object count
 			}
 			if (LevelData[i][j] == 3) //Flag
@@ -177,15 +218,12 @@ Level::Level(int NumOfPlayers, int LevelData[7][7],
 			}
 		}
 	}
+
 	//Create remaing physics objects
 	for (int i = PaddOffset; i < 5 + PaddOffset; i++)
 	{
 		for (int j = PaddOffset; j < 5 + PaddOffset; j++)
 		{
-			//Generate the current keys
-			std::string Key = std::to_string(i) + std::to_string(j);
-			//Get the current tile
-			Tile CurrentTile = m_TileMap.find(Key)->second;
 			//Check if the current data position isnt empty
 			if ((LevelData[i][j] == 1) || (LevelData[i][j] == 2) || (LevelData[i][j] == 3))
 			{
@@ -200,157 +238,73 @@ Level::Level(int NumOfPlayers, int LevelData[7][7],
 				//Checks if there is free space adjacent to the current tile, if there is then a wall needs to be created on the correct side
 				if (j - 1 >= 0)
 				{
-					if ((LevelData[i][j - 1] <= 0) && (CurrentTile.Left == false))
+					if (LevelData[i][j - 1] <= 0)
 					{
 						//Wall needs to be created on the left side of the tile
 						LevelData[i][j - 1] -= 1;
 						m_PhysicsEngineComponent->GetPhysicsEngine()->AddAABBFromMesh(SideRes->GetVertices(), SideRes->GetVERTEXSIZE(), SideRes->GetIndices(), SideRes->GetINDEXSIZE());
-						m_ObjectsMap.push_back(LevelID(i, j, ObjectCount, TileCenter, TYPE::WALLSIDEL));
-						CurrentTile.Left = true;	//Update current tile information
+
+						//Display message
+						std::cerr << "Wall Back Proccessing: Moved Left" << std::endl;
+						//Update the objects position, then create it
+						TranslateHelper(0.0f, 1.08f, ObjectCount, TileCenter, m_PhysicsEngineComponent);
+						CreateHelper(ObjectCount, new D3DEngine::Mesh("./Models/CourseSide.obj", &m_MeshList), SideMat, m_PhysicsEngineComponent, RootObject);
+
 						ObjectCount++;	//Increment object count
 					}
 				}
 				if (j + 1 < 7)
 				{
-					if ((LevelData[i][j + 1] <= 0) && (CurrentTile.Right == false))
+					if (LevelData[i][j + 1] <= 0)
 					{
 						//Wall needs to be created on the right side of the tile
 						LevelData[i][j + 1] -= 1;
 						m_PhysicsEngineComponent->GetPhysicsEngine()->AddAABBFromMesh(SideRes->GetVertices(), SideRes->GetVERTEXSIZE(), SideRes->GetIndices(), SideRes->GetINDEXSIZE());
-						m_ObjectsMap.push_back(LevelID(i, j, ObjectCount, TileCenter, TYPE::WALLSIDER));
-						CurrentTile.Right = true;	//Update current tile information
+
+						//Display message
+						std::cerr << "Wall Back Proccessing: Moved Right" << std::endl;
+						//Update the objects position, then create it
+						TranslateHelper(0.0f, -1.08f, ObjectCount, TileCenter, m_PhysicsEngineComponent);
+						CreateHelper(ObjectCount, new D3DEngine::Mesh("./Models/CourseSide.obj", &m_MeshList), SideMat, m_PhysicsEngineComponent, RootObject);
+
 						ObjectCount++;	//Increment object count
 					}
 				}
 				if (i - 1 >= 0)
 				{
-					if ((LevelData[i - 1][j] <= 0)&&(CurrentTile.Top == false))
+					if (LevelData[i - 1][j] <= 0)
 					{
 						//Wall needs to be created on the top side of the tile
 						LevelData[i - 1][j] -= 1;
 						m_PhysicsEngineComponent->GetPhysicsEngine()->AddAABBFromMesh(BackRes->GetVertices(), SideRes->GetVERTEXSIZE(), BackRes->GetIndices(), BackRes->GetINDEXSIZE());
-						m_ObjectsMap.push_back(LevelID(i, j, ObjectCount, TileCenter, TYPE::WALLBACKF));
-						CurrentTile.Top = true;	//Update current tile information
+
+						//Display message
+						std::cerr << "Wall Back Proccessing: Moved Up" << std::endl;
+						//Update the objects position, then create it
+						TranslateHelper(1.11f, 0.0f, ObjectCount, TileCenter, m_PhysicsEngineComponent);
+						CreateHelper(ObjectCount, new D3DEngine::Mesh("./Models/CourseBack.obj", &m_MeshList), SideMat, m_PhysicsEngineComponent, RootObject);
+
 						ObjectCount++;	//Increment object count
 					}
 				}
 				if (i + 1 < 7)
 				{
-					if ((LevelData[i + 1][j] <= 0) && (CurrentTile.Bottom == false))
+					if (LevelData[i + 1][j] <= 0)
 					{
 						//Wall needs to be created on the bottom side of the tile
 						LevelData[i + 1][j] -= 1;
 						m_PhysicsEngineComponent->GetPhysicsEngine()->AddAABBFromMesh(BackRes->GetVertices(), BackRes->GetVERTEXSIZE(), BackRes->GetIndices(), BackRes->GetINDEXSIZE());
-						m_ObjectsMap.push_back(LevelID(i, j, ObjectCount, TileCenter, TYPE::WALLBACKB));
-						CurrentTile.Bottom = true;	//Update current tile information
+
+						//Display message
+						std::cerr << "Wall Back Proccessing: Moved Down" << std::endl;
+						//Update the objects position, then create it
+						TranslateHelper(-1.12f, 0.0f, ObjectCount, TileCenter, m_PhysicsEngineComponent);
+						CreateHelper(ObjectCount, new D3DEngine::Mesh("./Models/CourseBack.obj", &m_MeshList), SideMat, m_PhysicsEngineComponent, RootObject);
+
 						ObjectCount++;	//Increment object count
 					}
 				}
 			}
-		}
-	}
-
-	//Update Objects
-	for (int i = 0; i < m_ObjectsMap.size(); i++)
-	{
-		//Display message
-		std::cerr << "Processing Physics Object: " << i << std::endl;
-		//Get current position of object
-		int PosI = m_ObjectsMap[i].I;
-		int PosJ = m_ObjectsMap[i].J;
-		//Generate key
-		std::string Key = std::to_string(PosI) + std::to_string(PosJ);
-		//Get current tile
-		Tile CurrentTile = m_TileMap.find(Key)->second;
-		//Get current object position
-		int ObjectPos = m_ObjectsMap[i].Pos;
-		//Get current object type
-		TYPE ObjectType = m_ObjectsMap[i].m_Type;
-		//Get the center of the current tile
-		D3DEngine::Vector3f TileCenter = m_ObjectsMap[i].TileCenter;
-
-		//If the object is a ball
-		if (ObjectType == TYPE::BALL)
-		{
-			//Display Message
-			std::cerr << "Ball Proccessing" << std::endl;
-			//GolfClub
-			D3DEngine::GameObject* GolfClubObject = new D3DEngine::GameObject();
-			GolfClubObject->AddComponent(new D3DEngine::MeshRenderer(new D3DEngine::Mesh("./Models/GolfClub.obj", &m_MeshList), MetalMat));
-			GolfClubObject->GetTransform()->SetPosition(D3DEngine::Vector3f(-1.4, 0, 0));
-			GolfClubObject->GetTransform()->SetScaling(D3DEngine::Vector3f(8, 8, 6));
-			//End GolfClub
-
-			//Sphere
-			D3DEngine::GameObject* GolfBall = new D3DEngine::GameObject();
-			GolfBall->GetTransform()->SetScaling(D3DEngine::Vector3f(0.1f, 0.1f, 0.1f));
-
-			D3DEngine::Vector3f MyCenter = TileCenter;
-			MyCenter.SetY(0.1f);
-
-			//Update Camera Position
-			D3DEngine::Vector3f CameraPos = MyCenter;
-			CameraPos.SetX(CameraPos.GetX() + 0);
-			CameraPos.SetY(CameraPos.GetY() + 2);
-			CameraPos.SetZ(CameraPos.GetZ() - 1);
-			CameraObject->GetTransform()->SetPosition(CameraPos); //Update Camera to Ball
-			//End Update Camera Position
-			//Update position
-			m_PhysicsEngineComponent->GetPhysicsEngine()->GetObject(ObjectPos)->SetPosition(MyCenter);
-			GolfBall->AddComponent(new D3DEngine::MeshRenderer(new D3DEngine::Mesh("./Models/Ball.obj", &m_MeshList), GolfBallMat));
-			GolfBall->AddComponent(new D3DEngine::PhysicsObjectComponent(m_PhysicsEngineComponent->GetPhysicsEngine()->GetObject(ObjectPos), true));
-
-			GolfClubObject->AddComponent(new GolfClub(GolfBall, m_PhysicsEngineComponent->GetPhysicsEngine()->GetObject(ObjectPos), 8, 0.5, 10));
-			GolfBall->AddChild(GolfClubObject);
-			RootObject->AddChild(GolfBall);	//Add golf ball to the scene
-			//End Sphere
-
-			//Create Players
-			m_Players = std::vector<Player*>();
-			for (int i = 0; i < NumOfPlayers; i++)
-			{
-				//Create new player
-				Player* m_Player = new Player(renderEngine, GolfBall, m_PhysicsEngineComponent->GetPhysicsEngine()->GetObject(ObjectPos), i + 1);
-				m_Player->SetBallStartPos(m_PhysicsEngineComponent->GetPhysicsEngine()->GetObject(ObjectPos)->GetPosition());
-				//Add player to the players list
-				m_Players.push_back(m_Player);
-			}
-			//Set ALL players Score to 0
-			for (int i = NumOfPlayers -1; i > -1; i--)
-				m_Players[i]->IncreaseScore();
-		}
-		
-		if (ObjectType == TYPE::WALLBACKF)	//If the object is a top wall
-		{	
-			//Display message
-			std::cerr << "Wall Back Proccessing: Moved Up" << std::endl;
-			//Update the objects position, then create it
-			TranslateHelper(1.11f, 0.0f, ObjectPos, TileCenter, m_PhysicsEngineComponent);
-			CreateHelper(ObjectPos, new D3DEngine::Mesh("./Models/CourseBack.obj", &m_MeshList), SideMat, m_PhysicsEngineComponent, RootObject);
-		}
-		if (ObjectType == TYPE::WALLBACKB)	//If the object is a bottom wall
-		{
-			//Display message
-			std::cerr << "Wall Back Proccessing: Moved Down" << std::endl;
-			//Update the objects position, then create it
-			TranslateHelper(-1.12f, 0.0f, ObjectPos, TileCenter, m_PhysicsEngineComponent);
-			CreateHelper(ObjectPos, new D3DEngine::Mesh("./Models/CourseBack.obj", &m_MeshList), SideMat, m_PhysicsEngineComponent, RootObject);
-		}
-		if (ObjectType == TYPE::WALLSIDER)	//If the object is a right wall
-		{
-			//Display message
-			std::cerr << "Wall Back Proccessing: Moved Right" << std::endl;
-			//Update the objects position, then create it
-			TranslateHelper(0.0f, -1.08f, ObjectPos, TileCenter, m_PhysicsEngineComponent);
-			CreateHelper(ObjectPos, new D3DEngine::Mesh("./Models/CourseSide.obj", &m_MeshList), SideMat, m_PhysicsEngineComponent, RootObject);
-		}
-		if (ObjectType == TYPE::WALLSIDEL)	//If the object is a left wall
-		{
-			//Display message
-			std::cerr << "Wall Back Proccessing: Moved Left" << std::endl;
-			//Update the objects position, then create it
-			TranslateHelper(0.0f, 1.08f, ObjectPos, TileCenter, m_PhysicsEngineComponent);
-			CreateHelper(ObjectPos, new D3DEngine::Mesh("./Models/CourseSide.obj", &m_MeshList), SideMat, m_PhysicsEngineComponent, RootObject);
 		}
 	}
 
@@ -359,7 +313,6 @@ Level::Level(int NumOfPlayers, int LevelData[7][7],
 	D3DEngine::DirectionalLight* directionalLight = new D3DEngine::DirectionalLight(renderEngine->GetShaderList(), D3DEngine::Vector3f(0.5, 0.5, 0.5), 0.1f);
 	DirectionalLightObject->AddComponent(directionalLight);
 	DirectionalLightObject->GetTransform()->SetRotation(&D3DEngine::Quaternion(D3DEngine::Vector3f(1, 1, 1), TO_RADIANS(-45.0f)));
-
 
 	RootObject->AddChild(CameraObject);				//Add the camera to the scene
 	RootObject->AddChild(DirectionalLightObject);	//Add the directional light to the scene

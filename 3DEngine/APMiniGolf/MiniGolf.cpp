@@ -44,7 +44,7 @@ void MiniGolf::Init(D3DEngine::RenderEngine* renderEngine, D3DEngine::PhysicsEng
 	m_ExitGame = Button("Exit", 100, 100, 24, 24, D3DEngine::Vector3f(255, 0, 0), D3DEngine::Vector3f(0, 255, 0), false);
 
 	//In game buttons
-	m_QuitGame = Button("Quit Game", m_RenderEngine->GetWindow()->GetWidth() - 160, 50, 24, 58, D3DEngine::Vector3f(255, 0, 0), D3DEngine::Vector3f(0, 255, 0), false);
+	m_QuitGame = Button("Quit Game", m_RenderEngine->GetWindow()->GetWidth() - 115, 29, 24, 58, D3DEngine::Vector3f(255, 0, 0), D3DEngine::Vector3f(0, 255, 0), false);
 
 	//Initalise the ScoreBoard return to main menu Button
 	m_MainMenu = Button("Main Menu", 100, 150, 24, 68, D3DEngine::Vector3f(255, 0, 0), D3DEngine::Vector3f(0, 255, 0), false);
@@ -150,6 +150,8 @@ void MiniGolf::Update(float Delta)
 			bool IsReset = m_Course.NextHole();
 			if (!IsReset)
 			{
+				//Clear UI
+				m_RenderEngine->RemoveAllText();
 				//Display message
 				std::cout << "No more holes! Course Finished" << std::endl;
 				//Update game state
