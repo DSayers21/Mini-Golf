@@ -48,9 +48,6 @@ void MiniGolf::Init(D3DEngine::RenderEngine* renderEngine, D3DEngine::PhysicsEng
 
 	//Initalise the ScoreBoard return to main menu Button
 	m_MainMenu = Button("Main Menu", 100, 150, 24, 68, D3DEngine::Vector3f(255, 0, 0), D3DEngine::Vector3f(0, 255, 0), false);
-
-	//Create Basic Level
-	m_CurrentLevel = new Level(m_RenderEngine->GetWindow(), GetRootObject());
 }
 
 void MiniGolf::Input(D3DEngine::GetInput* input, float Delta)
