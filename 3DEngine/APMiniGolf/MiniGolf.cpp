@@ -16,6 +16,8 @@ MiniGolf::~MiniGolf()
 		ResetLevel();
 	//Delete the players
 	delete[] m_TotalPlayerScores;
+
+	TClient.terminate();
 }
 
 void MiniGolf::Init(D3DEngine::RenderEngine* renderEngine, D3DEngine::PhysicsEngine* physicsEngine)
@@ -48,6 +50,14 @@ void MiniGolf::Init(D3DEngine::RenderEngine* renderEngine, D3DEngine::PhysicsEng
 
 	//Initalise the ScoreBoard return to main menu Button
 	m_MainMenu = Button("Main Menu", 100, 150, 24, 68, D3DEngine::Vector3f(255, 0, 0), D3DEngine::Vector3f(0, 255, 0), false);
+
+	std::string IPAddress;
+	std::cerr << "Enter IP > ";
+	std::cin >> IPAddress;
+
+	//192.168.0.21
+	TClient.start(IPAddress.c_str(), "2000");
+	TClient.interact();
 }
 
 void MiniGolf::Input(D3DEngine::GetInput* input, float Delta)
@@ -128,6 +138,13 @@ void MiniGolf::Input(D3DEngine::GetInput* input, float Delta)
 			//Set to indicate the game is now at the main menu
 			m_GameState = GameState::MAINMENU;
 		}
+	}
+
+	//
+
+	if (input->GetKeyDown(D3DEngine::KEY_SPACE))
+	{
+		TClient.sendthis("SPACEBAR");
 	}
 
 	//Get Input for all objects in scene

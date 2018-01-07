@@ -5,6 +5,7 @@
 #include "Level.h"
 #include "GolfCourse.h"
 #include "Menu.h"
+#include "ThreadedClient.h"
 
 //Enum to handle the current state of the game
 enum GameState 
@@ -68,4 +69,6 @@ private:
 	//Pointers to Render and Physics Engines
 	D3DEngine::RenderEngine* m_RenderEngine;
 	D3DEngine::PhysicsEngine* m_PhysicsEngine;
+
+	ThreadedClient TClient;
 };
