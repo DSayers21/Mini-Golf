@@ -133,6 +133,7 @@
     <ClCompile Include="Pocket.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="ThreadedClient.cpp" />
+    <ClCompile Include="ThreadedServer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GolfClub.h" />
@@ -144,6 +145,8 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Pocket.h" />
     <ClInclude Include="ThreadedClient.h" />
+    <ClInclude Include="ThreadedServer.h" />
+    <ClInclude Include="ThreadPool.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

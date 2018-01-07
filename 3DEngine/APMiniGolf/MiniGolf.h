@@ -6,12 +6,15 @@
 #include "GolfCourse.h"
 #include "Menu.h"
 #include "ThreadedClient.h"
+#include "ThreadedServer.h"
 #include <iostream>
+#include <thread>
 
 //Enum to handle the current state of the game
 enum GameState 
 {
 	MAINMENU,
+	SERVERMODE,
 	GAME,
 	SCOREBOARD
 };
@@ -54,8 +57,14 @@ private:
 	Button m_StartGame;
 	ButtonGroup m_PlayerOptions;
 	ButtonGroup m_CourseOptions;
+	Button m_ServerMode;
+	Button m_StartClient;
+	Button m_StartServer;
+	Button m_BackTMM;
+	//Has a server been started
+	bool m_ServerStarted = false;
 
-	//In game buttons
+	//Inglut te game buttons
 	Button m_QuitGame;
 
 	//Score Board Buttons
@@ -72,4 +81,5 @@ private:
 	D3DEngine::PhysicsEngine* m_PhysicsEngine;
 
 	ThreadedClient TClient;
+	std::thread m_ServerThread;
 };

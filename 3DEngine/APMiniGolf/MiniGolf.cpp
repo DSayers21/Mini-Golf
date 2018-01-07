@@ -18,6 +18,8 @@ MiniGolf::~MiniGolf()
 	delete[] m_TotalPlayerScores;
 
 	TClient.terminate();
+	if(m_ServerThread.joinable())
+		m_ServerThread.join();
 }
 
 void MiniGolf::Init(D3DEngine::RenderEngine* renderEngine, D3DEngine::PhysicsEngine* physicsEngine)
@@ -30,6 +32,9 @@ void MiniGolf::Init(D3DEngine::RenderEngine* renderEngine, D3DEngine::PhysicsEng
 	m_NumOfPlayers = 2;
 	m_TotalPlayerScores = new int[m_NumOfPlayers];
 
+
+	//Server Mode Button
+	m_ServerMode = Button("Server Mode", 100, 300, 24, 68, D3DEngine::Vector3f(255, 0, 0), D3DEngine::Vector3f(0, 255, 0), false);
 	//Initalise the player options set of buttons
 	m_PlayerOptions.AddButton(Button("One Player", 100, 250, 24, 68, D3DEngine::Vector3f(255, 0, 0), D3DEngine::Vector3f(0, 255, 0), false));
 	m_PlayerOptions.AddButton(Button("Two Players", 250, 250, 24, 68, D3DEngine::Vector3f(255, 0, 0), D3DEngine::Vector3f(0, 255, 0), true));
@@ -45,23 +50,29 @@ void MiniGolf::Init(D3DEngine::RenderEngine* renderEngine, D3DEngine::PhysicsEng
 	//Exit Game button
 	m_ExitGame = Button("Exit", 100, 100, 24, 24, D3DEngine::Vector3f(255, 0, 0), D3DEngine::Vector3f(0, 255, 0), false);
 
+
 	//In game buttons
 	m_QuitGame = Button("Quit Game", m_RenderEngine->GetWindow()->GetWidth() - 115, 29, 24, 58, D3DEngine::Vector3f(255, 0, 0), D3DEngine::Vector3f(0, 255, 0), false);
 
 	//Initalise the ScoreBoard return to main menu Button
 	m_MainMenu = Button("Main Menu", 100, 150, 24, 68, D3DEngine::Vector3f(255, 0, 0), D3DEngine::Vector3f(0, 255, 0), false);
 
-	std::string IPAddress;
-	std::cerr << "Enter IP > ";
-	std::cin >> IPAddress;
+	//Server Menu Buttons
+	m_StartClient = Button("Start Client", 100, 250, 24, 68, D3DEngine::Vector3f(255, 0, 0), D3DEngine::Vector3f(0, 255, 0), false);
+	m_StartServer = Button("Start Server", 100, 300, 24, 68, D3DEngine::Vector3f(255, 0, 0), D3DEngine::Vector3f(0, 255, 0), false);
+	m_BackTMM = Button("Back to Main Menu", 100, 100, 24, 120, D3DEngine::Vector3f(255, 0, 0), D3DEngine::Vector3f(0, 255, 0), false);
 
-	std::string Port;
-	std::cerr << "Enter Port > ";
-	std::cin >> Port;
+	//std::string IPAddress;
+	//std::cerr << "Enter IP > ";
+	//std::cin >> IPAddress;
 
-	//192.168.0.21
-	TClient.start(IPAddress.c_str(), Port.c_str());
-	TClient.interact();
+	//std::string Port;
+	//std::cerr << "Enter Port > ";
+	//std::cin >> Port;
+
+	////192.168.0.21
+	//TClient.start(IPAddress.c_str(), Port.c_str());
+	//TClient.interact();
 }
 
 void MiniGolf::Input(D3DEngine::GetInput* input, float Delta)
@@ -113,6 +124,57 @@ void MiniGolf::Input(D3DEngine::GetInput* input, float Delta)
 		//Check if the exit game button has been pressed
 		if (m_ExitGame.Input(input, m_Window->GetHeight()))
 			m_Window->Close(); //Close the window
+		//Check if the server mode button has been pressed
+		if (m_ServerMode.Input(input, m_Window->GetHeight()))
+		{
+			//Clean the UI 
+			m_RenderEngine->RemoveAllText();
+			m_GameState = GameState::SERVERMODE;
+			return;
+		}
+	}
+
+	if (m_GameState == SERVERMODE)
+	{
+		//Check if the return to main menu button is pressed
+		if (m_BackTMM.Input(input, m_Window->GetHeight()))
+		{
+			//Clean the UI 
+			m_RenderEngine->RemoveAllText();
+			//Set to indicate the game is now at the main menu
+			m_GameState = GameState::MAINMENU;
+		}
+
+		//Check Server Mode
+		if (m_StartClient.Input(input, m_Window->GetHeight()))
+		{
+			std::string IPAddress;
+			std::cerr << "Enter IP > ";
+			std::cin >> IPAddress;
+
+			std::string Port;
+			std::cerr << "Enter Port > ";
+			std::cin >> Port;
+
+			//192.168.0.21
+			TClient.start(IPAddress.c_str(), Port.c_str());
+			TClient.interact();
+		}
+
+		if (m_StartServer.Input(input, m_Window->GetHeight()))
+		{
+			if (!m_ServerStarted)
+			{
+				std::string Port = "5555";
+				std::cerr << "Enter Port > ";
+				std::cin >> Port;
+
+
+				m_ServerThread = std::thread(ServerThread::CreateServerThread, Port);
+				m_ServerStarted = true;
+				m_StartServer.SetActive(true);
+			}
+		}
 	}
 
 	//In game menu buttons
@@ -252,15 +314,28 @@ void MiniGolf::Draw(D3DEngine::RenderEngine* renderEngine)
 		m_StartGame.Render(renderEngine);
 		//Render the exit game button
 		m_ExitGame.Render(renderEngine);
+		//Render the server mode button
+		m_ServerMode.Render(renderEngine);
+	}
+
+	//If the menu is in server mode
+	if (m_GameState == SERVERMODE)
+	{
+		//Add the title to the UI
+		m_RenderEngine->AddText("TITLE", D3DEngine::TextToRender("Mini-Golf: Main Menu", D3DEngine::Vector3f(0, 255, 0),
+			m_Window->GetWidth() / 2 - 120, m_Window->GetHeight() - 140));
+		
+		//Render Option Buttons
+		m_StartClient.Render(renderEngine);
+		m_StartServer.Render(renderEngine);
+		
+		//Render Main Menu Button
+		m_BackTMM.Render(renderEngine);
 	}
 
 	//If in game then render game UI buttons
 	if (m_GameState == GameState::GAME)
 		m_QuitGame.Render(renderEngine);
-
-	//If course is finished, render return to main menu button
-	if (m_GameState == GameState::SCOREBOARD)
-		m_MainMenu.Render(renderEngine);
 }
 
 bool MiniGolf::LoadLevel(int LevelNum)
