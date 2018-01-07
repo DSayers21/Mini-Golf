@@ -20,7 +20,7 @@ namespace D3DEngine
 		SDL_Quit();
 	}
 
-	void Window::Init(std::string& Title, int Width, int Height)
+	void Window::Init(const std::string& Title, int Width, int Height)
 	{
 		//Set the width and height
 		m_Width = Width;

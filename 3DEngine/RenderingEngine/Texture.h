@@ -7,7 +7,6 @@
 #include <GL/glew.h>
 
 #include "stb_image.h"
-#include "ResourceManagement/TextureResource.h"
 
 namespace D3DEngine
 {

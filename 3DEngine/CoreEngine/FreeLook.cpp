@@ -68,6 +68,7 @@ namespace D3DEngine
 			//Rotate on the X plane
 			if (rotX)
 				GetTransform()->Rotate(GetTransform()->GetRotation()->GetRight(), TO_RADIANS(DeltaPos.GetY(), *Sensitivity));
+
 			//Set mouse position to the centre of the screen
 			if (rotY || rotX)
 				input->SetMousePosition(input->GetWindow()->GetCenter());

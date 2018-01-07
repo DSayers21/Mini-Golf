@@ -66,9 +66,6 @@
     <ClCompile Include="TextRendering.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ResourceManagement\TextureResource.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Attenuation.h">
@@ -120,9 +117,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TextRendering.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ResourceManagement\TextureResource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

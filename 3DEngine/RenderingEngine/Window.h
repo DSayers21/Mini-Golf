@@ -18,7 +18,7 @@ namespace D3DEngine
 		//Destructor
 		~Window();
 		//Init the window
-		void Init(std::string& Title, int Width, int Height);
+		void Init(const std::string& Title, int Width, int Height);
 		//Swap the buffers
 		void SwapBuffers();
 		//Update the window

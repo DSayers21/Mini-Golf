@@ -48,6 +48,9 @@ void MiniGolf::Init(D3DEngine::RenderEngine* renderEngine, D3DEngine::PhysicsEng
 
 	//Initalise the ScoreBoard return to main menu Button
 	m_MainMenu = Button("Main Menu", 100, 150, 24, 68, D3DEngine::Vector3f(255, 0, 0), D3DEngine::Vector3f(0, 255, 0), false);
+
+	//Create Basic Level
+	m_CurrentLevel = new Level(m_RenderEngine->GetWindow(), GetRootObject());
 }
 
 void MiniGolf::Input(D3DEngine::GetInput* input, float Delta)
@@ -136,6 +139,9 @@ void MiniGolf::Input(D3DEngine::GetInput* input, float Delta)
 
 void MiniGolf::Update(float Delta)
 {
+	//Update all the objects currently in the level
+	GetRootObject()->Update(Delta);
+
 	//Check if the game state is game
 	if (m_GameState == GameState::GAME)
 	{
@@ -165,9 +171,6 @@ void MiniGolf::Update(float Delta)
 		}
 		else if (m_MoveToNextLevel >= 0) //Otherwise update the move to next level counter
 			m_MoveToNextLevel--;
-
-		//Update all the objects currently in the level
-		GetRootObject()->Update(Delta);
 
 		//Update the current level, if it returns true the ball has been putted
 		if (m_CurrentLevel->Update(Delta))
@@ -214,6 +217,9 @@ void MiniGolf::Update(float Delta)
 
 void MiniGolf::Draw(D3DEngine::RenderEngine* renderEngine)
 {
+	//Render all the current objects loaded
+	renderEngine->Render(GetRootObject());
+
 	//Check if at the MainMenu
 	if (m_GameState == GameState::MAINMENU)
 	{
@@ -237,9 +243,6 @@ void MiniGolf::Draw(D3DEngine::RenderEngine* renderEngine)
 	//If course is finished, render return to main menu button
 	if (m_GameState == GameState::SCOREBOARD)
 		m_MainMenu.Render(renderEngine);
-
-	//Render all the current objects loaded
-	renderEngine->Render(GetRootObject());
 }
 
 bool MiniGolf::LoadLevel(int LevelNum)

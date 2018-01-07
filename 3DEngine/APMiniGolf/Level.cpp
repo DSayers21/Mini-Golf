@@ -28,6 +28,42 @@ void Level::CreateHelper(int CurCount,
 	RootObject->AddChild(NewObject);
 }
 
+Level::Level(D3DEngine::Window* Window, D3DEngine::GameObject* RootObject)
+{
+	//Create the camera object
+	D3DEngine::GameObject* CameraObject = new D3DEngine::GameObject();
+	float Aspect = Window->GetWidth() / Window->GetHeight();
+	CameraObject->AddComponent(new D3DEngine::Camera(TO_RADIANS(90.0f), Aspect, 0.01f, 1000.0f));
+	CameraObject->GetTransform()->SetRotation(&D3DEngine::Quaternion(D3DEngine::Vector3f(1, 0, 0), TO_RADIANS(30.0f))); //Tilt Down
+	CameraObject->GetTransform()->SetPosition(D3DEngine::Vector3f(-8.0f, 22.0f, 0.0f));
+
+	RootObject->AddChild(CameraObject);				//Add the camera to the scene
+
+	D3DEngine::Material* GolfBallMat = new D3DEngine::Material();
+	GolfBallMat->AddTexture("Diffuse", new D3DEngine::Texture("./Textures/FlagTexture.png"));
+	GolfBallMat->AddFloat("SpecularIntensity", 1);
+	GolfBallMat->AddFloat("SpecularExponent", 8);
+	m_MaterialList.push_back(GolfBallMat);
+
+
+	D3DEngine::GameObject* GolfBall = new D3DEngine::GameObject();
+	GolfBall->GetTransform()->SetScaling(D3DEngine::Vector3f(0.1f, 0.1f, 0.1f));
+
+	D3DEngine::Vector3f MyCenter(0,-1.8,0);
+
+	//Update Camera Position
+	D3DEngine::Vector3f CameraPos = MyCenter;
+	CameraPos.SetX(CameraPos.GetX() + 0);
+	CameraPos.SetY(CameraPos.GetY() + 2);
+	CameraPos.SetZ(CameraPos.GetZ() - 1);
+	CameraObject->GetTransform()->SetPosition(CameraPos); //Update Camera to Ball
+														  //End Update Camera Position
+														  //Update position
+	GolfBall->AddComponent(new D3DEngine::MeshRenderer(new D3DEngine::Mesh("./Models/Ball.obj", &m_MeshList), GolfBallMat));
+
+	RootObject->AddChild(GolfBall);
+}
+
 Level::Level(int NumOfPlayers, int LevelData[7][7],
 	D3DEngine::Window* Window, D3DEngine::RenderEngine* renderEngine, D3DEngine::PhysicsEngine* physicsEngine,
 	D3DEngine::GameObject* RootObject)
@@ -97,7 +133,7 @@ Level::Level(int NumOfPlayers, int LevelData[7][7],
 	//Init object count to 0
 	int ObjectCount = 0;
 
-	//Find the Special objects And make sure it is created first. (Ball and Flag
+	//Find the Special objects And make sure it is created first. (Ball)
 	for (int i = PaddOffset; i < 5 + PaddOffset; i++)
 	{
 		for (int j = PaddOffset; j < 5 + PaddOffset; j++)
@@ -115,9 +151,9 @@ Level::Level(int NumOfPlayers, int LevelData[7][7],
 				MyPos.SetY(-0.07f);
 				TileStrt->GetTransform()->SetPosition(MyPos);
 				//Set the scale of the tile starting zone
-				TileStrt->GetTransform()->SetScaling(D3DEngine::Vector3f(0.5,1,0.5));
+				TileStrt->GetTransform()->SetScaling(D3DEngine::Vector3f(0.5, 1, 0.5));
 				RootObject->AddChild(TileStrt);	//Add the tile starting zone to the scene
-				//Add a Bounding Sphere object to the physics engine
+												//Add a Bounding Sphere object to the physics engine
 				m_PhysicsEngineComponent->GetPhysicsEngine()->AddObject(new D3DEngine::PhysicsObject(new D3DEngine::BoundingSphere(D3DEngine::Vector3f(i * 2, -0.5f, j * 2), .1f), D3DEngine::Vector3f(0.0f, 0.0f, 0.0f)));
 
 				//Display Message
@@ -151,9 +187,9 @@ Level::Level(int NumOfPlayers, int LevelData[7][7],
 				GolfClubObject->AddComponent(new GolfClub(GolfBall, m_PhysicsEngineComponent->GetPhysicsEngine()->GetObject(ObjectCount), 8, 0.5, 10));
 				GolfBall->AddChild(GolfClubObject);
 				RootObject->AddChild(GolfBall);	//Add golf ball to the scene
-				//End Sphere
+												//End Sphere
 
-				//Create Players
+												//Create Players
 				m_Players = std::vector<Player*>();
 				for (int i = 0; i < NumOfPlayers; i++)
 				{
@@ -169,6 +205,15 @@ Level::Level(int NumOfPlayers, int LevelData[7][7],
 
 				ObjectCount++;	//Increment the object count
 			}
+		}
+	}
+
+	//Create remaing physics objects
+	for (int i = PaddOffset; i < 5 + PaddOffset; i++)
+	{
+		for (int j = PaddOffset; j < 5 + PaddOffset; j++)
+		{
+			
 			if (LevelData[i][j] == 3) //Flag
 			{
 				//Get the center of the current tiles
@@ -186,9 +231,9 @@ Level::Level(int NumOfPlayers, int LevelData[7][7],
 				Hole->GetTransform()->SetPosition(MyPos);
 				Hole->GetTransform()->SetScaling(D3DEngine::Vector3f(0.1f, 0.0f, 0.1f));
 				RootObject->AddChild(Hole);	//Add hole to scene
-				//End Add Hole
+											//End Add Hole
 
-				//Add Flag
+											//Add Flag
 				D3DEngine::GameObject* FlagBack = new D3DEngine::GameObject();
 				FlagBack->AddComponent(new D3DEngine::MeshRenderer(new D3DEngine::Mesh("./Models/Flag.obj", &m_MeshList), FlagMat));
 				FlagBack->GetTransform()->SetPosition(D3DEngine::Vector3f(0.8f, 2.35f, 0.0f));
@@ -214,16 +259,9 @@ Level::Level(int NumOfPlayers, int LevelData[7][7],
 				FlagShaft->AddChild(FlagFront);	//Add flag front as a child to flag shaft
 
 				RootObject->AddChild(FlagShaft);	//Add flag to the scene
-				//End Add Flag Shaft
+													//End Add Flag Shaft
 			}
-		}
-	}
 
-	//Create remaing physics objects
-	for (int i = PaddOffset; i < 5 + PaddOffset; i++)
-	{
-		for (int j = PaddOffset; j < 5 + PaddOffset; j++)
-		{
 			//Check if the current data position isnt empty
 			if ((LevelData[i][j] == 1) || (LevelData[i][j] == 2) || (LevelData[i][j] == 3))
 			{

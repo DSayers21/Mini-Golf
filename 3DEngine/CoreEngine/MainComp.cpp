@@ -3,7 +3,7 @@
 
 namespace D3DEngine
 {
-	MainComp::MainComp(std::string Title, int Width, int Height, int FrameRate, MainGame* Game)
+	MainComp::MainComp(const std::string& Title, int Width, int Height, int FrameRate, MainGame* Game)
 	{
 		//Init Core Aspects
 		m_Window = new D3DEngine::Window();

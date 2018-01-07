@@ -27,6 +27,9 @@ public:
 	//Helper function to create the physics objects
 	void CreateHelper(int CurCount, D3DEngine::Mesh * mesh, D3DEngine::Material * material, D3DEngine::PhysicsEngineComponent * PhysicsEngineComponent, D3DEngine::GameObject * RootObject);
 
+	//Default Constructor
+	Level(D3DEngine::Window* Window, D3DEngine::GameObject* RootObject);
+
 	//Constructor
 	Level(int NumOfPlayers, int LevelData[7][7],
 		D3DEngine::Window* Window, D3DEngine::RenderEngine* renderEngine, D3DEngine::PhysicsEngine* physicsEngine,

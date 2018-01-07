@@ -15,7 +15,7 @@ namespace D3DEngine
 	{
 	public:
 		//Constructor
-		MainComp(std::string Title, int Width, int Height, int FrameRate, MainGame* Game);
+		MainComp(const std::string& Title, int Width, int Height, int FrameRate, MainGame* Game);
 		//Destructor
 		~MainComp();
 		//Start the main component

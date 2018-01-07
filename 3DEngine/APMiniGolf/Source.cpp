@@ -18,7 +18,7 @@ int main(int argc, char** argv)
 	//Create Title
 	std::string Title = "Advanced Programming Assignment";
 	//Create main component with a MiniGolf game
-	D3DEngine::MainComp m_MainComp(Title, 1200, 800, 120, new MiniGolf());
+	D3DEngine::MainComp m_MainComp(Title, 1200, 800, 60, new MiniGolf());
 
 	return 0;
 }
