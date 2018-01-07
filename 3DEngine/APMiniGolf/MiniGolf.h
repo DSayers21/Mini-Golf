@@ -6,6 +6,7 @@
 #include "GolfCourse.h"
 #include "Menu.h"
 #include "ThreadedClient.h"
+#include <iostream>
 
 //Enum to handle the current state of the game
 enum GameState 
