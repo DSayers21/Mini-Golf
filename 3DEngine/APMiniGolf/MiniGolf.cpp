@@ -55,8 +55,12 @@ void MiniGolf::Init(D3DEngine::RenderEngine* renderEngine, D3DEngine::PhysicsEng
 	std::cerr << "Enter IP > ";
 	std::cin >> IPAddress;
 
+	std::string Port;
+	std::cerr << "Enter Port > ";
+	std::cin >> Port;
+
 	//192.168.0.21
-	TClient.start(IPAddress.c_str(), "2000");
+	TClient.start(IPAddress.c_str(), Port.c_str());
 	TClient.interact();
 }
 
@@ -144,7 +148,7 @@ void MiniGolf::Input(D3DEngine::GetInput* input, float Delta)
 
 	if (input->GetKeyDown(D3DEngine::KEY_SPACE))
 	{
-		TClient.sendthis("SPACEBAR");
+		TClient.sendthis("DPACEBAR");
 	}
 
 	//Get Input for all objects in scene
