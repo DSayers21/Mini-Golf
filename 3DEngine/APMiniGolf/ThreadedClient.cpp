@@ -70,10 +70,10 @@ void ThreadedClient::sendthis(const char* buffer)
 	}
 }
 
-const char* ThreadedClient::getthis() 
+const std::string& ThreadedClient::getthis() 
 {
-	iResult = recv(ConnectSocket, recvbuf, recvbuflen, 0);
-	if (iResult > 0) return recvbuf;
+	//iResult = recv(ConnectSocket, recvbuf, recvbuflen, 0);
+	return lastrecvbuf;
 }
 
 void ThreadedClient::sendmsg() 
@@ -98,7 +98,10 @@ void ThreadedClient::getmsg()
 	{
 		iResult = recv(ConnectSocket, recvbuf, recvbuflen, 0);
 		if (iResult > 0)
+		{
 			printf("Server says: %s\n", recvbuf);
+			lastrecvbuf = recvbuf;
+		}
 	}
 }
 

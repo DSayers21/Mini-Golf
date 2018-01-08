@@ -206,12 +206,29 @@ void MiniGolf::Input(D3DEngine::GetInput* input, float Delta)
 		}
 	}
 
-	//
+	//Send Messages
+	if (input->GetKeyDown(D3DEngine::KEY_SPACE)) TClient.sendthis("SPAC");
+	if (input->GetKeyDown(D3DEngine::KEY_LEFT)) TClient.sendthis("LEFT");
+	if (input->GetKeyDown(D3DEngine::KEY_RIGHT)) TClient.sendthis("RIGH");
+	if (input->GetKeyDown(D3DEngine::KEY_UP)) TClient.sendthis("UP");
+	if (input->GetKeyDown(D3DEngine::KEY_DOWN)) TClient.sendthis("DOWN");
 
-	if (input->GetKeyDown(D3DEngine::KEY_SPACE))
-	{
-		TClient.sendthis("DPACEBAR");
-	}
+	//Process Received Messages
+	if (TClient.getthis() == "SPAC") std::cerr << "HELLO DEAN YOU PRESSED SPACE" << std::endl;
+	if (TClient.getthis() == "LEFT") std::cerr << "HELLO DEAN YOU PRESSED LEFT"  << std::endl;
+	if (TClient.getthis() == "RIGH") std::cerr << "HELLO DEAN YOU PRESSED RIGH"  << std::endl;
+	if (TClient.getthis() == "UP")	 std::cerr << "HELLO DEAN YOU PRESSED UP"	 << std::endl;
+	if (TClient.getthis() == "DOWN") std::cerr << "HELLO DEAN YOU PRESSED DOWN"  << std::endl;
+
+	//Update Inputs
+	if (TClient.getthis() == "SPAC") input->SetKeyDown(D3DEngine::KEY_SPACE, true);
+	if (TClient.getthis() == "LEFT") input->SetKeyDown(D3DEngine::KEY_LEFT, true);
+	if (TClient.getthis() == "RIGH") input->SetKeyDown(D3DEngine::KEY_RIGHT, true);
+	if (TClient.getthis() == "UP") input->SetKeyDown(D3DEngine::KEY_UP, true);
+	if (TClient.getthis() == "DOWN") input->SetKeyDown(D3DEngine::KEY_DOWN, true);
+
+	//Reset last message
+	TClient.setthis("NULL");
 
 	//Get Input for all objects in scene
 	m_RootObject->Input(input, Delta);

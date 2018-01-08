@@ -387,6 +387,9 @@ namespace D3DEngine
 		//Set the position of the mouse
 		void SetMousePosition(Vector2f Ppos);
 
+		inline void SetKey(int keyCode, bool State) { m_Inputs[keyCode] = State; }
+		inline void SetKeyDown(int keyCode, bool State) { m_DownKeys[keyCode] = State; }
+			 
 		inline bool GetKey(int keyCode)  const { return m_Inputs[keyCode]; }			//Get status of key
 		inline bool GetKeyDown(int keyCode)  const { return m_DownKeys[keyCode]; }		//Get status of key down
 		inline bool GetKeyUp(int keyCode)  const { return m_UpKeys[keyCode]; }			//Get status of key up

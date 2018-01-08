@@ -24,13 +24,15 @@ class ThreadedClient {
 		hints;
 	char *sendbuf = "this is a test";
 	char recvbuf[DEFAULT_BUFLEN];
+	std::string lastrecvbuf;
 	int iResult;
 	int recvbuflen = DEFAULT_BUFLEN;
 
 public:
 	void start(const char*, const char*);
 	void sendthis(const char* buffer);
-	const char* getthis();
+	const std::string& getthis();
+	inline void setthis(const std::string& Name) { lastrecvbuf = Name; }
 	void sendmsg();
 	void getmsg();
 	void interact();

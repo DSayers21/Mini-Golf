@@ -1,53 +1,8 @@
-﻿  Window.cpp
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\window.h(35): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\window.cpp(73): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-  Vert.cpp
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(93): warning C4522: 'D3DEngine::Vector3f': multiple assignment operators specified
-  Texture.cpp
-  TextRendering.cpp
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(93): warning C4522: 'D3DEngine::Vector3f': multiple assignment operators specified
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\textrendering.cpp(29): warning C4101: 'Len': unreferenced local variable
-  ShaderList.cpp
-  ShaderResource.cpp
-  Shader.cpp
+﻿  Shader.cpp
 c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(93): warning C4522: 'D3DEngine::Vector3f': multiple assignment operators specified
 c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\window.h(35): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\input.h(402): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\input.h(405): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
 c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\shader.cpp(239): warning C4018: '<': signed/unsigned mismatch
 c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\shader.cpp(449): warning C4018: '<': signed/unsigned mismatch
-  MeshResource.cpp
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(93): warning C4522: 'D3DEngine::Vector3f': multiple assignment operators specified
-  OBJModel.cpp
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(93): warning C4522: 'D3DEngine::Vector3f': multiple assignment operators specified
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\meshloading\objmodel.cpp(55): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\meshloading\objmodel.cpp(59): warning C4018: '<': signed/unsigned mismatch
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\meshloading\objmodel.cpp(67): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\meshloading\objmodel.cpp(69): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\meshloading\objmodel.cpp(88): warning C4018: '<': signed/unsigned mismatch
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\meshloading\objmodel.cpp(145): warning C4018: '<': signed/unsigned mismatch
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\meshloading\objmodel.cpp(160): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\meshloading\objmodel.cpp(167): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\meshloading\objmodel.cpp(174): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-  OBJIndex.cpp
-  Mesh.cpp
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(93): warning C4522: 'D3DEngine::Vector3f': multiple assignment operators specified
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\mesh.cpp(143): warning C4018: '<': signed/unsigned mismatch
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\mesh.cpp(155): warning C4018: '<': signed/unsigned mismatch
-  Material.cpp
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(93): warning C4522: 'D3DEngine::Vector3f': multiple assignment operators specified
-  IndexedModel.cpp
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(93): warning C4522: 'D3DEngine::Vector3f': multiple assignment operators specified
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\meshloading\indexedmodel.cpp(25): warning C4018: '<': signed/unsigned mismatch
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\meshloading\indexedmodel.cpp(47): warning C4018: '<': signed/unsigned mismatch
-  MeshList.cpp
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(93): warning C4522: 'D3DEngine::Vector3f': multiple assignment operators specified
-  MappedValues.cpp
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(93): warning C4522: 'D3DEngine::Vector3f': multiple assignment operators specified
-  Attenuation.cpp
-  Generating Code...
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(52): warning C4172: returning address of local variable or temporary
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(52): warning C4172: returning address of local variable or temporary
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(49): warning C4172: returning address of local variable or temporary
 c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\baselight.h(34): warning C4172: returning address of local variable or temporary
-  stb_image.c
   RenderingEngine.vcxproj -> C:\Users\Satan\Documents\GitHub\Pool Game\Mini-Golf\3DEngine\Debug\RenderingEngine.lib
