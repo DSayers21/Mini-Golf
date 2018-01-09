@@ -17,7 +17,8 @@ MiniGolf::~MiniGolf()
 	//Delete the players
 	delete[] m_TotalPlayerScores;
 
-	TClient.terminate();
+	//Close server and clients
+	TClient.Terminate();
 	if(m_ServerThread.joinable())
 		m_ServerThread.join();
 }
@@ -61,18 +62,6 @@ void MiniGolf::Init(D3DEngine::RenderEngine* renderEngine, D3DEngine::PhysicsEng
 	m_StartClient = Button("Start Client", 100, 250, 24, 68, D3DEngine::Vector3f(255, 0, 0), D3DEngine::Vector3f(0, 255, 0), false);
 	m_StartServer = Button("Start Server", 100, 300, 24, 68, D3DEngine::Vector3f(255, 0, 0), D3DEngine::Vector3f(0, 255, 0), false);
 	m_BackTMM = Button("Back to Main Menu", 100, 100, 24, 120, D3DEngine::Vector3f(255, 0, 0), D3DEngine::Vector3f(0, 255, 0), false);
-
-	//std::string IPAddress;
-	//std::cerr << "Enter IP > ";
-	//std::cin >> IPAddress;
-
-	//std::string Port;
-	//std::cerr << "Enter Port > ";
-	//std::cin >> Port;
-
-	////192.168.0.21
-	//TClient.start(IPAddress.c_str(), Port.c_str());
-	//TClient.interact();
 }
 
 void MiniGolf::Input(D3DEngine::GetInput* input, float Delta)
@@ -145,33 +134,41 @@ void MiniGolf::Input(D3DEngine::GetInput* input, float Delta)
 			m_GameState = GameState::MAINMENU;
 		}
 
-		//Check Server Mode
+		//Check if the start client button has been clicked
 		if (m_StartClient.Input(input, m_Window->GetHeight()))
 		{
+			//Get IP Address to connect to
 			std::string IPAddress;
 			std::cerr << "Enter IP > ";
 			std::cin >> IPAddress;
 
+			//Get the port number to connect to
 			std::string Port;
 			std::cerr << "Enter Port > ";
 			std::cin >> Port;
 
-			//192.168.0.21
-			TClient.start(IPAddress.c_str(), Port.c_str());
-			TClient.interact();
+			//Connect the client to the server
+			TClient.Start(IPAddress.c_str(), Port.c_str());
+			//Start the interaction with the server
+			TClient.Interact();
 		}
 
+		//Check if the start server button has been clicked
 		if (m_StartServer.Input(input, m_Window->GetHeight()))
 		{
+			//Check if server has not yet been started
 			if (!m_ServerStarted)
 			{
+				//Get the port to start the server on
 				std::string Port = "5555";
 				std::cerr << "Enter Port > ";
 				std::cin >> Port;
 
-
+				//Start the server in a new thread
 				m_ServerThread = std::thread(ServerThread::CreateServerThread, Port);
+				//Set server started to true
 				m_ServerStarted = true;
+				//Set the button to being clicked on
 				m_StartServer.SetActive(true);
 			}
 		}
@@ -207,28 +204,28 @@ void MiniGolf::Input(D3DEngine::GetInput* input, float Delta)
 	}
 
 	//Send Messages
-	if (input->GetKeyDown(D3DEngine::KEY_SPACE)) TClient.sendthis("SPAC");
-	if (input->GetKeyDown(D3DEngine::KEY_LEFT)) TClient.sendthis("LEFT");
-	if (input->GetKeyDown(D3DEngine::KEY_RIGHT)) TClient.sendthis("RIGH");
-	if (input->GetKeyDown(D3DEngine::KEY_UP)) TClient.sendthis("UP");
-	if (input->GetKeyDown(D3DEngine::KEY_DOWN)) TClient.sendthis("DOWN");
+	if (input->GetKeyDown(D3DEngine::KEY_SPACE)) TClient.SendThis("SPAC");
+	if (input->GetKeyDown(D3DEngine::KEY_LEFT)) TClient.SendThis("LEFT");
+	if (input->GetKeyDown(D3DEngine::KEY_RIGHT)) TClient.SendThis("RIGH");
+	if (input->GetKeyDown(D3DEngine::KEY_UP)) TClient.SendThis("UP");
+	if (input->GetKeyDown(D3DEngine::KEY_DOWN)) TClient.SendThis("DOWN");
 
 	//Process Received Messages
-	if (TClient.getthis() == "SPAC") std::cerr << "HELLO DEAN YOU PRESSED SPACE" << std::endl;
-	if (TClient.getthis() == "LEFT") std::cerr << "HELLO DEAN YOU PRESSED LEFT"  << std::endl;
-	if (TClient.getthis() == "RIGH") std::cerr << "HELLO DEAN YOU PRESSED RIGH"  << std::endl;
-	if (TClient.getthis() == "UP")	 std::cerr << "HELLO DEAN YOU PRESSED UP"	 << std::endl;
-	if (TClient.getthis() == "DOWN") std::cerr << "HELLO DEAN YOU PRESSED DOWN"  << std::endl;
+	if (TClient.GetLstReceived() == "SPAC") std::cerr << "HELLO DEAN YOU PRESSED SPACE" << std::endl;
+	if (TClient.GetLstReceived() == "LEFT") std::cerr << "HELLO DEAN YOU PRESSED LEFT"  << std::endl;
+	if (TClient.GetLstReceived() == "RIGH") std::cerr << "HELLO DEAN YOU PRESSED RIGH"  << std::endl;
+	if (TClient.GetLstReceived() == "UP")	 std::cerr << "HELLO DEAN YOU PRESSED UP"	 << std::endl;
+	if (TClient.GetLstReceived() == "DOWN") std::cerr << "HELLO DEAN YOU PRESSED DOWN"  << std::endl;
 
 	//Update Inputs
-	if (TClient.getthis() == "SPAC") input->SetKeyDown(D3DEngine::KEY_SPACE, true);
-	if (TClient.getthis() == "LEFT") input->SetKeyDown(D3DEngine::KEY_LEFT, true);
-	if (TClient.getthis() == "RIGH") input->SetKeyDown(D3DEngine::KEY_RIGHT, true);
-	if (TClient.getthis() == "UP") input->SetKeyDown(D3DEngine::KEY_UP, true);
-	if (TClient.getthis() == "DOWN") input->SetKeyDown(D3DEngine::KEY_DOWN, true);
+	if (TClient.GetLstReceived() == "SPAC") input->SetKeyDown(D3DEngine::KEY_SPACE, true);
+	if (TClient.GetLstReceived() == "LEFT") input->SetKeyDown(D3DEngine::KEY_LEFT, true);
+	if (TClient.GetLstReceived() == "RIGH") input->SetKeyDown(D3DEngine::KEY_RIGHT, true);
+	if (TClient.GetLstReceived() == "UP") input->SetKeyDown(D3DEngine::KEY_UP, true);
+	if (TClient.GetLstReceived() == "DOWN") input->SetKeyDown(D3DEngine::KEY_DOWN, true);
 
 	//Reset last message
-	TClient.setthis("NULL");
+	TClient.SetLstReceived("NULL");
 
 	//Get Input for all objects in scene
 	m_RootObject->Input(input, Delta);

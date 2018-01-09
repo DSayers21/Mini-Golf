@@ -1,35 +1,38 @@
+//Includes
 #include "ThreadedClient.h"
 
-void ThreadedClient::start(const char* ipaddress, const char* port) 
+void ThreadedClient::Start(const char* ipaddress, const char* port) 
 {
 	// Initialize Winsock
-	iResult = WSAStartup(MAKEWORD(2, 2), &wsaData);
-	if (iResult != 0) 
+	m_iResult = WSAStartup(MAKEWORD(2, 2), &m_WsaData);
+	if (m_iResult != 0)
 	{
-		printf("WSAStartup failed with error: %d\n", iResult);
+		//Display error message
+		printf("WSAStartup failed with error: %d\n", m_iResult);
 		return;
 	}
 
-	ZeroMemory(&hints, sizeof(hints));
-	hints.ai_family = AF_UNSPEC;
-	hints.ai_socktype = SOCK_STREAM;
-	hints.ai_protocol = IPPROTO_TCP;
+	//Prepare hints
+	ZeroMemory(&m_Hints, sizeof(m_Hints));
+	m_Hints.ai_family = AF_UNSPEC;
+	m_Hints.ai_socktype = SOCK_STREAM;
+	m_Hints.ai_protocol = IPPROTO_TCP;
 
 	// Resolve the server address and port
-	iResult = getaddrinfo(ipaddress, port, &hints, &result);
-	if (iResult != 0) 
+	m_iResult = getaddrinfo(ipaddress, port, &m_Hints, &m_Result);
+	if (m_iResult != 0)
 	{
-		printf("getaddrinfo failed with error: %d\n", iResult);
+		printf("getaddrinfo failed with error: %d\n", m_iResult);
 		WSACleanup();
 		return;
 	}
 
 	// Attempt to connect to an address until one succeeds
-	for (ptr = result; ptr != NULL; ptr = ptr->ai_next) 
+	for (m_Ptr = m_Result; m_Ptr != NULL; m_Ptr = m_Ptr->ai_next)
 	{
 		// Create a SOCKET for connecting to server
-		ConnectSocket = socket(ptr->ai_family, ptr->ai_socktype, ptr->ai_protocol);
-		if (ConnectSocket == INVALID_SOCKET) 
+		m_ConnectSocket = socket(m_Ptr->ai_family, m_Ptr->ai_socktype, m_Ptr->ai_protocol);
+		if (m_ConnectSocket == INVALID_SOCKET)
 		{
 			printf("socket failed with error: %ld\n", WSAGetLastError());
 			WSACleanup();
@@ -37,83 +40,93 @@ void ThreadedClient::start(const char* ipaddress, const char* port)
 		}
 
 		// Connect to server.
-		iResult = connect(ConnectSocket, ptr->ai_addr, (int)ptr->ai_addrlen);
-		if (iResult == SOCKET_ERROR) 
+		m_iResult = connect(m_ConnectSocket, m_Ptr->ai_addr, (int)m_Ptr->ai_addrlen);
+		if (m_iResult == SOCKET_ERROR)
 		{
-			closesocket(ConnectSocket);
-			ConnectSocket = INVALID_SOCKET;
+			closesocket(m_ConnectSocket);
+			m_ConnectSocket = INVALID_SOCKET;
 			continue;
 		}
 		break;
 	}
-
-	freeaddrinfo(result);
-
-	if (ConnectSocket == INVALID_SOCKET) 
+	//Free the info
+	freeaddrinfo(m_Result);
+	//Test if the socket is invalid
+	if (m_ConnectSocket == INVALID_SOCKET) 
 	{
+		//Display message
 		printf("Unable to connect to server!\n");
+		//Clean
 		WSACleanup();
 		return;
 	}
-
+	//Display message
 	printf("Connected!\n");
 }
 
-void ThreadedClient::sendthis(const char* buffer) 
+void ThreadedClient::SendThis(const char* buffer) 
 {
-	iResult = send(ConnectSocket, buffer, sizeof(buffer), 0);
-	if (iResult == SOCKET_ERROR) 
+	//Send message
+	m_iResult = send(m_ConnectSocket, buffer, sizeof(buffer), 0);
+	//Check if socket is bad
+	if (m_iResult == SOCKET_ERROR)
 	{
+		//Display message
 		printf("send failed with error: %d\n", WSAGetLastError());
+		//Terminate
 		terminate();
 		return;
 	}
 }
 
-const std::string& ThreadedClient::getthis() 
+void ThreadedClient::SendMsg() 
 {
-	//iResult = recv(ConnectSocket, recvbuf, recvbuflen, 0);
-	return lastrecvbuf;
-}
-
-void ThreadedClient::sendmsg() 
-{
+	//While active, get message from the server
 	while (true) 
 	{
 		printf("Client: ");
-		fgets(recvbuf, 255, stdin);
-		iResult = send(ConnectSocket, recvbuf, sizeof(recvbuf), 0);
-		if (iResult == SOCKET_ERROR) 
+		//Send message
+		fgets(m_Recvbuf, 255, stdin);
+		m_iResult = send(m_ConnectSocket, m_Recvbuf, sizeof(m_Recvbuf), 0);
+		//Check if socket is bad
+		if (m_iResult == SOCKET_ERROR)
 		{
+			//Display message
 			printf("send failed with error: %d\n", WSAGetLastError());
+			//Terminate
 			terminate();
 			return;
 		}
 	}
 }
 
-void ThreadedClient::getmsg() 
+void ThreadedClient::GetMsg() 
 {
+	//While active, get message from the server
 	while (true) 
 	{
-		iResult = recv(ConnectSocket, recvbuf, recvbuflen, 0);
-		if (iResult > 0)
+		//Get the message
+		m_iResult = recv(m_ConnectSocket, m_Recvbuf, m_RecvBufLen, 0);
+		if (m_iResult > 0) //Test if the message is valid
 		{
-			printf("Server says: %s\n", recvbuf);
-			lastrecvbuf = recvbuf;
+			//Display the received message
+			printf("Server says: %s\n", m_Recvbuf);
+			m_LastRecvBuf = m_Recvbuf;
 		}
 	}
 }
 
-void ThreadedClient::interact() 
+void ThreadedClient::Interact() 
 {
-	std::thread t(&ThreadedClient::getmsg, this);
-	//sendmsg();
+	//Start thread which runs get message constantly
+	std::thread t(&ThreadedClient::GetMsg, this);
+	//Remove thread
 	t.detach();
 }
 
-void ThreadedClient::terminate() 
+void ThreadedClient::Terminate() 
 {
-	closesocket(ConnectSocket);
+	//Close socket
+	closesocket(m_ConnectSocket);
 	WSACleanup();
 }
