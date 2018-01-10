@@ -51,6 +51,9 @@ namespace D3DEngine
 		//Clear Screen
 		ClearScreen();
 
+		//Render All Text
+		RenderText();
+
 		//Draw all objects with ambient light
 		Object->Draw(m_ShaderForwardAmbient, this);
 
@@ -74,9 +77,6 @@ namespace D3DEngine
 		glDepthMask(true);			 //Enable writing to the depth buffer
 		
 		glDisable(GL_BLEND);
-
-		//Render All Text
-		RenderText();
 	}
 
 	void RenderEngine::RenderText()
