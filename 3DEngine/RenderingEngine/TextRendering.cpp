@@ -35,6 +35,7 @@ namespace D3DEngine
 		glDisable(GL_TEXTURE);
 		glDisable(GL_TEXTURE_2D);
 		glDisable(GL_LIGHTING);
+		glDisable(GL_CULL_FACE);
 		//Loop over the string and print each character
 		for (int i = 0, len = strlen(message.c_str()); i < len; i++)
 			glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, (int)message[i]);
@@ -42,7 +43,7 @@ namespace D3DEngine
 		//Enable Textures
 		glEnable(GL_TEXTURE_2D);
 		glEnable(GL_TEXTURE);
-
+		glEnable(GL_CULL_FACE);
 		//Switch back to 3D projection
 		glMatrixMode(GL_PROJECTION);
 		glPopMatrix();
