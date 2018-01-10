@@ -34,7 +34,7 @@ namespace D3DEngine
 		//Disable Textures
 		glDisable(GL_TEXTURE);
 		glDisable(GL_TEXTURE_2D);
-
+		glDisable(GL_LIGHTING);
 		//Loop over the string and print each character
 		for (int i = 0, len = strlen(message.c_str()); i < len; i++)
 			glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, (int)message[i]);

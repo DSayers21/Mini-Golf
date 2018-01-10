@@ -1,9 +1,2 @@
-﻿  MiniGolf.cpp
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\window.h(35): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\input.h(405): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(93): warning C4522: 'D3DEngine::Vector3f': multiple assignment operators specified
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\apminigolf\minigolf.cpp(274): warning C4018: '<': signed/unsigned mismatch
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\apminigolf\minigolf.cpp(295): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\apminigolf\minigolf.cpp(306): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-  APMiniGolf.vcxproj -> C:\Users\Satan\Documents\GitHub\Pool Game\Mini-Golf\3DEngine\Debug\APMiniGolf.exe
+﻿  APMiniGolf.vcxproj -> C:\Users\Satan\Documents\GitHub\Pool Game\Mini-Golf\3DEngine\Debug\APMiniGolf.exe
   APMiniGolf.vcxproj -> C:\Users\Satan\Documents\GitHub\Pool Game\Mini-Golf\3DEngine\Debug\APMiniGolf.pdb (Partial PDB)
