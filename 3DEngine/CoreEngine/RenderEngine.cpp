@@ -51,6 +51,7 @@ namespace D3DEngine
 		//Clear Screen
 		ClearScreen();
 
+		glUseProgramObjectARB(0);
 		//Render All Text
 		RenderText();
 
