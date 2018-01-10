@@ -1,4 +1,4 @@
 ﻿  TextRendering.cpp
 c:\users\satan\documents\github\pool game\mini-golf\3dengine\coreengine\vector3f.h(93): warning C4522: 'D3DEngine::Vector3f': multiple assignment operators specified
-c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\textrendering.cpp(29): warning C4101: 'Len': unreferenced local variable
+c:\users\satan\documents\github\pool game\mini-golf\3dengine\renderingengine\textrendering.cpp(35): warning C4101: 'Len': unreferenced local variable
   RenderingEngine.vcxproj -> C:\Users\Satan\Documents\GitHub\Pool Game\Mini-Golf\3DEngine\Debug\RenderingEngine.lib
