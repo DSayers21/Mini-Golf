@@ -151,6 +151,7 @@ void MiniGolf::Input(D3DEngine::GetInput* input, float Delta)
 			TClient.Start(IPAddress.c_str(), Port.c_str());
 			//Start the interaction with the server
 			TClient.Interact();
+			m_ClientConnected = true;
 		}
 
 		//Check if the start server button has been clicked
@@ -203,29 +204,32 @@ void MiniGolf::Input(D3DEngine::GetInput* input, float Delta)
 		}
 	}
 
-	//Send Messages
-	if (input->GetKeyDown(D3DEngine::KEY_SPACE)) TClient.SendThis("SPAC");
-	if (input->GetKeyDown(D3DEngine::KEY_LEFT)) TClient.SendThis("LEFT");
-	if (input->GetKeyDown(D3DEngine::KEY_RIGHT)) TClient.SendThis("RIGH");
-	if (input->GetKeyDown(D3DEngine::KEY_UP)) TClient.SendThis("UP");
-	if (input->GetKeyDown(D3DEngine::KEY_DOWN)) TClient.SendThis("DOWN");
+	if (m_ClientConnected)
+	{
+		//Send Messages
+		if (input->GetKeyDown(D3DEngine::KEY_SPACE)) TClient.SendThis("SPAC");
+		if (input->GetKeyDown(D3DEngine::KEY_LEFT)) TClient.SendThis("LEFT");
+		if (input->GetKeyDown(D3DEngine::KEY_RIGHT)) TClient.SendThis("RIGH");
+		if (input->GetKeyDown(D3DEngine::KEY_UP)) TClient.SendThis("UP");
+		if (input->GetKeyDown(D3DEngine::KEY_DOWN)) TClient.SendThis("DOWN");
 
-	//Process Received Messages
-	if (TClient.GetLstReceived() == "SPAC") std::cerr << "HELLO DEAN YOU PRESSED SPACE" << std::endl;
-	if (TClient.GetLstReceived() == "LEFT") std::cerr << "HELLO DEAN YOU PRESSED LEFT"  << std::endl;
-	if (TClient.GetLstReceived() == "RIGH") std::cerr << "HELLO DEAN YOU PRESSED RIGH"  << std::endl;
-	if (TClient.GetLstReceived() == "UP")	 std::cerr << "HELLO DEAN YOU PRESSED UP"	 << std::endl;
-	if (TClient.GetLstReceived() == "DOWN") std::cerr << "HELLO DEAN YOU PRESSED DOWN"  << std::endl;
+		//Process Received Messages
+		if (TClient.GetLstReceived() == "SPAC") std::cerr << "HELLO DEAN YOU PRESSED SPACE" << std::endl;
+		if (TClient.GetLstReceived() == "LEFT") std::cerr << "HELLO DEAN YOU PRESSED LEFT" << std::endl;
+		if (TClient.GetLstReceived() == "RIGH") std::cerr << "HELLO DEAN YOU PRESSED RIGH" << std::endl;
+		if (TClient.GetLstReceived() == "UP")	 std::cerr << "HELLO DEAN YOU PRESSED UP" << std::endl;
+		if (TClient.GetLstReceived() == "DOWN") std::cerr << "HELLO DEAN YOU PRESSED DOWN" << std::endl;
 
-	//Update Inputs
-	if (TClient.GetLstReceived() == "SPAC") input->SetKeyDown(D3DEngine::KEY_SPACE, true);
-	if (TClient.GetLstReceived() == "LEFT") input->SetKeyDown(D3DEngine::KEY_LEFT, true);
-	if (TClient.GetLstReceived() == "RIGH") input->SetKeyDown(D3DEngine::KEY_RIGHT, true);
-	if (TClient.GetLstReceived() == "UP") input->SetKeyDown(D3DEngine::KEY_UP, true);
-	if (TClient.GetLstReceived() == "DOWN") input->SetKeyDown(D3DEngine::KEY_DOWN, true);
+		//Update Inputs
+		if (TClient.GetLstReceived() == "SPAC") input->SetKeyDown(D3DEngine::KEY_SPACE, true);
+		if (TClient.GetLstReceived() == "LEFT") input->SetKeyDown(D3DEngine::KEY_LEFT, true);
+		if (TClient.GetLstReceived() == "RIGH") input->SetKeyDown(D3DEngine::KEY_RIGHT, true);
+		if (TClient.GetLstReceived() == "UP") input->SetKeyDown(D3DEngine::KEY_UP, true);
+		if (TClient.GetLstReceived() == "DOWN") input->SetKeyDown(D3DEngine::KEY_DOWN, true);
 
-	//Reset last message
-	TClient.SetLstReceived("NULL");
+		//Reset last message
+		TClient.SetLstReceived("NULL");
+	}
 
 	//Get Input for all objects in scene
 	m_RootObject->Input(input, Delta);

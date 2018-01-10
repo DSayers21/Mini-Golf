@@ -81,5 +81,6 @@ private:
 	D3DEngine::PhysicsEngine* m_PhysicsEngine;
 
 	ThreadedClient TClient;
+	bool m_ClientConnected = false;
 	std::thread m_ServerThread;
 };
